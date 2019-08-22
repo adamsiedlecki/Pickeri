@@ -22,11 +22,11 @@ public class AllDeliveriesTab extends VerticalLayout {
     private void addComponents(){
         fruitDeliveryGrid = new Grid<>();
 
-        fruitDeliveryGrid.addColumn(FruitDelivery::getPackageAmount);
-        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitPickerId);
-        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitType);
-        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitVariety);
-        fruitDeliveryGrid.addColumn(FruitDelivery::getComment);
+        fruitDeliveryGrid.addColumn(FruitDelivery::getPackageAmount).setCaption("Ilość opakowań");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitPickerId).setCaption("Id pracownika");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitType).setCaption("typ");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitVariety).setCaption("Odmiana");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getComment).setCaption("Komentarz");
 
         this.addComponent(fruitDeliveryGrid);
         refreshGrid();
