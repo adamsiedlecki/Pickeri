@@ -3,7 +3,11 @@ package pl.adamsiedlecki.Pickeri.entity;
 import javax.persistence.*;
 
 @Entity
+@Table
 public class FruitPicker {
+
+    public FruitPicker() {
+    }
 
     @Id
     @Column
@@ -17,7 +21,54 @@ public class FruitPicker {
     private String lastName;
 
     @Column
-    private Character gender;
+    private String gender;
+
+    private long packageDeliveryAmount;
+
+    public long getPackageDeliveryAmount() {
+        return packageDeliveryAmount;
+    }
+
+    public void setPackageDeliveryAmount(long packageDeliveryAmount) {
+        this.packageDeliveryAmount = packageDeliveryAmount;
+    }
+
+    public FruitPicker(String name, String lastName, String gender) {
+        this.name = name;
+        this.lastName = lastName;
+        this.gender = gender;
+    }
 
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }
