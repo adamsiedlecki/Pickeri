@@ -2,6 +2,7 @@ package pl.adamsiedlecki.Pickeri.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table
@@ -72,6 +73,11 @@ public class FruitDelivery {
 
     public void setPackageAmount(Long packageAmount) {
         this.packageAmount = packageAmount;
+    }
+
+    public String getDeliveryTimeFormatted() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return deliveryTime.format(formatter);
     }
 
     public LocalDateTime getDeliveryTime() {

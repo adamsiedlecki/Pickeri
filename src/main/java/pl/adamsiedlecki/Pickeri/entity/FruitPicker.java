@@ -25,6 +25,26 @@ public class FruitPicker {
 
     private long packageDeliveryAmount;
 
+    private long packageDeliveryWithCalyx;
+
+    private long packageDeliveryWithoutCalyx;
+
+    public long getPackageDeliveryWithCalyx() {
+        return packageDeliveryWithCalyx;
+    }
+
+    public void setPackageDeliveryWithCalyx(long packageDeliveryWithCalyx) {
+        this.packageDeliveryWithCalyx = packageDeliveryWithCalyx;
+    }
+
+    public long getPackageDeliveryWithoutCalyx() {
+        return packageDeliveryWithoutCalyx;
+    }
+
+    public void setPackageDeliveryWithoutCalyx(long packageDeliveryWithoutCalyx) {
+        this.packageDeliveryWithoutCalyx = packageDeliveryWithoutCalyx;
+    }
+
     public long getPackageDeliveryAmount() {
         return packageDeliveryAmount;
     }

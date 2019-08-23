@@ -5,6 +5,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.web.tabs.*;
 
 import java.io.File;
@@ -21,7 +22,8 @@ public class MainUI extends UI {
     private AllDeliveriesTab allDeliveriesTab;
 
     @Autowired
-    public MainUI(AddDeliveryTab addDeliveryTab, RankingTab rankingTab, FindPickerTab findPickerTab, AddPickerTab addPickerTab, AllDeliveriesTab allDeliveriesTab){
+    public MainUI(AddDeliveryTab addDeliveryTab, RankingTab rankingTab, FindPickerTab findPickerTab,
+                  AddPickerTab addPickerTab, AllDeliveriesTab allDeliveriesTab){
         this.addDeliveryTab = addDeliveryTab;
         this.rankingTab = rankingTab;
         this.findPickerTab = findPickerTab;

@@ -24,5 +24,24 @@ public class FruitDeliveryService {
         return fruitDeliveryDAO.findAll();
     }
 
+    public List<FruitDelivery> getDeliveriesByPickerId(long id){
+        return fruitDeliveryDAO.getDeliveriesByPickerId(id);
+    }
+
+    public List<FruitDelivery> findAllWithType(String type){
+        return fruitDeliveryDAO.findAllWithType(type);
+    }
+
+    public List<FruitDelivery> findAllWithVariety(String variety){
+        return fruitDeliveryDAO.findAllWithType(variety);
+    }
+
+    public List<FruitDelivery> findByIdWithType(Long id,String type){
+        return fruitDeliveryDAO.findByIdWithType(id, type);
+    }
+
+    public List<FruitDeliveryDAO> findAllByIdVariety(Long id, String variety){
+        return fruitDeliveryDAO.findAllByIdVariety(id, variety);
+    }
 
 }
