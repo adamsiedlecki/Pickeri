@@ -1,6 +1,7 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
 import com.vaadin.shared.ui.ValueChangeMode;
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.TextField;
@@ -11,7 +12,7 @@ import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 
-@Component
+@SpringComponent
 public class FindPickerTab extends VerticalLayout {
 
     private VerticalLayout root;

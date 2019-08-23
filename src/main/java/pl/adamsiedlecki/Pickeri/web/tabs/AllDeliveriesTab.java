@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 
-@Component
+@SpringComponent
 public class AllDeliveriesTab extends VerticalLayout {
 
     private Grid<FruitDelivery> fruitDeliveryGrid;

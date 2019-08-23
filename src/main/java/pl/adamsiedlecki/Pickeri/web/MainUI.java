@@ -20,15 +20,17 @@ public class MainUI extends UI {
     private FindPickerTab findPickerTab;
     private AddPickerTab addPickerTab;
     private AllDeliveriesTab allDeliveriesTab;
+    private StatisticsTab statisticsTab;
 
     @Autowired
     public MainUI(AddDeliveryTab addDeliveryTab, RankingTab rankingTab, FindPickerTab findPickerTab,
-                  AddPickerTab addPickerTab, AllDeliveriesTab allDeliveriesTab){
+                  AddPickerTab addPickerTab, AllDeliveriesTab allDeliveriesTab, StatisticsTab statisticsTab){
         this.addDeliveryTab = addDeliveryTab;
         this.rankingTab = rankingTab;
         this.findPickerTab = findPickerTab;
         this.addPickerTab = addPickerTab;
         this.allDeliveriesTab = allDeliveriesTab;
+        this.statisticsTab = statisticsTab;
     }
 
     @Override
@@ -55,6 +57,8 @@ public class MainUI extends UI {
 
         tabs.addTab(allDeliveriesTab,"Wszystkie dostawy");
         allDeliveriesTab.addLayoutClickListener(e->allDeliveriesTab.refreshGrid());
+
+        tabs.addTab(statisticsTab,"Statystyki");
 
         root.addComponent(tabs);
     }

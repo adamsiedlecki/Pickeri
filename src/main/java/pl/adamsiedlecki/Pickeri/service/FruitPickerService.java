@@ -49,6 +49,10 @@ public class FruitPickerService {
         return pickersList;
     }
 
+    public long getTotalAmountOfPickers(){
+        return findAll().size();
+    }
+
     private List<FruitPicker> setCalyxInfo(List<FruitPicker> fruitPickers){
 
         for(FruitPicker fp : fruitPickers){

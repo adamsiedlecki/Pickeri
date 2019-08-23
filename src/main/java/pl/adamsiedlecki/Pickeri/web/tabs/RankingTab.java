@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
@@ -10,7 +11,7 @@ import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 
 import java.util.List;
 
-@Component
+@SpringComponent
 public class RankingTab extends VerticalLayout {
 
     private FruitPickerService fruitPickerService;

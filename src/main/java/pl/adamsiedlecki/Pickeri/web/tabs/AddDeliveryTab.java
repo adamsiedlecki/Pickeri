@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
+import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
 
 
@@ -12,7 +13,7 @@ import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 
 import java.time.LocalDateTime;
 
-@Component
+@SpringComponent
 public class AddDeliveryTab extends VerticalLayout {
 
     private FormLayout formLayout;
@@ -32,6 +33,11 @@ public class AddDeliveryTab extends VerticalLayout {
         initComponents();
         save.addClickListener(e->{
             saveAction();
+            fruitPickerId.clear();
+            packageAmount.clear();
+            fruitType.clear();
+            fruitVariety.clear();
+            comment.clear();
         });
     }
 
