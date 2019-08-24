@@ -53,6 +53,10 @@ public class FruitPickerService {
         return findAll().size();
     }
 
+    public void removeAll(){
+        fruitPickerDAO.deleteAll();
+    }
+
     private List<FruitPicker> setCalyxInfo(List<FruitPicker> fruitPickers){
 
         for(FruitPicker fp : fruitPickers){

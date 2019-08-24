@@ -1,18 +1,22 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 
 @SpringComponent
+@Scope("prototype")
 public class AllDeliveriesTab extends VerticalLayout {
 
     private Grid<FruitDelivery> fruitDeliveryGrid;
     private FruitDeliveryService fruitDeliveryService;
+    private Button refreshButton;
 
     @Autowired
     public AllDeliveriesTab(FruitDeliveryService fruitDeliveryService){
@@ -21,6 +25,8 @@ public class AllDeliveriesTab extends VerticalLayout {
     }
 
     private void addComponents(){
+        refreshButton = new Button("Odśwież");
+        refreshButton.addClickListener(e->refreshGrid());
         fruitDeliveryGrid = new Grid<>();
 
         fruitDeliveryGrid.addColumn(FruitDelivery::getPackageAmount).setCaption("Ilość opakowań");
@@ -32,11 +38,12 @@ public class AllDeliveriesTab extends VerticalLayout {
 
         fruitDeliveryGrid.setSizeFull();
 
+        this.addComponent(refreshButton);
         this.addComponent(fruitDeliveryGrid);
         refreshGrid();
     }
 
-    public void refreshGrid(){
+    private void refreshGrid(){
         fruitDeliveryGrid.setItems(fruitDeliveryService.findAll());
     }
 }

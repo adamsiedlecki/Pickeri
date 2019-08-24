@@ -7,12 +7,14 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 
 @SpringComponent
+@Scope("prototype")
 public class FindPickerTab extends VerticalLayout {
 
     private VerticalLayout root;
@@ -24,10 +26,11 @@ public class FindPickerTab extends VerticalLayout {
     public FindPickerTab(FruitPickerService fruitPickerService){
         this.fruitPickerService = fruitPickerService;
         initComponents();
+        fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()));
         filter.addValueChangeListener(e->{
             fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()));
         });
-        filter.setValueChangeMode(ValueChangeMode.EAGER);
+        filter.setValueChangeMode(ValueChangeMode.LAZY);
 
     }
 

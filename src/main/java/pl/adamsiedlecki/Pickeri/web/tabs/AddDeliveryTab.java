@@ -1,19 +1,22 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
-
-
 import org.apache.commons.lang3.math.NumberUtils;
-import org.apache.tomcat.util.buf.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Scope;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
+import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
+import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @SpringComponent
+@Scope("prototype")
 public class AddDeliveryTab extends VerticalLayout {
 
     private FormLayout formLayout;
@@ -25,9 +28,11 @@ public class AddDeliveryTab extends VerticalLayout {
     private Button save;
 
     private FruitDeliveryService fruitDeliveryService;
+    private FruitVarietyService fruitVarietyService;
 
     @Autowired
-    public AddDeliveryTab(FruitDeliveryService fruitDeliveryService){
+    public AddDeliveryTab(FruitDeliveryService fruitDeliveryService, FruitVarietyService fruitVarietyService){
+        this.fruitVarietyService = fruitVarietyService;
         this.fruitDeliveryService = fruitDeliveryService;
 
         initComponents();
@@ -54,12 +59,17 @@ public class AddDeliveryTab extends VerticalLayout {
         fruitType.setItems("truskawka z szypułką"," truskawka bez szypułki");
         fruitType.setCaption("Typ owocu");
 
-        fruitVariety.setItems("ALBA","APRICA","GRANDAROSA","JIVE","ALLEGRO","SONATA");
+        refreshVarieties();
         fruitVariety.setCaption("Odmiana owocu");
 
         formLayout.addComponents(fruitPickerId,packageAmount,fruitType,fruitVariety,comment,save);
 
         this.addComponent(formLayout);
+    }
+
+    private void refreshVarieties(){
+        List<String> fruitVarietyNames = fruitVarietyService.findAll().stream().map(FruitVariety::getName).collect(Collectors.toList());
+        fruitVariety.setItems(fruitVarietyNames);
     }
 
     private void saveAction(){

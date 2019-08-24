@@ -14,10 +14,17 @@ public class FruitVariety {
     @Column
     private String name;
 
+    @Column
+    private String comment;
+
+    private float percentageParticipationInPackagesAmount;
+
+    private long totalPackages;
+
     public FruitVariety() {
     }
 
-    public FruitVariety(String name, String comment, float percentageParticipationInPackagesAmount) {
+    public FruitVariety(String name, String comment) {
         this.name = name;
         this.comment = comment;
         this.percentageParticipationInPackagesAmount = percentageParticipationInPackagesAmount;
@@ -55,9 +62,11 @@ public class FruitVariety {
         this.percentageParticipationInPackagesAmount = percentageParticipationInPackagesAmount;
     }
 
-    @Column
-    private String comment;
+    public long getTotalPackages() {
+        return totalPackages;
+    }
 
-    private float percentageParticipationInPackagesAmount;
-
+    public void setTotalPackages(long totalPackages) {
+        this.totalPackages = totalPackages;
+    }
 }

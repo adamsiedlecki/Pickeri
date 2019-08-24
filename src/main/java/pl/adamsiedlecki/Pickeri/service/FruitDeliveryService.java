@@ -35,14 +35,18 @@ public class FruitDeliveryService {
     }
 
     public List<FruitDelivery> findAllWithVariety(String variety){
-        return fruitDeliveryDAO.findAllWithType(variety);
+        return fruitDeliveryDAO.findAllWithVariety(variety);
     }
 
     public List<FruitDelivery> findByIdWithType(Long id,String type){
         return fruitDeliveryDAO.findByIdWithType(id, type);
     }
 
-    public List<FruitDeliveryDAO> findAllByIdVariety(Long id, String variety){
+    public void removeAll(){
+        fruitDeliveryDAO.deleteAll();
+    }
+
+    public List<FruitDelivery> findAllByIdVariety(Long id, String variety){
         return fruitDeliveryDAO.findAllByIdVariety(id, variety);
     }
 
@@ -50,18 +54,30 @@ public class FruitDeliveryService {
         return findAll().stream().mapToLong(e->e.getPackageAmount()).sum();
     }
 
-    public Long getPercentageParticipationForPackagesAmountByVariety(String name){
+    public float getPercentageParticipationForPackagesAmountByVariety(String name){
         List<FruitDelivery> allVarieties = findAll();
          List<FruitDelivery> thisVariety = findAllWithVariety(name);
-         Long allAmount = 0L;
+         float allAmount = 0;
          for(FruitDelivery fruitDelivery: allVarieties){
              allAmount+=fruitDelivery.getPackageAmount();
          }
+        float thisAmount = 0;
+        for(FruitDelivery fruitDelivery: thisVariety){
+            thisAmount+=fruitDelivery.getPackageAmount();
+        }
+        if(allAmount==0){
+            return 0;
+        }
+        return thisAmount/allAmount*100;
+    }
+
+    public Long getPackagesAmountByVariety(String name){
+        List<FruitDelivery> thisVariety = findAllWithVariety(name);
         Long thisAmount = 0L;
         for(FruitDelivery fruitDelivery: thisVariety){
             thisAmount+=fruitDelivery.getPackageAmount();
         }
-        return thisAmount/allAmount;
+        return thisAmount;
     }
 
 }

@@ -24,9 +24,9 @@ public interface FruitDeliveryDAO extends JpaRepository<FruitDelivery, Long> {
     List<FruitDelivery> findByIdWithType(Long id,String type);
 
     @Query("SELECT (f) FROM FruitDelivery f WHERE f.fruitVariety = ?1")
-    List<FruitDeliveryDAO> findAllWithVariety(String variety);
+    List<FruitDelivery> findAllWithVariety(String variety);
 
     @Query("SELECT (f) FROM FruitDelivery f WHERE f.fruitPickerId=?1 AND f.fruitVariety = ?2")
-    List<FruitDeliveryDAO> findAllByIdVariety(Long id, String variety);
+    List<FruitDelivery> findAllByIdVariety(Long id, String variety);
 
 }

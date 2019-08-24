@@ -3,11 +3,13 @@ package pl.adamsiedlecki.Pickeri.web.tabs;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 
 @SpringComponent
+@Scope("prototype")
 public class AddPickerTab extends VerticalLayout {
 
     private FormLayout formLayout;

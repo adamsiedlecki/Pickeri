@@ -1,10 +1,12 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
@@ -12,10 +14,12 @@ import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import java.util.List;
 
 @SpringComponent
+@Scope("prototype")
 public class RankingTab extends VerticalLayout {
 
     private FruitPickerService fruitPickerService;
     private Grid<FruitPicker> pickersGrid;
+    private Button refreshButton;
 
     @Autowired
     public RankingTab(FruitPickerService fruitPickerService) {
@@ -25,6 +29,8 @@ public class RankingTab extends VerticalLayout {
     }
 
     private void addContent(){
+        refreshButton = new Button("Odśwież");
+        refreshButton.addClickListener(e->refreshData());
         pickersGrid = new Grid<>();
         pickersGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setCaption("Suma opakowań");
         pickersGrid.addColumn(FruitPicker::getName).setCaption("Imię");
@@ -34,6 +40,7 @@ public class RankingTab extends VerticalLayout {
         pickersGrid.setSizeFull();
 
         pickersGrid.setItems(getCurrentPickers());
+        this.addComponent(refreshButton);
         this.addComponent(pickersGrid);
     }
 
@@ -41,7 +48,7 @@ public class RankingTab extends VerticalLayout {
         return fruitPickerService.findAll();
     }
 
-    public void refreshData(){
+    private void refreshData(){
         pickersGrid.setItems(getCurrentPickers());
     }
 

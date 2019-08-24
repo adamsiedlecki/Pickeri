@@ -5,6 +5,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.web.tabs.*;
 
@@ -21,16 +22,19 @@ public class MainUI extends UI {
     private AddPickerTab addPickerTab;
     private AllDeliveriesTab allDeliveriesTab;
     private StatisticsTab statisticsTab;
+    private AddFruitVarietyTab fruitVarietyTab;
 
     @Autowired
     public MainUI(AddDeliveryTab addDeliveryTab, RankingTab rankingTab, FindPickerTab findPickerTab,
-                  AddPickerTab addPickerTab, AllDeliveriesTab allDeliveriesTab, StatisticsTab statisticsTab){
+                  AddPickerTab addPickerTab, AllDeliveriesTab allDeliveriesTab, StatisticsTab statisticsTab,
+    AddFruitVarietyTab  addFruitVarietyTab){
         this.addDeliveryTab = addDeliveryTab;
         this.rankingTab = rankingTab;
         this.findPickerTab = findPickerTab;
         this.addPickerTab = addPickerTab;
         this.allDeliveriesTab = allDeliveriesTab;
         this.statisticsTab = statisticsTab;
+        this.fruitVarietyTab = addFruitVarietyTab;
     }
 
     @Override
@@ -47,18 +51,19 @@ public class MainUI extends UI {
         tabs = new TabSheet();
 
         tabs.addTab(addDeliveryTab,"Dodaj owoce");
+        //addDeliveryTab.addLayoutClickListener(x->addDeliveryTab.refreshVarieties());
 
         tabs.addTab(rankingTab,"Ranking");
-        rankingTab.addLayoutClickListener(e->{rankingTab.refreshData();});
 
         tabs.addTab(findPickerTab,"Szukaj pracownika");
 
         tabs.addTab(addPickerTab,"Dodaj pracownika");
 
         tabs.addTab(allDeliveriesTab,"Wszystkie dostawy");
-        allDeliveriesTab.addLayoutClickListener(e->allDeliveriesTab.refreshGrid());
 
         tabs.addTab(statisticsTab,"Statystyki");
+
+        tabs.addTab(fruitVarietyTab,"Dodaj odmianę owocu");
 
         root.addComponent(tabs);
     }
