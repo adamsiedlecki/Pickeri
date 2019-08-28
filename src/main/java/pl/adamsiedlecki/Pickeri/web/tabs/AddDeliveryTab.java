@@ -1,11 +1,13 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.UIScope;
 import com.vaadin.ui.*;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.vaadin.elmot.qr.QRReader;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
@@ -26,9 +28,12 @@ public class AddDeliveryTab extends VerticalLayout {
     private RadioButtonGroup<String> fruitVariety;
     private TextField comment;
     private Button save;
+    private Button refreshVarietiesButton;
 
     private FruitDeliveryService fruitDeliveryService;
     private FruitVarietyService fruitVarietyService;
+
+    private QRReader qrReader;
 
     @Autowired
     public AddDeliveryTab(FruitDeliveryService fruitDeliveryService, FruitVarietyService fruitVarietyService){
@@ -49,6 +54,11 @@ public class AddDeliveryTab extends VerticalLayout {
     private void initComponents(){
         formLayout = new FormLayout();
 
+        refreshVarietiesButton = new Button("Odśwież formularz");
+        refreshVarietiesButton.addClickListener(e->{
+           refreshVarieties();
+        });
+        qrReader = new QRReader(Notification::show);
         fruitPickerId = new TextField("ID pracownika"); // "ID pracownika"
         packageAmount = new TextField("Ilość opakowań"); // "Ilość opakowań"
         fruitType = new RadioButtonGroup<>();
@@ -64,6 +74,8 @@ public class AddDeliveryTab extends VerticalLayout {
 
         formLayout.addComponents(fruitPickerId,packageAmount,fruitType,fruitVariety,comment,save);
 
+        this.addComponent(refreshVarietiesButton);
+        this.add(qrReader);
         this.addComponent(formLayout);
     }
 
