@@ -1,16 +1,16 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
-import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Grid;
-import com.vaadin.ui.VerticalLayout;
+
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 
-@SpringComponent
+@Component
 @Scope("prototype")
 public class AllDeliveriesTab extends VerticalLayout {
 
@@ -29,17 +29,17 @@ public class AllDeliveriesTab extends VerticalLayout {
         refreshButton.addClickListener(e->refreshGrid());
         fruitDeliveryGrid = new Grid<>();
 
-        fruitDeliveryGrid.addColumn(FruitDelivery::getPackageAmount).setCaption("Ilość opakowań");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitPickerId).setCaption("Id pracownika");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitType).setCaption("Typ");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitVariety).setCaption("Odmiana");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getComment).setCaption("Komentarz");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getDeliveryTimeFormatted).setCaption("Czas");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getPackageAmount).setHeader("Ilość opakowań");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitPickerId).setHeader("Id pracownika");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitType).setHeader("Typ");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitVariety).setHeader("Odmiana");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getComment).setHeader("Komentarz");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getDeliveryTimeFormatted).setHeader("Czas");
 
         fruitDeliveryGrid.setSizeFull();
 
-        this.addComponent(refreshButton);
-        this.addComponent(fruitDeliveryGrid);
+        this.add(refreshButton);
+        this.add(fruitDeliveryGrid);
         refreshGrid();
     }
 

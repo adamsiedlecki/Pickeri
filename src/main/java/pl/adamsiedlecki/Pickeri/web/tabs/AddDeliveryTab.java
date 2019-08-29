@@ -1,11 +1,17 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
 
-import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.*;
+
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
+import com.vaadin.flow.component.textfield.TextField;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
@@ -15,7 +21,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@SpringComponent
+@Component
 @Scope("prototype")
 public class AddDeliveryTab extends VerticalLayout {
 
@@ -65,16 +71,16 @@ public class AddDeliveryTab extends VerticalLayout {
         save = new Button("Zapisz");
 
         fruitType.setItems("truskawka z szypułką"," truskawka bez szypułki");
-        fruitType.setCaption("Typ owocu");
+        //fruitType.setCaption("Typ owocu");
 
         refreshVarieties();
-        fruitVariety.setCaption("Odmiana owocu");
+        //fruitVariety.setCaption("Odmiana owocu");
 
-        formLayout.addComponents(fruitPickerId,packageAmount,fruitType,fruitVariety,comment,save);
+        formLayout.add(fruitPickerId,packageAmount,fruitType,fruitVariety,comment,save);
 
-        this.addComponent(refreshVarietiesButton);
+        this.add(refreshVarietiesButton);
         //this.addComponent(qrReader);
-        this.addComponent(formLayout);
+        this.add(formLayout);
     }
 
     private void refreshVarieties(){

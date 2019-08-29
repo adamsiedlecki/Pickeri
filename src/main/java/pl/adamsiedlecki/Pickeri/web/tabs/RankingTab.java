@@ -1,10 +1,8 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
-import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Grid;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -13,7 +11,7 @@ import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 
 import java.util.List;
 
-@SpringComponent
+@Component
 @Scope("prototype")
 public class RankingTab extends VerticalLayout {
 
@@ -32,16 +30,16 @@ public class RankingTab extends VerticalLayout {
         refreshButton = new Button("Odśwież");
         refreshButton.addClickListener(e->refreshData());
         pickersGrid = new Grid<>();
-        pickersGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setCaption("Suma opakowań");
-        pickersGrid.addColumn(FruitPicker::getName).setCaption("Imię");
-        pickersGrid.addColumn(FruitPicker::getLastName).setCaption("Nazwisko");
-        pickersGrid.addColumn(FruitPicker::getGender).setCaption("Płeć");
+        pickersGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setHeader("Suma opakowań");
+        pickersGrid.addColumn(FruitPicker::getName).setHeader("Imię");
+        pickersGrid.addColumn(FruitPicker::getLastName).setHeader("Nazwisko");
+        pickersGrid.addColumn(FruitPicker::getGender).setHeader("Płeć");
 
         pickersGrid.setSizeFull();
 
         pickersGrid.setItems(getCurrentPickers());
-        this.addComponent(refreshButton);
-        this.addComponent(pickersGrid);
+        this.add(refreshButton);
+        this.add(pickersGrid);
     }
 
     private List<FruitPicker> getCurrentPickers(){

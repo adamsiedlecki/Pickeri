@@ -1,16 +1,16 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
-import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
 
-@SpringComponent
+@Component
 @Scope("prototype")
 public class AddFruitVarietyTab extends VerticalLayout {
 
@@ -41,9 +41,9 @@ public class AddFruitVarietyTab extends VerticalLayout {
         comment = new TextField("Komentarz, opis");
         save = new Button("Zapisz");
         formLayout = new FormLayout(name, comment, save);
-        root.addComponent(formLayout);
+        root.add(formLayout);
 
-        this.addComponent(root);
+        this.add(root);
     }
 
 }

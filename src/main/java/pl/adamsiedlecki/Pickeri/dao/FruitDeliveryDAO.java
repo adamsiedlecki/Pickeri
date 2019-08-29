@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 
 import java.util.List;
 

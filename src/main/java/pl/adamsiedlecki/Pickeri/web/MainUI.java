@@ -1,20 +1,23 @@
 package pl.adamsiedlecki.Pickeri.web;
 
-import com.vaadin.server.FileResource;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.*;
+
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.html.Image;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinRequest;
+import org.apache.catalina.webresources.FileResource;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
-import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
+
 import pl.adamsiedlecki.Pickeri.web.tabs.*;
 
 import java.io.File;
 
-@SpringUI
-public class MainUI extends UI {
+@Route(value="")
+public class MainUI extends VerticalLayout {
 
-    private TabSheet tabs;
+    private Tabs tabs;
     private VerticalLayout root;
     private AddDeliveryTab addDeliveryTab;
     private RankingTab rankingTab;
@@ -37,35 +40,35 @@ public class MainUI extends UI {
         this.fruitVarietyTab = addFruitVarietyTab;
     }
 
-    @Override
-    protected void init(VaadinRequest request) {
+
+    public MainUI() {
         root = new VerticalLayout();
 
-        root.addComponent(new Embedded("", new FileResource(new File("src\\main\\resources\\images\\pickeri.png"))));
+        root.add(new Image( "src\\main\\resources\\images\\pickeri.png","logo picture"));
         addTabs();
 
-        this.setContent(root);
+        this.add(root);
     }
 
     private void addTabs(){
-        tabs = new TabSheet();
+        tabs = new Tabs();
 
-        tabs.addTab(addDeliveryTab,"Dodaj owoce");
+        tabs.add(addDeliveryTab); // ,"Dodaj owoce"
         //addDeliveryTab.addLayoutClickListener(x->addDeliveryTab.refreshVarieties());
 
-        tabs.addTab(rankingTab,"Ranking");
+        tabs.add(rankingTab); // ,"Ranking"
 
-        tabs.addTab(findPickerTab,"Szukaj pracownika");
+        tabs.add(findPickerTab); // ,"Szukaj pracownika"
 
-        tabs.addTab(addPickerTab,"Dodaj pracownika");
+        tabs.add(addPickerTab); // ,"Dodaj pracownika"
 
-        tabs.addTab(allDeliveriesTab,"Wszystkie dostawy");
+        tabs.add(allDeliveriesTab); // ,"Wszystkie dostawy"
 
-        tabs.addTab(statisticsTab,"Statystyki");
+        tabs.add(statisticsTab); // ,"Statystyki"
 
-        tabs.addTab(fruitVarietyTab,"Dodaj odmianę owocu");
+        tabs.add(fruitVarietyTab); // ,"Dodaj odmianę owocu"
 
-        root.addComponent(tabs);
+        root.add(tabs);
     }
 
 }

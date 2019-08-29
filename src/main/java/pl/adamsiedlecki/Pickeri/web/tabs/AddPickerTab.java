@@ -1,14 +1,18 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
-import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.*;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
+import com.vaadin.flow.component.textfield.TextField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 
-@SpringComponent
+@Component
 @Scope("prototype")
 public class AddPickerTab extends VerticalLayout {
 
@@ -25,7 +29,7 @@ public class AddPickerTab extends VerticalLayout {
         this.fruitPickerService = fruitPickerService;
         initFields();
 
-        this.addComponent(formLayout);
+        this.add(formLayout);
     }
 
     private void initFields(){
@@ -51,7 +55,7 @@ public class AddPickerTab extends VerticalLayout {
 
         });
 
-        formLayout.addComponents(name,lastName,radioButtonGroup,saveButton);
+        formLayout.add(name,lastName,radioButtonGroup,saveButton);
     }
 
 }

@@ -1,11 +1,9 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
-import com.vaadin.shared.ui.ValueChangeMode;
-import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Grid;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -13,7 +11,7 @@ import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 
-@SpringComponent
+@Component
 @Scope("prototype")
 public class FindPickerTab extends VerticalLayout {
 
@@ -30,7 +28,7 @@ public class FindPickerTab extends VerticalLayout {
         filter.addValueChangeListener(e->{
             fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()));
         });
-        filter.setValueChangeMode(ValueChangeMode.LAZY);
+        filter.setValueChangeMode(ValueChangeMode.ON_CHANGE);
 
     }
 
@@ -39,17 +37,17 @@ public class FindPickerTab extends VerticalLayout {
         filter = new TextField();
         fruitPickerGrid = new Grid<>();
 
-        root.addComponents(filter,fruitPickerGrid);
+        root.add(filter,fruitPickerGrid);
 
-        fruitPickerGrid.addColumn(FruitPicker::getId).setCaption("ID");
-        fruitPickerGrid.addColumn(FruitPicker::getName).setCaption("Imię");
-        fruitPickerGrid.addColumn(FruitPicker::getLastName).setCaption("Nazwisko");
-        fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setCaption("Suma wszystkich opakowań");
-        fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithCalyx).setCaption("Z szypułką");
-        fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithoutCalyx).setCaption("Bez szypułki");
+        fruitPickerGrid.addColumn(FruitPicker::getId).setHeader("ID");
+        fruitPickerGrid.addColumn(FruitPicker::getName).setHeader("Imię");
+        fruitPickerGrid.addColumn(FruitPicker::getLastName).setHeader("Nazwisko");
+        fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setHeader("Suma wszystkich opakowań");
+        fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithCalyx).setHeader("Z szypułką");
+        fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithoutCalyx).setHeader("Bez szypułki");
         fruitPickerGrid.setSizeFull();
 
-        this.addComponent(root);
+        this.add(root);
     }
 
 }

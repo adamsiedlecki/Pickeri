@@ -1,27 +1,26 @@
 package pl.adamsiedlecki.Pickeri.web;
 
-import com.vaadin.server.ExternalResource;
-import com.vaadin.server.VaadinRequest;
-import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.Link;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
-import org.springframework.web.servlet.view.InternalResourceView;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinRequest;
 
-@SpringUI(path="/home")
-public class HomePage extends UI {
+
+
+@Route("home")
+public class HomePage extends VerticalLayout {
 
     private VerticalLayout root;
 
-    @Override
-    protected void init(VaadinRequest request) {
+
+    public HomePage() {
 
         root = new VerticalLayout();
 
-        root.addComponent(new Label("Welcome to Pickeri!"));
-        root.addComponent(new Link("LOGIN PAGE",new ExternalResource("/login")));
+        root.add(new Label("Welcome to Pickeri!"));
 
-        this.setContent(root);
+
+        this.add(root);
     }
 }

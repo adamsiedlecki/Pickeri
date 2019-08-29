@@ -30,6 +30,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/VAADIN/**", "/PUSH/**", "/UIDL/**", "/login", "/login/**", "/error/**", "/accessDenied/**", "/vaadinServlet/**").permitAll()
                 .antMatchers("/home").permitAll()
+                .antMatchers("/usuwaniedanych").permitAll()
+                .antMatchers("/").permitAll()
                 .and()
                 .authorizeRequests()
                 .anyRequest().hasRole("ADMIN")

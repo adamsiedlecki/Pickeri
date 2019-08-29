@@ -1,15 +1,18 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
-import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.*;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
 
-@SpringComponent
+@Component
 @Scope("prototype")
 public class StatisticsTab extends VerticalLayout {
 
@@ -44,28 +47,28 @@ public class StatisticsTab extends VerticalLayout {
         refreshButton.addClickListener(e->refreshData());
 
         varietiesGrid = new Grid<>();
-        varietiesGrid.addColumn(FruitVariety::getName).setCaption("Nazwa");
-        varietiesGrid.addColumn(FruitVariety::getTotalPackages).setCaption("Suma opakowań");
-        varietiesGrid.addColumn(FruitVariety::getPercentageParticipationInPackagesAmount).setCaption("% udział");
+        varietiesGrid.addColumn(FruitVariety::getName).setHeader("Nazwa");
+        varietiesGrid.addColumn(FruitVariety::getTotalPackages).setHeader("Suma opakowań");
+        varietiesGrid.addColumn(FruitVariety::getPercentageParticipationInPackagesAmount).setHeader("% udział");
 
         refreshData();
 
-        root.addComponent(refreshButton);
-        root.addComponent(pickersSum);
-        root.addComponent(packagesSum);
-        root.addComponent(varietiesSum);
-        root.addComponent(varietiesPackageAmountAndPercentageLayout);
-        root.addComponent(varietiesGrid);
+        root.add(refreshButton);
+        root.add(pickersSum);
+        root.add(packagesSum);
+        root.add(varietiesSum);
+        root.add(varietiesPackageAmountAndPercentageLayout);
+        root.add(varietiesGrid);
 
         //root.setComponentAlignment(pickersSum, Alignment.MIDDLE_CENTER);
 
-        this.addComponent(root);
+        this.add(root);
     }
 
     private void refreshData(){
-        pickersSum.setValue("Ilość pracowników w systemie: "+fruitPickerService.getTotalAmountOfPickers());
-        packagesSum.setValue("Suma szystkich opakowań: "+fruitDeliveryService.getTotalAmountOfPackages());
-        varietiesSum.setValue("Suma odmian w systemie: "+fruitVarietyService.findAll().size());
+        pickersSum.setText("Ilość pracowników w systemie: "+fruitPickerService.getTotalAmountOfPickers());
+        packagesSum.setText("Suma szystkich opakowań: "+fruitDeliveryService.getTotalAmountOfPackages());
+        varietiesSum.setText("Suma odmian w systemie: "+fruitVarietyService.findAll().size());
 
         varietiesGrid.setItems(fruitVarietyService.findAll());
         varietiesGrid.setSizeFull();
