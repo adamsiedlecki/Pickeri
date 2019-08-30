@@ -11,19 +11,28 @@ import pl.adamsiedlecki.Pickeri.web.tabs.*;
 
 import java.io.File;
 
-@SpringUI
-public class MainUI extends UI {
+@SpringUI(path="/statistics-and-info")
+public class StatisticsUI extends UI {
 
     private TabSheet tabs;
     private VerticalLayout root;
-    private AddDeliveryTab addDeliveryTab;
     private RankingTab rankingTab;
+    private FindPickerTab findPickerTab;
+    private AllDeliveriesTab allDeliveriesTab;
+    private StatisticsTab statisticsTab;
     private OthersTab othersTab;
 
     @Autowired
-    public MainUI(AddDeliveryTab addDeliveryTab, RankingTab rankingTab, OthersTab othersTab){
-        this.addDeliveryTab = addDeliveryTab;
+    public StatisticsUI( RankingTab rankingTab, FindPickerTab findPickerTab,
+                         AllDeliveriesTab allDeliveriesTab, StatisticsTab statisticsTab, OthersTab othersTab){
+
+
         this.rankingTab = rankingTab;
+        this.findPickerTab = findPickerTab;
+
+        this.allDeliveriesTab = allDeliveriesTab;
+        this.statisticsTab = statisticsTab;
+
         this.othersTab = othersTab;
     }
 
@@ -40,10 +49,13 @@ public class MainUI extends UI {
     private void addTabs(){
         tabs = new TabSheet();
 
-        tabs.addTab(addDeliveryTab,"Dodaj owoce");
-        //addDeliveryTab.addLayoutClickListener(x->addDeliveryTab.refreshVarieties());
-
         tabs.addTab(rankingTab,"Ranking");
+
+        tabs.addTab(findPickerTab,"Szukaj pracownika");
+
+        tabs.addTab(allDeliveriesTab,"Wszystkie dostawy");
+
+        tabs.addTab(statisticsTab,"Statystyki");
 
         tabs.addTab(othersTab,"Reszta");
 

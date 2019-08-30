@@ -11,19 +11,22 @@ import pl.adamsiedlecki.Pickeri.web.tabs.*;
 
 import java.io.File;
 
-@SpringUI
-public class MainUI extends UI {
+@SpringUI(path="/other")
+public class OthersUI extends UI {
 
     private TabSheet tabs;
     private VerticalLayout root;
-    private AddDeliveryTab addDeliveryTab;
-    private RankingTab rankingTab;
+    private AddFruitVarietyTab fruitVarietyTab;
+    private QRCodeGeneratorTab qrCodeGeneratorTab;
     private OthersTab othersTab;
+    private AddPickerTab addPickerTab;
 
     @Autowired
-    public MainUI(AddDeliveryTab addDeliveryTab, RankingTab rankingTab, OthersTab othersTab){
-        this.addDeliveryTab = addDeliveryTab;
-        this.rankingTab = rankingTab;
+    public OthersUI(AddFruitVarietyTab  addFruitVarietyTab, QRCodeGeneratorTab qrCodeGeneratorTab, OthersTab othersTab,
+                    AddPickerTab addPickerTab){
+        this.addPickerTab = addPickerTab;
+        this.qrCodeGeneratorTab = qrCodeGeneratorTab;
+        this.fruitVarietyTab = addFruitVarietyTab;
         this.othersTab = othersTab;
     }
 
@@ -40,10 +43,11 @@ public class MainUI extends UI {
     private void addTabs(){
         tabs = new TabSheet();
 
-        tabs.addTab(addDeliveryTab,"Dodaj owoce");
-        //addDeliveryTab.addLayoutClickListener(x->addDeliveryTab.refreshVarieties());
+        tabs.addTab(fruitVarietyTab,"Dodaj odmianę owocu");
 
-        tabs.addTab(rankingTab,"Ranking");
+        tabs.addTab(addPickerTab,"Dodaj pracownika");
+
+        tabs.addTab(qrCodeGeneratorTab,"Wygeneruj kody QR");
 
         tabs.addTab(othersTab,"Reszta");
 

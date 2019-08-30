@@ -7,7 +7,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
-import org.springframework.web.servlet.view.InternalResourceView;
+
 
 @SpringUI(path="/home")
 public class HomePage extends UI {
