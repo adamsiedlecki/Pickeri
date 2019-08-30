@@ -42,7 +42,6 @@ public class PickersToPdfWriter {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            System.out.println(qrFile.exists()+qrFile.getAbsolutePath());
         }
         document.close();
         writer.close();
