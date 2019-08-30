@@ -40,7 +40,7 @@ public class DownloadController {
         headers.add("Content-Disposition", "filename=" + fileName);
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
-        headers.add("Expires", "Tue, 01 Jan 1980 1:00:00 GMT"); // headers.add("Expires", "0");
+        headers.add("Expires", "0"); // headers.add("Expires", "0");
 
         headers.setContentLength(pdfFile.contentLength());
         ResponseEntity<InputStreamResource> response = new ResponseEntity<InputStreamResource>(

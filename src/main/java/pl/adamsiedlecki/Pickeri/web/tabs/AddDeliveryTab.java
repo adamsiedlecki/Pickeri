@@ -140,7 +140,7 @@ public class AddDeliveryTab extends VerticalLayout {
 
     }
 
-    class ImageUploader implements Upload.Receiver, Upload.SucceededListener  {
+    private class ImageUploader implements Upload.Receiver, Upload.SucceededListener  {
         private File file;
 
 

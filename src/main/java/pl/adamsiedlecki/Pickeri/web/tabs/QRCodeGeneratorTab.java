@@ -14,17 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
-import pl.adamsiedlecki.Pickeri.tools.QRCodeWriterTool;
-
+import pl.adamsiedlecki.Pickeri.tools.PickersToPdfWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Random;
 
 @SpringComponent
 @Scope("prototype")
@@ -36,50 +28,22 @@ public class QRCodeGeneratorTab extends VerticalLayout {
     @Autowired
     public QRCodeGeneratorTab(FruitPickerService fruitPickerService){
         this.fruitPickerService = fruitPickerService;
-        generatePdfButton = new Button("Generuj kody qr dla wszystkich pracowników");
+        generatePdfButton = new Button("Generuj kody QR dla wszystkich pracowników");
         this.addComponent(generatePdfButton);
         this.setComponentAlignment(generatePdfButton, Alignment.MIDDLE_CENTER);
 
-
         generatePdfButton.addClickListener(e->{
-            int i = new Random().nextInt();
             System.out.println("pdf generation");
+            String pdfPath = "src\\main\\resources\\downloads\\qrcodes.pdf";
 
-            File check = new File("src\\main\\resources\\downloads\\qrcodes.pdf");
+            File check = new File(pdfPath);
             if(check.exists()){
                 check.delete();
             }
 
             List<FruitPicker> fruitPickers = fruitPickerService.findAll();
 
-            Document document = new Document();
-            PdfWriter writer = null;
-            try {
-                writer = PdfWriter.getInstance(document, new FileOutputStream("src\\main\\resources\\downloads\\qrcodes.pdf"));
-                document.open();
-            } catch (DocumentException e1) {
-                e1.printStackTrace();
-            } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
-            }
-
-            for(FruitPicker fp: fruitPickers){
-                File qrFile = QRCodeWriterTool.encode(fp.getId(),fp.getName(),fp.getLastName(),"src\\main\\resources\\qr_codes");
-                try {
-                    document.add(new Paragraph(fp.getId()+" "+fp.getName()+" "+fp.getLastName()));
-                    document.add(Image.getInstance(qrFile.getAbsolutePath()));
-                    document.add(new Paragraph("- - - - - - - - - - -"));
-                } catch (DocumentException e1) {
-                    e1.printStackTrace();
-                } catch (MalformedURLException e1) {
-                    e1.printStackTrace();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                System.out.println(qrFile.exists()+qrFile.getAbsolutePath());
-            }
-            document.close();
-            writer.close();
+            PickersToPdfWriter.write(fruitPickers,pdfPath);
 
             this.addComponent(new Link("Pobierz pdf",new ExternalResource("/download/pdf/qrcodes.pdf")));
 

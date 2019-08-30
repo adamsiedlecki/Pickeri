@@ -17,14 +17,11 @@ public class MainUI extends UI {
     private TabSheet tabs;
     private VerticalLayout root;
     private AddDeliveryTab addDeliveryTab;
-    private RankingTab rankingTab;
     private OthersTab othersTab;
 
     @Autowired
-    public MainUI(AddDeliveryTab addDeliveryTab, RankingTab rankingTab, OthersTab othersTab){
-        this.addDeliveryTab = addDeliveryTab;
-        this.rankingTab = rankingTab;
-        this.othersTab = othersTab;
+    public MainUI(AddDeliveryTab addDeliveryTab,  OthersTab othersTab){
+        this.addDeliveryTab = addDeliveryTab;this.othersTab = othersTab;
     }
 
     @Override
@@ -42,8 +39,6 @@ public class MainUI extends UI {
 
         tabs.addTab(addDeliveryTab,"Dodaj owoce");
         //addDeliveryTab.addLayoutClickListener(x->addDeliveryTab.refreshVarieties());
-
-        tabs.addTab(rankingTab,"Ranking");
 
         tabs.addTab(othersTab,"Reszta");
 

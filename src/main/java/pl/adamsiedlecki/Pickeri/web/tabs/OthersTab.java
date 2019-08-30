@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Scope;
 public class OthersTab extends VerticalLayout {
 
     public OthersTab(){
-        this.addComponent(new Link("Dodawanie owoców",new ExternalResource("")));
+        this.addComponent(new Link("Dodawanie owoców",new ExternalResource("/")));
         this.addComponent(new Link("Statystyki",new ExternalResource("/statistics-and-info")));
         this.addComponent(new Link("Inne",new ExternalResource("/other")));
     }
