@@ -39,10 +39,8 @@ public class StatisticsTab extends VerticalLayout {
         packagesSum = new Label();
         varietiesSum = new Label();
         varietiesPackageAmountAndPercentageLayout = new VerticalLayout();
-
         refreshButton = new Button("Odśwież");
         refreshButton.addClickListener(e->refreshData());
-
         varietiesGrid = new Grid<>();
         varietiesGrid.addColumn(FruitVariety::getName).setCaption("Nazwa");
         varietiesGrid.addColumn(FruitVariety::getTotalPackages).setCaption("Suma opakowań");
@@ -56,8 +54,6 @@ public class StatisticsTab extends VerticalLayout {
         root.addComponent(varietiesSum);
         root.addComponent(varietiesPackageAmountAndPercentageLayout);
         root.addComponent(varietiesGrid);
-
-        //root.setComponentAlignment(pickersSum, Alignment.MIDDLE_CENTER);
 
         this.addComponent(root);
     }

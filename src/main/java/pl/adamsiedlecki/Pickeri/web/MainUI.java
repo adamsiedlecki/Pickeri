@@ -27,21 +27,15 @@ public class MainUI extends UI {
     @Override
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
-
         root.addComponent(new Embedded("", new FileResource(new File("src\\main\\resources\\images\\pickeri.png"))));
         addTabs();
-
         this.setContent(root);
     }
 
     private void addTabs(){
         tabs = new TabSheet();
-
         tabs.addTab(addDeliveryTab,"Dodaj owoce");
-        //addDeliveryTab.addLayoutClickListener(x->addDeliveryTab.refreshVarieties());
-
         tabs.addTab(othersTab,"Reszta");
-
         root.addComponent(tabs);
     }
 

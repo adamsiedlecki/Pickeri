@@ -42,11 +42,8 @@ public class QRCodeGeneratorTab extends VerticalLayout {
             }
 
             List<FruitPicker> fruitPickers = fruitPickerService.findAll();
-
             PickersToPdfWriter.write(fruitPickers,pdfPath);
-
             this.addComponent(new Link("Pobierz pdf",new ExternalResource("/download/pdf/qrcodes.pdf")));
-
         });
     }
 

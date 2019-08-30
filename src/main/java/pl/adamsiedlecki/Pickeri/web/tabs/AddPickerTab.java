@@ -17,14 +17,12 @@ public class AddPickerTab extends VerticalLayout {
     private TextField lastName;
     private RadioButtonGroup<String> radioButtonGroup;
     private Button saveButton;
-
     private FruitPickerService fruitPickerService;
 
     @Autowired
     public AddPickerTab(FruitPickerService fruitPickerService){
         this.fruitPickerService = fruitPickerService;
         initFields();
-
         this.addComponent(formLayout);
     }
 
@@ -40,10 +38,8 @@ public class AddPickerTab extends VerticalLayout {
             if(name.isEmpty()||lastName.isEmpty()||radioButtonGroup.isEmpty()){
                 Notification.show("Wprowadź imię, nazwisko i płeć!");
             }else{
-
                 FruitPicker fruitPicker = new FruitPicker(name.getValue(),lastName.getValue(),radioButtonGroup.getValue());
                 fruitPickerService.addFruitPicker(fruitPicker);
-
                 name.setValue("");
                 lastName.setValue("");
                 radioButtonGroup.setValue(null);

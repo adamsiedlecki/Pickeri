@@ -1,8 +1,5 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
-
-
-
 import com.vaadin.server.Page;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
@@ -89,9 +86,9 @@ public class AddDeliveryTab extends VerticalLayout {
         pickerInfoLayout = new HorizontalLayout();
 
         refreshVarietiesButton = new Button("Odśwież formularz");
-        refreshVarietiesButton.addClickListener(e->{
-           refreshVarieties();
-        });
+        refreshVarietiesButton.addClickListener(e->
+           refreshVarieties()
+        );
 
         qrUpload = new Upload();
         qrUpload.setCaption("Załaduj kod QR ");
@@ -148,7 +145,7 @@ public class AddDeliveryTab extends VerticalLayout {
                                           String mimeType) {
             System.out.println("UPLOAD RECEIVED");
             // Create upload stream
-            FileOutputStream fos = null; // Stream to write to
+            FileOutputStream fos; // Stream to write to
             try {
                 // Open the file for writing.
                 file = new File( filename);

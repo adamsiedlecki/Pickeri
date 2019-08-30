@@ -42,7 +42,6 @@ public class AddFruitVarietyTab extends VerticalLayout {
         save = new Button("Zapisz");
         formLayout = new FormLayout(name, comment, save);
         root.addComponent(formLayout);
-
         this.addComponent(root);
     }
 

@@ -1,6 +1,7 @@
 package pl.adamsiedlecki.Pickeri.web;
 
 import com.vaadin.server.ExternalResource;
+import com.vaadin.server.FileResource;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -39,7 +40,6 @@ public class HomePage extends UI {
 
     @Override
     protected void init(VaadinRequest request) {
-
         root = new VerticalLayout();
         fruitPickerId = new TextField();
         fruitPickerId.setCaption("ID");
@@ -49,7 +49,6 @@ public class HomePage extends UI {
         findInfoButton = new Button("SZUKAJ");
         totalAmountOfPackagesLabel = new Label();
         todayAmountOfPackagesLabel = new Label();
-
         qrUpload.setAcceptMimeTypes("image/jpg");
         qrUpload.setButtonCaption("Naciśnij aby wybrać obraz");
         qrUpload.setReceiver(new ImageUploader());
@@ -80,9 +79,9 @@ public class HomePage extends UI {
             }
         });
 
+        root.addComponent(new Embedded("", new FileResource(new File("src\\main\\resources\\images\\pickeri.png"))));
         root.addComponent(new Label("Welcome to Pickeri!"));
         root.addComponent(new Link("LOGIN PAGE",new ExternalResource("/login")));
-
         root.addComponent(new Label("   "));
         root.addComponent(new Label("Podaj swóje ID lub zeskanuj kod QR aby sprawdzić stan:"));
         root.addComponent(new HorizontalLayout(fruitPickerId,qrUpload,findInfoButton));
@@ -104,20 +103,17 @@ public class HomePage extends UI {
                 todayAmountOfPackagesLabel.setValue("Ilość opakowań dzisiaj: "+String.valueOf(today));
                 totalAmountOfPackagesLabel.setValue("Suma wszystkich opakowań: "+String.valueOf(total));
             }
-
         });
-
         this.setContent(root);
     }
     private class ImageUploader implements Upload.Receiver, Upload.SucceededListener  {
         private File file;
 
-
         public OutputStream receiveUpload(String filename,
                                           String mimeType) {
             System.out.println("UPLOAD RECEIVED");
             // Create upload stream
-            FileOutputStream fos = null; // Stream to write to
+            FileOutputStream fos; // Stream to write to
             try {
                 // Open the file for writing.
                 file = new File( filename);

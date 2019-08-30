@@ -27,11 +27,10 @@ public class FindPickerTab extends VerticalLayout {
         this.fruitPickerService = fruitPickerService;
         initComponents();
         fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()));
-        filter.addValueChangeListener(e->{
-            fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()));
-        });
+        filter.addValueChangeListener(e->
+            fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()))
+        );
         filter.setValueChangeMode(ValueChangeMode.LAZY);
-
     }
 
     private void initComponents(){
@@ -40,7 +39,6 @@ public class FindPickerTab extends VerticalLayout {
         fruitPickerGrid = new Grid<>();
 
         root.addComponents(filter,fruitPickerGrid);
-
         fruitPickerGrid.addColumn(FruitPicker::getId).setCaption("ID");
         fruitPickerGrid.addColumn(FruitPicker::getName).setCaption("Imię");
         fruitPickerGrid.addColumn(FruitPicker::getLastName).setCaption("Nazwisko");
