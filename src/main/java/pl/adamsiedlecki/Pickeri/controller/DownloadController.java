@@ -28,7 +28,7 @@ public class DownloadController {
         this.context = servletContext;
     }
 
-    @RequestMapping(value = "/pdf/{fileName:.+}", method = RequestMethod.GET, produces = "application/pdf")
+    @RequestMapping(value = "/pdf/{fileName}", method = RequestMethod.GET, produces = "application/pdf")
     public ResponseEntity<InputStreamResource> download(@PathVariable("fileName") String fileName) throws IOException {
         System.out.println("Calling Download:- " + fileName);
         ClassPathResource pdfFile = new ClassPathResource("downloads/" + fileName);
@@ -40,7 +40,7 @@ public class DownloadController {
         headers.add("Content-Disposition", "filename=" + fileName);
         headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
         headers.add("Pragma", "no-cache");
-        headers.add("Expires", "0");
+        headers.add("Expires", "Tue, 01 Jan 1980 1:00:00 GMT"); // headers.add("Expires", "0");
 
         headers.setContentLength(pdfFile.contentLength());
         ResponseEntity<InputStreamResource> response = new ResponseEntity<InputStreamResource>(

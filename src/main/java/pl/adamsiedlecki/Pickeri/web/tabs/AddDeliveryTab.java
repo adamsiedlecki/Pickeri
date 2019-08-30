@@ -62,11 +62,15 @@ public class AddDeliveryTab extends VerticalLayout {
                     Notification.show("Obraz nie zawiera poprawnego kodu QR!");
                     fruitPickerId.setValue("");
                     comment.setValue("");
+                    File f = new File(path);
+                    f.delete();
                 }
             }else{
                 Notification.show("Obraz nie zawiera kodu QR - może zrób wyraźniejsze zdjęcie?");
                 fruitPickerId.setValue("");
                 comment.setValue("");
+                File f = new File(path);
+                f.delete();
             }
         });
 

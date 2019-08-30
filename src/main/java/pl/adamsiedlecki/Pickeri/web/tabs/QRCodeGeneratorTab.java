@@ -24,6 +24,7 @@ import java.net.MalformedURLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Random;
 
 @SpringComponent
 @Scope("prototype")
@@ -39,7 +40,9 @@ public class QRCodeGeneratorTab extends VerticalLayout {
         this.addComponent(generatePdfButton);
         this.setComponentAlignment(generatePdfButton, Alignment.MIDDLE_CENTER);
 
+
         generatePdfButton.addClickListener(e->{
+            int i = new Random().nextInt();
             System.out.println("pdf generation");
 
             File check = new File("src\\main\\resources\\downloads\\qrcodes.pdf");
@@ -54,7 +57,6 @@ public class QRCodeGeneratorTab extends VerticalLayout {
             try {
                 writer = PdfWriter.getInstance(document, new FileOutputStream("src\\main\\resources\\downloads\\qrcodes.pdf"));
                 document.open();
-                //document.addTitle("Kody QR dla pracowników z dnia: "+LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE));
             } catch (DocumentException e1) {
                 e1.printStackTrace();
             } catch (FileNotFoundException e1) {
