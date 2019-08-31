@@ -14,6 +14,7 @@ public class OthersTab extends VerticalLayout {
         this.addComponent(new Link("Dodawanie owoców",new ExternalResource("/")));
         this.addComponent(new Link("Statystyki",new ExternalResource("/statistics-and-info")));
         this.addComponent(new Link("Inne",new ExternalResource("/other")));
+        this.addComponent(new Link("Wyloguj",new ExternalResource("/logout")));
     }
 
 }
