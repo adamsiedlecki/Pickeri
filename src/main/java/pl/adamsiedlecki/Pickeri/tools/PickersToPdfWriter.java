@@ -1,9 +1,9 @@
 package pl.adamsiedlecki.Pickeri.tools;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 
@@ -22,6 +22,7 @@ public class PickersToPdfWriter {
         PdfWriter writer = null;
         try {
             writer = PdfWriter.getInstance(document, new FileOutputStream(pathToFile));
+            writer.setStrictImageSequence(true);
             document.open();
         } catch (DocumentException e1) {
             e1.printStackTrace();
@@ -32,9 +33,9 @@ public class PickersToPdfWriter {
         for(FruitPicker fp: fruitPickers){
             File qrFile = QRCodeWriterTool.encode(fp.getId(),fp.getName(),fp.getLastName(),"src\\main\\resources\\qr_codes");
             try {
-                document.add(new Paragraph(fp.getId()+" "+fp.getName()+" "+fp.getLastName()));
-                document.add(Image.getInstance(qrFile.getAbsolutePath()));
-                document.add(new Paragraph("- - - - - - - - - - -"));
+                Image image = Image.getInstance(qrFile.getAbsolutePath());
+                PdfContentByte cb = writer.getDirectContentUnder();
+                document.add(getWatermarkedImage(cb,image,fp.getId()+" "+fp.getName()+" "+fp.getLastName()));
             } catch (DocumentException e1) {
                 e1.printStackTrace();
             } catch (MalformedURLException e1) {
@@ -47,6 +48,17 @@ public class PickersToPdfWriter {
         writer.close();
 
 
+    }
+
+    private static Image getWatermarkedImage(PdfContentByte cb, Image img, String watermark)
+            throws DocumentException {
+        float width = img.getScaledWidth();
+        float height = img.getScaledHeight();
+        PdfTemplate template = cb.createTemplate(width, height);
+        template.addImage(img, width, 0, 0, height, 0, 0);
+        ColumnText.showTextAligned(template, Element.TITLE,
+                new Phrase(watermark), width / 3 , height-15 , 0);
+        return Image.getInstance(template);
     }
 
 }
