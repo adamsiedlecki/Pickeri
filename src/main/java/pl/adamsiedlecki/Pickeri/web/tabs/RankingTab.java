@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
+import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
@@ -32,14 +33,14 @@ public class RankingTab extends VerticalLayout {
         refreshButton = new Button("Odśwież");
         refreshButton.addClickListener(e->refreshData());
         pickersGrid = new Grid<>();
-        pickersGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setCaption("Suma opakowań");
+        pickersGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setCaption("Suma opakowań").setId("packageDeliveryAmount");
         pickersGrid.addColumn(FruitPicker::getName).setCaption("Imię");
         pickersGrid.addColumn(FruitPicker::getLastName).setCaption("Nazwisko");
         pickersGrid.addColumn(FruitPicker::getGender).setCaption("Płeć");
 
         pickersGrid.setSizeFull();
 
-        pickersGrid.setItems(getCurrentPickers());
+        refreshData();
         this.addComponent(refreshButton);
         this.addComponent(pickersGrid);
     }
@@ -50,6 +51,7 @@ public class RankingTab extends VerticalLayout {
 
     private void refreshData(){
         pickersGrid.setItems(getCurrentPickers());
+        pickersGrid.sort("packageDeliveryAmount", SortDirection.DESCENDING);
     }
 
 }

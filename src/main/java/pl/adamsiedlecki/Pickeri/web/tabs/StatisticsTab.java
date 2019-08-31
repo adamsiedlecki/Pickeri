@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
+import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class StatisticsTab extends VerticalLayout {
         refreshButton.addClickListener(e->refreshData());
         varietiesGrid = new Grid<>();
         varietiesGrid.addColumn(FruitVariety::getName).setCaption("Nazwa");
-        varietiesGrid.addColumn(FruitVariety::getTotalPackages).setCaption("Suma opakowań");
+        varietiesGrid.addColumn(FruitVariety::getTotalPackages).setCaption("Suma opakowań").setId("totalPackages");
         varietiesGrid.addColumn(FruitVariety::getPercentageParticipationInPackagesAmount).setCaption("% udział");
 
         refreshData();
@@ -65,6 +66,7 @@ public class StatisticsTab extends VerticalLayout {
 
         varietiesGrid.setItems(fruitVarietyService.findAll());
         varietiesGrid.setSizeFull();
+        varietiesGrid.sort("totalPackages", SortDirection.DESCENDING);
     }
 
 }
