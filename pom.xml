@@ -15,7 +15,7 @@
 	<description>Project that provides storing and display information and statistics about fruits collected by fruit pickers.</description>
 
 	<properties>
-		<java.version>12</java.version>
+		<java.version>11</java.version>
 		<vaadin.version>8.7.1</vaadin.version>
 	</properties>
 

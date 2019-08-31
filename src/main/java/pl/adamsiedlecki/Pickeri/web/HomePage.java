@@ -11,6 +11,7 @@ import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.tools.QRCodeReader;
+import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.AddDeliveryTab;
 
 import java.io.File;
@@ -79,7 +80,7 @@ public class HomePage extends UI {
             }
         });
 
-        root.addComponent(new Embedded("", new FileResource(new File("src\\main\\resources\\images\\pickeri.png"))));
+        root.addComponent(new Embedded("", new FileResource(ResourceGetter.getPickeriLogo())));
         root.addComponent(new Label("Welcome to Pickeri!"));
         root.addComponent(new Link("LOGIN PAGE",new ExternalResource("/login")));
         root.addComponent(new Label("   "));

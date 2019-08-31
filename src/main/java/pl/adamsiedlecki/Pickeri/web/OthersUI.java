@@ -7,6 +7,7 @@ import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
+import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.*;
 
 import java.io.File;
@@ -33,7 +34,7 @@ public class OthersUI extends UI {
     @Override
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
-        root.addComponent(new Embedded("", new FileResource(new File("src\\main\\resources\\images\\pickeri.png"))));
+        root.addComponent(new Embedded("", new FileResource(ResourceGetter.getPickeriLogo())));
         addTabs();
         this.setContent(root);
     }
