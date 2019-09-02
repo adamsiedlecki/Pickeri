@@ -1,6 +1,9 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -31,15 +34,12 @@ public class FruitDelivery {
     @Column
     private String fruitVariety;
 
+    @Column
+    private BigDecimal fruitWeight;
+
+    private GeoLocalization geoLocalization;
+
     public FruitDelivery() {
-    }
-
-    public String getFruitVariety() {
-        return fruitVariety;
-    }
-
-    public void setFruitVariety(String fruitVariety) {
-        this.fruitVariety = fruitVariety;
     }
 
     public FruitDelivery(Long fruitPickerId, String fruitType, Long packageAmount, String comment,String fruitVariety, LocalDateTime deliveryTime) {
@@ -48,6 +48,34 @@ public class FruitDelivery {
         this.packageAmount = packageAmount;
         this.deliveryTime = deliveryTime;
         this.comment = comment;
+        this.fruitVariety = fruitVariety;
+    }
+
+    public void setFruitPickerId(Long fruitPickerId) {
+        this.fruitPickerId = fruitPickerId;
+    }
+
+    public BigDecimal getFruitWeight() {
+        return fruitWeight;
+    }
+
+    public void setFruitWeight(BigDecimal fruitWeight) {
+        this.fruitWeight = fruitWeight;
+    }
+
+    public GeoLocalization getGeoLocalization() {
+        return geoLocalization;
+    }
+
+    public void setGeoLocalization(GeoLocalization geoLocalization) {
+        this.geoLocalization = geoLocalization;
+    }
+
+    public String getFruitVariety() {
+        return fruitVariety;
+    }
+
+    public void setFruitVariety(String fruitVariety) {
         this.fruitVariety = fruitVariety;
     }
 

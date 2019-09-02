@@ -3,7 +3,6 @@ package pl.adamsiedlecki.Pickeri.tools;
 
 import java.io.File;
 import java.net.URL;
-
 import com.google.common.io.Resources;
 
 public class ResourceGetter {

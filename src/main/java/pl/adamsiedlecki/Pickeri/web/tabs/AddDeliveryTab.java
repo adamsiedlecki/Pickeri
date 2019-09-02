@@ -1,6 +1,9 @@
 package pl.adamsiedlecki.Pickeri.web.tabs;
 
+import com.vaadin.addon.geolocation.Coordinates;
+import com.vaadin.addon.geolocation.Geolocation;
 import com.vaadin.server.Page;
+import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
+import pl.adamsiedlecki.Pickeri.entity.GeoLocalization;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
 import pl.adamsiedlecki.Pickeri.tools.QRCodeReader;
@@ -25,6 +29,7 @@ import java.util.stream.Collectors;
 public class AddDeliveryTab extends VerticalLayout {
 
     private FormLayout formLayout;
+    private VerticalLayout root;
     private TextField fruitPickerId;
     private TextField packageAmount;
     private RadioButtonGroup<String> fruitType;
@@ -84,6 +89,7 @@ public class AddDeliveryTab extends VerticalLayout {
     private void initComponents(){
         formLayout = new FormLayout();
         pickerInfoLayout = new HorizontalLayout();
+        root = new VerticalLayout();
 
         refreshVarietiesButton = new Button("Odśwież formularz");
         refreshVarietiesButton.addClickListener(e->
@@ -113,9 +119,10 @@ public class AddDeliveryTab extends VerticalLayout {
         pickerInfoLayout.addComponents(fruitPickerId,qrUpload);
         formLayout.addComponents(pickerInfoLayout,packageAmount,fruitType,fruitVariety,comment,save);
 
-        this.addComponent(refreshVarietiesButton);
+        root.addComponent(refreshVarietiesButton);
         //this.addComponent(qrReader);
-        this.addComponent(formLayout);
+        root.addComponent(formLayout);
+        this.addComponent(root);
     }
 
     private void refreshVarieties(){
@@ -129,6 +136,15 @@ public class AddDeliveryTab extends VerticalLayout {
                 Notification.show("Uzupełnij wymagane pola!");
             }else{
                 FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerId.getValue()),fruitType.getValue(),Long.parseLong(packageAmount.getValue()),comment.getValue(),fruitVariety.getValue(), LocalDateTime.now());
+                Geolocation geo = new Geolocation(this.getUI());
+                geo.getCurrentPosition(position ->{
+                    Coordinates coordinates = position.getCoordinates();
+                    System.out.println("COORDINATES: "+coordinates.getLatitude()+" "+
+                            coordinates.getLongitude());
+                    this.addComponent(new Label("Coordinates: "+coordinates.getLongitude()+coordinates.getLatitude()+coordinates.getAccuracy()));
+                    fruitDelivery.setGeoLocalization(new GeoLocalization(coordinates.getLatitude(),
+                            coordinates.getLongitude()));
+                    });
                 fruitDeliveryService.addDelivery(fruitDelivery);
             }
         }else{

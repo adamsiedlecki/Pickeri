@@ -21,6 +21,12 @@
 
 	<dependencies>
 
+		<dependency>
+			<groupId>com.vaadin.addon</groupId>
+			<artifactId>geolocation</artifactId>
+			<version>LATEST</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
@@ -114,6 +120,12 @@
 	</dependencies>
 
 	<repositories>
+
+		<repository>
+			<id>vaadin-addons</id>
+			<url>https://maven.vaadin.com/vaadin-addons</url>
+		</repository>
+
 		<repository>
 			<id>vaadin-addons</id>
 			<url>https://maven.vaadin.com/vaadin-addons</url>
