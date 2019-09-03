@@ -13,8 +13,9 @@ public class ResourceGetter {
             if (osName.indexOf("win") >= 0) {
                 logo = new File("src\\main\\resources\\images\\pickeri.png");
             } else if (osName.indexOf("nux") >= 0) {
-                URL url = Resources.getResource("/images/pickeri.png");
-                logo = new File(url.getFile());
+                //URL url = Resources.getResource("pickeri.png");
+                //logo = new File(url.getFile());
+                logo = new File("pickeri.png");
                 if(!logo.exists()){
                     logo = new File("src/main/resources/images/pickeri.png");
                 }
@@ -24,6 +25,13 @@ public class ResourceGetter {
                 }
                 if(!logo.exists()){
                     logo = new File("src/main/resources/images/pickeri.png");
+                }
+                if(!logo.exists()){
+                    logo = new File("pickeri.png");
+                }
+                if(!logo.exists()){
+                    URL url = Resources.getResource("/images/pickeri.png");
+                    logo = new File(url.getFile());
                 }
                 if(!logo.exists()){
                     logo = new File("*.png");
