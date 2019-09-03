@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.FruitVarietyDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -32,7 +33,7 @@ public class FruitVarietyService {
 
     private List<FruitVariety> setPercentageParticipationInPackagesAmount(List<FruitVariety> fruitVarieties){
         for(FruitVariety fv : fruitVarieties){
-            float percenatage = fruitDeliveryService.getPercentageParticipationForPackagesAmountByVariety(fv.getName());
+            BigDecimal percenatage = fruitDeliveryService.getPercentageParticipationForPackagesAmountByVariety(fv.getName());
             fv.setPercentageParticipationInPackagesAmount(percenatage);
         }
         return fruitVarieties;

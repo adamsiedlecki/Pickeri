@@ -1,6 +1,7 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table
@@ -17,7 +18,7 @@ public class FruitVariety {
     @Column
     private String comment;
 
-    private float percentageParticipationInPackagesAmount;
+    private BigDecimal percentageParticipationInPackagesAmount;
 
     private long totalPackages;
 
@@ -54,11 +55,11 @@ public class FruitVariety {
         this.comment = comment;
     }
 
-    public float getPercentageParticipationInPackagesAmount() {
+    public BigDecimal getPercentageParticipationInPackagesAmount() {
         return percentageParticipationInPackagesAmount;
     }
 
-    public void setPercentageParticipationInPackagesAmount(float percentageParticipationInPackagesAmount) {
+    public void setPercentageParticipationInPackagesAmount(BigDecimal percentageParticipationInPackagesAmount) {
         this.percentageParticipationInPackagesAmount = percentageParticipationInPackagesAmount;
     }
 

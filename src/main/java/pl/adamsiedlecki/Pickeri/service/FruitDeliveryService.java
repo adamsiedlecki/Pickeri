@@ -6,6 +6,8 @@ import pl.adamsiedlecki.Pickeri.dao.FruitDeliveryDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,21 +56,28 @@ public class FruitDeliveryService {
         return findAll().stream().mapToLong(e->e.getPackageAmount()).sum();
     }
 
-    public float getPercentageParticipationForPackagesAmountByVariety(String name){
+    public BigDecimal getPercentageParticipationForPackagesAmountByVariety(String name){
         List<FruitDelivery> allVarieties = findAll();
          List<FruitDelivery> thisVariety = findAllWithVariety(name);
-         float allAmount = 0;
+         BigDecimal allAmount = new BigDecimal(0);
          for(FruitDelivery fruitDelivery: allVarieties){
-             allAmount+=fruitDelivery.getPackageAmount();
+             allAmount = allAmount.add(new BigDecimal(fruitDelivery.getPackageAmount()));
+             //allAmount+=fruitDelivery.getPackageAmount();
          }
-        float thisAmount = 0;
+        BigDecimal thisAmount = new BigDecimal(0);
         for(FruitDelivery fruitDelivery: thisVariety){
-            thisAmount+=fruitDelivery.getPackageAmount();
+            thisAmount = thisAmount.add(new BigDecimal(fruitDelivery.getPackageAmount()));
+            // thisAmount+=fruitDelivery.getPackageAmount();
         }
-        if(allAmount==0){
-            return 0;
+        if(allAmount.equals(new BigDecimal(0))){
+            return new BigDecimal(0);
         }
-        return thisAmount/allAmount*100;
+        System.out.println("all: "+allAmount+"  this: "+thisAmount);
+        BigDecimal bigDecimal = thisAmount.divide(allAmount, 2, RoundingMode.FLOOR);
+        System.out.println("DIVIDE RESULT: "+bigDecimal);
+        BigDecimal result = bigDecimal.multiply(new BigDecimal(100));
+        System.out.println("RESULT "+result);
+        return result;
     }
 
     public Long getPackagesAmountByVariety(String name){
