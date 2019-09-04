@@ -72,11 +72,9 @@ public class FruitDeliveryService {
         if(allAmount.equals(new BigDecimal(0))){
             return new BigDecimal(0);
         }
-        System.out.println("all: "+allAmount+"  this: "+thisAmount);
-        BigDecimal bigDecimal = thisAmount.divide(allAmount, 2, RoundingMode.FLOOR);
-        System.out.println("DIVIDE RESULT: "+bigDecimal);
+        BigDecimal bigDecimal = thisAmount.divide(allAmount, 4, RoundingMode.FLOOR);
         BigDecimal result = bigDecimal.multiply(new BigDecimal(100));
-        System.out.println("RESULT "+result);
+        result = result.stripTrailingZeros();
         return result;
     }
 
