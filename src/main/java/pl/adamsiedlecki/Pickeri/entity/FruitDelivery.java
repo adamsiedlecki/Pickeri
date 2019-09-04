@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Entity
 @Table
@@ -20,7 +21,8 @@ public class FruitDelivery {
     private Long fruitPickerId;
 
     @Column
-    private String fruitType;
+
+    private List<FruitType> fruitType;
 
     @Column
     private Long packageAmount;
@@ -42,7 +44,7 @@ public class FruitDelivery {
     public FruitDelivery() {
     }
 
-    public FruitDelivery(Long fruitPickerId, String fruitType, Long packageAmount, String comment,String fruitVariety, LocalDateTime deliveryTime) {
+    public FruitDelivery(Long fruitPickerId, List<FruitType> fruitType, Long packageAmount, String comment,String fruitVariety, LocalDateTime deliveryTime) {
         this.fruitPickerId = fruitPickerId;
         this.fruitType = fruitType;
         this.packageAmount = packageAmount;
@@ -87,11 +89,11 @@ public class FruitDelivery {
         this.id = id;
     }
 
-    public String getFruitType() {
+    public List<FruitType> getFruitType() {
         return fruitType;
     }
 
-    public void setFruitType(String fruitType) {
+    public void setFruitType(List<FruitType> fruitType) {
         this.fruitType = fruitType;
     }
 
