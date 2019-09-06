@@ -25,24 +25,44 @@ public class FruitPicker {
 
     private long packageDeliveryAmount;
 
-    private long packageDeliveryWithCalyx;
+    private long packageDeliveryWithTypeOne;
 
-    private long packageDeliveryWithoutCalyx;
+    private long packageDeliveryWithTypeTwo;
 
-    public long getPackageDeliveryWithCalyx() {
-        return packageDeliveryWithCalyx;
+    private long packageDeliveryWithTypeThree;
+
+    private long packageDeliveryWithTypeFour;
+
+    public long getPackageDeliveryWithTypeOne() {
+        return packageDeliveryWithTypeOne;
     }
 
-    public void setPackageDeliveryWithCalyx(long packageDeliveryWithCalyx) {
-        this.packageDeliveryWithCalyx = packageDeliveryWithCalyx;
+    public void setPackageDeliveryWithTypeOne(long packageDeliveryWithTypeOne) {
+        this.packageDeliveryWithTypeOne = packageDeliveryWithTypeOne;
     }
 
-    public long getPackageDeliveryWithoutCalyx() {
-        return packageDeliveryWithoutCalyx;
+    public long getPackageDeliveryWithTypeTwo() {
+        return packageDeliveryWithTypeTwo;
     }
 
-    public void setPackageDeliveryWithoutCalyx(long packageDeliveryWithoutCalyx) {
-        this.packageDeliveryWithoutCalyx = packageDeliveryWithoutCalyx;
+    public void setPackageDeliveryWithTypeTwo(long packageDeliveryWithTypeTwo) {
+        this.packageDeliveryWithTypeTwo = packageDeliveryWithTypeTwo;
+    }
+
+    public long getPackageDeliveryWithTypeThree() {
+        return packageDeliveryWithTypeThree;
+    }
+
+    public void setPackageDeliveryWithTypeThree(long packageDeliveryWithTypeThree) {
+        this.packageDeliveryWithTypeThree = packageDeliveryWithTypeThree;
+    }
+
+    public long getPackageDeliveryWithTypeFour() {
+        return packageDeliveryWithTypeFour;
+    }
+
+    public void setPackageDeliveryWithTypeFour(long packageDeliveryWithTypeFour) {
+        this.packageDeliveryWithTypeFour = packageDeliveryWithTypeFour;
     }
 
     public long getPackageDeliveryAmount() {

@@ -2,7 +2,6 @@ package pl.adamsiedlecki.Pickeri.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pl.adamsiedlecki.Pickeri.dao.FruitDeliveryDAO;
 import pl.adamsiedlecki.Pickeri.dao.FruitPickerDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
@@ -36,7 +35,7 @@ public class FruitPickerService {
     public List<FruitPicker> findAll(String filter){
         List<FruitPicker> pickersList = fruitPickerDAO.findAll();
         Iterator<FruitPicker> iterator = pickersList.iterator();
-        setCalyxInfo(pickersList);
+        setAdditionalInfo(pickersList);
 
         while(iterator.hasNext()){
             FruitPicker fp = iterator.next();
@@ -57,14 +56,14 @@ public class FruitPickerService {
         fruitPickerDAO.deleteAll();
     }
 
-    private List<FruitPicker> setCalyxInfo(List<FruitPicker> fruitPickers){
+    private List<FruitPicker> setAdditionalInfo(List<FruitPicker> fruitPickers){
 
         for(FruitPicker fp : fruitPickers){
-            long packagesWithCalyx  = fruitDeliveryService.findByIdWithType(fp.getId(),"truskawka z szypułką").stream().collect(Collectors.summingLong(FruitDelivery::getPackageAmount));
-            long packagesWithoutCalyx  = fruitDeliveryService.findByIdWithType(fp.getId()," truskawka bez szypułki").stream().collect(Collectors.summingLong(FruitDelivery::getPackageAmount));
+            long packagesWithTypeOne  = fruitDeliveryService.findByIdWithType(fp.getId(),"truskawka z szypułką").stream().collect(Collectors.summingLong(FruitDelivery::getPackageAmount));
+            long packagesWithTypeTwo  = fruitDeliveryService.findByIdWithType(fp.getId()," truskawka bez szypułki").stream().collect(Collectors.summingLong(FruitDelivery::getPackageAmount));
 
-            fp.setPackageDeliveryWithCalyx(packagesWithCalyx);
-            fp.setPackageDeliveryWithoutCalyx(packagesWithoutCalyx);
+            fp.setPackageDeliveryWithTypeOne(packagesWithTypeOne);
+            fp.setPackageDeliveryWithTypeTwo(packagesWithTypeTwo);
         }
         return fruitPickers;
     }

@@ -21,7 +21,7 @@ public class FruitDelivery {
     private Long fruitPickerId;
 
     @Column
-
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
     private List<FruitType> fruitType;
 
     @Column

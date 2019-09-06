@@ -43,8 +43,8 @@ public class FindPickerTab extends VerticalLayout {
         fruitPickerGrid.addColumn(FruitPicker::getName).setCaption("Imię");
         fruitPickerGrid.addColumn(FruitPicker::getLastName).setCaption("Nazwisko");
         fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setCaption("Suma wszystkich opakowań");
-        fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithCalyx).setCaption("Z szypułką");
-        fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithoutCalyx).setCaption("Bez szypułki");
+        fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeOne).setCaption("Z szypułką");
+        fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeTwo).setCaption("Bez szypułki");
         fruitPickerGrid.setSizeFull();
 
         this.addComponent(root);

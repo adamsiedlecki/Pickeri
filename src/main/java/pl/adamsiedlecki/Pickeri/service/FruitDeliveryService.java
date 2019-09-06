@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.FruitDeliveryDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
-import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

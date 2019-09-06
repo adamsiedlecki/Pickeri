@@ -10,6 +10,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
+import pl.adamsiedlecki.Pickeri.entity.FruitType;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.entity.GeoLocalization;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
@@ -135,7 +136,9 @@ public class AddDeliveryTab extends VerticalLayout {
             if(fruitPickerId.isEmpty()||packageAmount.isEmpty()||fruitType.isEmpty()||fruitVariety.isEmpty()){
                 Notification.show("Uzupełnij wymagane pola!");
             }else{
-                FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerId.getValue()),fruitType.getValue(),Long.parseLong(packageAmount.getValue()),comment.getValue(),fruitVariety.getValue(), LocalDateTime.now());
+                FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerId.getValue()),
+                        List.of(new FruitType(fruitType.getValue())),Long.parseLong(packageAmount.getValue()),comment.getValue(),
+                        fruitVariety.getValue(), LocalDateTime.now());
                 Geolocation geo = new Geolocation(this.getUI());
                 geo.getCurrentPosition(position ->{
                     Coordinates coordinates = position.getCoordinates();

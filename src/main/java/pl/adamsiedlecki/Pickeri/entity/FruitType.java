@@ -13,8 +13,7 @@ public class FruitType {
     @Column
     private String name;
 
-    public FruitType(Long id, String name) {
-        this.id = id;
+    public FruitType( String name) {
         this.name = name;
     }
 
