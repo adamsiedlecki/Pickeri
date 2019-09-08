@@ -21,10 +21,12 @@ public class OthersUI extends UI {
     private QRCodeGeneratorTab qrCodeGeneratorTab;
     private OthersTab othersTab;
     private AddPickerTab addPickerTab;
+    private AddDeleteTypeTab addDeleteTypeTab;
 
     @Autowired
     public OthersUI(AddFruitVarietyTab  addFruitVarietyTab, QRCodeGeneratorTab qrCodeGeneratorTab, OthersTab othersTab,
-                    AddPickerTab addPickerTab){
+                    AddPickerTab addPickerTab, AddDeleteTypeTab addDeleteTypeTab){
+        this.addDeleteTypeTab = addDeleteTypeTab;
         this.addPickerTab = addPickerTab;
         this.qrCodeGeneratorTab = qrCodeGeneratorTab;
         this.fruitVarietyTab = addFruitVarietyTab;
@@ -43,6 +45,7 @@ public class OthersUI extends UI {
         tabs = new TabSheet();
         tabs.addTab(fruitVarietyTab,"Dodaj odmianę owocu");
         tabs.addTab(addPickerTab,"Dodaj pracownika");
+        tabs.addTab(addDeleteTypeTab,"Dodaj / usuń typ owocu");
         tabs.addTab(qrCodeGeneratorTab,"Wygeneruj kody QR");
         tabs.addTab(othersTab,"Reszta");
         root.addComponent(tabs);

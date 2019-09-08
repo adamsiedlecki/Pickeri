@@ -79,7 +79,6 @@ public class FruitPicker {
         this.gender = gender;
     }
 
-
     public long getId() {
         return id;
     }

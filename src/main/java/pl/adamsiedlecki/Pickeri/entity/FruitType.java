@@ -13,11 +13,25 @@ public class FruitType {
     @Column
     private String name;
 
-    public FruitType( String name) {
+    @Column
+    private Integer slot;
+
+    public FruitType(String name,Integer slot) {
         this.name = name;
+        this.slot = slot;
     }
 
     public FruitType() {
+    }
+
+    public Integer getSlot() {
+        if(slot==null)
+            return -1;
+        return slot;
+    }
+
+    public void setSlot(Integer slot) {
+        this.slot = slot;
     }
 
     public Long getId() {

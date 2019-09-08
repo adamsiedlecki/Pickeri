@@ -15,11 +15,14 @@ public class FruitPickerService {
 
     private FruitPickerDAO fruitPickerDAO;
     private FruitDeliveryService fruitDeliveryService;
+    private FruitTypeService fruitTypeService;
 
     @Autowired
-    public FruitPickerService(FruitPickerDAO fruitPickerDAO, FruitDeliveryService fruitDeliveryService){
+    public FruitPickerService(FruitPickerDAO fruitPickerDAO, FruitDeliveryService fruitDeliveryService,
+                              FruitTypeService fruitTypeService){
         this.fruitPickerDAO = fruitPickerDAO;
         this.fruitDeliveryService = fruitDeliveryService;
+        this.fruitTypeService = fruitTypeService;
     }
 
     public void addFruitPicker(FruitPicker fruitPicker){
@@ -59,11 +62,21 @@ public class FruitPickerService {
     private List<FruitPicker> setAdditionalInfo(List<FruitPicker> fruitPickers){
 
         for(FruitPicker fp : fruitPickers){
-            long packagesWithTypeOne  = fruitDeliveryService.findByIdWithType(fp.getId(),"truskawka z szypułką").stream().collect(Collectors.summingLong(FruitDelivery::getPackageAmount));
-            long packagesWithTypeTwo  = fruitDeliveryService.findByIdWithType(fp.getId()," truskawka bez szypułki").stream().collect(Collectors.summingLong(FruitDelivery::getPackageAmount));
+            long packagesWithTypeOne  = fruitDeliveryService.findByIdWithType(fp.getId(),
+                    fruitTypeService.getType(0).getName()).stream().mapToLong(FruitDelivery::getPackageAmount).sum();
+            long packagesWithTypeTwo  = fruitDeliveryService.findByIdWithType(fp.getId(),
+                    fruitTypeService.getType(1).getName()).stream().mapToLong(FruitDelivery::getPackageAmount).sum();
+
+            long packagesWithTypeThree  = fruitDeliveryService.findByIdWithType(fp.getId(),
+                    fruitTypeService.getType(2).getName()).stream().mapToLong(FruitDelivery::getPackageAmount).sum();
+
+            long packagesWithTypeFour  = fruitDeliveryService.findByIdWithType(fp.getId(),
+                    fruitTypeService.getType(3).getName()).stream().mapToLong(FruitDelivery::getPackageAmount).sum();
 
             fp.setPackageDeliveryWithTypeOne(packagesWithTypeOne);
             fp.setPackageDeliveryWithTypeTwo(packagesWithTypeTwo);
+            fp.setPackageDeliveryWithTypeThree(packagesWithTypeThree);
+            fp.setPackageDeliveryWithTypeFour(packagesWithTypeFour);
         }
         return fruitPickers;
     }

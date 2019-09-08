@@ -31,7 +31,7 @@ public class AllDeliveriesTab extends VerticalLayout {
 
         fruitDeliveryGrid.addColumn(FruitDelivery::getPackageAmount).setCaption("Ilość opakowań");
         fruitDeliveryGrid.addColumn(FruitDelivery::getFruitPickerId).setCaption("Id pracownika");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitType).setCaption("Typ");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getType).setCaption("Typ");
         fruitDeliveryGrid.addColumn(FruitDelivery::getFruitVariety).setCaption("Odmiana");
         fruitDeliveryGrid.addColumn(FruitDelivery::getComment).setCaption("Komentarz");
         fruitDeliveryGrid.addColumn(FruitDelivery::getDeliveryTimeFormatted).setCaption("Czas");

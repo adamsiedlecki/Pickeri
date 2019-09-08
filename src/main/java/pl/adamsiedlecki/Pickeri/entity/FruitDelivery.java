@@ -1,7 +1,5 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -21,8 +19,7 @@ public class FruitDelivery {
     private Long fruitPickerId;
 
     @Column
-    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    private List<FruitType> fruitType;
+    private String type;
 
     @Column
     private Long packageAmount;
@@ -44,13 +41,22 @@ public class FruitDelivery {
     public FruitDelivery() {
     }
 
-    public FruitDelivery(Long fruitPickerId, List<FruitType> fruitType, Long packageAmount, String comment,String fruitVariety, LocalDateTime deliveryTime) {
+    public FruitDelivery(Long fruitPickerId,String fruitType, Long packageAmount, String comment,String fruitVariety, LocalDateTime deliveryTime) {
         this.fruitPickerId = fruitPickerId;
-        this.fruitType = fruitType;
         this.packageAmount = packageAmount;
         this.deliveryTime = deliveryTime;
         this.comment = comment;
         this.fruitVariety = fruitVariety;
+        this.type = fruitType;
+
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public void setFruitPickerId(Long fruitPickerId) {
@@ -87,14 +93,6 @@ public class FruitDelivery {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public List<FruitType> getFruitType() {
-        return fruitType;
-    }
-
-    public void setFruitType(List<FruitType> fruitType) {
-        this.fruitType = fruitType;
     }
 
     public Long getPackageAmount() {

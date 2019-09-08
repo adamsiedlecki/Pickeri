@@ -14,6 +14,7 @@ import pl.adamsiedlecki.Pickeri.entity.FruitType;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.entity.GeoLocalization;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
+import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
 import pl.adamsiedlecki.Pickeri.tools.QRCodeReader;
 import java.io.File;
@@ -43,11 +44,14 @@ public class AddDeliveryTab extends VerticalLayout {
     private FruitVarietyService fruitVarietyService;
     private Upload qrUpload;
     private String path;
+    private FruitTypeService fruitTypeService;
 
     @Autowired
-    public AddDeliveryTab(FruitDeliveryService fruitDeliveryService, FruitVarietyService fruitVarietyService){
+    public AddDeliveryTab(FruitDeliveryService fruitDeliveryService, FruitVarietyService fruitVarietyService,
+                          FruitTypeService fruitTypeService){
         this.fruitVarietyService = fruitVarietyService;
         this.fruitDeliveryService = fruitDeliveryService;
+        this.fruitTypeService = fruitTypeService;
 
         initComponents();
 
@@ -111,7 +115,7 @@ public class AddDeliveryTab extends VerticalLayout {
         comment = new TextField("Komentarz");
         save = new Button("Zapisz");
 
-        fruitType.setItems("truskawka z szypułką"," truskawka bez szypułki");
+        refreshTypes();
         fruitType.setCaption("Typ owocu");
 
         refreshVarieties();
@@ -121,7 +125,6 @@ public class AddDeliveryTab extends VerticalLayout {
         formLayout.addComponents(pickerInfoLayout,packageAmount,fruitType,fruitVariety,comment,save);
 
         root.addComponent(refreshVarietiesButton);
-        //this.addComponent(qrReader);
         root.addComponent(formLayout);
         this.addComponent(root);
     }
@@ -131,13 +134,18 @@ public class AddDeliveryTab extends VerticalLayout {
         fruitVariety.setItems(fruitVarietyNames);
     }
 
+    private void refreshTypes(){
+        List<String> types = fruitTypeService.findAll().stream().map(FruitType::getName).collect(Collectors.toList());
+        fruitType.setItems(types);
+    }
+
     private void saveAction(){
         if(NumberUtils.isCreatable(fruitPickerId.getValue())&&NumberUtils.isCreatable(packageAmount.getValue())){
             if(fruitPickerId.isEmpty()||packageAmount.isEmpty()||fruitType.isEmpty()||fruitVariety.isEmpty()){
                 Notification.show("Uzupełnij wymagane pola!");
             }else{
                 FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerId.getValue()),
-                        List.of(new FruitType(fruitType.getValue())),Long.parseLong(packageAmount.getValue()),comment.getValue(),
+                        fruitType.getValue(),Long.parseLong(packageAmount.getValue()),comment.getValue(),
                         fruitVariety.getValue(), LocalDateTime.now());
                 Geolocation geo = new Geolocation(this.getUI());
                 geo.getCurrentPosition(position ->{
