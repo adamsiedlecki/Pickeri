@@ -20,6 +20,7 @@ import pl.adamsiedlecki.Pickeri.tools.QRCodeReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -45,6 +46,7 @@ public class AddDeliveryTab extends VerticalLayout {
     private Upload qrUpload;
     private String path;
     private FruitTypeService fruitTypeService;
+    private TextField weightField;
 
     @Autowired
     public AddDeliveryTab(FruitDeliveryService fruitDeliveryService, FruitVarietyService fruitVarietyService,
@@ -88,6 +90,7 @@ public class AddDeliveryTab extends VerticalLayout {
             fruitType.clear();
             fruitVariety.clear();
             comment.clear();
+            weightField.clear();
         });
     }
 
@@ -110,6 +113,10 @@ public class AddDeliveryTab extends VerticalLayout {
 
         fruitPickerId = new TextField("ID pracownika"); // "ID pracownika"
         packageAmount = new TextField("Ilość opakowań"); // "Ilość opakowań"
+        packageAmount.setValue("0");
+        weightField = new TextField("Waga w gramach");
+        weightField.setValue("0");
+        HorizontalLayout amountAndWeight = new HorizontalLayout(packageAmount,weightField);
         fruitType = new RadioButtonGroup<>();
         fruitVariety = new RadioButtonGroup<>();
         comment = new TextField("Komentarz");
@@ -122,7 +129,7 @@ public class AddDeliveryTab extends VerticalLayout {
         fruitVariety.setCaption("Odmiana owocu");
 
         pickerInfoLayout.addComponents(fruitPickerId,qrUpload);
-        formLayout.addComponents(pickerInfoLayout,packageAmount,fruitType,fruitVariety,comment,save);
+        formLayout.addComponents(pickerInfoLayout,amountAndWeight,fruitType,fruitVariety,comment,save);
 
         root.addComponent(refreshVarietiesButton);
         root.addComponent(formLayout);
@@ -140,13 +147,16 @@ public class AddDeliveryTab extends VerticalLayout {
     }
 
     private void saveAction(){
-        if(NumberUtils.isCreatable(fruitPickerId.getValue())&&NumberUtils.isCreatable(packageAmount.getValue())){
-            if(fruitPickerId.isEmpty()||packageAmount.isEmpty()||fruitType.isEmpty()||fruitVariety.isEmpty()){
+        if(NumberUtils.isCreatable(fruitPickerId.getValue())&&NumberUtils.isCreatable(packageAmount.getValue())
+                &&NumberUtils.isCreatable(weightField.getValue())){
+            if(fruitPickerId.isEmpty()||packageAmount.isEmpty()||fruitType.isEmpty()||fruitVariety.isEmpty()
+                    ||weightField.isEmpty()){
                 Notification.show("Uzupełnij wymagane pola!");
             }else{
                 FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerId.getValue()),
                         fruitType.getValue(),Long.parseLong(packageAmount.getValue()),comment.getValue(),
                         fruitVariety.getValue(), LocalDateTime.now());
+                fruitDelivery.setFruitWeight(new BigDecimal(weightField.getValue()));
                 Geolocation geo = new Geolocation(this.getUI());
                 geo.getCurrentPosition(position ->{
                     Coordinates coordinates = position.getCoordinates();
