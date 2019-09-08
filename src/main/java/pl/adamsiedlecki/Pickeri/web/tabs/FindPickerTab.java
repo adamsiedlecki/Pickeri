@@ -70,13 +70,13 @@ public class FindPickerTab extends VerticalLayout {
         if(fruitTypeService.getType(2)!=null
                 && fruitTypeService.getType(2).getName()!=null
                 && !fruitTypeService.getType(2).getName().equals("")){
-            fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeTwo)
+            fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeThree)
                     .setCaption(fruitTypeService.getType(2).getName());
         }
         if(fruitTypeService.getType(3)!=null
                 && fruitTypeService.getType(3).getName()!=null
                 && !fruitTypeService.getType(3).getName().equals("")){
-            fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeTwo)
+            fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeFour)
                     .setCaption(fruitTypeService.getType(3).getName());
         }
         fruitPickerGrid.setSizeFull();
