@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.FruitVarietyDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
+import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class FruitVarietyService {
+public class FruitVarietyService implements Removeable {
 
     private FruitVarietyDAO fruitVarietyDAO;
     private FruitDeliveryService fruitDeliveryService;
@@ -65,4 +66,13 @@ public class FruitVarietyService {
         return fruitVarieties;
     }
 
+    @Override
+    public void removeAll() {
+        fruitVarietyDAO.deleteAll();
+    }
+
+    @Override
+    public void removeById(Long id) {
+        fruitVarietyDAO.deleteById(id);
+    }
 }

@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.FruitDeliveryDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
+import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class FruitDeliveryService {
+public class FruitDeliveryService implements Removeable {
 
     private FruitDeliveryDAO fruitDeliveryDAO;
 
@@ -29,6 +30,10 @@ public class FruitDeliveryService {
             }
         }
         return sum;
+    }
+
+    public void removeById(Long id){
+        fruitDeliveryDAO.deleteById(id);
     }
 
     public void addDelivery(FruitDelivery fruitDelivery){
@@ -64,7 +69,7 @@ public class FruitDeliveryService {
     }
 
     public long getTotalAmountOfPackages(){
-        return findAll().stream().mapToLong(e->e.getPackageAmount()).sum();
+        return findAll().stream().mapToLong(FruitDelivery::getPackageAmount).sum();
     }
 
     public BigDecimal getPercentageParticipationForPackagesAmountByVariety(String name){

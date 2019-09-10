@@ -49,11 +49,13 @@ public class StatisticsTab extends VerticalLayout {
         refreshButton = new Button("Odśwież");
         refreshButton.addClickListener(e->refreshData());
         varietiesGridPackageStat = new Grid<>();
+        varietiesGridPackageStat.addColumn(FruitVariety::getId).setCaption("ID");
         varietiesGridPackageStat.addColumn(FruitVariety::getName).setCaption("Nazwa");
         varietiesGridPackageStat.addColumn(FruitVariety::getTotalPackages).setCaption("Suma opakowań").setId("totalPackages");
         varietiesGridPackageStat.addColumn(FruitVariety::getPercentageParticipationInPackagesAmountPlainText).setCaption("% udział");
 
         varietiesGridWeightStat = new Grid<>();
+        varietiesGridWeightStat.addColumn(FruitVariety::getId).setCaption("ID");
         varietiesGridWeightStat.addColumn(FruitVariety::getName).setCaption("Nazwa");
         varietiesGridWeightStat.addColumn(FruitVariety::getTotalWeightKgPlainText).setCaption("Waga całkowita").setId("totalWeight");
         varietiesGridWeightStat.addColumn(FruitVariety::getPercentageParticipationInWeightPlainText).setCaption("% udział");

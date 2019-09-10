@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.FruitPickerDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
+import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class FruitPickerService {
+public class FruitPickerService implements Removeable {
 
     private FruitPickerDAO fruitPickerDAO;
     private FruitDeliveryService fruitDeliveryService;
@@ -58,6 +59,11 @@ public class FruitPickerService {
 
     public void removeAll(){
         fruitPickerDAO.deleteAll();
+    }
+
+    @Override
+    public void removeById(Long id) {
+        fruitPickerDAO.deleteById(id);
     }
 
     private List<FruitPicker> setAdditionalInfo(List<FruitPicker> fruitPickers){
