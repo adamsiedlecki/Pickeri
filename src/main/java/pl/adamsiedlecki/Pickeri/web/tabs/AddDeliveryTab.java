@@ -85,12 +85,6 @@ public class AddDeliveryTab extends VerticalLayout {
 
         save.addClickListener(e->{
             saveAction();
-            fruitPickerId.clear();
-            packageAmount.clear();
-            fruitType.clear();
-            fruitVariety.clear();
-            comment.clear();
-            weightField.clear();
         });
     }
 
@@ -167,11 +161,21 @@ public class AddDeliveryTab extends VerticalLayout {
                             coordinates.getLongitude()));
                     });
                 fruitDeliveryService.addDelivery(fruitDelivery);
+                cleanFields();
             }
         }else{
             Notification.show("Id pracownika oraz ilość opakowań powinny być liczbami całkowitymi!");
         }
 
+    }
+
+    private void cleanFields(){
+        fruitPickerId.clear();
+        packageAmount.clear();
+        fruitType.clear();
+        fruitVariety.clear();
+        comment.clear();
+        weightField.clear();
     }
 
     private class ImageUploader implements Upload.Receiver, Upload.SucceededListener  {

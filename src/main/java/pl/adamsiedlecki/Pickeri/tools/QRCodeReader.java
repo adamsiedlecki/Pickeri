@@ -20,12 +20,14 @@ public class QRCodeReader {
         }
 
         // https://stackoverflow.com/questions/3433275/adjust-brightness-and-contrast-of-bufferedimage-in-java
-        RescaleOp rescaleOp = new RescaleOp(0.3f,1, null); //new RescaleOp(1.8f, 15, null);
+        RescaleOp rescaleOp = new RescaleOp(0.4f,1, null); //new RescaleOp(1.8f, 15, null);
         rescaleOp.filter(bufferedImage,bufferedImage);
         File f = new File("image.jpg");
         try {
             ImageIO.write(bufferedImage, "jpg", f);
         } catch (IOException e) {
+            qrCodeimage.delete();
+            f.delete();
             e.printStackTrace();
         }
 
@@ -34,9 +36,13 @@ public class QRCodeReader {
         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
         try {
             Result result = new MultiFormatReader().decode(bitmap);
+            qrCodeimage.delete();
+            f.delete();
             return result.getText();
         } catch (NotFoundException e) {
             System.out.println("There is no QR code in the image");
+            qrCodeimage.delete();
+            f.delete();
             return null;
         }
     }
