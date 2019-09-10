@@ -34,6 +34,7 @@ public class RankingTab extends VerticalLayout {
         refreshButton.addClickListener(e->refreshData());
         pickersGrid = new Grid<>();
         pickersGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setCaption("Suma opakowań").setId("packageDeliveryAmount");
+        pickersGrid.addColumn(FruitPicker::getWeightSumKgPlainText).setCaption("Waga [kg]");
         pickersGrid.addColumn(FruitPicker::getName).setCaption("Imię");
         pickersGrid.addColumn(FruitPicker::getLastName).setCaption("Nazwisko");
         pickersGrid.addColumn(FruitPicker::getGender).setCaption("Płeć");

@@ -2,9 +2,9 @@ package pl.adamsiedlecki.Pickeri.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @Entity
 @Table
@@ -131,6 +131,11 @@ public class FruitDelivery {
 
     public void setFruitPickerId(long fruitPickerId) {
         this.fruitPickerId = fruitPickerId;
+    }
+
+    public String getWeightSumKgPlainText(){
+        BigDecimal result = fruitWeight.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+        return result.toPlainString();
     }
 
 }

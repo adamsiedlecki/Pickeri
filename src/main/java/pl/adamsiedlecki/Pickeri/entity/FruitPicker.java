@@ -1,6 +1,8 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Entity
 @Table
@@ -32,6 +34,22 @@ public class FruitPicker {
     private long packageDeliveryWithTypeThree;
 
     private long packageDeliveryWithTypeFour;
+
+    private BigDecimal weightSum;
+
+    // [gram]
+    public BigDecimal getWeightSum(){
+        return weightSum;
+    }
+
+    public String getWeightSumKgPlainText(){
+        BigDecimal result = weightSum.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+        return result.toPlainString();
+    }
+
+    public void  setWeightSum(BigDecimal weightSum){
+        this.weightSum = weightSum;
+    }
 
     public long getPackageDeliveryWithTypeOne() {
         return packageDeliveryWithTypeOne;

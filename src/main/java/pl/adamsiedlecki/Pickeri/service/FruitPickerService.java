@@ -6,6 +6,7 @@ import pl.adamsiedlecki.Pickeri.dao.FruitPickerDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class FruitPickerService {
 
     public List<FruitPicker> findAll(){
         List<FruitPicker> pickersList = fruitPickerDAO.findAll();
-        setDeliveriesSum(pickersList);
+        setOtherData(pickersList);
         return pickersList;
     }
 
@@ -47,7 +48,7 @@ public class FruitPickerService {
             }
         }
 
-        setDeliveriesSum(pickersList);
+        setOtherData(pickersList);
         return pickersList;
     }
 
@@ -81,7 +82,7 @@ public class FruitPickerService {
         return fruitPickers;
     }
 
-    private List<FruitPicker> setDeliveriesSum(List<FruitPicker> pickersList){
+    private List<FruitPicker> setOtherData(List<FruitPicker> pickersList){
         for(FruitPicker fp: pickersList){
             if(fruitDeliveryService.getDeliveriesByPickerId(fp.getId())==null){
                 fp.setPackageDeliveryAmount(0);
@@ -92,6 +93,19 @@ public class FruitPickerService {
                     sum+=fd.getPackageAmount();
                 }
                 fp.setPackageDeliveryAmount(sum);
+
+            }
+        }
+        for(FruitPicker fp: pickersList){
+            if(fruitDeliveryService.getDeliveriesByPickerId(fp.getId())==null){
+                fp.setPackageDeliveryAmount(0);
+            }else{
+                List<FruitDelivery> fruitDeliveries = fruitDeliveryService.getDeliveriesByPickerId(fp.getId());
+                BigDecimal sum = new BigDecimal(0);
+                for(FruitDelivery fd: fruitDeliveries){
+                   sum = sum.add(fd.getFruitWeight());
+                }
+                fp.setWeightSum(sum);
 
             }
         }

@@ -24,6 +24,8 @@ public class FruitVarietyService {
         List<FruitVariety> all = fruitVarietyDAO.findAll();
         setPercentageParticipationInPackagesAmount(all);
         setPackagesAmount(all);
+        setTotalWeight(all);
+        setPercentageParticipationInWeight(all);
         return all;
     }
 
@@ -43,6 +45,22 @@ public class FruitVarietyService {
         for(FruitVariety fv : fruitVarieties){
             long amount = fruitDeliveryService.getPackagesAmountByVariety(fv.getName());
             fv.setTotalPackages(amount);
+        }
+        return fruitVarieties;
+    }
+
+    private List<FruitVariety> setTotalWeight(List<FruitVariety> fruitVarieties){
+        for(FruitVariety fv : fruitVarieties){
+            BigDecimal amount = fruitDeliveryService.getTotalWeightByVariety(fv.getName());
+            fv.setTotalWeight(amount);
+        }
+        return fruitVarieties;
+    }
+
+    private List<FruitVariety> setPercentageParticipationInWeight(List<FruitVariety> fruitVarieties){
+        for(FruitVariety fv : fruitVarieties){
+            BigDecimal percenatage = fruitDeliveryService.getPercentageParticipationInWeight(fv.getName());
+            fv.setPercentageParticipationInWeight(percenatage);
         }
         return fruitVarieties;
     }

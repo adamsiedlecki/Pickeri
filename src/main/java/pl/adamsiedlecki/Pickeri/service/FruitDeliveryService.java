@@ -19,6 +19,18 @@ public class FruitDeliveryService {
         this.fruitDeliveryDAO = fruitDeliveryDAO;
     }
 
+    public BigDecimal getWeightSum(){
+        List<FruitDelivery> deliveries = findAll();
+        BigDecimal sum = new BigDecimal(0);
+
+        for(FruitDelivery delivery : deliveries){
+            if(delivery.getFruitWeight()!=null){
+                sum = sum.add(delivery.getFruitWeight());
+            }
+        }
+        return sum;
+    }
+
     public void addDelivery(FruitDelivery fruitDelivery){
         fruitDeliveryDAO.save(fruitDelivery);
     }
@@ -84,6 +96,36 @@ public class FruitDeliveryService {
             thisAmount+=fruitDelivery.getPackageAmount();
         }
         return thisAmount;
+    }
+
+    public BigDecimal getTotalWeightByVariety(String name){
+        List<FruitDelivery> thisVariety = findAllWithVariety(name);
+        BigDecimal thisAmount = new BigDecimal(0);
+        for(FruitDelivery fruitDelivery: thisVariety){
+            thisAmount = thisAmount.add(fruitDelivery.getFruitWeight());
+        }
+        return thisAmount;
+    }
+
+    public BigDecimal getPercentageParticipationInWeight(String name){
+        List<FruitDelivery> allVarieties = findAll();
+        List<FruitDelivery> thisVariety = findAllWithVariety(name);
+        BigDecimal allAmount = new BigDecimal(0);
+        for(FruitDelivery fruitDelivery: allVarieties){
+            allAmount = allAmount.add(fruitDelivery.getFruitWeight());
+            //allAmount+=fruitDelivery.getPackageAmount();
+        }
+        BigDecimal thisAmount = new BigDecimal(0);
+        for(FruitDelivery fruitDelivery: thisVariety){
+            thisAmount = thisAmount.add(fruitDelivery.getFruitWeight());
+        }
+        if(allAmount.equals(new BigDecimal(0))){
+            return new BigDecimal(0);
+        }
+        BigDecimal bigDecimal = thisAmount.divide(allAmount, 4, RoundingMode.FLOOR);
+        BigDecimal result = bigDecimal.multiply(new BigDecimal(100));
+        result = result.stripTrailingZeros();
+        return result;
     }
 
 }
