@@ -14,16 +14,13 @@ import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
 @Scope("prototype")
 public class AddFruitVarietyTab extends VerticalLayout {
 
-    private FruitVarietyService fruitVarietyService;
     private VerticalLayout root;
     private TextField name;
     private TextField comment;
     private Button save;
-    private FormLayout formLayout;
 
     @Autowired
     public AddFruitVarietyTab(FruitVarietyService fruitVarietyService){
-        this.fruitVarietyService = fruitVarietyService;
         initComponents();
         save.addClickListener(e->{
             if(!name.isEmpty()){
@@ -40,7 +37,7 @@ public class AddFruitVarietyTab extends VerticalLayout {
         name = new TextField("Nazwa");
         comment = new TextField("Komentarz, opis");
         save = new Button("Zapisz");
-        formLayout = new FormLayout(name, comment, save);
+        FormLayout formLayout = new FormLayout(name, comment, save);
         root.addComponent(formLayout);
         this.addComponent(root);
     }

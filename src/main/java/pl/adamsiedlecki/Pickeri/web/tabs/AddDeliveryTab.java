@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 @Scope("prototype")
 public class AddDeliveryTab extends VerticalLayout {
 
-    private FormLayout formLayout;
     private VerticalLayout root;
     private TextField fruitPickerId;
     private TextField packageAmount;
@@ -39,8 +38,6 @@ public class AddDeliveryTab extends VerticalLayout {
     private RadioButtonGroup<String> fruitVariety;
     private TextField comment;
     private Button save;
-    private Button refreshVarietiesButton;
-    private HorizontalLayout pickerInfoLayout;
     private FruitDeliveryService fruitDeliveryService;
     private FruitVarietyService fruitVarietyService;
     private Upload qrUpload;
@@ -58,8 +55,7 @@ public class AddDeliveryTab extends VerticalLayout {
         initComponents();
 
         qrUpload.addSucceededListener(e->{
-            QRCodeReader reader = new QRCodeReader();
-            String value = reader.decodeQRCode(new File(path));
+            String value = QRCodeReader.decodeQRCode(new File(path));
             if(value!=null){
                 List<String> items = Arrays.asList(value.split("\\s*,\\s*"));
                 System.out.println(items.size()+ value);
@@ -83,17 +79,15 @@ public class AddDeliveryTab extends VerticalLayout {
             }
         });
 
-        save.addClickListener(e->{
-            saveAction();
-        });
+        save.addClickListener(e-> saveAction());
     }
 
     private void initComponents(){
-        formLayout = new FormLayout();
-        pickerInfoLayout = new HorizontalLayout();
+        FormLayout formLayout = new FormLayout();
+        HorizontalLayout pickerInfoLayout = new HorizontalLayout();
         root = new VerticalLayout();
 
-        refreshVarietiesButton = new Button("Odśwież formularz");
+        Button refreshVarietiesButton = new Button("Odśwież formularz");
         refreshVarietiesButton.addClickListener(e->
            refreshVarieties()
         );

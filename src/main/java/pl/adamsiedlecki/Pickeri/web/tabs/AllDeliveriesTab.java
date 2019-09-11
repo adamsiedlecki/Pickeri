@@ -16,7 +16,6 @@ public class AllDeliveriesTab extends VerticalLayout {
 
     private Grid<FruitDelivery> fruitDeliveryGrid;
     private FruitDeliveryService fruitDeliveryService;
-    private Button refreshButton;
 
     @Autowired
     public AllDeliveriesTab(FruitDeliveryService fruitDeliveryService){
@@ -25,10 +24,9 @@ public class AllDeliveriesTab extends VerticalLayout {
     }
 
     private void addComponents(){
-        refreshButton = new Button("Odśwież");
+        Button refreshButton = new Button("Odśwież");
         refreshButton.addClickListener(e->refreshGrid());
         fruitDeliveryGrid = new Grid<>();
-
         fruitDeliveryGrid.addColumn(FruitDelivery::getPackageAmount).setCaption("Ilość opakowań");
         fruitDeliveryGrid.addColumn(FruitDelivery::getWeightSumKgPlainText).setCaption("Waga [kg]");
         fruitDeliveryGrid.addColumn(FruitDelivery::getFruitPickerId).setCaption("Id pracownika");
@@ -37,9 +35,7 @@ public class AllDeliveriesTab extends VerticalLayout {
         fruitDeliveryGrid.addColumn(FruitDelivery::getComment).setCaption("Komentarz");
         fruitDeliveryGrid.addColumn(FruitDelivery::getDeliveryTimeFormatted).setCaption("Czas");
         fruitDeliveryGrid.addColumn(FruitDelivery::getId).setCaption("ID");
-
         fruitDeliveryGrid.setSizeFull();
-
         this.addComponent(refreshButton);
         this.addComponent(fruitDeliveryGrid);
         refreshGrid();

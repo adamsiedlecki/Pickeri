@@ -25,7 +25,6 @@ public class RankingTab extends VerticalLayout {
     @Autowired
     public RankingTab(FruitPickerService fruitPickerService) {
         this.fruitPickerService = fruitPickerService;
-
         addContent();
     }
 
@@ -40,7 +39,6 @@ public class RankingTab extends VerticalLayout {
         pickersGrid.addColumn(FruitPicker::getGender).setCaption("Płeć");
 
         pickersGrid.setSizeFull();
-
         refreshData();
         this.addComponent(refreshButton);
         this.addComponent(pickersGrid);

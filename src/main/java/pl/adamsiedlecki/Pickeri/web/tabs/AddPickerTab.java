@@ -16,7 +16,6 @@ public class AddPickerTab extends VerticalLayout {
     private TextField name;
     private TextField lastName;
     private RadioButtonGroup<String> radioButtonGroup;
-    private Button saveButton;
     private FruitPickerService fruitPickerService;
 
     @Autowired
@@ -32,7 +31,7 @@ public class AddPickerTab extends VerticalLayout {
         lastName = new TextField("Nazwisko");
         radioButtonGroup = new RadioButtonGroup<>();
         radioButtonGroup.setItems("Kobieta","Mężczyzna");
-        saveButton = new Button("ZAPISZ");
+        Button saveButton = new Button("ZAPISZ");
 
         saveButton.addClickListener(x->{
             if(name.isEmpty()||lastName.isEmpty()||radioButtonGroup.isEmpty()){
@@ -47,7 +46,7 @@ public class AddPickerTab extends VerticalLayout {
 
         });
 
-        formLayout.addComponents(name,lastName,radioButtonGroup,saveButton);
+        formLayout.addComponents(name,lastName,radioButtonGroup, saveButton);
     }
 
 }

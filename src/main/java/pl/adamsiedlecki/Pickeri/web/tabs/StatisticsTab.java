@@ -12,6 +12,7 @@ import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @SpringComponent
 @Scope("prototype")
@@ -20,13 +21,10 @@ public class StatisticsTab extends VerticalLayout {
     private FruitDeliveryService fruitDeliveryService;
     private FruitPickerService fruitPickerService;
     private FruitVarietyService fruitVarietyService;
-    private VerticalLayout root;
     private Label pickersSum;
     private Label packagesSum;
     private Label varietiesSum;
     private Label weightSum;
-    private VerticalLayout varietiesPackageAmountAndPercentageLayout;
-    private Button refreshButton;
     private Grid<FruitVariety> varietiesGridPackageStat;
     private Grid<FruitVariety> varietiesGridWeightStat;
 
@@ -40,13 +38,13 @@ public class StatisticsTab extends VerticalLayout {
     }
 
     private void initComponents(){
-        root = new VerticalLayout();
+        VerticalLayout root = new VerticalLayout();
         pickersSum = new Label();
         packagesSum = new Label();
         varietiesSum = new Label();
         weightSum = new Label();
-        varietiesPackageAmountAndPercentageLayout = new VerticalLayout();
-        refreshButton = new Button("Odśwież");
+        VerticalLayout varietiesPackageAmountAndPercentageLayout = new VerticalLayout();
+        Button refreshButton = new Button("Odśwież");
         refreshButton.addClickListener(e->refreshData());
         varietiesGridPackageStat = new Grid<>();
         varietiesGridPackageStat.addColumn(FruitVariety::getId).setCaption("ID");
@@ -59,7 +57,6 @@ public class StatisticsTab extends VerticalLayout {
         varietiesGridWeightStat.addColumn(FruitVariety::getName).setCaption("Nazwa");
         varietiesGridWeightStat.addColumn(FruitVariety::getTotalWeightKgPlainText).setCaption("Waga całkowita").setId("totalWeight");
         varietiesGridWeightStat.addColumn(FruitVariety::getPercentageParticipationInWeightPlainText).setCaption("% udział");
-
 
         refreshData();
 
@@ -81,14 +78,16 @@ public class StatisticsTab extends VerticalLayout {
         varietiesSum.setValue("Suma odmian w systemie: "+fruitVarietyService.findAll().size());
         weightSum.setValue("Całkowita masa owoców w systemie [w kg]: "+fruitDeliveryService.getWeightSum()
                 .divide(new BigDecimal(1000),4, RoundingMode.FLOOR));
+        List<FruitVariety> varieties = fruitVarietyService.findAll();
 
-        varietiesGridPackageStat.setItems(fruitVarietyService.findAll());
-        varietiesGridPackageStat.setSizeFull();
-        varietiesGridPackageStat.sort("totalPackages", SortDirection.DESCENDING);
+        setGrid(varietiesGridPackageStat,varieties);
+        setGrid(varietiesGridWeightStat,varieties);
+    }
 
-        varietiesGridWeightStat.setItems(fruitVarietyService.findAll());
-        varietiesGridWeightStat.setSizeFull();
-        varietiesGridWeightStat.sort("totalWeight", SortDirection.DESCENDING);
+    private void setGrid(Grid<FruitVariety> grid, List<FruitVariety> varieties){
+        grid.setItems(varieties);
+        grid.setSizeFull();
+        grid.sort("totalPackages", SortDirection.DESCENDING);
     }
 
 }

@@ -19,16 +19,14 @@ public class FindPickerTab extends VerticalLayout {
     private VerticalLayout root;
     private TextField filter;
     private Grid<FruitPicker> fruitPickerGrid;
-    private FruitPickerService fruitPickerService;
     private FruitTypeService fruitTypeService;
-
+    private FruitPickerService fruitPickerService;
 
     @Autowired
     public FindPickerTab(FruitPickerService fruitPickerService, FruitTypeService fruitTypeService){
         this.fruitTypeService = fruitTypeService;
         this.fruitPickerService = fruitPickerService;
         initComponents();
-        fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()));
         filter.addValueChangeListener(e->
             fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()))
         );
@@ -44,7 +42,6 @@ public class FindPickerTab extends VerticalLayout {
         root.addComponent(refreshButton);
         root.addComponents(filter);
         refreshData();
-
         this.addComponent(root);
     }
 
@@ -54,33 +51,33 @@ public class FindPickerTab extends VerticalLayout {
         fruitPickerGrid.addColumn(FruitPicker::getName).setCaption("Imię");
         fruitPickerGrid.addColumn(FruitPicker::getLastName).setCaption("Nazwisko");
         fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setCaption("Suma wszystkich opakowań");
-
-        if(fruitTypeService.getType(0)!=null
-                && fruitTypeService.getType(0).getName()!=null
-                && !fruitTypeService.getType(0).getName().equals("")){
-                fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeOne)
-                    .setCaption(fruitTypeService.getType(0).getName());
-        }
-        if(fruitTypeService.getType(1)!=null
-                && fruitTypeService.getType(1).getName()!=null
-                && !fruitTypeService.getType(1).getName().equals("")){
-            fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeTwo)
-                    .setCaption(fruitTypeService.getType(1).getName());
-        }
-        if(fruitTypeService.getType(2)!=null
-                && fruitTypeService.getType(2).getName()!=null
-                && !fruitTypeService.getType(2).getName().equals("")){
-            fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeThree)
-                    .setCaption(fruitTypeService.getType(2).getName());
-        }
-        if(fruitTypeService.getType(3)!=null
-                && fruitTypeService.getType(3).getName()!=null
-                && !fruitTypeService.getType(3).getName().equals("")){
-            fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeFour)
-                    .setCaption(fruitTypeService.getType(3).getName());
-        }
+        addTypeColumnIfExists(0);
+        addTypeColumnIfExists(1);
+        addTypeColumnIfExists(2);
+        addTypeColumnIfExists(3);
         fruitPickerGrid.setSizeFull();
+        fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()));
         root.addComponents(fruitPickerGrid);
+    }
+
+    private void addTypeColumnIfExists(int slot){
+        if(fruitTypeService.getType(slot)!=null
+                && fruitTypeService.getType(slot).getName()!=null
+                && !fruitTypeService.getType(slot).getName().equals("")){
+            if(slot==0){
+                fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeOne)
+                        .setCaption(fruitTypeService.getType(slot).getName());
+            }else if(slot==1){
+                fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeTwo)
+                        .setCaption(fruitTypeService.getType(slot).getName());
+            }else if(slot==2){
+                fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeThree)
+                        .setCaption(fruitTypeService.getType(2).getName());
+            }else if(slot==3){
+                fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeFour)
+                        .setCaption(fruitTypeService.getType(3).getName());
+            }
+        }
     }
 
 }

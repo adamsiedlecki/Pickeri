@@ -55,8 +55,7 @@ public class HomePage extends UI {
         qrUpload.setReceiver(new ImageUploader());
 
         qrUpload.addSucceededListener(e->{
-            QRCodeReader reader = new QRCodeReader();
-            String value = reader.decodeQRCode(new File(path));
+            String value = QRCodeReader.decodeQRCode(new File(path));
             if(value!=null){
                 List<String> items = Arrays.asList(value.split("\\s*,\\s*"));
                 System.out.println(items.size()+ value);
@@ -101,8 +100,8 @@ public class HomePage extends UI {
                         today+=fd.getPackageAmount();
                     }
                 }
-                todayAmountOfPackagesLabel.setValue("Ilość opakowań dzisiaj: "+String.valueOf(today));
-                totalAmountOfPackagesLabel.setValue("Suma wszystkich opakowań: "+String.valueOf(total));
+                todayAmountOfPackagesLabel.setValue("Ilość opakowań dzisiaj: "+today);
+                totalAmountOfPackagesLabel.setValue("Suma wszystkich opakowań: "+total);
             }
         });
         this.setContent(root);
