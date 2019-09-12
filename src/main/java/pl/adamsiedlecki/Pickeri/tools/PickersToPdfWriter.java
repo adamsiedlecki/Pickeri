@@ -1,12 +1,15 @@
 package pl.adamsiedlecki.Pickeri.tools;
 
 import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.ColumnText;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -56,9 +59,18 @@ public class PickersToPdfWriter {
         float height = img.getScaledHeight();
         PdfTemplate template = cb.createTemplate(width, height);
         template.addImage(img, width, 0, 0, height, 0, 0);
+        // https://4programmers.net/Forum/Java/93697-IText_Polskie_znaki
+        // BaseFont helvetica = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1250, BaseFont.EMBEDDED);
+        /*
+        * @param	fontname    the name of the font
+         * @param	encoding    the encoding of the font
+         * @param       embedded    true if the font is to be embedded in the PDF
+         * @param	size	    the size of this font
+         * @param	style	    the style of this font*/
         ColumnText.showTextAligned(template, Element.TITLE,
-                new Phrase(watermark), width / 3 , height-15 , 0);
+                new Phrase(watermark,FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)), width / 3 , height-15 , 0);
         return Image.getInstance(template);
     }
+
 
 }

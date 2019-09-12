@@ -49,13 +49,13 @@ public class StatisticsTab extends VerticalLayout {
         varietiesGridPackageStat = new Grid<>();
         varietiesGridPackageStat.addColumn(FruitVariety::getId).setCaption("ID");
         varietiesGridPackageStat.addColumn(FruitVariety::getName).setCaption("Nazwa");
-        varietiesGridPackageStat.addColumn(FruitVariety::getTotalPackages).setCaption("Suma opakowań").setId("totalPackages");
+        varietiesGridPackageStat.addColumn(FruitVariety::getTotalPackages).setCaption("Suma opakowań").setId("total");
         varietiesGridPackageStat.addColumn(FruitVariety::getPercentageParticipationInPackagesAmountPlainText).setCaption("% udział");
 
         varietiesGridWeightStat = new Grid<>();
         varietiesGridWeightStat.addColumn(FruitVariety::getId).setCaption("ID");
         varietiesGridWeightStat.addColumn(FruitVariety::getName).setCaption("Nazwa");
-        varietiesGridWeightStat.addColumn(FruitVariety::getTotalWeightKgPlainText).setCaption("Waga całkowita").setId("totalWeight");
+        varietiesGridWeightStat.addColumn(FruitVariety::getTotalWeightKgPlainText).setCaption("Waga całkowita").setId("total");
         varietiesGridWeightStat.addColumn(FruitVariety::getPercentageParticipationInWeightPlainText).setCaption("% udział");
 
         refreshData();
@@ -87,7 +87,7 @@ public class StatisticsTab extends VerticalLayout {
     private void setGrid(Grid<FruitVariety> grid, List<FruitVariety> varieties){
         grid.setItems(varieties);
         grid.setSizeFull();
-        grid.sort("totalPackages", SortDirection.DESCENDING);
+        grid.sort("total", SortDirection.DESCENDING);
     }
 
 }
