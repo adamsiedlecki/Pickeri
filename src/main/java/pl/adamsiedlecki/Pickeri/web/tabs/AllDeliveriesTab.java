@@ -43,5 +43,6 @@ public class AllDeliveriesTab extends VerticalLayout {
 
     private void refreshGrid(){
         fruitDeliveryGrid.setItems(fruitDeliveryService.findAll());
+        fruitDeliveryGrid.setHeight(700, Unit.PIXELS);
     }
 }

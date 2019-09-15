@@ -148,9 +148,6 @@ public class AddDeliveryTab extends VerticalLayout {
                 Geolocation geo = new Geolocation(this.getUI());
                 geo.getCurrentPosition(position ->{
                     Coordinates coordinates = position.getCoordinates();
-                    System.out.println("COORDINATES: "+coordinates.getLatitude()+" "+
-                            coordinates.getLongitude());
-                    this.addComponent(new Label("Coordinates: "+coordinates.getLongitude()+coordinates.getLatitude()+coordinates.getAccuracy()));
                     fruitDelivery.setGeoLocalization(new GeoLocalization(coordinates.getLatitude(),
                             coordinates.getLongitude()));
                     });

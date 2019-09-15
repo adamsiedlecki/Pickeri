@@ -4,11 +4,9 @@ import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
-import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 
@@ -37,7 +35,6 @@ public class RankingTab extends VerticalLayout {
         pickersGrid.addColumn(FruitPicker::getName).setCaption("Imię");
         pickersGrid.addColumn(FruitPicker::getLastName).setCaption("Nazwisko");
         pickersGrid.addColumn(FruitPicker::getGender).setCaption("Płeć");
-
         pickersGrid.setSizeFull();
         refreshData();
         this.addComponent(refreshButton);
@@ -51,6 +48,7 @@ public class RankingTab extends VerticalLayout {
     private void refreshData(){
         pickersGrid.setItems(getCurrentPickers());
         pickersGrid.sort("packageDeliveryAmount", SortDirection.DESCENDING);
+        pickersGrid.setHeight(700, Unit.PIXELS);
     }
 
 }

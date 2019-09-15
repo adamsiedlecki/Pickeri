@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.UserRepository;
 import pl.adamsiedlecki.Pickeri.entity.User;
@@ -16,6 +18,7 @@ import java.util.List;
 public class PickeriUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
+
 
     @Autowired
     public PickeriUserDetailsService(UserRepository userRepository){
@@ -37,6 +40,12 @@ public class PickeriUserDetailsService implements UserDetailsService {
     public void addUser(String name, String password, List<UserRole> roles){
         User user = new User(name,password,roles);
         userRepository.save(user);
+    }
+
+    public void changePassword(String username, String newPassword){
+        User user = userRepository.findByUsername(username);
+        user.setPassword(new BCryptPasswordEncoder().encode(newPassword));
+        userRepository.saveAndFlush(user);
     }
 
 }

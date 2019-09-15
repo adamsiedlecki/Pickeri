@@ -57,6 +57,7 @@ public class FindPickerTab extends VerticalLayout {
         addTypeColumnIfExists(3);
         fruitPickerGrid.setSizeFull();
         fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()));
+        fruitPickerGrid.setHeight(700, Unit.PIXELS);
         root.addComponents(fruitPickerGrid);
     }
 

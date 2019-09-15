@@ -15,11 +15,8 @@ import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
 public class RemoveUI extends UI {
 
     private VerticalLayout root;
-    private Label warningLabel;
-    private Button deleteFruitPickersButton;
     private FruitPickerService fruitPickerService;
     private FruitDeliveryService fruitDeliveryService;
-    private Button deleteFruitDeliveriesButton;
     private FruitVarietyService fruitVarietyService;
 
     public RemoveUI(FruitPickerService fruitPickerService, FruitDeliveryService fruitDeliveryService,
@@ -38,16 +35,20 @@ public class RemoveUI extends UI {
     private void initComponents(){
         root = new VerticalLayout();
 
-        warningLabel = new Label("UWAGA! UWAŻAJ, CO USUWASZ!");
+        Label warningLabel = new Label("UWAGA! UWAŻAJ, CO USUWASZ!");
         warningLabel.setStyleName(ValoTheme.LABEL_COLORED);
 
-        deleteFruitPickersButton = new Button("USUŃ WSZYSTKICH PRACOWNIKÓW");
+        Button deleteFruitPickersButton = new Button("USUŃ WSZYSTKICH PRACOWNIKÓW");
         deleteFruitPickersButton.setStyleName(ValoTheme.BUTTON_DANGER);
         deleteFruitPickersButton.addClickListener(e->fruitPickerService.removeAll());
 
-        deleteFruitDeliveriesButton = new Button("USUŃ WSZYSTKIE DOSTAWY");
+        Button deleteFruitDeliveriesButton = new Button("USUŃ WSZYSTKIE DOSTAWY");
         deleteFruitDeliveriesButton.setStyleName(ValoTheme.BUTTON_DANGER);
         deleteFruitDeliveriesButton.addClickListener(e->fruitDeliveryService.removeAll());
+
+        Button deleteFruitVarietiesButton = new Button("USUŃ WSZYSTKIE ODMIANY");
+        deleteFruitVarietiesButton.setStyleName(ValoTheme.BUTTON_DANGER);
+        deleteFruitVarietiesButton.addClickListener(e->fruitVarietyService.removeAll());
 
         root.addComponent(warningLabel);
 
@@ -56,6 +57,7 @@ public class RemoveUI extends UI {
         addSeparator(5);
         root.addComponent(deleteFruitPickersButton);
         root.addComponent(deleteFruitDeliveriesButton);
+        root.addComponent(deleteFruitVarietiesButton);
 
         this.setContent(root);
     }

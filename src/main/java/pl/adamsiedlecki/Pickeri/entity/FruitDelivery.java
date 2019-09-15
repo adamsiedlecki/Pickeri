@@ -36,6 +36,7 @@ public class FruitDelivery {
     @Column
     private BigDecimal fruitWeight;
 
+    @Column
     private GeoLocalization geoLocalization;
 
     public FruitDelivery() {
