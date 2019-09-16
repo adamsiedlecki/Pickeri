@@ -5,12 +5,8 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
-import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.*;
-
-import java.io.File;
 
 @SpringUI(path="/other")
 public class OthersUI extends UI {
@@ -18,17 +14,17 @@ public class OthersUI extends UI {
     private TabSheet tabs;
     private VerticalLayout root;
     private AddFruitVarietyTab fruitVarietyTab;
-    private QRCodeGeneratorTab qrCodeGeneratorTab;
+    private PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab;
     private OthersTab othersTab;
     private AddPickerTab addPickerTab;
     private AddDeleteTypeTab addDeleteTypeTab;
 
     @Autowired
-    public OthersUI(AddFruitVarietyTab  addFruitVarietyTab, QRCodeGeneratorTab qrCodeGeneratorTab, OthersTab othersTab,
+    public OthersUI(AddFruitVarietyTab  addFruitVarietyTab, PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab, OthersTab othersTab,
                     AddPickerTab addPickerTab, AddDeleteTypeTab addDeleteTypeTab){
         this.addDeleteTypeTab = addDeleteTypeTab;
         this.addPickerTab = addPickerTab;
-        this.qrCodeGeneratorTab = qrCodeGeneratorTab;
+        this.pdfDocumentsGeneratorTab = pdfDocumentsGeneratorTab;
         this.fruitVarietyTab = addFruitVarietyTab;
         this.othersTab = othersTab;
     }
@@ -46,7 +42,7 @@ public class OthersUI extends UI {
         tabs.addTab(fruitVarietyTab,"Dodaj odmianę owocu");
         tabs.addTab(addPickerTab,"Dodaj pracownika");
         tabs.addTab(addDeleteTypeTab,"Dodaj / usuń typ owocu");
-        tabs.addTab(qrCodeGeneratorTab,"Wygeneruj kody QR");
+        tabs.addTab(pdfDocumentsGeneratorTab,"Wygeneruj pliki pdf");
         tabs.addTab(othersTab,"Reszta");
         root.addComponent(tabs);
     }

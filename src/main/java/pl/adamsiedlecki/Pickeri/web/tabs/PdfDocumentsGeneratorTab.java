@@ -16,13 +16,13 @@ import java.util.List;
 
 @SpringComponent
 @Scope("prototype")
-public class QRCodeGeneratorTab extends VerticalLayout {
+public class PdfDocumentsGeneratorTab extends VerticalLayout {
 
     private FruitPickerService fruitPickerService;
     private FruitTypeService fruitTypeService;
 
     @Autowired
-    public QRCodeGeneratorTab(FruitPickerService fruitPickerService, FruitTypeService fruitTypeService){
+    public PdfDocumentsGeneratorTab(FruitPickerService fruitPickerService, FruitTypeService fruitTypeService){
         this.fruitTypeService = fruitTypeService;
         this.fruitPickerService = fruitPickerService;
         Button generatePdfButton = new Button("Generuj kody QR dla wszystkich pracowników");
