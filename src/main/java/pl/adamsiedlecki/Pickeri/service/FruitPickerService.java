@@ -10,7 +10,6 @@ import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class FruitPickerService implements Removeable {
@@ -34,13 +33,14 @@ public class FruitPickerService implements Removeable {
     public List<FruitPicker> findAll(){
         List<FruitPicker> pickersList = fruitPickerDAO.findAll();
         setOtherData(pickersList);
+        setTypeInfo(pickersList);
         return pickersList;
     }
 
     public List<FruitPicker> findAll(String filter){
         List<FruitPicker> pickersList = fruitPickerDAO.findAll();
         Iterator<FruitPicker> iterator = pickersList.iterator();
-        setAdditionalInfo(pickersList);
+        setTypeInfo(pickersList);
 
         while(iterator.hasNext()){
             FruitPicker fp = iterator.next();
@@ -66,7 +66,7 @@ public class FruitPickerService implements Removeable {
         fruitPickerDAO.deleteById(id);
     }
 
-    private List<FruitPicker> setAdditionalInfo(List<FruitPicker> fruitPickers){
+    private List<FruitPicker> setTypeInfo(List<FruitPicker> fruitPickers){
 
         for(FruitPicker fp : fruitPickers){
             long packagesWithTypeOne  = fruitDeliveryService.findByIdWithType(fp.getId(),
@@ -84,6 +84,23 @@ public class FruitPickerService implements Removeable {
             fp.setPackageDeliveryWithTypeTwo(packagesWithTypeTwo);
             fp.setPackageDeliveryWithTypeThree(packagesWithTypeThree);
             fp.setPackageDeliveryWithTypeFour(packagesWithTypeFour);
+
+            // weight info
+            BigDecimal weightWithTypeOne  = fruitDeliveryService.findByIdWithType(fp.getId(),
+                    fruitTypeService.getType(0).getName()).stream().map(FruitDelivery::getFruitWeight).reduce(BigDecimal.ZERO, BigDecimal::add);
+            BigDecimal weightWithTypeTwo  = fruitDeliveryService.findByIdWithType(fp.getId(),
+                    fruitTypeService.getType(1).getName()).stream().map(FruitDelivery::getFruitWeight).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+            BigDecimal weightWithTypeThree  = fruitDeliveryService.findByIdWithType(fp.getId(),
+                    fruitTypeService.getType(2).getName()).stream().map(FruitDelivery::getFruitWeight).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+            BigDecimal weightWithTypeFour  = fruitDeliveryService.findByIdWithType(fp.getId(),
+                    fruitTypeService.getType(3).getName()).stream().map(FruitDelivery::getFruitWeight).reduce(BigDecimal.ZERO, BigDecimal::add);
+
+            fp.setWeightWithTypeOne(weightWithTypeOne);
+            fp.setWeightWithTypeTwo(weightWithTypeTwo);
+            fp.setWeightWithTypeThree(weightWithTypeThree);
+            fp.setWeightWithTypeFour(weightWithTypeFour);
         }
         return fruitPickers;
     }

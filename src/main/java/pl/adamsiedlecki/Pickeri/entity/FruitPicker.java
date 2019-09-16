@@ -37,6 +37,66 @@ public class FruitPicker {
 
     private BigDecimal weightSum;
 
+    private BigDecimal weightWithTypeOne;
+
+    private BigDecimal weightWithTypeTwo;
+
+    private BigDecimal weightWithTypeThree;
+
+    private BigDecimal weightWithTypeFour;
+
+    public BigDecimal getWeightWithTypeOne() {
+        return weightWithTypeOne;
+    }
+
+    public String getWeightKgWithTypeOnePlainText() {
+        BigDecimal result = weightWithTypeOne.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+        return result.toPlainString();
+    }
+
+    public String getWeightKgWithTypeTwoPlainText() {
+        BigDecimal result = weightWithTypeTwo.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+        return result.toPlainString();
+    }
+
+    public String getWeightKgWithTypeThreePlainText() {
+        BigDecimal result = weightWithTypeThree.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+        return result.toPlainString();
+    }
+
+    public String getWeightKgWithTypeFourPlainText() {
+        BigDecimal result = weightWithTypeFour.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+        return result.toPlainString();
+    }
+
+    public void setWeightWithTypeOne(BigDecimal weightWithTypeOne) {
+        this.weightWithTypeOne = weightWithTypeOne;
+    }
+
+    public BigDecimal getWeightWithTypeTwo() {
+        return weightWithTypeTwo;
+    }
+
+    public void setWeightWithTypeTwo(BigDecimal weightWithTypeTwo) {
+        this.weightWithTypeTwo = weightWithTypeTwo;
+    }
+
+    public BigDecimal getWeightWithTypeThree() {
+        return weightWithTypeThree;
+    }
+
+    public void setWeightWithTypeThree(BigDecimal weightWithTypeThree) {
+        this.weightWithTypeThree = weightWithTypeThree;
+    }
+
+    public BigDecimal getWeightWithTypeFour() {
+        return weightWithTypeFour;
+    }
+
+    public void setWeightWithTypeFour(BigDecimal weightWithTypeFour) {
+        this.weightWithTypeFour = weightWithTypeFour;
+    }
+
     // [gram]
     public BigDecimal getWeightSum(){
         return weightSum;

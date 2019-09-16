@@ -8,6 +8,7 @@ import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
+import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.tools.QRCodeWriterTool;
 
 import java.io.File;
@@ -29,7 +30,7 @@ public class PickersToPdfWriter {
             writer.setStrictImageSequence(true);
             addHeaderFooter(writer);
             document.open();
-            addTitle(document);
+            addTitle(document, "Lista pracowników z Pickeri "+ LocalDate.now());
         } catch (DocumentException e1) {
             e1.printStackTrace();
         } catch (FileNotFoundException e1) {
@@ -64,7 +65,7 @@ public class PickersToPdfWriter {
             addHeaderFooter(writer);
 
             document.open();
-            addTitle(document);
+            addTitle(document, "Lista pracowników z Pickeri "+ LocalDate.now());
         } catch (DocumentException e1) {
             e1.printStackTrace();
         } catch (FileNotFoundException e1) {
@@ -96,9 +97,9 @@ public class PickersToPdfWriter {
         return Image.getInstance(template);
     }
 
-    private static void addTitle(Document document){
+    private static void addTitle(Document document, String title){
         try {
-            document.add(new Paragraph("Lista pracowników z Pickeri "+ LocalDate.now(),
+            document.add(new Paragraph(title,
                     FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.BOLD)));
             document.add(new Paragraph(" "));
         } catch (DocumentException e) {
@@ -111,4 +112,71 @@ public class PickersToPdfWriter {
         writer.setPageEvent(event);
     }
 
+    public static void writeRaport(List<FruitPicker> fruitPickers, String pdfPath, FruitTypeService fruitTypeService) {
+
+        Document document = new Document();
+        PdfWriter writer = null;
+        try {
+            writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+            writer.setStrictImageSequence(true);
+            addHeaderFooter(writer);
+
+            document.open();
+            addTitle(document, "Raport pracowniczy Pickeri "+ LocalDate.now());
+        } catch (DocumentException e1) {
+            e1.printStackTrace();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+
+
+        for(FruitPicker fp: fruitPickers){
+            try {
+                PdfContentByte cb = writer.getDirectContentUnder();
+                String amountInfo=" ";
+                amountInfo = amountInfo.concat(getTypeInfoToString(fruitTypeService,fp,0));
+                amountInfo = amountInfo.concat(getTypeInfoToString(fruitTypeService,fp,1));
+                amountInfo = amountInfo.concat(getTypeInfoToString(fruitTypeService,fp,2));
+                amountInfo = amountInfo.concat(getTypeInfoToString(fruitTypeService,fp,3));
+
+                document.add(new Paragraph(fp.getId()+" "+fp.getName()+" "+fp.getLastName()+" | suma opakowań: "+fp.getPackageDeliveryAmount()
+                        +" | suma wagi [kg]: "+fp.getWeightSumKgPlainText()+amountInfo,
+                        FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+            } catch (DocumentException e1) {
+                e1.printStackTrace();
+            }
+        }
+        document.close();
+        writer.close();
+
+    }
+
+    private static String getTypeInfoToString(FruitTypeService fruitTypeService, FruitPicker fp, int typeSlot){
+        String result = " ";
+        String result2 = " ";
+        if(fruitTypeService.getType(typeSlot)!=null&&fruitTypeService.getType(typeSlot).getName()!=null){
+            if(typeSlot==0){
+                result = " | "+fruitTypeService.getType(0).getName()+" [opakowania]: "+fp.getPackageDeliveryWithTypeOne();
+            }else if(typeSlot==1){
+                result = " | "+fruitTypeService.getType(1).getName()+"[opakowania]: "+fp.getPackageDeliveryWithTypeTwo();
+            }else if(typeSlot==2){
+                result = " | "+fruitTypeService.getType(2).getName()+"[opakowania]: "+fp.getPackageDeliveryWithTypeThree();
+            }
+            else if(typeSlot==3){
+                result = " | "+fruitTypeService.getType(3).getName()+"[opakowania]: "+fp.getPackageDeliveryWithTypeFour();
+            }
+
+            if(typeSlot==0){
+                result2 = " | "+fruitTypeService.getType(0).getName()+" [kg]: "+fp.getWeightKgWithTypeOnePlainText();
+            }else if(typeSlot==1){
+                result2 = " | "+fruitTypeService.getType(1).getName()+"[kg]: "+fp.getWeightKgWithTypeTwoPlainText();
+            }else if(typeSlot==2){
+                result2 = " | "+fruitTypeService.getType(2).getName()+"[kg]: "+fp.getWeightKgWithTypeThreePlainText();
+            }
+            else if(typeSlot==3){
+                result2 = " | "+fruitTypeService.getType(3).getName()+"[kg]: "+fp.getWeightKgWithTypeFourPlainText();
+            }
+        }
+        return result+result2;
+    }
 }

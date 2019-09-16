@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
+import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.tools.pdf.PickersToPdfWriter;
 import java.io.File;
 import java.util.List;
@@ -18,15 +19,20 @@ import java.util.List;
 public class QRCodeGeneratorTab extends VerticalLayout {
 
     private FruitPickerService fruitPickerService;
+    private FruitTypeService fruitTypeService;
 
     @Autowired
-    public QRCodeGeneratorTab(FruitPickerService fruitPickerService){
+    public QRCodeGeneratorTab(FruitPickerService fruitPickerService, FruitTypeService fruitTypeService){
+        this.fruitTypeService = fruitTypeService;
         this.fruitPickerService = fruitPickerService;
         Button generatePdfButton = new Button("Generuj kody QR dla wszystkich pracowników");
         this.addComponent(generatePdfButton);
 
         Button generateListButton = new Button("Generuj listę z ID dla wszystkich pracowników");
         this.addComponent(generateListButton);
+
+        Button generatePickersRaport = new Button("Generuj raport na temat pracowników");
+        this.addComponent(generatePickersRaport);
 
         generatePdfButton.addClickListener(e->{
             String pdfPath = "src\\main\\resources\\downloads\\qrcodes.pdf";
@@ -48,6 +54,17 @@ public class QRCodeGeneratorTab extends VerticalLayout {
             List<FruitPicker> fruitPickers = fruitPickerService.findAll();
             PickersToPdfWriter.writeWithoutQR(fruitPickers,pdfPath);
             this.addComponent(new Link("Pobierz pdf z listą z numerami ID",new ExternalResource("/download/pdf/idList.pdf")));
+        });
+
+        generatePickersRaport.addClickListener(e->{
+            String pdfPath = "src\\main\\resources\\downloads\\pickersRaport.pdf";
+            File check = new File(pdfPath);
+            if(check.exists()){
+                check.delete();
+            }
+            List<FruitPicker> fruitPickers = fruitPickerService.findAll();
+            PickersToPdfWriter.writeRaport(fruitPickers,pdfPath,fruitTypeService);
+            this.addComponent(new Link("Pobierz raport w pdf",new ExternalResource("/download/pdf/pickersRaport.pdf")));
         });
     }
 
