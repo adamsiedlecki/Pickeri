@@ -15,6 +15,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -178,5 +180,94 @@ public class PickersToPdfWriter {
             }
         }
         return result+result2;
+    }
+
+    public static void writeEarningsRaportByKg(List<FruitPicker> fruitPickers, String pdfPath, String priceForTypeOne,
+                                               String priceForTypeTwo, String priceForTypeThree, String priceForTypeFour) {
+
+        Document document = new Document();
+        PdfWriter writer = null;
+        try {
+            writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+            writer.setStrictImageSequence(true);
+            addHeaderFooter(writer);
+
+            document.open();
+            addTitle(document, "Raport zarobków pracowników Pickeri [kg] "+ LocalDate.now());
+        } catch (DocumentException e1) {
+            e1.printStackTrace();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+
+        for(FruitPicker fp: fruitPickers){
+            try {
+                PdfContentByte cb = writer.getDirectContentUnder();
+
+                BigDecimal earnings1 = calculateEarnings(fp.getWeightWithTypeOne(),new BigDecimal(priceForTypeOne));
+                BigDecimal earnings2 = calculateEarnings(fp.getWeightWithTypeTwo(),new BigDecimal(priceForTypeTwo));
+                BigDecimal earnings3 = calculateEarnings(fp.getWeightWithTypeThree(),new BigDecimal(priceForTypeThree));
+                BigDecimal earnings4 = calculateEarnings(fp.getWeightWithTypeFour(),new BigDecimal(priceForTypeFour));
+                BigDecimal sum = earnings1.add(earnings2).add(earnings3).add(earnings4);
+
+                document.add(new Paragraph(fp.getId()+" "+fp.getName()+" "+fp.getLastName()+" : "+sum+" zł",
+                        FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+            } catch (DocumentException e1) {
+                e1.printStackTrace();
+            }
+        }
+        document.close();
+        writer.close();
+    }
+
+    private static BigDecimal calculateEarnings(BigDecimal weight, BigDecimal price){
+        BigDecimal weightKg = weight.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+        return weightKg.multiply(price);
+    }
+
+    private static BigDecimal calculateEarnings(long amountOfPackages, BigDecimal price){
+        BigDecimal amount = new BigDecimal(amountOfPackages);
+        return amount.multiply(price);
+    }
+
+    public static void writeEarningsRaportByPackages(List<FruitPicker> fruitPickers, String pdfPath, String priceForTypeOne,
+                                               String priceForTypeTwo, String priceForTypeThree, String priceForTypeFour) {
+
+        Document document = new Document();
+        PdfWriter writer = null;
+        try {
+            writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
+            writer.setStrictImageSequence(true);
+            addHeaderFooter(writer);
+
+            document.open();
+            addTitle(document, "Raport zarobków pracowników Pickeri [opakowania] "+ LocalDate.now());
+        } catch (DocumentException e1) {
+            e1.printStackTrace();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        }
+
+        for(FruitPicker fp: fruitPickers){
+            try {
+                PdfContentByte cb = writer.getDirectContentUnder();
+
+                BigDecimal earnings1 = calculateEarnings(fp.getPackageDeliveryWithTypeOne(),new BigDecimal(priceForTypeOne));
+                BigDecimal earnings2 = calculateEarnings(fp.getPackageDeliveryWithTypeTwo(),new BigDecimal(priceForTypeTwo));
+                BigDecimal earnings3 = calculateEarnings(fp.getPackageDeliveryWithTypeThree(),new BigDecimal(priceForTypeThree));
+                BigDecimal earnings4 = calculateEarnings(fp.getPackageDeliveryWithTypeFour(),new BigDecimal(priceForTypeFour));
+                BigDecimal sum = earnings1.add(earnings2).add(earnings3).add(earnings4);
+
+                System.out.println(fp.getPackageDeliveryWithTypeOne()+" "+priceForTypeOne);
+                System.out.println(fp.getPackageDeliveryWithTypeTwo()+" "+priceForTypeTwo);
+
+                document.add(new Paragraph(fp.getId()+" "+fp.getName()+" "+fp.getLastName()+" : "+sum+" zł",
+                        FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+            } catch (DocumentException e1) {
+                e1.printStackTrace();
+            }
+        }
+        document.close();
+        writer.close();
     }
 }
