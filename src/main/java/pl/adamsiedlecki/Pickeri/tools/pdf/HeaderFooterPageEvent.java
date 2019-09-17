@@ -17,7 +17,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
         try {
             image = Image.getInstance(ResourceGetter.getSiedleckiWhiteLogo().getAbsolutePath());
             image.setAlignment(Element.ALIGN_RIGHT);
-            image.setAbsolutePosition(285, 770);
+            image.setAbsolutePosition(400, 770);
             image.scalePercent(13, 13);
             writer.getDirectContent().addImage(image, true);
         } catch (IOException | DocumentException e) {

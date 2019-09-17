@@ -258,9 +258,6 @@ public class PickersToPdfWriter {
                 BigDecimal earnings4 = calculateEarnings(fp.getPackageDeliveryWithTypeFour(),new BigDecimal(priceForTypeFour));
                 BigDecimal sum = earnings1.add(earnings2).add(earnings3).add(earnings4);
 
-                System.out.println(fp.getPackageDeliveryWithTypeOne()+" "+priceForTypeOne);
-                System.out.println(fp.getPackageDeliveryWithTypeTwo()+" "+priceForTypeTwo);
-
                 document.add(new Paragraph(fp.getId()+" "+fp.getName()+" "+fp.getLastName()+" : "+sum+" zł",
                         FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
             } catch (DocumentException e1) {
