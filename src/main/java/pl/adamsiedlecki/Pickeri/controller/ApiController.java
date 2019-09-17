@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,12 +19,13 @@ public class ApiController {
 
     private FruitPickerService fruitPickerService;
     private FruitDeliveryService fruitDeliveryService;
-    private String pass = "pass";
+    private String pass;
 
     @Autowired
-    public ApiController(FruitPickerService pickerService, FruitDeliveryService fruitDeliveryService){
+    public ApiController(FruitPickerService pickerService, FruitDeliveryService fruitDeliveryService, Environment environment){
         this.fruitPickerService = pickerService;
         this.fruitDeliveryService = fruitDeliveryService;
+        pass = environment.getProperty("api.pass");
     }
 
     @RequestMapping(value = "/get-all/{key}", method = RequestMethod.GET)
