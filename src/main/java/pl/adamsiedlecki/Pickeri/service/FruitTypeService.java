@@ -30,6 +30,10 @@ public class FruitTypeService  {
         return fruitTypeDAO.getBySlot(slot);
     }
 
+    public List<String> getTypeNames(){
+        return fruitTypeDAO.getTypeNames();
+    }
+
     public void addTypes(List<FruitType> types) throws Exception{
 
         for(FruitType ft : types){

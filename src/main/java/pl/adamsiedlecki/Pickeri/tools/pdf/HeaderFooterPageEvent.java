@@ -11,8 +11,6 @@ import java.io.IOException;
 public class HeaderFooterPageEvent extends PdfPageEventHelper {
 
     public void onStartPage(PdfWriter writer, Document document) {
-//        ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER, new Phrase(" "), 30, 800, 0);
-//        ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_CENTER, new Phrase("Pickeri"), 550, 800, 0);
         Image image;
         try {
             image = Image.getInstance(ResourceGetter.getSiedleckiWhiteLogo().getAbsolutePath());

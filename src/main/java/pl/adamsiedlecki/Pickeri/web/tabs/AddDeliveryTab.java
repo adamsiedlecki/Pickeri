@@ -125,12 +125,12 @@ public class AddDeliveryTab extends VerticalLayout {
     }
 
     private void refreshVarieties(){
-        List<String> fruitVarietyNames = fruitVarietyService.findAll().stream().map(FruitVariety::getName).collect(Collectors.toList());
+        List<String> fruitVarietyNames = fruitVarietyService.getVarietiesNames();//.findAll().stream().map(FruitVariety::getName).collect(Collectors.toList());
         fruitVariety.setItems(fruitVarietyNames);
     }
 
     private void refreshTypes(){
-        List<String> types = fruitTypeService.findAll().stream().map(FruitType::getName).collect(Collectors.toList());
+        List<String> types = fruitTypeService.getTypeNames(); //fruitTypeService.findAll().stream().map(FruitType::getName).collect(Collectors.toList());
         fruitType.setItems(types);
     }
 

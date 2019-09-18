@@ -34,7 +34,7 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
         this.addComponent(generatePickersRaport);
 
         Button generateEarningsRaport = new Button("Generuj raport na temat zarobków pracowników [kg]");
-        HorizontalLayout earningsByKgLayout = new HorizontalLayout(generateEarningsRaport);
+        HorizontalLayout earningsByKgLayout = new HorizontalLayout();
 
         TextField priceTypeOneField = new TextField("Cena [w zł]  [za kg] dla typu: "+fruitTypeService.getType(0).getName());
         priceTypeOneField.setValue("0");
@@ -56,6 +56,7 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
         if(fruitTypeService.getType(3).getName()!=null){
             earningsByKgLayout.addComponentsAndExpand(priceTypeFourField);
         }
+        this.addComponent(generateEarningsRaport);
         this.addComponent(earningsByKgLayout);
 
         generateEarningsRaport.addClickListener(e->{
@@ -77,7 +78,7 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
 
         /// Earnings based on amount of packages
         Button generateEarningsRaportPackages = new Button("Generuj raport na temat zarobków pracowników [opakowania]");
-        HorizontalLayout earningsByPackagesLayout = new HorizontalLayout(generateEarningsRaportPackages);
+        HorizontalLayout earningsByPackagesLayout = new HorizontalLayout();
 
         TextField priceTypeOneFieldPackages = new TextField("Cena [w zł]  [za opakowanie] dla typu: "+fruitTypeService.getType(0).getName());
         priceTypeOneFieldPackages.setValue("0");
@@ -99,6 +100,7 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
         if(fruitTypeService.getType(3).getName()!=null){
             earningsByPackagesLayout.addComponentsAndExpand(priceTypeFourFieldPackages);
         }
+        this.addComponent(generateEarningsRaportPackages);
         this.addComponent(earningsByPackagesLayout);
 
         generateEarningsRaportPackages.addClickListener(e->{

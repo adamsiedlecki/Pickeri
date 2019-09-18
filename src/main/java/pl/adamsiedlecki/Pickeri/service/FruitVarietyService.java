@@ -75,4 +75,8 @@ public class FruitVarietyService implements Removeable {
     public void removeById(Long id) {
         fruitVarietyDAO.deleteById(id);
     }
+
+    public List<String> getVarietiesNames() {
+        return fruitVarietyDAO.getVarietiesNames();
+    }
 }
