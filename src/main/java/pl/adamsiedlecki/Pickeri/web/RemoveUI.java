@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web;
 
+import com.vaadin.server.ExternalResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
@@ -58,6 +59,7 @@ public class RemoveUI extends UI {
         root.addComponent(deleteFruitPickersButton);
         root.addComponent(deleteFruitDeliveriesButton);
         root.addComponent(deleteFruitVarietiesButton);
+        root.addComponent(new Link("ZMIANA HASŁA", new ExternalResource("/password-change")));
 
         this.setContent(root);
     }

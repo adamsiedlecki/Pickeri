@@ -113,4 +113,40 @@ public class ResourceGetter {
         return logo;
     }
 
+    public static File getTractorPicture(){
+        File logo = null;
+        String osName = System.getProperty("os.name").toLowerCase();
+        if (osName.indexOf("win") >= 0) {
+            logo = new File("src\\main\\resources\\images\\trzydziestka.jpg");
+        } else if (osName.indexOf("nux") >= 0) {
+            logo = new File("trzydziestka.jpg");
+            if(!logo.exists()){
+                logo = new File("src/main/resources/images/trzydziestka.jpg");
+            }
+            if(!logo.exists()){
+                URL url2 = Resources.getResource("images/trzydziestka.jpg");
+                logo = new File(url2.getFile());
+            }
+            if(!logo.exists()){
+                logo = new File("src/main/resources/images/trzydziestka.jpg");
+            }
+            if(!logo.exists()){
+                logo = new File("trzydziestka.jpg");
+            }
+            if(!logo.exists()){
+                URL url = Resources.getResource("/images/trzydziestka.jpg");
+                logo = new File(url.getFile());
+            }
+            if(!logo.exists()){
+                while(true){
+                    System.out.println("ERROR: TRACTOR PICTURE NOT FOUND");
+                }
+            }
+
+        }
+        return logo;
+    }
+
+
+
 }
