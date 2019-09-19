@@ -3,7 +3,10 @@ package pl.adamsiedlecki.Pickeri.web;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Embedded;
+import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.AddDeleteTypeTab;
@@ -12,7 +15,7 @@ import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.AddPickerTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.PdfDocumentsGeneratorTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.OthersTab;
 
-@SpringUI(path="/other")
+@SpringUI(path = "/other")
 public class OthersUI extends UI {
 
     private TabSheet tabs;
@@ -25,7 +28,7 @@ public class OthersUI extends UI {
 
     @Autowired
     public OthersUI(AddFruitVarietyTab addFruitVarietyTab, PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab, OthersTab othersTab,
-                    AddPickerTab addPickerTab, AddDeleteTypeTab addDeleteTypeTab){
+                    AddPickerTab addPickerTab, AddDeleteTypeTab addDeleteTypeTab) {
         this.addDeleteTypeTab = addDeleteTypeTab;
         this.addPickerTab = addPickerTab;
         this.pdfDocumentsGeneratorTab = pdfDocumentsGeneratorTab;
@@ -41,13 +44,13 @@ public class OthersUI extends UI {
         this.setContent(root);
     }
 
-    private void addTabs(){
+    private void addTabs() {
         tabs = new TabSheet();
-        tabs.addTab(fruitVarietyTab,"Dodaj odmianę owocu");
-        tabs.addTab(addPickerTab,"Dodaj pracownika");
-        tabs.addTab(addDeleteTypeTab,"Dodaj / usuń typ owocu");
-        tabs.addTab(pdfDocumentsGeneratorTab,"Wygeneruj pliki pdf");
-        tabs.addTab(othersTab,"Reszta");
+        tabs.addTab(fruitVarietyTab, "Dodaj odmianę owocu");
+        tabs.addTab(addPickerTab, "Dodaj pracownika");
+        tabs.addTab(addDeleteTypeTab, "Dodaj / usuń typ owocu");
+        tabs.addTab(pdfDocumentsGeneratorTab, "Wygeneruj pliki pdf");
+        tabs.addTab(othersTab, "Reszta");
         root.addComponent(tabs);
     }
 

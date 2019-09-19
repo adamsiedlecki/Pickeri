@@ -42,7 +42,7 @@ public class FruitDelivery {
     public FruitDelivery() {
     }
 
-    public FruitDelivery(Long fruitPickerId,String fruitType, Long packageAmount, String comment,String fruitVariety, LocalDateTime deliveryTime) {
+    public FruitDelivery(Long fruitPickerId, String fruitType, Long packageAmount, String comment, String fruitVariety, LocalDateTime deliveryTime) {
         this.fruitPickerId = fruitPickerId;
         this.packageAmount = packageAmount;
         this.deliveryTime = deliveryTime;
@@ -134,8 +134,8 @@ public class FruitDelivery {
         this.fruitPickerId = fruitPickerId;
     }
 
-    public String getWeightSumKgPlainText(){
-        BigDecimal result = fruitWeight.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+    public String getWeightSumKgPlainText() {
+        BigDecimal result = fruitWeight.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
         return result.toPlainString();
     }
 

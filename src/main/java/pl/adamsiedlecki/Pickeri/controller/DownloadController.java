@@ -2,10 +2,8 @@ package pl.adamsiedlecki.Pickeri.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +24,7 @@ public class DownloadController {
     private ServletContext context;
 
     @Autowired
-    public DownloadController(ServletContext servletContext){
+    public DownloadController(ServletContext servletContext) {
         this.context = servletContext;
     }
 

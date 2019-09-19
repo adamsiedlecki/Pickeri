@@ -12,7 +12,7 @@ import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.AllDeliveriesTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.OthersTab;
 
-@SpringUI(path="/all-deliveries")
+@SpringUI(path = "/all-deliveries")
 public class AllDeliveriesUI extends UI {
 
     private TabSheet tabs;
@@ -21,7 +21,7 @@ public class AllDeliveriesUI extends UI {
     private OthersTab othersTab;
 
     @Autowired
-    public AllDeliveriesUI(AllDeliveriesTab allDeliveriesTab, OthersTab othersTab){
+    public AllDeliveriesUI(AllDeliveriesTab allDeliveriesTab, OthersTab othersTab) {
         this.allDeliveriesTab = allDeliveriesTab;
         this.othersTab = othersTab;
     }
@@ -34,10 +34,10 @@ public class AllDeliveriesUI extends UI {
         this.setContent(root);
     }
 
-    private void addTabs(){
+    private void addTabs() {
         tabs = new TabSheet();
-        tabs.addTab(allDeliveriesTab,"Wszystkie dostawy");
-        tabs.addTab(othersTab,"Reszta");
+        tabs.addTab(allDeliveriesTab, "Wszystkie dostawy");
+        tabs.addTab(othersTab, "Reszta");
         root.addComponent(tabs);
     }
 

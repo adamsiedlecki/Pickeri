@@ -50,22 +50,22 @@ public class FruitPicker {
     }
 
     public String getWeightKgWithTypeOnePlainText() {
-        BigDecimal result = weightWithTypeOne.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+        BigDecimal result = weightWithTypeOne.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
         return result.toPlainString();
     }
 
     public String getWeightKgWithTypeTwoPlainText() {
-        BigDecimal result = weightWithTypeTwo.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+        BigDecimal result = weightWithTypeTwo.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
         return result.toPlainString();
     }
 
     public String getWeightKgWithTypeThreePlainText() {
-        BigDecimal result = weightWithTypeThree.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+        BigDecimal result = weightWithTypeThree.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
         return result.toPlainString();
     }
 
     public String getWeightKgWithTypeFourPlainText() {
-        BigDecimal result = weightWithTypeFour.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+        BigDecimal result = weightWithTypeFour.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
         return result.toPlainString();
     }
 
@@ -98,16 +98,16 @@ public class FruitPicker {
     }
 
     // [gram]
-    public BigDecimal getWeightSum(){
+    public BigDecimal getWeightSum() {
         return weightSum;
     }
 
-    public String getWeightSumKgPlainText(){
-        BigDecimal result = weightSum.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+    public String getWeightSumKgPlainText() {
+        BigDecimal result = weightSum.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
         return result.toPlainString();
     }
 
-    public void  setWeightSum(BigDecimal weightSum){
+    public void setWeightSum(BigDecimal weightSum) {
         this.weightSum = weightSum;
     }
 

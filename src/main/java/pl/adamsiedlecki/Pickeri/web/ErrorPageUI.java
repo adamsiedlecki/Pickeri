@@ -1,33 +1,24 @@
 package pl.adamsiedlecki.Pickeri.web;
 
-import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
-import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.*;
-import org.apache.commons.lang3.math.NumberUtils;
-import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
-import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
-import pl.adamsiedlecki.Pickeri.tools.QRCodeReader;
+import com.vaadin.ui.Embedded;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 
-@SpringUI(path="/errorPage")
+@SpringUI(path = "/errorPage")
 public class ErrorPageUI extends UI {
 
     private VerticalLayout root;
 
-    public ErrorPageUI(){
+    public ErrorPageUI() {
     }
 
     @Override
@@ -41,15 +32,5 @@ public class ErrorPageUI extends UI {
         root.addComponent(picture);
         root.addComponent(new Embedded("", new FileResource(ResourceGetter.getPickeriLogo())));
         this.setContent(root);
-    }
-
-    private String getInfo(VaadinRequest request){
-        Map<String, String[]> map = request.getParameterMap();
-        String result = " ";
-        Set<String> keys = map.keySet();
-        for (String key : keys){
-            result = result.concat(key+" : "+map.get(key)+" \n ");
-        }
-        return result;
     }
 }

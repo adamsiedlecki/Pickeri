@@ -6,7 +6,6 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 
@@ -18,14 +17,14 @@ public class AllDeliveriesTab extends VerticalLayout {
     private FruitDeliveryService fruitDeliveryService;
 
     @Autowired
-    public AllDeliveriesTab(FruitDeliveryService fruitDeliveryService){
+    public AllDeliveriesTab(FruitDeliveryService fruitDeliveryService) {
         this.fruitDeliveryService = fruitDeliveryService;
         addComponents();
     }
 
-    private void addComponents(){
+    private void addComponents() {
         Button refreshButton = new Button("Odśwież");
-        refreshButton.addClickListener(e->refreshGrid());
+        refreshButton.addClickListener(e -> refreshGrid());
         fruitDeliveryGrid = new Grid<>();
         fruitDeliveryGrid.addColumn(FruitDelivery::getPackageAmount).setCaption("Ilość opakowań");
         fruitDeliveryGrid.addColumn(FruitDelivery::getWeightSumKgPlainText).setCaption("Waga [kg]");
@@ -41,7 +40,7 @@ public class AllDeliveriesTab extends VerticalLayout {
         refreshGrid();
     }
 
-    private void refreshGrid(){
+    private void refreshGrid() {
         fruitDeliveryGrid.setItems(fruitDeliveryService.findAll());
         fruitDeliveryGrid.setHeight(700, Unit.PIXELS);
     }

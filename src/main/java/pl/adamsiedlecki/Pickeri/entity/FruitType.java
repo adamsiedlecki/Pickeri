@@ -16,7 +16,7 @@ public class FruitType {
     @Column
     private Integer slot;
 
-    public FruitType(String name,Integer slot) {
+    public FruitType(String name, Integer slot) {
         this.name = name;
         this.slot = slot;
     }
@@ -25,7 +25,7 @@ public class FruitType {
     }
 
     public Integer getSlot() {
-        if(slot==null)
+        if (slot == null)
             return -1;
         return slot;
     }

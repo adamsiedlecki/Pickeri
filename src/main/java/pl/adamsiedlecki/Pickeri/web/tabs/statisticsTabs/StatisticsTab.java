@@ -2,7 +2,10 @@ package pl.adamsiedlecki.Pickeri.web.tabs.statisticsTabs;
 
 import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Grid;
+import com.vaadin.ui.Label;
+import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
@@ -30,14 +33,14 @@ public class StatisticsTab extends VerticalLayout {
 
     @Autowired
     public StatisticsTab(FruitDeliveryService fruitDeliveryService, FruitPickerService fruitPickerService,
-                         FruitVarietyService fruitVarietyService){
+                         FruitVarietyService fruitVarietyService) {
         this.fruitVarietyService = fruitVarietyService;
         this.fruitDeliveryService = fruitDeliveryService;
         this.fruitPickerService = fruitPickerService;
         initComponents();
     }
 
-    private void initComponents(){
+    private void initComponents() {
         VerticalLayout root = new VerticalLayout();
         pickersSum = new Label();
         packagesSum = new Label();
@@ -45,7 +48,7 @@ public class StatisticsTab extends VerticalLayout {
         weightSum = new Label();
         VerticalLayout varietiesPackageAmountAndPercentageLayout = new VerticalLayout();
         Button refreshButton = new Button("Odśwież");
-        refreshButton.addClickListener(e->refreshData());
+        refreshButton.addClickListener(e -> refreshData());
         varietiesGridPackageStat = new Grid<>();
         varietiesGridPackageStat.addColumn(FruitVariety::getId).setCaption("ID");
         varietiesGridPackageStat.addColumn(FruitVariety::getName).setCaption("Nazwa");
@@ -72,19 +75,19 @@ public class StatisticsTab extends VerticalLayout {
         this.addComponent(root);
     }
 
-    private void refreshData(){
-        pickersSum.setValue("Ilość pracowników w systemie: "+fruitPickerService.getTotalAmountOfPickers());
-        packagesSum.setValue("Suma wszystkich opakowań: "+fruitDeliveryService.getTotalAmountOfPackages());
-        varietiesSum.setValue("Suma odmian w systemie: "+fruitVarietyService.findAll().size());
-        weightSum.setValue("Całkowita masa owoców w systemie [w kg]: "+fruitDeliveryService.getWeightSum()
-                .divide(new BigDecimal(1000),4, RoundingMode.FLOOR));
+    private void refreshData() {
+        pickersSum.setValue("Ilość pracowników w systemie: " + fruitPickerService.getTotalAmountOfPickers());
+        packagesSum.setValue("Suma wszystkich opakowań: " + fruitDeliveryService.getTotalAmountOfPackages());
+        varietiesSum.setValue("Suma odmian w systemie: " + fruitVarietyService.findAll().size());
+        weightSum.setValue("Całkowita masa owoców w systemie [w kg]: " + fruitDeliveryService.getWeightSum()
+                .divide(new BigDecimal(1000), 4, RoundingMode.FLOOR));
         List<FruitVariety> varieties = fruitVarietyService.findAll();
 
-        setGrid(varietiesGridPackageStat,varieties);
-        setGrid(varietiesGridWeightStat,varieties);
+        setGrid(varietiesGridPackageStat, varieties);
+        setGrid(varietiesGridWeightStat, varieties);
     }
 
-    private void setGrid(Grid<FruitVariety> grid, List<FruitVariety> varieties){
+    private void setGrid(Grid<FruitVariety> grid, List<FruitVariety> varieties) {
         grid.setItems(varieties);
         grid.setSizeFull();
         grid.sort("total", SortDirection.DESCENDING);

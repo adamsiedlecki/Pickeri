@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import pl.adamsiedlecki.Pickeri.entity.Expense;
 import pl.adamsiedlecki.Pickeri.service.ExpenseService;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -18,7 +19,7 @@ public class AddExpenseTab extends VerticalLayout {
     private ExpenseService expenseService;
 
     @Autowired
-    public AddExpenseTab(ExpenseService expenseService){
+    public AddExpenseTab(ExpenseService expenseService) {
         this.expenseService = expenseService;
         initComponents();
         this.addComponentsAndExpand(root);
@@ -30,17 +31,17 @@ public class AddExpenseTab extends VerticalLayout {
         TextField nameField = new TextField("Nazwa wydatku");
         TextField amountOfMoneyField = new TextField("Kwota [zł] (grosze oddzielamy kropką)");
         Button saveButton = new Button("ZAPISZ");
-        saveButton.addClickListener(x->{
-            if(!"".equals(nameField.getValue())&&!"".equals(amountOfMoneyField)&& NumberUtils.isCreatable(amountOfMoneyField.getValue())){
-                Expense expense = new Expense(nameField.getValue(),new BigDecimal(amountOfMoneyField.getValue()), LocalDateTime.now());
+        saveButton.addClickListener(x -> {
+            if (!"".equals(nameField.getValue()) && !"".equals(amountOfMoneyField.getValue()) && NumberUtils.isCreatable(amountOfMoneyField.getValue())) {
+                Expense expense = new Expense(nameField.getValue(), new BigDecimal(amountOfMoneyField.getValue()), LocalDateTime.now());
                 expenseService.save(expense);
                 nameField.clear();
                 amountOfMoneyField.clear();
-            }else{
+            } else {
                 Notification.show("Wprowadzone dane są niepoprawne.");
             }
         });
-        formLayout.addComponents(nameField,amountOfMoneyField,saveButton);
+        formLayout.addComponents(nameField, amountOfMoneyField, saveButton);
         root.addComponent(formLayout);
     }
 

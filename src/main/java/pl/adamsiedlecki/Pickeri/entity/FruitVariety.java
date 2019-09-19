@@ -10,7 +10,7 @@ public class FruitVariety {
 
     @Id
     @Column
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -75,20 +75,20 @@ public class FruitVariety {
         this.totalPackages = totalPackages;
     }
 
-    public String getPercentageParticipationInPackagesAmountPlainText(){
+    public String getPercentageParticipationInPackagesAmountPlainText() {
         return percentageParticipationInPackagesAmount.toPlainString();
     }
 
-    public BigDecimal getTotalWeight(){
+    public BigDecimal getTotalWeight() {
         return totalWeight;
     }
 
-    public void setTotalWeight(BigDecimal totalWeight){
+    public void setTotalWeight(BigDecimal totalWeight) {
         this.totalWeight = totalWeight;
     }
 
-    public BigDecimal getTotalWeightKgPlainText(){
-        return totalWeight.divide(new BigDecimal(1000),4, RoundingMode.FLOOR);
+    public BigDecimal getTotalWeightKgPlainText() {
+        return totalWeight.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
     }
 
     public BigDecimal getPercentageParticipationInWeight() {

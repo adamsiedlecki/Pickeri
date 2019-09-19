@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-@SpringUI(path="/home")
+@SpringUI(path = "/home")
 public class HomePage extends UI {
 
     private VerticalLayout root;
@@ -33,7 +33,7 @@ public class HomePage extends UI {
     private Label totalAmountOfPackagesLabel;
     private Label todayAmountOfPackagesLabel;
 
-    public HomePage(FruitDeliveryService fruitDeliveryService){
+    public HomePage(FruitDeliveryService fruitDeliveryService) {
         this.fruitDeliveryService = fruitDeliveryService;
     }
 
@@ -52,23 +52,23 @@ public class HomePage extends UI {
         qrUpload.setButtonCaption("Naciśnij aby wybrać obraz");
         qrUpload.setReceiver(new ImageUploader());
 
-        qrUpload.addSucceededListener(e->{
+        qrUpload.addSucceededListener(e -> {
             String value = QRCodeReader.decodeQRCode(new File(path));
-            if(value!=null){
+            if (value != null) {
                 List<String> items = Arrays.asList(value.split("\\s*,\\s*"));
-                System.out.println(items.size()+ value);
-                if(items.size()==2){
+                System.out.println(items.size() + value);
+                if (items.size() == 2) {
                     fruitPickerId.setValue(items.get(0));
                     nameLabel.setValue(items.get(1));
 
-                }else{
+                } else {
                     Notification.show("Obraz nie zawiera poprawnego kodu QR!");
                     fruitPickerId.setValue("");
                     nameLabel.setValue("");
                     File f = new File(path);
                     f.delete();
                 }
-            }else{
+            } else {
                 Notification.show("Obraz nie zawiera kodu QR - może zrób wyraźniejsze zdjęcie?");
                 fruitPickerId.setValue("");
                 nameLabel.setValue("");
@@ -79,32 +79,33 @@ public class HomePage extends UI {
 
         root.addComponent(new Embedded("", new FileResource(ResourceGetter.getPickeriLogo())));
         root.addComponent(new Label("Welcome to Pickeri!"));
-        root.addComponent(new Link("LOGIN PAGE",new ExternalResource("/login")));
+        root.addComponent(new Link("LOGIN PAGE", new ExternalResource("/login")));
         root.addComponent(new Label("   "));
         root.addComponent(new Label("Podaj swóje ID lub zeskanuj kod QR aby sprawdzić stan:"));
-        root.addComponent(new HorizontalLayout(fruitPickerId,qrUpload,findInfoButton));
+        root.addComponent(new HorizontalLayout(fruitPickerId, qrUpload, findInfoButton));
         root.addComponent(todayAmountOfPackagesLabel);
         root.addComponent(totalAmountOfPackagesLabel);
 
-        findInfoButton.addClickListener(e->{
-            if(NumberUtils.isCreatable(fruitPickerId.getValue())){
+        findInfoButton.addClickListener(e -> {
+            if (NumberUtils.isCreatable(fruitPickerId.getValue())) {
                 List<FruitDelivery> deliveryList = fruitDeliveryService.getDeliveriesByPickerId(Long.parseLong(fruitPickerId.getValue()));
                 int total = 0;
                 int today = 0;
 
-                for(FruitDelivery fd : deliveryList){
-                    total+=fd.getPackageAmount();
-                    if(fd.getDeliveryTime().getDayOfYear()== LocalDateTime.now().getDayOfYear()){
-                        today+=fd.getPackageAmount();
+                for (FruitDelivery fd : deliveryList) {
+                    total += fd.getPackageAmount();
+                    if (fd.getDeliveryTime().getDayOfYear() == LocalDateTime.now().getDayOfYear()) {
+                        today += fd.getPackageAmount();
                     }
                 }
-                todayAmountOfPackagesLabel.setValue("Ilość opakowań dzisiaj: "+today);
-                totalAmountOfPackagesLabel.setValue("Suma wszystkich opakowań: "+total);
+                todayAmountOfPackagesLabel.setValue("Ilość opakowań dzisiaj: " + today);
+                totalAmountOfPackagesLabel.setValue("Suma wszystkich opakowań: " + total);
             }
         });
         this.setContent(root);
     }
-    private class ImageUploader implements Upload.Receiver, Upload.SucceededListener  {
+
+    private class ImageUploader implements Upload.Receiver, Upload.SucceededListener {
         private File file;
 
         public OutputStream receiveUpload(String filename,
@@ -114,7 +115,7 @@ public class HomePage extends UI {
             FileOutputStream fos; // Stream to write to
             try {
                 // Open the file for writing.
-                file = new File( filename);
+                file = new File(filename);
                 path = file.getAbsolutePath();
                 fos = new FileOutputStream(file);
             } catch (final java.io.FileNotFoundException e) {

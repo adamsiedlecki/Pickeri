@@ -3,6 +3,7 @@ package pl.adamsiedlecki.Pickeri.tools;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
@@ -11,7 +12,7 @@ import java.io.IOException;
 
 public class QRCodeReader {
 
-    public static String decodeQRCode(File qrCodeimage)  {
+    public static String decodeQRCode(File qrCodeimage) {
         BufferedImage bufferedImage = null;
         try {
             bufferedImage = ImageIO.read(qrCodeimage);
@@ -20,8 +21,8 @@ public class QRCodeReader {
         }
 
         // https://stackoverflow.com/questions/3433275/adjust-brightness-and-contrast-of-bufferedimage-in-java
-        RescaleOp rescaleOp = new RescaleOp(0.4f,1, null); //new RescaleOp(1.8f, 15, null);
-        rescaleOp.filter(bufferedImage,bufferedImage);
+        RescaleOp rescaleOp = new RescaleOp(0.4f, 1, null); //new RescaleOp(1.8f, 15, null);
+        rescaleOp.filter(bufferedImage, bufferedImage);
 
         File f = new File("image.jpg");
         try {

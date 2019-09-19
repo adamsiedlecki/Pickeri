@@ -18,25 +18,25 @@ public class AddPickerTab extends VerticalLayout {
     private FruitPickerService fruitPickerService;
 
     @Autowired
-    public AddPickerTab(FruitPickerService fruitPickerService){
+    public AddPickerTab(FruitPickerService fruitPickerService) {
         this.fruitPickerService = fruitPickerService;
         initFields();
         this.addComponent(formLayout);
     }
 
-    private void initFields(){
+    private void initFields() {
         formLayout = new FormLayout();
         name = new TextField("Imię");
         lastName = new TextField("Nazwisko");
         radioButtonGroup = new RadioButtonGroup<>();
-        radioButtonGroup.setItems("Kobieta","Mężczyzna");
+        radioButtonGroup.setItems("Kobieta", "Mężczyzna");
         Button saveButton = new Button("ZAPISZ");
 
-        saveButton.addClickListener(x->{
-            if(name.isEmpty()||lastName.isEmpty()||radioButtonGroup.isEmpty()){
+        saveButton.addClickListener(x -> {
+            if (name.isEmpty() || lastName.isEmpty() || radioButtonGroup.isEmpty()) {
                 Notification.show("Wprowadź imię, nazwisko i płeć!");
-            }else{
-                FruitPicker fruitPicker = new FruitPicker(name.getValue(),lastName.getValue(),radioButtonGroup.getValue());
+            } else {
+                FruitPicker fruitPicker = new FruitPicker(name.getValue(), lastName.getValue(), radioButtonGroup.getValue());
                 fruitPickerService.addFruitPicker(fruitPicker);
                 name.setValue("");
                 lastName.setValue("");
@@ -45,7 +45,7 @@ public class AddPickerTab extends VerticalLayout {
 
         });
 
-        formLayout.addComponents(name,lastName,radioButtonGroup, saveButton);
+        formLayout.addComponents(name, lastName, radioButtonGroup, saveButton);
     }
 
 }

@@ -1,59 +1,59 @@
 package pl.adamsiedlecki.Pickeri.tools;
 
 
+import com.google.common.io.Resources;
+
 import java.io.File;
 import java.net.URL;
-import com.google.common.io.Resources;
 
 public class ResourceGetter {
 
-    public static File getPickeriLogo(){
-            return getFileByName("pickeri.png");
+    public static File getPickeriLogo() {
+        return getFileByName("pickeri.png");
     }
 
-    public static File getSiedleckiBlackLogo(){
-            return getFileByName("logo2.png");
+    public static File getSiedleckiBlackLogo() {
+        return getFileByName("logo2.png");
     }
 
-    public static File getSiedleckiWhiteLogo(){
+    public static File getSiedleckiWhiteLogo() {
         return getFileByName("logo9.png");
     }
 
-    public static File getTractorPicture(){
+    public static File getTractorPicture() {
         return getFileByName("trzydziestka.jpg");
     }
 
-    public static File getFileByName(String  fileNameWithExtension){
+    private static File getFileByName(String fileNameWithExtension) {
         File logo = null;
         String osName = System.getProperty("os.name").toLowerCase();
-        if (osName.indexOf("win") >= 0) {
-            logo = new File("src\\main\\resources\\images\\"+fileNameWithExtension);
-        } else if (osName.indexOf("nux") >= 0) {
+        if (osName.contains("win")) {
+            logo = new File("src\\main\\resources\\images\\" + fileNameWithExtension);
+        } else if (osName.contains("nux")) {
             logo = new File("trzydziestka.jpg");
-            if(!logo.exists()){
-                logo = new File("src/main/resources/images/"+fileNameWithExtension);
+            if (!logo.exists()) {
+                logo = new File("src/main/resources/images/" + fileNameWithExtension);
             }
-            if(!logo.exists()){
-                URL url2 = Resources.getResource("images/"+fileNameWithExtension);
+            if (!logo.exists()) {
+                URL url2 = Resources.getResource("images/" + fileNameWithExtension);
                 logo = new File(url2.getFile());
             }
-            if(!logo.exists()){
-                logo = new File("src/main/resources/images/"+fileNameWithExtension);
+            if (!logo.exists()) {
+                logo = new File("src/main/resources/images/" + fileNameWithExtension);
             }
-            if(!logo.exists()){
+            if (!logo.exists()) {
                 logo = new File(fileNameWithExtension);
             }
-            if(!logo.exists()){
-                URL url = Resources.getResource("/images/"+fileNameWithExtension);
+            if (!logo.exists()) {
+                URL url = Resources.getResource("/images/" + fileNameWithExtension);
                 logo = new File(url.getFile());
             }
-            if(!logo.exists()){
-                    System.out.println("ERROR: "+fileNameWithExtension+" NOT FOUND");
+            if (!logo.exists()) {
+                System.out.println("ERROR: " + fileNameWithExtension + " NOT FOUND");
             }
         }
         return logo;
     }
-
 
 
 }

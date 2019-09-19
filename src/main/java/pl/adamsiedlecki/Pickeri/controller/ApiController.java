@@ -22,19 +22,19 @@ public class ApiController {
     private String pass;
 
     @Autowired
-    public ApiController(FruitPickerService pickerService, FruitDeliveryService fruitDeliveryService, Environment environment){
+    public ApiController(FruitPickerService pickerService, FruitDeliveryService fruitDeliveryService, Environment environment) {
         this.fruitPickerService = pickerService;
         this.fruitDeliveryService = fruitDeliveryService;
         pass = environment.getProperty("api.pass");
     }
 
     @RequestMapping(value = "/get-all/{key}", method = RequestMethod.GET)
-    public String getInfo(@PathVariable String key){
+    public String getInfo(@PathVariable String key) {
 
-        if(pass.equals(key)){
+        if (pass.equals(key)) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-                return  mapper.writeValueAsString(fruitPickerService.findAll());
+                return mapper.writeValueAsString(fruitPickerService.findAll());
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -43,12 +43,12 @@ public class ApiController {
     }
 
     @RequestMapping(value = "/get-pickers-amount/{key}", method = RequestMethod.GET)
-    public String getPickersAmountInfo(@PathVariable String key){
+    public String getPickersAmountInfo(@PathVariable String key) {
 
-        if(pass.equals(key)){
+        if (pass.equals(key)) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-                return  mapper.writeValueAsString(fruitPickerService.getTotalAmountOfPickers());
+                return mapper.writeValueAsString(fruitPickerService.getTotalAmountOfPickers());
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -57,12 +57,12 @@ public class ApiController {
     }
 
     @RequestMapping(value = "/get-weight/{key}", method = RequestMethod.GET)
-    public String getWeightInfo(@PathVariable String key){
+    public String getWeightInfo(@PathVariable String key) {
 
-        if(pass.equals(key)){
+        if (pass.equals(key)) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-                return  mapper.writeValueAsString(fruitDeliveryService.getWeightSum());
+                return mapper.writeValueAsString(fruitDeliveryService.getWeightSum());
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -71,12 +71,12 @@ public class ApiController {
     }
 
     @RequestMapping(value = "/get-packages-amount/{key}", method = RequestMethod.GET)
-    public String getPackagesInfo(@PathVariable String key){
+    public String getPackagesInfo(@PathVariable String key) {
 
-        if(pass.equals(key)){
+        if (pass.equals(key)) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-                return  mapper.writeValueAsString(fruitDeliveryService.getTotalAmountOfPackages());
+                return mapper.writeValueAsString(fruitDeliveryService.getTotalAmountOfPackages());
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }

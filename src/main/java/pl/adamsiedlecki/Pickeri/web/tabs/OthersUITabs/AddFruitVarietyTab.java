@@ -20,11 +20,11 @@ public class AddFruitVarietyTab extends VerticalLayout {
     private Button save;
 
     @Autowired
-    public AddFruitVarietyTab(FruitVarietyService fruitVarietyService){
+    public AddFruitVarietyTab(FruitVarietyService fruitVarietyService) {
         initComponents();
-        save.addClickListener(e->{
-            if(!name.isEmpty()){
-                FruitVariety newVariety = new FruitVariety(name.getValue(),comment.getValue());
+        save.addClickListener(e -> {
+            if (!name.isEmpty()) {
+                FruitVariety newVariety = new FruitVariety(name.getValue(), comment.getValue());
                 fruitVarietyService.save(newVariety);
                 name.clear();
                 comment.clear();
@@ -32,7 +32,7 @@ public class AddFruitVarietyTab extends VerticalLayout {
         });
     }
 
-    private void initComponents(){
+    private void initComponents() {
         root = new VerticalLayout();
         name = new TextField("Nazwa");
         comment = new TextField("Komentarz, opis");

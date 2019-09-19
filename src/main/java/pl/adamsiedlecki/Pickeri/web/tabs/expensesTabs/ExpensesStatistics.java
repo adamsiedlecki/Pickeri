@@ -6,7 +6,6 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.service.ExpenseService;
 
 @SpringComponent
@@ -20,7 +19,7 @@ public class ExpensesStatistics extends VerticalLayout {
     private ExpenseService expenseService;
 
     @Autowired
-    public ExpensesStatistics(ExpenseService expenseService){
+    public ExpensesStatistics(ExpenseService expenseService) {
         this.expenseService = expenseService;
         initComponents();
         this.addComponent(root);
@@ -32,15 +31,13 @@ public class ExpensesStatistics extends VerticalLayout {
         totalAmountOfSpentMoney = new Label();
         averageAmountOfMoney = new Label();
         refreshButton = new Button("ODŚWIEŻ");
-        refreshButton.addClickListener(e->{
-            refreshData();
-        });
-        root.addComponentsAndExpand(refreshButton, totalAmountOfSpentMoney,averageAmountOfMoney);
+        refreshButton.addClickListener(e -> refreshData());
+        root.addComponentsAndExpand(refreshButton, totalAmountOfSpentMoney, averageAmountOfMoney);
     }
 
-    private void refreshData(){
-        totalAmountOfSpentMoney.setValue("Suma wydanych środków: "+expenseService.getTotalAmountOfSpentMoney().toPlainString()+" zł");
-        averageAmountOfMoney.setValue("Średni koszt zakupu: "+expenseService.getAverageAmountOfSpentMoney().toPlainString()+" zł");
+    private void refreshData() {
+        totalAmountOfSpentMoney.setValue("Suma wydanych środków: " + expenseService.getTotalAmountOfSpentMoney().toPlainString() + " zł");
+        averageAmountOfMoney.setValue("Średni koszt zakupu: " + expenseService.getAverageAmountOfSpentMoney().toPlainString() + " zł");
     }
 
 }

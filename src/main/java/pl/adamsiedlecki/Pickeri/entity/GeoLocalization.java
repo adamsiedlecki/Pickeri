@@ -1,7 +1,6 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class GeoLocalization {
@@ -33,12 +32,4 @@ public class GeoLocalization {
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
-
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
 }

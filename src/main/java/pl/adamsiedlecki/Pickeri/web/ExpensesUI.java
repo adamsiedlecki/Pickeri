@@ -3,7 +3,10 @@ package pl.adamsiedlecki.Pickeri.web;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Embedded;
+import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.expensesTabs.AddExpenseTab;
@@ -12,7 +15,7 @@ import pl.adamsiedlecki.Pickeri.web.tabs.expensesTabs.ExpensesStatistics;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.OthersTab;
 
 
-@SpringUI(path="/expenses")
+@SpringUI(path = "/expenses")
 public class ExpensesUI extends UI {
 
     private VerticalLayout root;
@@ -24,7 +27,7 @@ public class ExpensesUI extends UI {
 
     @Autowired
     public ExpensesUI(AddExpenseTab addExpenseTab, AllExpensesTab allExpensesTab, ExpensesStatistics expensesStatistics,
-                      OthersTab othersTab){
+                      OthersTab othersTab) {
         this.addExpenseTab = addExpenseTab;
         this.allExpensesTab = allExpensesTab;
         this.expensesStatistics = expensesStatistics;

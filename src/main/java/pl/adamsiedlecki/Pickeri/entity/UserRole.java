@@ -1,6 +1,7 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
 import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 
 @Entity

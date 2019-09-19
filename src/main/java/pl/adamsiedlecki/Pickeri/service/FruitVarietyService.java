@@ -16,12 +16,12 @@ public class FruitVarietyService implements Removeable {
     private FruitDeliveryService fruitDeliveryService;
 
     @Autowired
-    public FruitVarietyService(FruitVarietyDAO fruitVarietyDAO, FruitDeliveryService fruitDeliveryService){
+    public FruitVarietyService(FruitVarietyDAO fruitVarietyDAO, FruitDeliveryService fruitDeliveryService) {
         this.fruitVarietyDAO = fruitVarietyDAO;
         this.fruitDeliveryService = fruitDeliveryService;
     }
 
-    public List<FruitVariety> findAll(){
+    public List<FruitVariety> findAll() {
         List<FruitVariety> all = fruitVarietyDAO.findAll();
         setPercentageParticipationInPackagesAmount(all);
         setPackagesAmount(all);
@@ -30,36 +30,36 @@ public class FruitVarietyService implements Removeable {
         return all;
     }
 
-    public void save(FruitVariety fruitVariety){
+    public void save(FruitVariety fruitVariety) {
         fruitVarietyDAO.save(fruitVariety);
     }
 
-    private List<FruitVariety> setPercentageParticipationInPackagesAmount(List<FruitVariety> fruitVarieties){
-        for(FruitVariety fv : fruitVarieties){
+    private List<FruitVariety> setPercentageParticipationInPackagesAmount(List<FruitVariety> fruitVarieties) {
+        for (FruitVariety fv : fruitVarieties) {
             BigDecimal percenatage = fruitDeliveryService.getPercentageParticipationForPackagesAmountByVariety(fv.getName());
             fv.setPercentageParticipationInPackagesAmount(percenatage);
         }
         return fruitVarieties;
     }
 
-    private List<FruitVariety> setPackagesAmount(List<FruitVariety> fruitVarieties){
-        for(FruitVariety fv : fruitVarieties){
+    private List<FruitVariety> setPackagesAmount(List<FruitVariety> fruitVarieties) {
+        for (FruitVariety fv : fruitVarieties) {
             long amount = fruitDeliveryService.getPackagesAmountByVariety(fv.getName());
             fv.setTotalPackages(amount);
         }
         return fruitVarieties;
     }
 
-    private List<FruitVariety> setTotalWeight(List<FruitVariety> fruitVarieties){
-        for(FruitVariety fv : fruitVarieties){
+    private List<FruitVariety> setTotalWeight(List<FruitVariety> fruitVarieties) {
+        for (FruitVariety fv : fruitVarieties) {
             BigDecimal amount = fruitDeliveryService.getTotalWeightByVariety(fv.getName());
             fv.setTotalWeight(amount);
         }
         return fruitVarieties;
     }
 
-    private List<FruitVariety> setPercentageParticipationInWeight(List<FruitVariety> fruitVarieties){
-        for(FruitVariety fv : fruitVarieties){
+    private List<FruitVariety> setPercentageParticipationInWeight(List<FruitVariety> fruitVarieties) {
+        for (FruitVariety fv : fruitVarieties) {
             BigDecimal percenatage = fruitDeliveryService.getPercentageParticipationInWeight(fv.getName());
             fv.setPercentageParticipationInWeight(percenatage);
         }

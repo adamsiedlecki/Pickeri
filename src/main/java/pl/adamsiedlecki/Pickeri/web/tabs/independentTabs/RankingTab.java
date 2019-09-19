@@ -26,9 +26,9 @@ public class RankingTab extends VerticalLayout {
         addContent();
     }
 
-    private void addContent(){
+    private void addContent() {
         refreshButton = new Button("Odśwież");
-        refreshButton.addClickListener(e->refreshData());
+        refreshButton.addClickListener(e -> refreshData());
         pickersGrid = new Grid<>();
         pickersGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setCaption("Suma opakowań").setId("packageDeliveryAmount");
         pickersGrid.addColumn(FruitPicker::getWeightSumKgPlainText).setCaption("Waga [kg]");
@@ -41,11 +41,11 @@ public class RankingTab extends VerticalLayout {
         this.addComponent(pickersGrid);
     }
 
-    private List<FruitPicker> getCurrentPickers(){
+    private List<FruitPicker> getCurrentPickers() {
         return fruitPickerService.findAll();
     }
 
-    private void refreshData(){
+    private void refreshData() {
         pickersGrid.setItems(getCurrentPickers());
         pickersGrid.sort("packageDeliveryAmount", SortDirection.DESCENDING);
         pickersGrid.setHeight(700, Unit.PIXELS);

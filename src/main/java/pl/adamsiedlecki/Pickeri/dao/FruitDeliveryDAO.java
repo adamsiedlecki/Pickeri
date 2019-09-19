@@ -1,10 +1,9 @@
 package pl.adamsiedlecki.Pickeri.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
-import org.springframework.data.jpa.repository.JpaRepository;
-import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 
 import java.util.List;
 
@@ -18,7 +17,7 @@ public interface FruitDeliveryDAO extends JpaRepository<FruitDelivery, Long> {
     List<FruitDelivery> findAllWithType(String type);
 
     @Query("SELECT (f) FROM FruitDelivery f WHERE f.fruitPickerId=?1 AND f.type = ?2")
-    List<FruitDelivery> findByIdWithType(Long id,String type);
+    List<FruitDelivery> findByIdWithType(Long id, String type);
 
     @Query("SELECT (f) FROM FruitDelivery f WHERE f.fruitVariety = ?1")
     List<FruitDelivery> findAllWithVariety(String variety);
