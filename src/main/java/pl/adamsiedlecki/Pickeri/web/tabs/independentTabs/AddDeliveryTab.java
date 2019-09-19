@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.web.tabs;
+package pl.adamsiedlecki.Pickeri.web.tabs.independentTabs;
 
 import com.vaadin.addon.geolocation.Coordinates;
 import com.vaadin.addon.geolocation.Geolocation;

@@ -33,10 +33,8 @@ public class DownloadController {
     @RequestMapping(value = "/pdf/{fileName}", method = RequestMethod.GET, produces = "application/pdf")
     public ResponseEntity<InputStreamResource> download(@PathVariable("fileName") String fileName) throws IOException {
         System.out.println("Calling Download:- " + fileName);
-
         File file = new File("src\\main\\resources\\downloads\\" + fileName);
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
-
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment;filename=" + file.getName())

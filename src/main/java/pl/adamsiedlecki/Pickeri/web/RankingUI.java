@@ -3,15 +3,11 @@ package pl.adamsiedlecki.Pickeri.web;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.Embedded;
-import com.vaadin.ui.TabSheet;
-import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
-import pl.adamsiedlecki.Pickeri.web.tabs.AddDeliveryTab;
-import pl.adamsiedlecki.Pickeri.web.tabs.OthersTab;
-import pl.adamsiedlecki.Pickeri.web.tabs.RankingTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.OthersTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.RankingTab;
 
 @SpringUI(path="/ranking")
 public class RankingUI extends UI {

@@ -9,10 +9,10 @@ import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class URLController {
 
-    @RequestMapping("/error1")
-    public RedirectView handleError() {
-        //do something like logging
-        return new RedirectView("errorPage");
-    }
+//    @RequestMapping("/error1")
+//    public RedirectView handleError() {
+//        //do something like logging
+//        return new RedirectView("errorPage");
+//    }
 
 }

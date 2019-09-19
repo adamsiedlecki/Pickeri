@@ -5,12 +5,10 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
-import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
-import pl.adamsiedlecki.Pickeri.web.tabs.*;
-
-import java.io.File;
+import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.OthersTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.statisticsTabs.FindPickerTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.statisticsTabs.StatisticsTab;
 
 @SpringUI(path="/statistics-and-info")
 public class StatisticsUI extends UI {

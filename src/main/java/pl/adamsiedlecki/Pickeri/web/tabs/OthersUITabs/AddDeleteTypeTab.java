@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.web.tabs;
+package pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs;
 
 import com.vaadin.ui.Button;
 import com.vaadin.ui.TextField;

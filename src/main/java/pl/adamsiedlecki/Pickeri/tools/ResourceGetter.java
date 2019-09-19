@@ -48,11 +48,8 @@ public class ResourceGetter {
                 logo = new File(url.getFile());
             }
             if(!logo.exists()){
-                while(true){
                     System.out.println("ERROR: "+fileNameWithExtension+" NOT FOUND");
-                }
             }
-
         }
         return logo;
     }

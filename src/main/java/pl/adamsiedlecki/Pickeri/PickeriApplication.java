@@ -17,17 +17,6 @@ public class PickeriApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PickeriApplication.class, args);
 
-//		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-//		context.register(UserRepository.class);
-//		context.register(PickeriUserDetailsService.class);
-//		context.register(WebSecurityConfig.class);
-//		context.register(Tester.class);
-//		context.refresh();
-//		Tester t = context.getBean(Tester.class);
-//		t.run();
-//		PickeriUserDetailsService s = context.getBean(PickeriUserDetailsService.class);
-//		s.addUser("admin","password", List.of(new UserRole("ADMIN")));
-
 	}
 
 }

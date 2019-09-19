@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.web.tabs;
+package pl.adamsiedlecki.Pickeri.web.tabs.statisticsTabs;
 
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -28,7 +28,7 @@ public class FindPickerTab extends VerticalLayout {
         this.fruitPickerService = fruitPickerService;
         initComponents();
         filter.addValueChangeListener(e->
-            fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()))
+                fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()))
         );
         filter.setValueChangeMode(ValueChangeMode.LAZY);
     }

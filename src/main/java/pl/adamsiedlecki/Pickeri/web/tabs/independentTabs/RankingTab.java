@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.web.tabs;
+package pl.adamsiedlecki.Pickeri.web.tabs.independentTabs;
 
 import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.spring.annotation.SpringComponent;

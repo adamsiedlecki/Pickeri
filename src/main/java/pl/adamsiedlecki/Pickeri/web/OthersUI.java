@@ -6,7 +6,11 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
-import pl.adamsiedlecki.Pickeri.web.tabs.*;
+import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.AddDeleteTypeTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.AddFruitVarietyTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.AddPickerTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.PdfDocumentsGeneratorTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.OthersTab;
 
 @SpringUI(path="/other")
 public class OthersUI extends UI {
@@ -20,7 +24,7 @@ public class OthersUI extends UI {
     private AddDeleteTypeTab addDeleteTypeTab;
 
     @Autowired
-    public OthersUI(AddFruitVarietyTab  addFruitVarietyTab, PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab, OthersTab othersTab,
+    public OthersUI(AddFruitVarietyTab addFruitVarietyTab, PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab, OthersTab othersTab,
                     AddPickerTab addPickerTab, AddDeleteTypeTab addDeleteTypeTab){
         this.addDeleteTypeTab = addDeleteTypeTab;
         this.addPickerTab = addPickerTab;

@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.web.tabs;
+package pl.adamsiedlecki.Pickeri.web;
 
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinRequest;
@@ -9,6 +9,8 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.AllDeliveriesTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.OthersTab;
 
 @SpringUI(path="/all-deliveries")
 public class AllDeliveriesUI extends UI {
