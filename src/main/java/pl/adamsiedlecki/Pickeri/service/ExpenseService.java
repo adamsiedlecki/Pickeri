@@ -7,6 +7,7 @@ import pl.adamsiedlecki.Pickeri.entity.Expense;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -37,12 +38,9 @@ public class ExpenseService {
 
     public List<Expense> findAll(String filter){
         List<Expense> expenses = expenseDAO.findAll();
-        for (int i = 0; i <expenses.size() ; i++) {
-            if(!expenses.get(i).getId().toString().contains(filter)||!expenses.get(i).getName().contains(filter)
-                    ||!expenses.get(i).getTime().toString().contains(filter)){
-                expenses.remove(i);
-            }
-        }
+        expenses.removeIf(expense -> !expense.getId().toString().contains(filter) && !expense.getName().contains(filter)
+                && !expense.getTime().toString().contains(filter)
+                && !expense.getMoneyAmount().toPlainString().contains(filter));
         return expenses;
     }
 
@@ -61,7 +59,6 @@ public class ExpenseService {
             return new BigDecimal(0);
         }
         BigDecimal totalAmount = getTotalAmountOfSpentMoney();
-        BigDecimal average = totalAmount.divide(new BigDecimal(expenses.size()),2, RoundingMode.FLOOR);
-        return average;
+         return totalAmount.divide(new BigDecimal(expenses.size()),2, RoundingMode.FLOOR);
     }
 }
