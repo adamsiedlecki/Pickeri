@@ -74,7 +74,7 @@ public class StatisticsTab extends VerticalLayout {
 
     private void refreshData(){
         pickersSum.setValue("Ilość pracowników w systemie: "+fruitPickerService.getTotalAmountOfPickers());
-        packagesSum.setValue("Suma szystkich opakowań: "+fruitDeliveryService.getTotalAmountOfPackages());
+        packagesSum.setValue("Suma wszystkich opakowań: "+fruitDeliveryService.getTotalAmountOfPackages());
         varietiesSum.setValue("Suma odmian w systemie: "+fruitVarietyService.findAll().size());
         weightSum.setValue("Całkowita masa owoców w systemie [w kg]: "+fruitDeliveryService.getWeightSum()
                 .divide(new BigDecimal(1000),4, RoundingMode.FLOOR));
