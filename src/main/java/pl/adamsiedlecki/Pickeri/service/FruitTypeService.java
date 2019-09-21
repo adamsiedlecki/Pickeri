@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.FruitTypeDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitType;
+import pl.adamsiedlecki.Pickeri.service.interfaces.FruitTypeServiceAbstract;
 
 import java.util.List;
 
 // This class is designed for only 4 types of fruit. List<FruitType> has only 4 FruitTypes, or null
 @Service
-public class FruitTypeService {
+public class FruitTypeService implements FruitTypeServiceAbstract {
 
     private FruitTypeDAO fruitTypeDAO;
 

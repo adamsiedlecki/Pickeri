@@ -4,13 +4,14 @@ import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.FruitDeliveryDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
+import pl.adamsiedlecki.Pickeri.service.interfaces.FruitDeliveryAbstract;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
 @Service
-public class FruitDeliveryService implements Removeable {
+public class FruitDeliveryService implements Removeable, FruitDeliveryAbstract {
 
     private FruitDeliveryDAO fruitDeliveryDAO;
 
