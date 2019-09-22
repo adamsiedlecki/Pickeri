@@ -88,6 +88,8 @@ public class AddDeliveryTab extends VerticalLayout {
         refreshVarietiesButton.addClickListener(e ->
                 refreshVarieties()
         );
+        HorizontalLayout horizontalLayout = new HorizontalLayout(formLayout, refreshVarietiesButton);
+        horizontalLayout.setComponentAlignment(refreshVarietiesButton, Alignment.MIDDLE_CENTER);
 
         qrUpload = new Upload();
         qrUpload.setCaption("Załaduj kod QR ");
@@ -116,8 +118,7 @@ public class AddDeliveryTab extends VerticalLayout {
         pickerInfoLayout.addComponents(fruitPickerId, qrUpload);
         formLayout.addComponents(pickerInfoLayout, amountAndWeight, fruitTypeRadioButton, fruitVarietyRadioButton, commentField, save);
 
-        root.addComponent(refreshVarietiesButton);
-        root.addComponent(formLayout);
+        root.addComponent(horizontalLayout);
         this.addComponent(root);
     }
 

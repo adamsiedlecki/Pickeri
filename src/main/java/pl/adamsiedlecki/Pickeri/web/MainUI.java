@@ -2,6 +2,7 @@ package pl.adamsiedlecki.Pickeri.web;
 
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.TabSheet;
@@ -29,7 +30,11 @@ public class MainUI extends UI {
     @Override
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
-        root.addComponent(new Embedded("", new FileResource(ResourceGetter.getPickeriLogo())));
+        Embedded logo = new Embedded("", new FileResource(ResourceGetter.getPickeriLogo()));
+        logo.setWidth(30, Unit.PERCENTAGE);
+        logo.setHeight(30,Unit.PERCENTAGE);
+        root.addComponent(logo);
+        root.setMargin(new MarginInfo(false,true,true,true));
         addTabs();
         this.setContent(root);
     }
