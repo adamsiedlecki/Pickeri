@@ -102,4 +102,10 @@ public class FruitVariety {
     public void setPercentageParticipationInWeight(BigDecimal percentageParticipationInWeight) {
         this.percentageParticipationInWeight = percentageParticipationInWeight;
     }
+
+    @Override
+    public String toString(){
+        return name;
+    }
+
 }

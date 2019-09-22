@@ -31,9 +31,9 @@ public class AddDeliveryTab extends VerticalLayout {
     private VerticalLayout root;
     private TextField fruitPickerId;
     private TextField packageAmount;
-    private RadioButtonGroup<String> fruitType;
-    private RadioButtonGroup<String> fruitVariety;
-    private TextField comment;
+    private RadioButtonGroup<String> fruitTypeRadioButton;
+    private RadioButtonGroup<String> fruitVarietyRadioButton;
+    private TextField commentField;
     private Button save;
     private FruitDeliveryService fruitDeliveryService;
     private FruitVarietyService fruitVarietyService;
@@ -58,19 +58,19 @@ public class AddDeliveryTab extends VerticalLayout {
                 System.out.println(items.size() + value);
                 if (items.size() == 2) {
                     fruitPickerId.setValue(items.get(0));
-                    comment.setValue(items.get(1));
+                    commentField.setValue(items.get(1));
 
                 } else {
                     Notification.show("Obraz nie zawiera poprawnego kodu QR!");
                     fruitPickerId.setValue("");
-                    comment.setValue("");
+                    commentField.setValue("");
                     File f = new File(path);
                     f.delete();
                 }
             } else {
                 Notification.show("Obraz nie zawiera kodu QR - może zrób wyraźniejsze zdjęcie?");
                 fruitPickerId.setValue("");
-                comment.setValue("");
+                commentField.setValue("");
                 File f = new File(path);
                 f.delete();
             }
@@ -102,19 +102,19 @@ public class AddDeliveryTab extends VerticalLayout {
         weightField = new TextField("Waga w gramach");
         weightField.setValue("0");
         HorizontalLayout amountAndWeight = new HorizontalLayout(packageAmount, weightField);
-        fruitType = new RadioButtonGroup<>();
-        fruitVariety = new RadioButtonGroup<>();
-        comment = new TextField("Komentarz");
+        fruitTypeRadioButton = new RadioButtonGroup<>();
+        fruitVarietyRadioButton = new RadioButtonGroup<>();
+        commentField = new TextField("Komentarz");
         save = new Button("Zapisz");
 
         refreshTypes();
-        fruitType.setCaption("Typ owocu");
+        fruitTypeRadioButton.setCaption("Typ owocu");
 
         refreshVarieties();
-        fruitVariety.setCaption("Odmiana owocu");
+        fruitVarietyRadioButton.setCaption("Odmiana owocu");
 
         pickerInfoLayout.addComponents(fruitPickerId, qrUpload);
-        formLayout.addComponents(pickerInfoLayout, amountAndWeight, fruitType, fruitVariety, comment, save);
+        formLayout.addComponents(pickerInfoLayout, amountAndWeight, fruitTypeRadioButton, fruitVarietyRadioButton, commentField, save);
 
         root.addComponent(refreshVarietiesButton);
         root.addComponent(formLayout);
@@ -123,24 +123,24 @@ public class AddDeliveryTab extends VerticalLayout {
 
     private void refreshVarieties() {
         List<String> fruitVarietyNames = fruitVarietyService.getVarietiesNames();//.findAll().stream().map(FruitVariety::getName).collect(Collectors.toList());
-        fruitVariety.setItems(fruitVarietyNames);
+        fruitVarietyRadioButton.setItems(fruitVarietyNames);
     }
 
     private void refreshTypes() {
         List<String> types = fruitTypeService.getTypeNames();
-        fruitType.setItems(types);
+        fruitTypeRadioButton.setItems(types);
     }
 
     private void saveAction() {
         if (NumberUtils.isCreatable(fruitPickerId.getValue()) && NumberUtils.isCreatable(packageAmount.getValue())
                 && NumberUtils.isCreatable(weightField.getValue())) {
-            if (fruitPickerId.isEmpty() || packageAmount.isEmpty() || fruitType.isEmpty() || fruitVariety.isEmpty()
+            if (fruitPickerId.isEmpty() || packageAmount.isEmpty() || fruitTypeRadioButton.isEmpty() || fruitVarietyRadioButton.isEmpty()
                     || weightField.isEmpty()) {
                 Notification.show("Uzupełnij wymagane pola!");
             } else {
                 FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerId.getValue()),
-                        fruitType.getValue(), Long.parseLong(packageAmount.getValue()), comment.getValue(),
-                        fruitVariety.getValue(), LocalDateTime.now());
+                        fruitTypeRadioButton.getValue(), Long.parseLong(packageAmount.getValue()), commentField.getValue(),
+                        fruitVarietyRadioButton.getValue(), LocalDateTime.now());
                 fruitDelivery.setFruitWeight(new BigDecimal(weightField.getValue()));
                 Geolocation geo = new Geolocation(this.getUI());
                 geo.getCurrentPosition(position -> {
@@ -160,9 +160,9 @@ public class AddDeliveryTab extends VerticalLayout {
     private void cleanFields() {
         fruitPickerId.clear();
         packageAmount.clear();
-        fruitType.clear();
-        fruitVariety.clear();
-        comment.clear();
+        fruitTypeRadioButton.clear();
+        fruitVarietyRadioButton.clear();
+        commentField.clear();
         weightField.clear();
     }
 

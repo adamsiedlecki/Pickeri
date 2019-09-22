@@ -1,10 +1,12 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 @Entity
 @Table
@@ -31,7 +33,7 @@ public class FruitDelivery {
     private String comment;
 
     @Column
-    private String fruitVariety;
+    private String fruitVarietyName;
 
     @Column
     private BigDecimal fruitWeight;
@@ -42,12 +44,12 @@ public class FruitDelivery {
     public FruitDelivery() {
     }
 
-    public FruitDelivery(Long fruitPickerId, String fruitType, Long packageAmount, String comment, String fruitVariety, LocalDateTime deliveryTime) {
+    public FruitDelivery(Long fruitPickerId, String fruitType, Long packageAmount, String comment, String fruitVarietyName, LocalDateTime deliveryTime) {
         this.fruitPickerId = fruitPickerId;
         this.packageAmount = packageAmount;
         this.deliveryTime = deliveryTime;
         this.comment = comment;
-        this.fruitVariety = fruitVariety;
+        this.fruitVarietyName = fruitVarietyName;
         this.type = fruitType;
 
     }
@@ -80,12 +82,12 @@ public class FruitDelivery {
         this.geoLocalization = geoLocalization;
     }
 
-    public String getFruitVariety() {
-        return fruitVariety;
+    public String getFruitVarietyName() {
+        return fruitVarietyName;
     }
 
-    public void setFruitVariety(String fruitVariety) {
-        this.fruitVariety = fruitVariety;
+    public void setFruitVarietyName(String fruitVarietyName) {
+        this.fruitVarietyName = fruitVarietyName;
     }
 
     public long getId() {
@@ -139,4 +141,24 @@ public class FruitDelivery {
         return result.toPlainString();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FruitDelivery)) return false;
+        FruitDelivery delivery = (FruitDelivery) o;
+        return getId() == delivery.getId() &&
+                Objects.equals(getFruitPickerId(), delivery.getFruitPickerId()) &&
+                Objects.equals(getType(), delivery.getType()) &&
+                Objects.equals(getPackageAmount(), delivery.getPackageAmount()) &&
+                Objects.equals(getDeliveryTime(), delivery.getDeliveryTime()) &&
+                Objects.equals(getComment(), delivery.getComment()) &&
+                Objects.equals(getFruitVarietyName(), delivery.getFruitVarietyName()) &&
+                Objects.equals(getFruitWeight(), delivery.getFruitWeight()) &&
+                Objects.equals(getGeoLocalization(), delivery.getGeoLocalization());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFruitPickerId(), getType(), getPackageAmount(), getDeliveryTime(), getComment(), getFruitVarietyName(), getFruitWeight(), getGeoLocalization());
+    }
 }

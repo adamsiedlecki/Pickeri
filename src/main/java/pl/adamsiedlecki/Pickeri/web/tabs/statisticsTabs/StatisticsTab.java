@@ -24,10 +24,10 @@ public class StatisticsTab extends VerticalLayout {
     private FruitDeliveryService fruitDeliveryService;
     private FruitPickerService fruitPickerService;
     private FruitVarietyService fruitVarietyService;
-    private Label pickersSum;
-    private Label packagesSum;
-    private Label varietiesSum;
-    private Label weightSum;
+    private Label pickersSumLabel;
+    private Label packagesSumLabel;
+    private Label varietiesSumLabel;
+    private Label weightSumLabel;
     private Grid<FruitVariety> varietiesGridPackageStat;
     private Grid<FruitVariety> varietiesGridWeightStat;
 
@@ -42,10 +42,10 @@ public class StatisticsTab extends VerticalLayout {
 
     private void initComponents() {
         VerticalLayout root = new VerticalLayout();
-        pickersSum = new Label();
-        packagesSum = new Label();
-        varietiesSum = new Label();
-        weightSum = new Label();
+        pickersSumLabel = new Label();
+        packagesSumLabel = new Label();
+        varietiesSumLabel = new Label();
+        weightSumLabel = new Label();
         VerticalLayout varietiesPackageAmountAndPercentageLayout = new VerticalLayout();
         Button refreshButton = new Button("Odśwież");
         refreshButton.addClickListener(e -> refreshData());
@@ -64,10 +64,10 @@ public class StatisticsTab extends VerticalLayout {
         refreshData();
 
         root.addComponent(refreshButton);
-        root.addComponent(pickersSum);
-        root.addComponent(packagesSum);
-        root.addComponent(varietiesSum);
-        root.addComponent(weightSum);
+        root.addComponent(pickersSumLabel);
+        root.addComponent(packagesSumLabel);
+        root.addComponent(varietiesSumLabel);
+        root.addComponent(weightSumLabel);
         root.addComponent(varietiesPackageAmountAndPercentageLayout);
         root.addComponent(varietiesGridPackageStat);
         root.addComponent(varietiesGridWeightStat);
@@ -76,11 +76,11 @@ public class StatisticsTab extends VerticalLayout {
     }
 
     private void refreshData() {
-        pickersSum.setValue("Ilość pracowników w systemie: " + fruitPickerService.getTotalAmountOfPickers());
-        packagesSum.setValue("Suma wszystkich opakowań: " + fruitDeliveryService.getTotalAmountOfPackages());
-        varietiesSum.setValue("Suma odmian w systemie: " + fruitVarietyService.findAll().size());
-        weightSum.setValue("Całkowita masa owoców w systemie [w kg]: " + fruitDeliveryService.getWeightSum()
-                .divide(new BigDecimal(1000), 4, RoundingMode.FLOOR));
+        pickersSumLabel.setValue("Ilość pracowników w systemie: " + fruitPickerService.getTotalAmountOfPickers());
+        packagesSumLabel.setValue("Suma wszystkich opakowań: " + fruitDeliveryService.getTotalAmountOfPackages());
+        //varietiesSumLabel.setValue("Suma odmian w systemie: " + fruitVarietyService.findAll().size());
+        //weightSumLabel.setValue("Całkowita masa owoców w systemie [w kg]: " + fruitDeliveryService.getWeightSum()
+         //       .divide(new BigDecimal(1000), 4, RoundingMode.FLOOR));
         List<FruitVariety> varieties = fruitVarietyService.findAll();
 
         setGrid(varietiesGridPackageStat, varieties);

@@ -80,4 +80,5 @@ public class FruitVarietyService implements Removeable, FruitVarietyServiceAbstr
     public List<String> getVarietiesNames() {
         return fruitVarietyDAO.getVarietiesNames();
     }
+
 }

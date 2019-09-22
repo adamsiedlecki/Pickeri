@@ -9,10 +9,10 @@ import java.util.List;
 @Cacheable(cacheNames = "fruitVariety")
 public interface FruitVarietyServiceAbstract {
 
-    public List<FruitVariety> findAll();
+    List<FruitVariety> findAll();
 
-    public void save(FruitVariety fruitVariety);
+    void save(FruitVariety fruitVariety);
 
-    public List<String> getVarietiesNames();
+    List<String> getVarietiesNames();
 
 }
