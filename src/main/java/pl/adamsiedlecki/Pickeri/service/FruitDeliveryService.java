@@ -1,17 +1,16 @@
 package pl.adamsiedlecki.Pickeri.service;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.FruitDeliveryDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
-import pl.adamsiedlecki.Pickeri.service.interfaces.FruitDeliveryAbstract;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
 @Service
-public class FruitDeliveryService implements Removeable, FruitDeliveryAbstract {
+public class FruitDeliveryService implements Removeable {
 
     private FruitDeliveryDAO fruitDeliveryDAO;
 
@@ -71,6 +70,7 @@ public class FruitDeliveryService implements Removeable, FruitDeliveryAbstract {
         return findAll().stream().mapToLong(FruitDelivery::getPackageAmount).sum();
     }
 
+    @Cacheable(cacheNames = "percentageParticipationForPackagesAmountByVariety")
     public BigDecimal getPercentageParticipationForPackagesAmountByVariety(String name) {
         List<FruitDelivery> allVarieties = findAll();
         List<FruitDelivery> thisVariety = findAllWithVariety(name);
@@ -93,6 +93,7 @@ public class FruitDeliveryService implements Removeable, FruitDeliveryAbstract {
         return result;
     }
 
+    @Cacheable(cacheNames = "packagesAmountByVariety")
     public Long getPackagesAmountByVariety(String name) {
         List<FruitDelivery> thisVariety = findAllWithVariety(name);
         Long thisAmount = 0L;
@@ -102,6 +103,7 @@ public class FruitDeliveryService implements Removeable, FruitDeliveryAbstract {
         return thisAmount;
     }
 
+    @Cacheable(cacheNames = "totalWeightByVariety")
     public BigDecimal getTotalWeightByVariety(String name) {
         List<FruitDelivery> thisVariety = findAllWithVariety(name);
         BigDecimal thisAmount = new BigDecimal(0);
@@ -111,6 +113,7 @@ public class FruitDeliveryService implements Removeable, FruitDeliveryAbstract {
         return thisAmount;
     }
 
+    @Cacheable(cacheNames = "getPercentageParticipationInWeight")
     public BigDecimal getPercentageParticipationInWeight(String name) {
         List<FruitDelivery> allVarieties = findAll();
         List<FruitDelivery> thisVariety = findAllWithVariety(name);

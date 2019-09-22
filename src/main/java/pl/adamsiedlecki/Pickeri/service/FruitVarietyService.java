@@ -1,17 +1,16 @@
 package pl.adamsiedlecki.Pickeri.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.FruitVarietyDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
-import pl.adamsiedlecki.Pickeri.service.interfaces.FruitVarietyServiceAbstract;
-
 import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class FruitVarietyService implements Removeable, FruitVarietyServiceAbstract {
+public class FruitVarietyService implements Removeable {
 
     private FruitVarietyDAO fruitVarietyDAO;
     private FruitDeliveryService fruitDeliveryService;

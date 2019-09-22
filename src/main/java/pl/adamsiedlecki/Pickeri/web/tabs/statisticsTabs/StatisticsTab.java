@@ -78,9 +78,9 @@ public class StatisticsTab extends VerticalLayout {
     private void refreshData() {
         pickersSumLabel.setValue("Ilość pracowników w systemie: " + fruitPickerService.getTotalAmountOfPickers());
         packagesSumLabel.setValue("Suma wszystkich opakowań: " + fruitDeliveryService.getTotalAmountOfPackages());
-        //varietiesSumLabel.setValue("Suma odmian w systemie: " + fruitVarietyService.findAll().size());
-        //weightSumLabel.setValue("Całkowita masa owoców w systemie [w kg]: " + fruitDeliveryService.getWeightSum()
-         //       .divide(new BigDecimal(1000), 4, RoundingMode.FLOOR));
+        varietiesSumLabel.setValue("Suma odmian w systemie: " + fruitVarietyService.findAll().size());
+        weightSumLabel.setValue("Całkowita masa owoców w systemie [w kg]: " + fruitDeliveryService.getWeightSum()
+                .divide(new BigDecimal(1000), 4, RoundingMode.FLOOR));
         List<FruitVariety> varieties = fruitVarietyService.findAll();
 
         setGrid(varietiesGridPackageStat, varieties);

@@ -1,19 +1,18 @@
 package pl.adamsiedlecki.Pickeri.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.FruitPickerDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
-import pl.adamsiedlecki.Pickeri.service.interfaces.FruitPickerServiceAbstract;
-
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class FruitPickerService implements Removeable, FruitPickerServiceAbstract {
+public class FruitPickerService implements Removeable{
 
     private FruitPickerDAO fruitPickerDAO;
     private FruitDeliveryService fruitDeliveryService;
@@ -38,6 +37,7 @@ public class FruitPickerService implements Removeable, FruitPickerServiceAbstrac
         return pickersList;
     }
 
+    @Cacheable(cacheNames = "findAllFruitPickers")
     public List<FruitPicker> findAll(String filter) {
         List<FruitPicker> pickersList = fruitPickerDAO.findAll();
         Iterator<FruitPicker> iterator = pickersList.iterator();

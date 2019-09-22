@@ -1,17 +1,18 @@
 package pl.adamsiedlecki.Pickeri.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.ExpenseDAO;
 import pl.adamsiedlecki.Pickeri.entity.Expense;
-import pl.adamsiedlecki.Pickeri.service.interfaces.ExpenseServiceAbstract;
+
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
 @Service
-public class ExpenseService implements ExpenseServiceAbstract {
+public class ExpenseService {
 
     private ExpenseDAO expenseDAO;
 

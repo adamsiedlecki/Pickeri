@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.Pickeri.dao;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -8,6 +9,7 @@ import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import java.util.List;
 
 @Repository
+@Cacheable(cacheNames = "fruitDeliveryDAO")
 public interface FruitDeliveryDAO extends JpaRepository<FruitDelivery, Long> {
 
     @Query("SELECT (f) FROM FruitDelivery f WHERE f.fruitPickerId = ?1")
