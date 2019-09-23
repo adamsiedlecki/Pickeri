@@ -75,7 +75,6 @@ public class AddDeliveryTab extends VerticalLayout {
                 f.delete();
             }
         });
-
         save.addClickListener(e -> saveAction());
     }
 
