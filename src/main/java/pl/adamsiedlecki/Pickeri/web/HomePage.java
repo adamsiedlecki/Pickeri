@@ -77,7 +77,7 @@ public class HomePage extends UI {
             }
         });
 
-        root.addComponent(new Embedded("", new FileResource(ResourceGetter.getPickeriLogo())));
+        root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
         root.addComponent(new Label("Welcome to Pickeri!"));
         root.addComponent(new Link("LOGIN PAGE", new ExternalResource("/login")));
         root.addComponent(new Label("   "));

@@ -42,8 +42,8 @@ public class ExpensesUI extends UI {
         tabSheet.addTab(allExpensesTab, "Wszystkie wydatki");
         tabSheet.addTab(expensesStatistics, "Statystyki wydatków");
         tabSheet.addTab(othersTab, "Reszta");
-        root.addComponent(new Embedded("", new FileResource(ResourceGetter.getPickeriLogo())));
-        root.addComponentsAndExpand(tabSheet);
+        root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
+        root.addComponents(tabSheet);
         this.setContent(root);
     }
 }

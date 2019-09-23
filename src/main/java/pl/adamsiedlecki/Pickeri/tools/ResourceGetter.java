@@ -2,11 +2,21 @@ package pl.adamsiedlecki.Pickeri.tools;
 
 
 import com.google.common.io.Resources;
+import com.vaadin.server.FileResource;
+import com.vaadin.server.Sizeable;
+import com.vaadin.ui.Embedded;
 
 import java.io.File;
 import java.net.URL;
 
 public class ResourceGetter {
+
+    public static Embedded getPickeriLogoAsEmbeddedComponent(){
+        Embedded logo = new Embedded("", new FileResource(ResourceGetter.getPickeriLogo()));
+        logo.setHeight(30, Sizeable.Unit.PERCENTAGE);
+        logo.setWidth(30, Sizeable.Unit.PERCENTAGE);
+        return logo;
+    }
 
     public static File getPickeriLogo() {
         return getFileByName("pickeri.png");

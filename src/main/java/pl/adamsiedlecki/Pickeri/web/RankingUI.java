@@ -28,7 +28,7 @@ public class RankingUI extends UI {
     @Override
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
-        root.addComponent(new Embedded("", new FileResource(ResourceGetter.getPickeriLogo())));
+        root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
         addTabs();
         this.setContent(root);
     }

@@ -30,7 +30,7 @@ public class ErrorPageUI extends UI {
         picture.setWidth(50, Unit.PERCENTAGE);
         picture.setHeight(50, Unit.PERCENTAGE);
         root.addComponent(picture);
-        root.addComponent(new Embedded("", new FileResource(ResourceGetter.getPickeriLogo())));
+        root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
         this.setContent(root);
     }
 }

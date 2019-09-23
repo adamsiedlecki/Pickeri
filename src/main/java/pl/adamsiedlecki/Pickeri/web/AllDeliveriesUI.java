@@ -30,10 +30,7 @@ public class AllDeliveriesUI extends UI {
     @Override
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
-        Embedded logo = new Embedded("", new FileResource(ResourceGetter.getPickeriLogo()));
-        logo.setHeight(30,Unit.PERCENTAGE);
-        logo.setWidth(30, Unit.PERCENTAGE);
-        root.addComponent(logo);
+        root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
         root.setMargin(new MarginInfo(false,true,true,true));
         addTabs();
         this.setContent(root);
