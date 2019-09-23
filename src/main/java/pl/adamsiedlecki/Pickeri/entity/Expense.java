@@ -3,6 +3,7 @@ package pl.adamsiedlecki.Pickeri.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table
@@ -57,6 +58,11 @@ public class Expense {
 
     public LocalDateTime getTime() {
         return time;
+    }
+
+    public String getTimeFormatted(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return time.format(formatter);
     }
 
     public void setTime(LocalDateTime time) {

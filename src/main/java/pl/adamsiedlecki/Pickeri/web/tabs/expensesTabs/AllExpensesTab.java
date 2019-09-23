@@ -47,7 +47,7 @@ public class AllExpensesTab extends VerticalLayout {
         expensesGrid.addColumn(Expense::getId).setCaption("ID");
         expensesGrid.addColumn(Expense::getName).setCaption("Nazwa");
         expensesGrid.addColumn(Expense::getMoneyAmount).setCaption("Kwota");
-        expensesGrid.addColumn(Expense::getTime).setCaption("Data");
+        expensesGrid.addColumn(Expense::getTimeFormatted).setCaption("Data");
         expensesGrid.setSizeFull();
         expensesGrid.setItems(expenseService.findAll(filter.getValue()));
         expensesGrid.setHeight(700, Unit.PIXELS);
