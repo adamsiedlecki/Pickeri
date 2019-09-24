@@ -1,14 +1,10 @@
 package pl.adamsiedlecki.Pickeri.tools.pdf;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.ColumnText;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfTemplate;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.*;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.tools.QRCodeWriterTool;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,6 +13,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PickersToPdfWriter {
@@ -116,6 +113,20 @@ public class PickersToPdfWriter {
 
         Document document = new Document();
         PdfWriter writer = null;
+
+        float [] pointColumnWidths = {60F, 150F, 150F, 150F, 150F, 150F, 150F, 150F};
+        PdfPTable table = new PdfPTable(pointColumnWidths);
+        table.addCell("ID");
+        table.addCell("Imię i nazwisko");
+        table.addCell("Suma [opak.]");
+        table.addCell("Suma [kg]");
+        for (int i = 0; i < 4; i++) {
+            if(fruitTypeService.getType(i).getName() != null){
+                table.addCell(fruitTypeService.getType(i).getName()+" [opakowania]");
+                table.addCell(fruitTypeService.getType(i).getName()+" [kg]");
+            }
+        }
+
         try {
             writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
             writer.setStrictImageSequence(true);
@@ -131,51 +142,75 @@ public class PickersToPdfWriter {
 
 
         for (FruitPicker fp : fruitPickers) {
-            try {
-                PdfContentByte cb = writer.getDirectContentUnder();
-                String amountInfo = " ";
-                amountInfo = amountInfo.concat(getTypeInfoToString(fruitTypeService, fp, 0));
-                amountInfo = amountInfo.concat(getTypeInfoToString(fruitTypeService, fp, 1));
-                amountInfo = amountInfo.concat(getTypeInfoToString(fruitTypeService, fp, 2));
-                amountInfo = amountInfo.concat(getTypeInfoToString(fruitTypeService, fp, 3));
 
-                document.add(new Paragraph(fp.getId() + " " + fp.getName() + " " + fp.getLastName() + " | suma opakowań: " + fp.getPackageDeliveryAmount()
-                        + " | suma wagi [kg]: " + fp.getWeightSumKgPlainText() + amountInfo,
-                        FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
-            } catch (DocumentException e1) {
-                e1.printStackTrace();
+                List<String> amountInfo1 = (getTypeInfoToString(fruitTypeService, fp, 0));
+                List<String> amountInfo2 = (getTypeInfoToString(fruitTypeService, fp, 1));
+                List<String> amountInfo3 = (getTypeInfoToString(fruitTypeService, fp, 2));
+                List<String> amountInfo4 = (getTypeInfoToString(fruitTypeService, fp, 3));
+
+//                document.add(new Paragraph(fp.getId() + " " + fp.getName() + " " + fp.getLastName() + " | suma opakowań: " + fp.getPackageDeliveryAmount()
+//                        + " | suma wagi [kg]: " + fp.getWeightSumKgPlainText() + amountInfo,
+//                        FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+                table.addCell(Long.toString(fp.getId()));
+                table.addCell(fp.getName() + " " + fp.getLastName());
+                table.addCell(Long.toString(fp.getPackageDeliveryAmount()));
+                table.addCell(fp.getWeightSumKgPlainText());
+                if(amountInfo1.size()==2){
+                    table.addCell(amountInfo1.get(0));
+                    table.addCell(amountInfo1.get(1));
+                }
+                if(amountInfo2.size()==2){
+                    table.addCell(amountInfo2.get(0));
+                    table.addCell(amountInfo2.get(1));
+                }
+                if(amountInfo3.size()==2){
+                    table.addCell(amountInfo3.get(0));
+                    table.addCell(amountInfo3.get(1));
+                }
+                if(amountInfo4.size()==2){
+                    table.addCell(amountInfo4.get(0));
+                    table.addCell(amountInfo4.get(1));
+                }
+
+            try {
+                document.add(table);
+            } catch (DocumentException e) {
+                e.printStackTrace();
             }
         }
+
         document.close();
         writer.close();
 
     }
 
-    private static String getTypeInfoToString(FruitTypeService fruitTypeService, FruitPicker fp, int typeSlot) {
-        String result = " ";
-        String result2 = " ";
+    private static List<String> getTypeInfoToString(FruitTypeService fruitTypeService, FruitPicker fp, int typeSlot) {
+        String result = "";
+        String result2 = "";
         if (fruitTypeService.getType(typeSlot) != null && fruitTypeService.getType(typeSlot).getName() != null) {
             if (typeSlot == 0) {
-                result = " | " + fruitTypeService.getType(0).getName() + " [opakowania]: " + fp.getPackageDeliveryWithTypeOne();
+                result = Long.toString(fp.getPackageDeliveryWithTypeOne());
             } else if (typeSlot == 1) {
-                result = " | " + fruitTypeService.getType(1).getName() + "[opakowania]: " + fp.getPackageDeliveryWithTypeTwo();
+                result = Long.toString(fp.getPackageDeliveryWithTypeTwo());
             } else if (typeSlot == 2) {
-                result = " | " + fruitTypeService.getType(2).getName() + "[opakowania]: " + fp.getPackageDeliveryWithTypeThree();
+                result = Long.toString(fp.getPackageDeliveryWithTypeThree());
             } else if (typeSlot == 3) {
-                result = " | " + fruitTypeService.getType(3).getName() + "[opakowania]: " + fp.getPackageDeliveryWithTypeFour();
+                result = Long.toString(fp.getPackageDeliveryWithTypeFour());
             }
 
             if (typeSlot == 0) {
-                result2 = " | " + fruitTypeService.getType(0).getName() + " [kg]: " + fp.getWeightKgWithTypeOnePlainText();
+                result2 = (fp.getWeightKgWithTypeOnePlainText());
             } else if (typeSlot == 1) {
-                result2 = " | " + fruitTypeService.getType(1).getName() + "[kg]: " + fp.getWeightKgWithTypeTwoPlainText();
+                result2 = fp.getWeightKgWithTypeTwoPlainText();
             } else if (typeSlot == 2) {
-                result2 = " | " + fruitTypeService.getType(2).getName() + "[kg]: " + fp.getWeightKgWithTypeThreePlainText();
+                result2 = fp.getWeightKgWithTypeThreePlainText();
             } else if (typeSlot == 3) {
-                result2 = " | " + fruitTypeService.getType(3).getName() + "[kg]: " + fp.getWeightKgWithTypeFourPlainText();
+                result2 = fp.getWeightKgWithTypeFourPlainText();
             }
         }
-        return result + result2;
+        if("".equals(result)||"".equals(result2))
+            return List.of();
+        return List.of(result,result2);
     }
 
     public static void writeEarningsRaportByKg(List<FruitPicker> fruitPickers, String pdfPath, String priceForTypeOne,

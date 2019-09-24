@@ -1,10 +1,8 @@
 package pl.adamsiedlecki.Pickeri.web;
 
-import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.Embedded;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
@@ -31,7 +29,7 @@ public class AllDeliveriesUI extends UI {
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
         root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
-        root.setMargin(new MarginInfo(false,true,true,true));
+        root.setMargin(new MarginInfo(false, true, true, true));
         addTabs();
         this.setContent(root);
     }

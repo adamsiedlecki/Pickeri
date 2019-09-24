@@ -60,7 +60,7 @@ public class Expense {
         return time;
     }
 
-    public String getTimeFormatted(){
+    public String getTimeFormatted() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return time.format(formatter);
     }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import pl.adamsiedlecki.Pickeri.entity.FruitType;
 
 import java.util.List;
+
 @Repository
 @Cacheable(cacheNames = "fruitTypeDAO")
 public interface FruitTypeDAO extends JpaRepository<FruitType, Long> {

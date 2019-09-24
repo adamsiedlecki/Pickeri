@@ -11,7 +11,7 @@ import java.net.URL;
 
 public class ResourceGetter {
 
-    public static Embedded getPickeriLogoAsEmbeddedComponent(){
+    public static Embedded getPickeriLogoAsEmbeddedComponent() {
         Embedded logo = new Embedded("", new FileResource(ResourceGetter.getPickeriLogo()));
         logo.setHeight(30, Sizeable.Unit.PERCENTAGE);
         logo.setWidth(30, Sizeable.Unit.PERCENTAGE);

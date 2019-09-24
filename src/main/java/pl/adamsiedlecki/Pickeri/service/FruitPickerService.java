@@ -7,12 +7,13 @@ import pl.adamsiedlecki.Pickeri.dao.FruitPickerDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
+
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
 @Service
-public class FruitPickerService implements Removeable{
+public class FruitPickerService implements Removeable {
 
     private FruitPickerDAO fruitPickerDAO;
     private FruitDeliveryService fruitDeliveryService;

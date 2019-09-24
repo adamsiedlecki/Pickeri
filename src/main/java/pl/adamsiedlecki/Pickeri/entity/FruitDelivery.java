@@ -1,7 +1,6 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;

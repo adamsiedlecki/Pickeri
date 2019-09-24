@@ -9,9 +9,6 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 
-import java.util.Map;
-import java.util.Set;
-
 
 @SpringUI(path = "/errorPage")
 public class ErrorPageUI extends UI {

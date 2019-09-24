@@ -1,7 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web;
 
 import com.vaadin.server.ExternalResource;
-import com.vaadin.server.FileResource;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
