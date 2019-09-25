@@ -51,4 +51,9 @@ public class FruitTypeService {
         fruitTypeDAO.saveAll(types);
     }
 
+    public int getTypeAmount() {
+        List<String> names = getTypeNames();
+        return names.size();
+    }
+
 }

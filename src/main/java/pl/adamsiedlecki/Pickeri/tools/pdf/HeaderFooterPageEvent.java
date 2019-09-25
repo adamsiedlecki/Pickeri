@@ -20,6 +20,8 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
             image.setAbsolutePosition(400, 770);
             image.scalePercent(13, 13);
             writer.getDirectContent().addImage(image, true);
+            document.addAuthor("Adam Siedlecki | Pickeri");
+            document.addTitle("Raport");
         } catch (IOException | DocumentException e) {
             e.printStackTrace();
         }

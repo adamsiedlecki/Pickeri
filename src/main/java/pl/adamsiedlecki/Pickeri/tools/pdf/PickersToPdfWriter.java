@@ -5,6 +5,7 @@ import com.itextpdf.text.pdf.*;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.tools.QRCodeWriterTool;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,7 +14,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.MalformedURLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class PickersToPdfWriter {
@@ -113,20 +113,6 @@ public class PickersToPdfWriter {
 
         Document document = new Document();
         PdfWriter writer = null;
-
-        float [] pointColumnWidths = {60F, 150F, 150F, 150F, 150F, 150F, 150F, 150F};
-        PdfPTable table = new PdfPTable(pointColumnWidths);
-        table.addCell("ID");
-        table.addCell("Imię i nazwisko");
-        table.addCell("Suma [opak.]");
-        table.addCell("Suma [kg]");
-        for (int i = 0; i < 4; i++) {
-            if(fruitTypeService.getType(i).getName() != null){
-                table.addCell(fruitTypeService.getType(i).getName()+" [opakowania]");
-                table.addCell(fruitTypeService.getType(i).getName()+" [kg]");
-            }
-        }
-
         try {
             writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
             writer.setStrictImageSequence(true);
@@ -134,49 +120,74 @@ public class PickersToPdfWriter {
 
             document.open();
             addTitle(document, "Raport pracowniczy Pickeri " + LocalDate.now());
-        } catch (DocumentException e1) {
-            e1.printStackTrace();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        }
 
+            float[] pointColumnWidths = {100};
+            if (fruitTypeService.getTypeAmount() == 0) {
+                pointColumnWidths = new float[]{90F, 180F, 150F, 150F, 150F, 150F};
+            }
+            if (fruitTypeService.getTypeAmount() == 1) {
+                pointColumnWidths = new float[]{90F, 150F, 150F, 150F, 150F, 150F, 250F};
+            }
+            if (fruitTypeService.getTypeAmount() == 2) {
+                pointColumnWidths = new float[]{90F, 160F, 150F, 180F, 220F, 220F, 220F, 220F};
+            }
+            if (fruitTypeService.getTypeAmount() == 3) {
+                pointColumnWidths = new float[]{90F, 150F, 150F, 150F, 150F, 190F, 190F, 190F, 190F};
+            }
+            if (fruitTypeService.getTypeAmount() == 4) {
+                pointColumnWidths = new float[]{90F, 150F, 150F, 150F, 150F, 150F, 180F, 180F, 180F, 180F};
+            }
 
-        for (FruitPicker fp : fruitPickers) {
+            document.setMargins(10F, 10F, 70F, 10F);
+            PdfPTable table = new PdfPTable(pointColumnWidths);
+            table.addCell("ID");
+            table.addCell(new Phrase("Imię i nazwisko", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+            table.addCell(new Phrase("Suma [opak.]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+            table.addCell(new Phrase("Suma [kg]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+            for (int i = 0; i < 4; i++) {
+                if (fruitTypeService.getType(i).getName() != null) {
+                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + " [opak.]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + " [kg]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+                }
+            }
+
+            for (FruitPicker fp : fruitPickers) {
 
                 List<String> amountInfo1 = (getTypeInfoToString(fruitTypeService, fp, 0));
                 List<String> amountInfo2 = (getTypeInfoToString(fruitTypeService, fp, 1));
                 List<String> amountInfo3 = (getTypeInfoToString(fruitTypeService, fp, 2));
                 List<String> amountInfo4 = (getTypeInfoToString(fruitTypeService, fp, 3));
 
-//                document.add(new Paragraph(fp.getId() + " " + fp.getName() + " " + fp.getLastName() + " | suma opakowań: " + fp.getPackageDeliveryAmount()
-//                        + " | suma wagi [kg]: " + fp.getWeightSumKgPlainText() + amountInfo,
-//                        FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
-                table.addCell(Long.toString(fp.getId()));
-                table.addCell(fp.getName() + " " + fp.getLastName());
+                table.addCell(new Phrase(Long.toString(fp.getId()), FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+                table.addCell(new Phrase(fp.getName() + " " + fp.getLastName(), FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
                 table.addCell(Long.toString(fp.getPackageDeliveryAmount()));
                 table.addCell(fp.getWeightSumKgPlainText());
-                if(amountInfo1.size()==2){
+                if (amountInfo1.size() == 2) {
                     table.addCell(amountInfo1.get(0));
                     table.addCell(amountInfo1.get(1));
                 }
-                if(amountInfo2.size()==2){
+                if (amountInfo2.size() == 2) {
                     table.addCell(amountInfo2.get(0));
                     table.addCell(amountInfo2.get(1));
                 }
-                if(amountInfo3.size()==2){
+                if (amountInfo3.size() == 2) {
                     table.addCell(amountInfo3.get(0));
                     table.addCell(amountInfo3.get(1));
                 }
-                if(amountInfo4.size()==2){
+                if (amountInfo4.size() == 2) {
                     table.addCell(amountInfo4.get(0));
                     table.addCell(amountInfo4.get(1));
                 }
-
+            }
             try {
                 document.add(table);
             } catch (DocumentException e) {
                 e.printStackTrace();
             }
+        } catch (DocumentException e1) {
+            e1.printStackTrace();
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
         }
 
         document.close();
