@@ -138,16 +138,17 @@ public class PickersToPdfWriter {
                 pointColumnWidths = new float[]{90F, 160F, 150F, 150F, 150F, 150F, 180F, 180F, 180F, 180F};
             }
 
+            Font font = FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL);
             document.setMargins(10F, 10F, 70F, 10F);
             PdfPTable table = new PdfPTable(pointColumnWidths);
             table.addCell("ID");
-            table.addCell(new Phrase("Imię i nazwisko", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
-            table.addCell(new Phrase("Suma [opak.]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
-            table.addCell(new Phrase("Suma [kg]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
+            table.addCell(new Phrase("Imię i nazwisko", font));
+            table.addCell(new Phrase("Suma [opak.]", font));
+            table.addCell(new Phrase("Suma [kg]", font));
             for (int i = 0; i < 4; i++) {
                 if (fruitTypeService.getType(i).getName() != null) {
-                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + " [opak.]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
-                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + " [kg]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
+                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + " [opak.]", font));
+                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + " [kg]", font));
                 }
             }
 
@@ -158,8 +159,8 @@ public class PickersToPdfWriter {
                 List<String> amountInfo3 = (getTypeInfoToString(fruitTypeService, fp, 2));
                 List<String> amountInfo4 = (getTypeInfoToString(fruitTypeService, fp, 3));
 
-                table.addCell(new Phrase(Long.toString(fp.getId()), FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
-                table.addCell(new Phrase(fp.getName() + " " + fp.getLastName(), FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
+                table.addCell(new Phrase(Long.toString(fp.getId()), font));
+                table.addCell(new Phrase(fp.getName() + " " + fp.getLastName(), font));
                 table.addCell(Long.toString(fp.getPackageDeliveryAmount()));
                 table.addCell(fp.getWeightSumKgPlainText());
                 if (amountInfo1.size() == 2) {
