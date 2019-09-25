@@ -123,31 +123,31 @@ public class PickersToPdfWriter {
 
             float[] pointColumnWidths = {100};
             if (fruitTypeService.getTypeAmount() == 0) {
-                pointColumnWidths = new float[]{90F, 180F, 150F, 150F, 150F, 150F};
+                pointColumnWidths = new float[]{90F, 190F, 150F, 150F, 150F, 150F};
             }
             if (fruitTypeService.getTypeAmount() == 1) {
-                pointColumnWidths = new float[]{90F, 150F, 150F, 150F, 150F, 150F, 250F};
+                pointColumnWidths = new float[]{90F, 190F, 150F, 150F, 150F, 150F, 250F};
             }
             if (fruitTypeService.getTypeAmount() == 2) {
-                pointColumnWidths = new float[]{90F, 160F, 150F, 180F, 220F, 220F, 220F, 220F};
+                pointColumnWidths = new float[]{90F, 190F, 150F, 180F, 220F, 220F, 220F, 220F};
             }
             if (fruitTypeService.getTypeAmount() == 3) {
-                pointColumnWidths = new float[]{90F, 150F, 150F, 150F, 150F, 190F, 190F, 190F, 190F};
+                pointColumnWidths = new float[]{90F, 160F, 150F, 150F, 150F, 190F, 190F, 190F, 190F};
             }
             if (fruitTypeService.getTypeAmount() == 4) {
-                pointColumnWidths = new float[]{90F, 150F, 150F, 150F, 150F, 150F, 180F, 180F, 180F, 180F};
+                pointColumnWidths = new float[]{90F, 160F, 150F, 150F, 150F, 150F, 180F, 180F, 180F, 180F};
             }
 
             document.setMargins(10F, 10F, 70F, 10F);
             PdfPTable table = new PdfPTable(pointColumnWidths);
             table.addCell("ID");
-            table.addCell(new Phrase("Imię i nazwisko", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
-            table.addCell(new Phrase("Suma [opak.]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
-            table.addCell(new Phrase("Suma [kg]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+            table.addCell(new Phrase("Imię i nazwisko", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
+            table.addCell(new Phrase("Suma [opak.]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
+            table.addCell(new Phrase("Suma [kg]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
             for (int i = 0; i < 4; i++) {
                 if (fruitTypeService.getType(i).getName() != null) {
-                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + " [opak.]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
-                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + " [kg]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + " [opak.]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
+                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + " [kg]", FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
                 }
             }
 
@@ -158,8 +158,8 @@ public class PickersToPdfWriter {
                 List<String> amountInfo3 = (getTypeInfoToString(fruitTypeService, fp, 2));
                 List<String> amountInfo4 = (getTypeInfoToString(fruitTypeService, fp, 3));
 
-                table.addCell(new Phrase(Long.toString(fp.getId()), FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
-                table.addCell(new Phrase(fp.getName() + " " + fp.getLastName(), FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
+                table.addCell(new Phrase(Long.toString(fp.getId()), FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
+                table.addCell(new Phrase(fp.getName() + " " + fp.getLastName(), FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL)));
                 table.addCell(Long.toString(fp.getPackageDeliveryAmount()));
                 table.addCell(fp.getWeightSumKgPlainText());
                 if (amountInfo1.size() == 2) {
