@@ -67,16 +67,24 @@ public class FindPickerTab extends VerticalLayout {
                 && !fruitTypeService.getType(slot).getName().equals("")) {
             if (slot == 0) {
                 fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeOne)
-                        .setCaption(fruitTypeService.getType(slot).getName());
+                        .setCaption(fruitTypeService.getType(slot).getName() + " [opak.]");
+                fruitPickerGrid.addColumn(FruitPicker::getWeightKgWithTypeOnePlainText)
+                        .setCaption(fruitTypeService.getType(slot).getName() + " [kg]");
             } else if (slot == 1) {
                 fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeTwo)
-                        .setCaption(fruitTypeService.getType(slot).getName());
+                        .setCaption(fruitTypeService.getType(slot).getName() + " [opak.]");
+                fruitPickerGrid.addColumn(FruitPicker::getWeightKgWithTypeTwoPlainText)
+                        .setCaption(fruitTypeService.getType(slot).getName() + " [kg]");
             } else if (slot == 2) {
                 fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeThree)
-                        .setCaption(fruitTypeService.getType(2).getName());
+                        .setCaption(fruitTypeService.getType(2).getName() + " [opak.]");
+                fruitPickerGrid.addColumn(FruitPicker::getWeightKgWithTypeThreePlainText)
+                        .setCaption(fruitTypeService.getType(slot).getName() + " [kg]");
             } else if (slot == 3) {
                 fruitPickerGrid.addColumn(FruitPicker::getPackageDeliveryWithTypeFour)
-                        .setCaption(fruitTypeService.getType(3).getName());
+                        .setCaption(fruitTypeService.getType(3).getName() + " [opak.]");
+                fruitPickerGrid.addColumn(FruitPicker::getWeightKgWithTypeFourPlainText)
+                        .setCaption(fruitTypeService.getType(slot).getName() + " [kg]");
             }
         }
     }
