@@ -7,10 +7,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
-import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.AddDeleteTypeTab;
-import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.AddFruitVarietyTab;
-import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.AddPickerTab;
-import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.PdfDocumentsGeneratorTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.*;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.OthersTab;
 
 @SpringUI(path = "/other")
@@ -23,15 +20,17 @@ public class OthersUI extends UI {
     private OthersTab othersTab;
     private AddPickerTab addPickerTab;
     private AddDeleteTypeTab addDeleteTypeTab;
+    private AllVarietiesTab allVarietiesTab;
 
     @Autowired
     public OthersUI(AddFruitVarietyTab addFruitVarietyTab, PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab, OthersTab othersTab,
-                    AddPickerTab addPickerTab, AddDeleteTypeTab addDeleteTypeTab) {
+                    AddPickerTab addPickerTab, AddDeleteTypeTab addDeleteTypeTab, AllVarietiesTab allVarietiesTab) {
         this.addDeleteTypeTab = addDeleteTypeTab;
         this.addPickerTab = addPickerTab;
         this.pdfDocumentsGeneratorTab = pdfDocumentsGeneratorTab;
         this.fruitVarietyTab = addFruitVarietyTab;
         this.othersTab = othersTab;
+        this.allVarietiesTab = allVarietiesTab;
     }
 
     @Override
@@ -45,6 +44,7 @@ public class OthersUI extends UI {
     private void addTabs() {
         tabs = new TabSheet();
         tabs.addTab(fruitVarietyTab, "Dodaj odmianę owocu");
+        tabs.addTab(allVarietiesTab, "Lista odmian");
         tabs.addTab(addPickerTab, "Dodaj pracownika");
         tabs.addTab(addDeleteTypeTab, "Dodaj / usuń typ owocu");
         tabs.addTab(pdfDocumentsGeneratorTab, "Wygeneruj pliki pdf");
