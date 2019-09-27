@@ -141,7 +141,7 @@ public class PickersToPdfWriter {
             Font font = FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL);
             document.setMargins(10F, 10F, 70F, 10F);
             PdfPTable table = new PdfPTable(pointColumnWidths);
-            table.addCell("ID");
+            table.addCell(new Phrase("ID", font));
             table.addCell(new Phrase("Imię i nazwisko", font));
             table.addCell(new Phrase("Suma [opak.]", font));
             table.addCell(new Phrase("Suma [kg]", font));
@@ -161,23 +161,23 @@ public class PickersToPdfWriter {
 
                 table.addCell(new Phrase(Long.toString(fp.getId()), font));
                 table.addCell(new Phrase(fp.getName() + " " + fp.getLastName(), font));
-                table.addCell(Long.toString(fp.getPackageDeliveryAmount()));
-                table.addCell(fp.getWeightSumKgPlainText());
+                table.addCell(new Phrase(Long.toString(fp.getPackageDeliveryAmount()), font));
+                table.addCell(new Phrase(fp.getWeightSumKgPlainText(), font));
                 if (amountInfo1.size() == 2) {
-                    table.addCell(amountInfo1.get(0));
-                    table.addCell(amountInfo1.get(1));
+                    table.addCell(new Phrase(amountInfo1.get(0), font));
+                    table.addCell(new Phrase(amountInfo1.get(1), font));
                 }
                 if (amountInfo2.size() == 2) {
-                    table.addCell(amountInfo2.get(0));
-                    table.addCell(amountInfo2.get(1));
+                    table.addCell(new Phrase(amountInfo2.get(0), font));
+                    table.addCell(new Phrase(amountInfo2.get(1), font));
                 }
                 if (amountInfo3.size() == 2) {
-                    table.addCell(amountInfo3.get(0));
-                    table.addCell(amountInfo3.get(1));
+                    table.addCell(new Phrase(amountInfo3.get(0), font));
+                    table.addCell(new Phrase(amountInfo3.get(1), font));
                 }
                 if (amountInfo4.size() == 2) {
-                    table.addCell(amountInfo4.get(0));
-                    table.addCell(amountInfo4.get(1));
+                    table.addCell(new Phrase(amountInfo4.get(0), font));
+                    table.addCell(new Phrase(amountInfo4.get(1), font));
                 }
             }
             try {
