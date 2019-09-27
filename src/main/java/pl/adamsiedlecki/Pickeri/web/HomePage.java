@@ -117,6 +117,8 @@ public class HomePage extends UI {
                 grid.addColumn(FruitDelivery::getFruitWeightKgPlainString).setCaption("WAGA");
                 grid.addColumn(FruitDelivery::getPackageAmount).setCaption("OPAKOWANIA");
                 grid.addColumn(FruitDelivery::getFruitVarietyName).setCaption("ODMIANA");
+                grid.addColumn(FruitDelivery::getType).setCaption("TYP");
+                grid.addColumn(FruitDelivery::getDeliveryTimeFormatted).setCaption("CZAS");
                 grid.setItems(fruitDeliveryService.getDeliveriesByPickerId(Long.parseLong(fruitPickerId.getValue())));
                 grid.setWidth(80, Unit.PERCENTAGE);
                 grid.setHeight(700, Unit.PIXELS);
