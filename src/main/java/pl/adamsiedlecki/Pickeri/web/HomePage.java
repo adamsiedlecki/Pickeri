@@ -86,7 +86,7 @@ public class HomePage extends UI {
         root.addComponent(new Label("Welcome to Pickeri!"));
         root.addComponent(new Link("LOGIN PAGE", new ExternalResource("/login")));
         root.addComponent(new Label("   "));
-        root.addComponent(new Label("Podaj swóje ID lub zeskanuj kod QR aby sprawdzić stan:"));
+        root.addComponent(new Label("Podaj swoje ID lub zeskanuj kod QR aby sprawdzić stan:"));
         root.addComponent(new HorizontalLayout(fruitPickerId, qrUpload, findInfoButton));
         root.addComponent(todayAmountOfPackagesLabel);
         root.addComponent(totalAmountOfPackagesLabel);
@@ -113,6 +113,15 @@ public class HomePage extends UI {
                 totalAmountOfPackagesLabel.setValue("Suma wszystkich opakowań: " + totalPackages);
                 todayWeightLabel.setValue("Waga owoców dzisiaj [kg] : " + todayWeight.divide(BigDecimal.valueOf(1000), 2, RoundingMode.FLOOR));
                 totalWeightLabel.setValue("Waga wszystkich owoców [kg] : " + totalWeight.divide(BigDecimal.valueOf(1000), 2, RoundingMode.FLOOR));
+                Grid<FruitDelivery> grid = new Grid<>();
+                grid.addColumn(FruitDelivery::getFruitWeightKgPlainString).setCaption("WAGA");
+                grid.addColumn(FruitDelivery::getPackageAmount).setCaption("OPAKOWANIA");
+                grid.addColumn(FruitDelivery::getFruitVarietyName).setCaption("ODMIANA");
+                grid.setItems(fruitDeliveryService.getDeliveriesByPickerId(Long.parseLong(fruitPickerId.getValue())));
+                grid.setWidth(80, Unit.PERCENTAGE);
+                grid.setHeight(700, Unit.PIXELS);
+                root.addComponent(grid);
+                root.setComponentAlignment(grid, Alignment.MIDDLE_CENTER);
             }
         });
         this.setContent(root);

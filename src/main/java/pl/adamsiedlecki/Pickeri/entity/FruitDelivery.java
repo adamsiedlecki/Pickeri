@@ -69,6 +69,11 @@ public class FruitDelivery {
         return fruitWeight;
     }
 
+    public String getFruitWeightKgPlainString() {
+        BigDecimal result = fruitWeight.divide(BigDecimal.valueOf(1000), 2, RoundingMode.FLOOR);
+        return result.toPlainString();
+    }
+
     public void setFruitWeight(BigDecimal fruitWeight) {
         this.fruitWeight = fruitWeight;
     }
