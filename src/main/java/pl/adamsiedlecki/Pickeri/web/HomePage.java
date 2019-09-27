@@ -14,6 +14,8 @@ import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -31,6 +33,8 @@ public class HomePage extends UI {
     private FruitDeliveryService fruitDeliveryService;
     private Label totalAmountOfPackagesLabel;
     private Label todayAmountOfPackagesLabel;
+    private Label totalWeightLabel;
+    private Label todayWeightLabel;
 
     public HomePage(FruitDeliveryService fruitDeliveryService) {
         this.fruitDeliveryService = fruitDeliveryService;
@@ -47,6 +51,8 @@ public class HomePage extends UI {
         findInfoButton = new Button("SZUKAJ");
         totalAmountOfPackagesLabel = new Label();
         todayAmountOfPackagesLabel = new Label();
+        todayWeightLabel = new Label();
+        totalWeightLabel = new Label();
         qrUpload.setAcceptMimeTypes("image/jpg");
         qrUpload.setButtonCaption("Naciśnij aby wybrać obraz");
         qrUpload.setReceiver(new ImageUploader());
@@ -84,21 +90,29 @@ public class HomePage extends UI {
         root.addComponent(new HorizontalLayout(fruitPickerId, qrUpload, findInfoButton));
         root.addComponent(todayAmountOfPackagesLabel);
         root.addComponent(totalAmountOfPackagesLabel);
+        root.addComponent(todayWeightLabel);
+        root.addComponent(totalWeightLabel);
 
         findInfoButton.addClickListener(e -> {
             if (NumberUtils.isCreatable(fruitPickerId.getValue())) {
                 List<FruitDelivery> deliveryList = fruitDeliveryService.getDeliveriesByPickerId(Long.parseLong(fruitPickerId.getValue()));
-                int total = 0;
-                int today = 0;
+                int totalPackages = 0;
+                int todayPackages = 0;
+                BigDecimal totalWeight = new BigDecimal(0);
+                BigDecimal todayWeight = new BigDecimal(0);
 
                 for (FruitDelivery fd : deliveryList) {
-                    total += fd.getPackageAmount();
+                    totalPackages += fd.getPackageAmount();
+                    totalWeight = totalWeight.add(fd.getFruitWeight());
                     if (fd.getDeliveryTime().getDayOfYear() == LocalDateTime.now().getDayOfYear()) {
-                        today += fd.getPackageAmount();
+                        todayPackages += fd.getPackageAmount();
+                        todayWeight = todayWeight.add(fd.getFruitWeight());
                     }
                 }
-                todayAmountOfPackagesLabel.setValue("Ilość opakowań dzisiaj: " + today);
-                totalAmountOfPackagesLabel.setValue("Suma wszystkich opakowań: " + total);
+                todayAmountOfPackagesLabel.setValue("Ilość opakowań dzisiaj: " + todayPackages);
+                totalAmountOfPackagesLabel.setValue("Suma wszystkich opakowań: " + totalPackages);
+                todayWeightLabel.setValue("Waga owoców dzisiaj [kg] : " + todayWeight.divide(BigDecimal.valueOf(1000), 2, RoundingMode.FLOOR));
+                totalWeightLabel.setValue("Waga wszystkich owoców [kg] : " + totalWeight.divide(BigDecimal.valueOf(1000), 2, RoundingMode.FLOOR));
             }
         });
         this.setContent(root);
