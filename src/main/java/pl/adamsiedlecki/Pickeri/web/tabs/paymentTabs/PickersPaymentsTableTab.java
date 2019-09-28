@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs;
 
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
@@ -28,6 +29,10 @@ public class PickersPaymentsTableTab extends VerticalLayout {
         refreshData();
         refreshButton.addClickListener(e -> refreshData());
         this.addComponents(refreshButton, pickerGrid);
+        this.setComponentAlignment(refreshButton, Alignment.MIDDLE_CENTER);
+        this.setComponentAlignment(pickerGrid, Alignment.MIDDLE_CENTER);
+        pickerGrid.setHeight(90, Unit.PERCENTAGE);
+        pickerGrid.setWidth(80, Unit.PERCENTAGE);
     }
 
     private void refreshData() {

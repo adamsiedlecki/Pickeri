@@ -22,9 +22,10 @@ public class AddPaymentTab extends VerticalLayout {
         TextField pickerIdField = new TextField("ID pracownika");
         TextField paymentAmount = new TextField("Dokonana wypłata [zł] (grosze oddzielamy kropką)");
         Button saveButton = new Button("ZAPISZ");
-        HorizontalLayout fieldsLayout = new HorizontalLayout(pickerIdField, paymentAmount, saveButton);
+        HorizontalLayout fieldsLayout = new HorizontalLayout(pickerIdField, paymentAmount);
 
         this.addComponent(fieldsLayout);
+        this.addComponent(saveButton);
 
         saveButton.addClickListener(e -> {
             if (NumberUtils.isDigits(pickerIdField.getValue()) && NumberUtils.isCreatable(paymentAmount.getValue())) {
