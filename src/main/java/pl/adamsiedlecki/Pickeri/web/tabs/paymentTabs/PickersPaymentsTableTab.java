@@ -20,7 +20,7 @@ public class PickersPaymentsTableTab extends VerticalLayout {
     public PickersPaymentsTableTab(FruitPickerService fruitPickerService) {
         this.fruitPickerService = fruitPickerService;
         pickerGrid = new Grid<>();
-        Button refreshButton = new Button("REFRESH");
+        Button refreshButton = new Button("ODŚWIEŻ");
         pickerGrid.addColumn(FruitPicker::getId).setCaption("ID");
         pickerGrid.addColumn(FruitPicker::getName).setCaption("Imię");
         pickerGrid.addColumn(FruitPicker::getLastName).setCaption("Nazwisko");
