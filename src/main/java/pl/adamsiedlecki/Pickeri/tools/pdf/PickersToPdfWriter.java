@@ -226,7 +226,7 @@ public class PickersToPdfWriter {
     }
 
     public static void writeEarningsRaportByKg(List<FruitPicker> fruitPickers, String pdfPath, String priceForTypeOne,
-                                               String priceForTypeTwo, String priceForTypeThree, String priceForTypeFour) {
+                                               String priceForTypeTwo, String priceForTypeThree, String priceForTypeFour, boolean includeFundsPaid) {
 
         Document document = new Document();
         PdfWriter writer = null;
@@ -253,6 +253,9 @@ public class PickersToPdfWriter {
                 BigDecimal earnings4 = calculateEarnings(fp.getWeightWithTypeFour(), new BigDecimal(priceForTypeFour));
                 BigDecimal sum = earnings1.add(earnings2).add(earnings3).add(earnings4);
 
+                if (includeFundsPaid) {
+                    sum = sum.subtract(fp.getFundsPaid());
+                }
                 document.add(new Paragraph(fp.getId() + " " + fp.getName() + " " + fp.getLastName() + " : " + sum + " zł",
                         FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
             } catch (DocumentException e1) {
@@ -274,7 +277,8 @@ public class PickersToPdfWriter {
     }
 
     public static void writeEarningsRaportByPackages(List<FruitPicker> fruitPickers, String pdfPath, String priceForTypeOne,
-                                                     String priceForTypeTwo, String priceForTypeThree, String priceForTypeFour) {
+                                                     String priceForTypeTwo, String priceForTypeThree, String priceForTypeFour,
+                                                     boolean includeFundsPaid) {
 
         Document document = new Document();
         PdfWriter writer = null;
@@ -300,6 +304,10 @@ public class PickersToPdfWriter {
                 BigDecimal earnings3 = calculateEarnings(fp.getPackageDeliveryWithTypeThree(), new BigDecimal(priceForTypeThree));
                 BigDecimal earnings4 = calculateEarnings(fp.getPackageDeliveryWithTypeFour(), new BigDecimal(priceForTypeFour));
                 BigDecimal sum = earnings1.add(earnings2).add(earnings3).add(earnings4);
+
+                if (includeFundsPaid) {
+                    sum = sum.subtract(fp.getFundsPaid());
+                }
 
                 document.add(new Paragraph(fp.getId() + " " + fp.getName() + " " + fp.getLastName() + " : " + sum + " zł",
                         FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
