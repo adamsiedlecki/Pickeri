@@ -4,6 +4,7 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitType;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Scope("prototype")
 public class AddDeleteTypeTab extends VerticalLayout {
 
     private FruitTypeService fruitTypeService;

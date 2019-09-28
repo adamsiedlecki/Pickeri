@@ -11,6 +11,7 @@ import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FruitPickerService implements Removeable {
@@ -36,6 +37,10 @@ public class FruitPickerService implements Removeable {
         setOtherData(pickersList);
         setTypeInfo(pickersList);
         return pickersList;
+    }
+
+    public Optional<FruitPicker> getFruitPickerById(Long id) {
+        return fruitPickerDAO.findById(id);
     }
 
     @Cacheable(cacheNames = "findAllFruitPickers")

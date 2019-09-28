@@ -25,6 +25,9 @@ public class FruitPicker {
     @Column
     private String gender;
 
+    @Column(columnDefinition = "Decimal(10,2) default '0.00'")
+    private BigDecimal fundsPaid;
+
     private long packageDeliveryAmount;
 
     private long packageDeliveryWithTypeOne;
@@ -44,6 +47,14 @@ public class FruitPicker {
     private BigDecimal weightWithTypeThree;
 
     private BigDecimal weightWithTypeFour;
+
+    public BigDecimal getFundsPaid() {
+        return fundsPaid;
+    }
+
+    public void setFundsPaid(BigDecimal fundsPaid) {
+        this.fundsPaid = fundsPaid;
+    }
 
     public BigDecimal getWeightWithTypeOne() {
         return weightWithTypeOne;
