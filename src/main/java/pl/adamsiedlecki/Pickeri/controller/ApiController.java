@@ -3,7 +3,6 @@ package pl.adamsiedlecki.Pickeri.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,6 @@ import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 
 @RestController
 @RequestMapping("/api/v1")
-@Scope("prototype")
 public class ApiController {
 
     private FruitPickerService fruitPickerService;

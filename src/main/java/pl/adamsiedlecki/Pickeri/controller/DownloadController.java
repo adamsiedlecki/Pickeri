@@ -1,7 +1,6 @@
 package pl.adamsiedlecki.Pickeri.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -18,7 +17,6 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/download")
-@Scope("prototype")
 public class DownloadController {
 
     private ServletContext context;
