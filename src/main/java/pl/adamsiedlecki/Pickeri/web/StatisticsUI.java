@@ -2,6 +2,7 @@ package pl.adamsiedlecki.Pickeri.web;
 
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.TabSheet;
@@ -16,6 +17,7 @@ import pl.adamsiedlecki.Pickeri.web.tabs.statisticsTabs.StatisticsTab;
 @SpringUI(path = "/statistics-and-info")
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Squada+One|Ubuntu&display=swap"})
+@Title("Statystyki")
 public class StatisticsUI extends UI {
 
     private TabSheet tabs;

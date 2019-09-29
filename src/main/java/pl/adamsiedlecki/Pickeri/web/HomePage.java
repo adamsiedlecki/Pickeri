@@ -2,6 +2,7 @@ package pl.adamsiedlecki.Pickeri.web;
 
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
@@ -26,6 +27,7 @@ import java.util.List;
 @SpringUI(path = "/home")
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Squada+One|Ubuntu&display=swap"})
+@Title("Home")
 public class HomePage extends UI {
 
     private VerticalLayout root;

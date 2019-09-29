@@ -2,6 +2,7 @@ package pl.adamsiedlecki.Pickeri.web;
 
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Title;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -15,6 +16,7 @@ import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 @SpringUI(path = "/errorPage")
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Squada+One|Ubuntu&display=swap"})
+@Title("Error")
 public class ErrorPageUI extends UI {
 
     private VerticalLayout root;
