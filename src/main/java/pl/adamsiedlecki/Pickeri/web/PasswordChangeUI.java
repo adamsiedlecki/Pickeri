@@ -1,5 +1,7 @@
 package pl.adamsiedlecki.Pickeri.web;
 
+import com.vaadin.annotations.StyleSheet;
+import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
@@ -8,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import pl.adamsiedlecki.Pickeri.service.PickeriUserDetailsService;
 
 @SpringUI(path = "/password-change")
+@Theme("mytheme")
+@StyleSheet({"https://fonts.googleapis.com/css?family=Squada+One|Ubuntu&display=swap"})
 public class PasswordChangeUI extends UI {
 
     private VerticalLayout root;

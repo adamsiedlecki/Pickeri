@@ -1,5 +1,7 @@
 package pl.adamsiedlecki.Pickeri.web;
 
+import com.vaadin.annotations.StyleSheet;
+import com.vaadin.annotations.Theme;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -11,6 +13,8 @@ import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
 
 @SpringUI(path = "/usuwaniedanych")
+@Theme("mytheme")
+@StyleSheet({"https://fonts.googleapis.com/css?family=Squada+One|Ubuntu&display=swap"})
 public class RemoveUI extends UI {
 
     private VerticalLayout root;

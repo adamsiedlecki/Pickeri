@@ -1,5 +1,7 @@
 package pl.adamsiedlecki.Pickeri.web;
 
+import com.vaadin.annotations.StyleSheet;
+import com.vaadin.annotations.Theme;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.TabSheet;
@@ -11,6 +13,8 @@ import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.RankingTab;
 
 @SpringUI(path = "/ranking")
+@Theme("mytheme")
+@StyleSheet({"https://fonts.googleapis.com/css?family=Squada+One|Ubuntu&display=swap"})
 public class RankingUI extends UI {
 
     private VerticalLayout root;
