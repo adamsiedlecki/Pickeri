@@ -366,12 +366,10 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
       margin-left: 20px;
   }
   .v-link:hover {
-        background-color: green;
-        color: white;
+        background-color: #35E332;
+        color: black;
   }
-   .v-link:hover {
-           background-color: green;
-           color: white;
-   }
-
+  .v-link a:hover {
+          color: black;
+    }
 }
