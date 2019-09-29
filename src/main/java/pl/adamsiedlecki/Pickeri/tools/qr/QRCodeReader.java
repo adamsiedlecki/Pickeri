@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.tools;
+package pl.adamsiedlecki.Pickeri.tools.qr;
 
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;

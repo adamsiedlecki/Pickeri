@@ -13,7 +13,7 @@ import pl.adamsiedlecki.Pickeri.entity.GeoLocalization;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
-import pl.adamsiedlecki.Pickeri.tools.QRCodeReader;
+import pl.adamsiedlecki.Pickeri.tools.qr.QRCodeReader;
 
 import java.io.File;
 import java.io.FileOutputStream;

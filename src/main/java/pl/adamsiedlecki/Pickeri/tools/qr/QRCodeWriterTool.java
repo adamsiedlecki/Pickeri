@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.tools;
+package pl.adamsiedlecki.Pickeri.tools.qr;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;

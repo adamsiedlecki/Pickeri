@@ -4,7 +4,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
-import pl.adamsiedlecki.Pickeri.tools.QRCodeWriterTool;
+import pl.adamsiedlecki.Pickeri.tools.qr.QRCodeWriterTool;
 
 import java.io.File;
 import java.io.FileNotFoundException;
