@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.configuration.Caching;
+package pl.adamsiedlecki.Pickeri.configuration.caching;
 
 import com.google.common.cache.CacheBuilder;
 import org.springframework.boot.autoconfigure.cache.CacheManagerCustomizer;
@@ -18,12 +18,7 @@ public class CachingConfig {
 
     @Bean
     public CacheManagerCustomizer<ConcurrentMapCacheManager> cacheManagerCustomizer() {
-        return new CacheManagerCustomizer<ConcurrentMapCacheManager>() {
-            @Override
-            public void customize(ConcurrentMapCacheManager cacheManager) {
-                cacheManager.setAllowNullValues(true);
-            }
-        };
+        return cacheManager -> cacheManager.setAllowNullValues(true);
     }
 
     @Bean
