@@ -16,7 +16,7 @@ import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 
 @SpringUI(path = "/all-deliveries")
 @Theme("mytheme")
-@StyleSheet({"https://fonts.googleapis.com/css?family=Squada+One|Ubuntu&display=swap"})
+@StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("Dostawy")
 public class AllDeliveriesUI extends UI {
 

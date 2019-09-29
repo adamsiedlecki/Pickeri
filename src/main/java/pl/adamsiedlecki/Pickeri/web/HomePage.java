@@ -26,7 +26,7 @@ import java.util.List;
 
 @SpringUI(path = "/home")
 @Theme("mytheme")
-@StyleSheet({"https://fonts.googleapis.com/css?family=Squada+One|Ubuntu&display=swap"})
+@StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("Home")
 public class HomePage extends UI {
 

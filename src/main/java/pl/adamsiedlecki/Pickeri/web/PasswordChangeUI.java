@@ -12,7 +12,7 @@ import pl.adamsiedlecki.Pickeri.service.PickeriUserDetailsService;
 
 @SpringUI(path = "/password-change")
 @Theme("mytheme")
-@StyleSheet({"https://fonts.googleapis.com/css?family=Squada+One|Ubuntu&display=swap"})
+@StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("Zmiana hasła")
 public class PasswordChangeUI extends UI {
 

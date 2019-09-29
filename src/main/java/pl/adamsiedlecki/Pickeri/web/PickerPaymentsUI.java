@@ -18,7 +18,7 @@ import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.PickersPaymentsTableTab;
 
 @SpringUI(path = "/picker-payments")
 @Theme("mytheme")
-@StyleSheet({"https://fonts.googleapis.com/css?family=Squada+One|Ubuntu&display=swap"})
+@StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("Wypłaty")
 public class PickerPaymentsUI extends UI {
 

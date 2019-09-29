@@ -15,7 +15,7 @@ import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.RankingTab;
 
 @SpringUI(path = "/ranking")
 @Theme("mytheme")
-@StyleSheet("https://fonts.googleapis.com/css?family=Squada+One|Ubuntu&display=swap")
+@StyleSheet("https://fonts.googleapis.com/css?family=Ubuntu&display=swap")
 @Title("Ranking")
 public class RankingUI extends UI {
 
