@@ -42,22 +42,22 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
         Button generateEarningsRaport = new Button("Generuj raport na temat zarobków pracowników [kg]");
         HorizontalLayout earningsByKgLayout = new HorizontalLayout();
 
-        TextField priceTypeOneField = new TextField("Cena [w zł]  [za kg] dla typu: " + fruitTypeService.getType(0).getName());
+        TextField priceTypeOneField = new TextField("Cena [zł/kg] dla typu: " + fruitTypeService.getType(0).getName());
         priceTypeOneField.setValue("0");
         if (fruitTypeService.getType(0).getName() != null) {
             earningsByKgLayout.addComponentsAndExpand(priceTypeOneField);
         }
-        TextField priceTypeTwoField = new TextField("Cena [w zł] [za kg] dla typu: " + fruitTypeService.getType(1).getName());
+        TextField priceTypeTwoField = new TextField("Cena [zł/kg] dla typu: " + fruitTypeService.getType(1).getName());
         priceTypeTwoField.setValue("0");
         if (fruitTypeService.getType(1).getName() != null) {
             earningsByKgLayout.addComponentsAndExpand(priceTypeTwoField);
         }
-        TextField priceTypeThreeField = new TextField("Cena [w zł]  [za kg] dla typu: " + fruitTypeService.getType(2).getName());
+        TextField priceTypeThreeField = new TextField("Cena [zł/kg] dla typu: " + fruitTypeService.getType(2).getName());
         priceTypeThreeField.setValue("0");
         if (fruitTypeService.getType(2).getName() != null) {
             earningsByKgLayout.addComponentsAndExpand(priceTypeThreeField);
         }
-        TextField priceTypeFourField = new TextField("Cena [w zł]  [za kg] dla typu: " + fruitTypeService.getType(3).getName());
+        TextField priceTypeFourField = new TextField("Cena [zł/kg] dla typu: " + fruitTypeService.getType(3).getName());
         priceTypeFourField.setValue("0");
         if (fruitTypeService.getType(3).getName() != null) {
             earningsByKgLayout.addComponentsAndExpand(priceTypeFourField);
@@ -86,22 +86,22 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
         Button generateEarningsRaportPackages = new Button("Generuj raport na temat zarobków pracowników [opakowania]");
         HorizontalLayout earningsByPackagesLayout = new HorizontalLayout();
 
-        TextField priceTypeOneFieldPackages = new TextField("Cena [w zł]  [za opakowanie] dla typu: " + fruitTypeService.getType(0).getName());
+        TextField priceTypeOneFieldPackages = new TextField("Cena [zł/opakowanie] dla typu: " + fruitTypeService.getType(0).getName());
         priceTypeOneFieldPackages.setValue("0");
         if (fruitTypeService.getType(0).getName() != null) {
             earningsByPackagesLayout.addComponentsAndExpand(priceTypeOneFieldPackages);
         }
-        TextField priceTypeTwoFieldPackages = new TextField("Cena [w zł] [za opakowanie] dla typu: " + fruitTypeService.getType(1).getName());
+        TextField priceTypeTwoFieldPackages = new TextField("Cena [zł/opak.] dla typu: " + fruitTypeService.getType(1).getName());
         priceTypeTwoFieldPackages.setValue("0");
         if (fruitTypeService.getType(1).getName() != null) {
             earningsByPackagesLayout.addComponentsAndExpand(priceTypeTwoFieldPackages);
         }
-        TextField priceTypeThreeFieldPackages = new TextField("Cena [w zł]  [za opakowanie] dla typu: " + fruitTypeService.getType(2).getName());
+        TextField priceTypeThreeFieldPackages = new TextField("Cena [zł/opak.] dla typu: " + fruitTypeService.getType(2).getName());
         priceTypeThreeFieldPackages.setValue("0");
         if (fruitTypeService.getType(2).getName() != null) {
             earningsByPackagesLayout.addComponentsAndExpand(priceTypeThreeFieldPackages);
         }
-        TextField priceTypeFourFieldPackages = new TextField("Cena [w zł]  [za opakowanie] dla typu: " + fruitTypeService.getType(3).getName());
+        TextField priceTypeFourFieldPackages = new TextField("Cena [zł/opak.] dla typu: " + fruitTypeService.getType(3).getName());
         priceTypeFourFieldPackages.setValue("0");
         if (fruitTypeService.getType(3).getName() != null) {
             earningsByPackagesLayout.addComponentsAndExpand(priceTypeFourFieldPackages);
