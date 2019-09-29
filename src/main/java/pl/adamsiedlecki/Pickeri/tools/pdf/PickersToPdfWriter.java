@@ -121,24 +121,26 @@ public class PickersToPdfWriter {
             document.open();
             addTitle(document, "Raport pracowniczy Pickeri " + LocalDate.now());
 
+            Font font = FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL);
             float[] pointColumnWidths = {100};
             if (fruitTypeService.getTypeAmount() == 0) {
-                pointColumnWidths = new float[]{90F, 190F, 150F, 150F, 150F, 150F};
+                pointColumnWidths = new float[]{90F, 190F, 180F, 180F};
             }
             if (fruitTypeService.getTypeAmount() == 1) {
-                pointColumnWidths = new float[]{90F, 190F, 150F, 150F, 150F, 150F, 250F};
+                pointColumnWidths = new float[]{90F, 190F, 180F, 180F, 180F, 180F};
             }
             if (fruitTypeService.getTypeAmount() == 2) {
-                pointColumnWidths = new float[]{90F, 190F, 150F, 180F, 220F, 220F, 220F, 220F};
+                pointColumnWidths = new float[]{90F, 190F, 180F, 180F, 220F, 220F, 220F, 220F};
             }
             if (fruitTypeService.getTypeAmount() == 3) {
-                pointColumnWidths = new float[]{90F, 160F, 150F, 150F, 150F, 190F, 190F, 190F, 190F};
+                pointColumnWidths = new float[]{90F, 190F, 180F, 180F, 180F, 180F, 180F, 180F, 180F, 180F};
+                font.setSize(9);
             }
             if (fruitTypeService.getTypeAmount() == 4) {
-                pointColumnWidths = new float[]{90F, 160F, 150F, 150F, 150F, 150F, 180F, 180F, 180F, 180F};
+                pointColumnWidths = new float[]{85F, 190F, 190F, 190F, 190F, 190F, 190F, 190F, 190F, 190F, 185F, 185F};
+                font.setSize(7);
             }
 
-            Font font = FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL);
             document.setMargins(10F, 10F, 70F, 10F);
             PdfPTable table = new PdfPTable(pointColumnWidths);
             table.addCell(new Phrase("ID", font));
