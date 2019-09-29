@@ -7,7 +7,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
-import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.OthersTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.AddPaymentTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.PdfGenerationTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.PickersPaymentsTableTab;
@@ -21,10 +21,10 @@ public class PickerPaymentsUI extends UI {
     private AddPaymentTab addPaymentTab;
     private PickersPaymentsTableTab pickersPaymentsTableTab;
     private PdfGenerationTab pdfGenerationTab;
-    private OthersTab othersTab;
+    private MenuTab othersTab;
 
     @Autowired
-    public PickerPaymentsUI(OthersTab othersTab, AddPaymentTab addPaymentTab, PickersPaymentsTableTab pickersPaymentsTableTab,
+    public PickerPaymentsUI(MenuTab othersTab, AddPaymentTab addPaymentTab, PickersPaymentsTableTab pickersPaymentsTableTab,
                             PdfGenerationTab pdfGenerationTab) {
         this.addPaymentTab = addPaymentTab;
         this.pickersPaymentsTableTab = pickersPaymentsTableTab;
@@ -39,7 +39,7 @@ public class PickerPaymentsUI extends UI {
         tabSheet.addTab(addPaymentTab, "Dodaj wypłatę");
         tabSheet.addTab(pickersPaymentsTableTab, "Podsumowanie wypłat");
         tabSheet.addTab(pdfGenerationTab, "Generowanie PDF");
-        tabSheet.addTab(othersTab, "Reszta");
+        tabSheet.addTab(othersTab, "Menu");
         root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
         root.addComponents(tabSheet);
         this.setContent(root);

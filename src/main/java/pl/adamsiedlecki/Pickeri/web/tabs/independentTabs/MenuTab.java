@@ -11,9 +11,9 @@ import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 
 @SpringComponent
 @Scope("prototype")
-public class OthersTab extends VerticalLayout {
+public class MenuTab extends VerticalLayout {
 
-    public OthersTab() {
+    public MenuTab() {
         this.addComponent(new Link("Dodawanie owoców", new ExternalResource("/")));
         this.addComponent(new Link("Statystyki i pracownicy", new ExternalResource("/statistics-and-info")));
         this.addComponent(new Link("Ranking", new ExternalResource("/ranking")));

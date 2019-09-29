@@ -3,6 +3,7 @@ package pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -25,6 +26,10 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
     public PdfDocumentsGeneratorTab(FruitPickerService fruitPickerService, FruitTypeService fruitTypeService) {
         this.fruitTypeService = fruitTypeService;
         this.fruitPickerService = fruitPickerService;
+        Label warning = new Label("Uwaga! Raporty płacowe generowane poniżej nie względniają wypłat już dokonanych(zliczają sumę należności na podstawie tylko kg lub opakowań).");
+        warning.setStyleName(ValoTheme.LABEL_H4);
+        this.addComponent(warning);
+        this.setComponentAlignment(warning, Alignment.MIDDLE_CENTER);
         Button generatePdfButton = new Button("Generuj kody QR dla wszystkich pracowników");
         this.addComponent(generatePdfButton);
 

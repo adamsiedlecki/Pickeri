@@ -7,7 +7,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
-import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.OthersTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.RankingTab;
 
 @SpringUI(path = "/ranking")
@@ -15,10 +15,10 @@ public class RankingUI extends UI {
 
     private VerticalLayout root;
     private RankingTab rankingTab;
-    private OthersTab othersTab;
+    private MenuTab othersTab;
 
     @Autowired
-    public RankingUI(RankingTab rankingTab, OthersTab othersTab) {
+    public RankingUI(RankingTab rankingTab, MenuTab othersTab) {
         this.rankingTab = rankingTab;
         this.othersTab = othersTab;
     }
@@ -34,7 +34,7 @@ public class RankingUI extends UI {
     private void addTabs() {
         TabSheet tabs = new TabSheet();
         tabs.addTab(rankingTab, "Ranking");
-        tabs.addTab(othersTab, "Reszta");
+        tabs.addTab(othersTab, "Menu");
         root.addComponent(tabs);
     }
 

@@ -36,7 +36,6 @@ public class CachingConfig {
                         CacheBuilder.newBuilder().expireAfterWrite(10, TimeUnit.SECONDS).maximumSize(100).build().asMap(), true);
             }
         };
-
         return cacheManager;
     }
 

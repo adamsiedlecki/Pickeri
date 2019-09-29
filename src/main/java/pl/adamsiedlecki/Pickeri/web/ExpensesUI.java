@@ -10,7 +10,7 @@ import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.expensesTabs.AddExpenseTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.expensesTabs.AllExpensesTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.expensesTabs.ExpensesStatistics;
-import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.OthersTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 
 
 @SpringUI(path = "/expenses")
@@ -21,11 +21,11 @@ public class ExpensesUI extends UI {
     private AddExpenseTab addExpenseTab;
     private AllExpensesTab allExpensesTab;
     private ExpensesStatistics expensesStatistics;
-    private OthersTab othersTab;
+    private MenuTab othersTab;
 
     @Autowired
     public ExpensesUI(AddExpenseTab addExpenseTab, AllExpensesTab allExpensesTab, ExpensesStatistics expensesStatistics,
-                      OthersTab othersTab) {
+                      MenuTab othersTab) {
         this.addExpenseTab = addExpenseTab;
         this.allExpensesTab = allExpensesTab;
         this.expensesStatistics = expensesStatistics;
@@ -39,7 +39,7 @@ public class ExpensesUI extends UI {
         tabSheet.addTab(addExpenseTab, "Dodaj wydatek");
         tabSheet.addTab(allExpensesTab, "Wszystkie wydatki");
         tabSheet.addTab(expensesStatistics, "Statystyki wydatków");
-        tabSheet.addTab(othersTab, "Reszta");
+        tabSheet.addTab(othersTab, "Menu");
         root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
         root.addComponents(tabSheet);
         this.setContent(root);

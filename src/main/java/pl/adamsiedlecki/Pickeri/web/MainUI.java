@@ -9,7 +9,7 @@ import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.AddDeliveryTab;
-import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.OthersTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 
 @SpringUI
 public class MainUI extends UI {
@@ -17,10 +17,10 @@ public class MainUI extends UI {
     private TabSheet tabs;
     private VerticalLayout root;
     private AddDeliveryTab addDeliveryTab;
-    private OthersTab othersTab;
+    private MenuTab othersTab;
 
     @Autowired
-    public MainUI(AddDeliveryTab addDeliveryTab, OthersTab othersTab) {
+    public MainUI(AddDeliveryTab addDeliveryTab, MenuTab othersTab) {
         this.addDeliveryTab = addDeliveryTab;
         this.othersTab = othersTab;
     }
@@ -37,7 +37,7 @@ public class MainUI extends UI {
     private void addTabs() {
         tabs = new TabSheet();
         tabs.addTab(addDeliveryTab, "Dodaj owoce");
-        tabs.addTab(othersTab, "Reszta");
+        tabs.addTab(othersTab, "Menu");
         root.addComponent(tabs);
     }
 
