@@ -36,6 +36,7 @@ public class ExpensesStatistics extends VerticalLayout {
         monthsGrid = new Grid<>();
         monthsGrid.addColumn(MonthExpanses::getMonthName).setCaption("Miesiąc");
         monthsGrid.addColumn(MonthExpanses::getExpansesSum).setCaption("Ilość pieniędzy [zł]");
+        monthsGrid.addColumn(MonthExpanses::getPercentageInAll).setCaption("Procentowy udział [%]");
         monthsGrid.setHeight(900, Unit.PIXELS);
         monthsGrid.setWidth(40, Unit.PERCENTAGE);
         root.addComponentsAndExpand(refreshButton, totalAmountOfSpentMoney, averageAmountOfMoney, monthsGrid);

@@ -7,10 +7,20 @@ public class MonthExpanses {
 
     private BigDecimal expansesSum;
     private String monthName;
+    private BigDecimal percentageInAll;
 
-    public MonthExpanses(BigDecimal expansesSum, String monthName) {
+    public MonthExpanses(BigDecimal expansesSum, String monthName, BigDecimal percentageInAll) {
         this.expansesSum = expansesSum;
         this.monthName = monthName;
+        this.percentageInAll = percentageInAll;
+    }
+
+    public BigDecimal getPercentageInAll() {
+        return percentageInAll;
+    }
+
+    public void setPercentageInAll(BigDecimal percentageInAll) {
+        this.percentageInAll = percentageInAll;
     }
 
     public BigDecimal getExpansesSum() {
