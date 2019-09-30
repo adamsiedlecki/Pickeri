@@ -28,24 +28,34 @@ public class FruitPicker {
     @Column(columnDefinition = "Decimal(10,2) default '0.00'")
     private BigDecimal fundsPaid;
 
+    @Transient
     private long packageDeliveryAmount;
 
+    @Transient
     private long packageDeliveryWithTypeOne;
 
+    @Transient
     private long packageDeliveryWithTypeTwo;
 
+    @Transient
     private long packageDeliveryWithTypeThree;
 
+    @Transient
     private long packageDeliveryWithTypeFour;
 
+    @Transient
     private BigDecimal weightSum;
 
+    @Transient
     private BigDecimal weightWithTypeOne;
 
+    @Transient
     private BigDecimal weightWithTypeTwo;
 
+    @Transient
     private BigDecimal weightWithTypeThree;
 
+    @Transient
     private BigDecimal weightWithTypeFour;
 
     public BigDecimal getFundsPaid() {

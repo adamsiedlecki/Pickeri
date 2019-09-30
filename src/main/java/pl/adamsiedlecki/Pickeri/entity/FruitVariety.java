@@ -19,12 +19,16 @@ public class FruitVariety {
     @Column
     private String comment;
 
+    @Transient
     private BigDecimal percentageParticipationInPackagesAmount;
 
+    @Transient
     private long totalPackages;
 
+    @Transient
     private BigDecimal totalWeight;
 
+    @Transient
     private BigDecimal percentageParticipationInWeight;
 
     public FruitVariety() {
