@@ -1,6 +1,7 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class FruitType {
@@ -48,5 +49,29 @@ public class FruitType {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FruitType)) return false;
+        FruitType fruitType = (FruitType) o;
+        return Objects.equals(getId(), fruitType.getId()) &&
+                Objects.equals(getName(), fruitType.getName()) &&
+                Objects.equals(getSlot(), fruitType.getSlot());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getSlot());
+    }
+
+    @Override
+    public String toString() {
+        return "FruitType{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", slot=" + slot +
+                '}';
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.FruitTypeDAO;
 import pl.adamsiedlecki.Pickeri.entity.FruitType;
+import pl.adamsiedlecki.Pickeri.exceptions.NotUniqueTypesException;
 
 import java.util.List;
 
@@ -33,27 +34,40 @@ public class FruitTypeService {
         return fruitTypeDAO.getTypeNames();
     }
 
-    public void addTypes(List<FruitType> types) throws Exception {
-
-        for (FruitType ft : types) {
-            for (FruitType ftt : types) {
-                if (ft.getSlot() != -1 || ftt.getSlot() != -1) {
-                    if (ft != ftt) {
-                        if (ft.getSlot().equals(ftt.getSlot())) {
-                            throw new Exception("There are 2 or more types in the list with the same slot!");
-                        }
-                    }
-                }
-            }
+    public void addTypes(List<FruitType> typesList) throws NotUniqueTypesException {
+        if (hasDifferentNames(typesList)) {
+            fruitTypeDAO.deleteAll();
+            fruitTypeDAO.saveAll(typesList);
+        } else {
+            throw new NotUniqueTypesException();
         }
-
-        fruitTypeDAO.deleteAll();
-        fruitTypeDAO.saveAll(types);
     }
 
     public int getTypeAmount() {
         List<String> names = getTypeNames();
         return names.size();
+    }
+
+    private boolean hasDifferentNames(List<FruitType> fruitTypeList) {
+        for (FruitType ft : fruitTypeList) {
+            for (FruitType ftt : fruitTypeList) {
+                if (nameIsNotEmpty(ft, ftt)) {
+                    if (ft != ftt) {
+                        if (ft.getName().equals(ftt.getName())) {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean nameIsNotEmpty(FruitType ft1, FruitType ft2) {
+        if (ft1.getName() == null || ft2 == null) {
+            return false;
+        }
+        return true;
     }
 
 }

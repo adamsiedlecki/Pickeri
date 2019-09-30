@@ -1,12 +1,14 @@
 package pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs;
 
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitType;
+import pl.adamsiedlecki.Pickeri.exceptions.NotUniqueTypesException;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 
 import java.util.ArrayList;
@@ -55,10 +57,16 @@ public class AddDeleteTypeTab extends VerticalLayout {
 
             try {
                 fruitTypeService.addTypes(types);
-            } catch (Exception ex) {
+                Notification.show("Poczekaj chwilę", "Aktualizacja może potwać chwilkę. Odśwież, aby dowiedzieć się, czy się powiodła.",
+                        Notification.Type.HUMANIZED_MESSAGE);
+            } catch (NotUniqueTypesException ex) {
+                Notification.show("Typy nie są różne!", Notification.Type.ERROR_MESSAGE);
+            }
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
-
             refreshData();
         });
         this.addComponents(refreshButton);
