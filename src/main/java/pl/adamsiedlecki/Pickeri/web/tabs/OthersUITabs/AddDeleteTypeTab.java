@@ -4,6 +4,8 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,8 @@ import java.util.List;
 @Component
 @Scope("prototype")
 public class AddDeleteTypeTab extends VerticalLayout {
+
+    private static final Logger log = LoggerFactory.getLogger(AddDeleteTypeTab.class);
 
     private FruitTypeService fruitTypeService;
     private TextField typeOneField;
@@ -65,7 +69,7 @@ public class AddDeleteTypeTab extends VerticalLayout {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException ex) {
-                ex.printStackTrace();
+                log.error("Thread.sleep() InterruptedException");
             }
             refreshData();
         });

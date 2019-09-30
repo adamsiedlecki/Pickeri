@@ -6,11 +6,16 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 
 import java.io.IOException;
 
+
 public class HeaderFooterPageEvent extends PdfPageEventHelper {
+
+    private static final Logger logger = LoggerFactory.getLogger(HeaderFooterPageEvent.class);
 
     public void onStartPage(PdfWriter writer, Document document) {
         Image image;
@@ -23,7 +28,7 @@ public class HeaderFooterPageEvent extends PdfPageEventHelper {
             document.addAuthor("Adam Siedlecki | Pickeri");
             document.addTitle("Raport");
         } catch (IOException | DocumentException e) {
-            e.printStackTrace();
+            logger.error("PDF footer, header or logo exception");
         }
     }
 

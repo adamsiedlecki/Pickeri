@@ -8,7 +8,6 @@ public class PickeriApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PickeriApplication.class, args);
-
     }
 
 }

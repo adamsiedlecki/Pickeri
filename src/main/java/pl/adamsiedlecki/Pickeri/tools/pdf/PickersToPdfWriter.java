@@ -2,6 +2,8 @@ package pl.adamsiedlecki.Pickeri.tools.pdf;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.tools.qr.QRCodeWriterTool;
@@ -12,11 +14,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.MalformedURLException;
 import java.time.LocalDate;
 import java.util.List;
 
 public class PickersToPdfWriter {
+
+    private static final Logger log = LoggerFactory.getLogger(PickersToPdfWriter.class);
 
     public static void writeWithQR(List<FruitPicker> fruitPickers, String pathToFile) {
 
@@ -28,10 +31,8 @@ public class PickersToPdfWriter {
             addHeaderFooter(writer);
             document.open();
             addTitle(document, "Lista pracowników z Pickeri " + LocalDate.now());
-        } catch (DocumentException e1) {
-            e1.printStackTrace();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
+        } catch (DocumentException | FileNotFoundException e) {
+            log.error("Write QR ", e.getCause());
         }
 
         for (FruitPicker fp : fruitPickers) {
@@ -40,12 +41,8 @@ public class PickersToPdfWriter {
                 Image image = Image.getInstance(qrFile.getAbsolutePath());
                 PdfContentByte cb = writer.getDirectContentUnder();
                 document.add(getWatermarkedImage(cb, image, fp.getId() + " " + fp.getName() + " " + fp.getLastName()));
-            } catch (DocumentException e1) {
-                e1.printStackTrace();
-            } catch (MalformedURLException e1) {
-                e1.printStackTrace();
-            } catch (IOException e1) {
-                e1.printStackTrace();
+            } catch (DocumentException | IOException e) {
+                log.error("Write QR - Document Exception or IOException");
             }
         }
         document.close();
@@ -63,10 +60,8 @@ public class PickersToPdfWriter {
 
             document.open();
             addTitle(document, "Lista pracowników z Pickeri " + LocalDate.now());
-        } catch (DocumentException e1) {
-            e1.printStackTrace();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
+        } catch (DocumentException | FileNotFoundException e1) {
+            log.error("Write QR - DocumentException or FileNotFoundException");
         }
 
 
@@ -76,7 +71,7 @@ public class PickersToPdfWriter {
                 document.add(new Paragraph(fp.getId() + " " + fp.getName() + " " + fp.getLastName(),
                         FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
             } catch (DocumentException e1) {
-                e1.printStackTrace();
+                log.error("Write without QR - DocumentException");
             }
         }
         document.close();
@@ -100,7 +95,7 @@ public class PickersToPdfWriter {
                     FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.BOLD)));
             document.add(new Paragraph(" "));
         } catch (DocumentException e) {
-            e.printStackTrace();
+            log.error("Add title - DocumentException");
         }
     }
 
@@ -185,12 +180,10 @@ public class PickersToPdfWriter {
             try {
                 document.add(table);
             } catch (DocumentException e) {
-                e.printStackTrace();
+                log.error(" Raport - DocumentException");
             }
-        } catch (DocumentException e1) {
-            e1.printStackTrace();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
+        } catch (DocumentException | FileNotFoundException e1) {
+            log.error("Raport - DocumentException or FileNotFoundException");
         }
 
         document.close();
@@ -239,10 +232,8 @@ public class PickersToPdfWriter {
 
             document.open();
             addTitle(document, "Raport zarobków pracowników Pickeri [kg] " + LocalDate.now());
-        } catch (DocumentException e1) {
-            e1.printStackTrace();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
+        } catch (DocumentException | FileNotFoundException e1) {
+            log.error("Raport - DocumentException or FileNotFoundException");
         }
 
         for (FruitPicker fp : fruitPickers) {
@@ -261,7 +252,7 @@ public class PickersToPdfWriter {
                 document.add(new Paragraph(fp.getId() + " " + fp.getName() + " " + fp.getLastName() + " : " + sum + " zł",
                         FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
             } catch (DocumentException e1) {
-                e1.printStackTrace();
+                log.error("Raport - DocumentException");
             }
         }
         document.close();
@@ -291,10 +282,8 @@ public class PickersToPdfWriter {
 
             document.open();
             addTitle(document, "Raport zarobków pracowników Pickeri [opakowania] " + LocalDate.now());
-        } catch (DocumentException e1) {
-            e1.printStackTrace();
-        } catch (FileNotFoundException e1) {
-            e1.printStackTrace();
+        } catch (DocumentException | FileNotFoundException e1) {
+            log.error("Raport - DocumentException or FileNotFoundException");
         }
 
         for (FruitPicker fp : fruitPickers) {
@@ -314,7 +303,7 @@ public class PickersToPdfWriter {
                 document.add(new Paragraph(fp.getId() + " " + fp.getName() + " " + fp.getLastName() + " : " + sum + " zł",
                         FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)));
             } catch (DocumentException e1) {
-                e1.printStackTrace();
+                log.error("Raport - DocumentException");
             }
         }
         document.close();

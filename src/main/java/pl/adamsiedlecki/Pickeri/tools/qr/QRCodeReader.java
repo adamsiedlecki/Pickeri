@@ -3,6 +3,8 @@ package pl.adamsiedlecki.Pickeri.tools.qr;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.HybridBinarizer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -12,12 +14,14 @@ import java.io.IOException;
 
 public class QRCodeReader {
 
+    private static final Logger log = LoggerFactory.getLogger(QRCodeReader.class);
+
     public static String decodeQRCode(File qrCodeimage) {
         BufferedImage bufferedImage = null;
         try {
             bufferedImage = ImageIO.read(qrCodeimage);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("QRCodeReader - IOException");
         }
 
         // https://stackoverflow.com/questions/3433275/adjust-brightness-and-contrast-of-bufferedimage-in-java
@@ -30,7 +34,7 @@ public class QRCodeReader {
         } catch (IOException e) {
             qrCodeimage.delete();
             f.delete();
-            e.printStackTrace();
+            log.error("IOException");
         }
 
         ////////////
@@ -42,7 +46,7 @@ public class QRCodeReader {
             f.delete();
             return result.getText();
         } catch (NotFoundException e) {
-            System.out.println("There is no QR code in the image");
+            log.error("There is no QR code in the image");
             qrCodeimage.delete();
             f.delete();
             return null;
