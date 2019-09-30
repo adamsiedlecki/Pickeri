@@ -34,36 +34,32 @@ public class FruitVarietyService implements Removeable {
         fruitVarietyDAO.save(fruitVariety);
     }
 
-    private List<FruitVariety> setPercentageParticipationInPackagesAmount(List<FruitVariety> fruitVarieties) {
+    private void setPercentageParticipationInPackagesAmount(List<FruitVariety> fruitVarieties) {
         for (FruitVariety fv : fruitVarieties) {
             BigDecimal percenatage = fruitDeliveryService.getPercentageParticipationForPackagesAmountByVariety(fv.getName());
             fv.setPercentageParticipationInPackagesAmount(percenatage);
         }
-        return fruitVarieties;
     }
 
-    private List<FruitVariety> setPackagesAmount(List<FruitVariety> fruitVarieties) {
+    private void setPackagesAmount(List<FruitVariety> fruitVarieties) {
         for (FruitVariety fv : fruitVarieties) {
             long amount = fruitDeliveryService.getPackagesAmountByVariety(fv.getName());
             fv.setTotalPackages(amount);
         }
-        return fruitVarieties;
     }
 
-    private List<FruitVariety> setTotalWeight(List<FruitVariety> fruitVarieties) {
+    private void setTotalWeight(List<FruitVariety> fruitVarieties) {
         for (FruitVariety fv : fruitVarieties) {
             BigDecimal amount = fruitDeliveryService.getTotalWeightByVariety(fv.getName());
             fv.setTotalWeight(amount);
         }
-        return fruitVarieties;
     }
 
-    private List<FruitVariety> setPercentageParticipationInWeight(List<FruitVariety> fruitVarieties) {
+    private void setPercentageParticipationInWeight(List<FruitVariety> fruitVarieties) {
         for (FruitVariety fv : fruitVarieties) {
             BigDecimal percenatage = fruitDeliveryService.getPercentageParticipationInWeight(fv.getName());
             fv.setPercentageParticipationInWeight(percenatage);
         }
-        return fruitVarieties;
     }
 
     @Override
@@ -77,7 +73,7 @@ public class FruitVarietyService implements Removeable {
     }
 
     public List<String> getVarietiesNames() {
-        return fruitVarietyDAO.getVarietiesNames();
+        return fruitVarietyDAO.getVarietiesNames().orElseGet(List::of);
     }
 
 }

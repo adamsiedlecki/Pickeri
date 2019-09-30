@@ -7,24 +7,25 @@ import org.springframework.stereotype.Repository;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Cacheable(cacheNames = "fruitDeliveryDAO")
 public interface FruitDeliveryDAO extends JpaRepository<FruitDelivery, Long> {
 
     @Query("SELECT (f) FROM FruitDelivery f WHERE f.fruitPickerId = ?1")
-    List<FruitDelivery> getDeliveriesByPickerId(long id);
+    Optional<List<FruitDelivery>> getDeliveriesByPickerId(long id);
 
     @Query("SELECT (f) FROM FruitDelivery f WHERE f.type = ?1")
-    List<FruitDelivery> findAllWithType(String type);
+    Optional<List<FruitDelivery>> findAllWithType(String type);
 
     @Query("SELECT (f) FROM FruitDelivery f WHERE f.fruitPickerId=?1 AND f.type = ?2")
-    List<FruitDelivery> findByIdWithType(Long id, String type);
+    Optional<List<FruitDelivery>> findByIdWithType(Long id, String type);
 
     @Query("SELECT (f) FROM FruitDelivery f WHERE f.fruitVarietyName = ?1")
-    List<FruitDelivery> findAllWithVariety(String variety);
+    Optional<List<FruitDelivery>> findAllWithVariety(String variety);
 
     @Query("SELECT (f) FROM FruitDelivery f WHERE f.fruitPickerId=?1 AND f.fruitVarietyName = ?2")
-    List<FruitDelivery> findAllByIdVariety(Long id, String variety);
+    Optional<List<FruitDelivery>> findAllByIdVariety(Long id, String variety);
 
 }

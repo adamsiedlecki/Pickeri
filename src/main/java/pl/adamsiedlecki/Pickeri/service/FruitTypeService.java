@@ -24,14 +24,11 @@ public class FruitTypeService {
     }
 
     public FruitType getType(int slot) {
-        if (fruitTypeDAO.getBySlot(slot) == null) {
-            return new FruitType();
-        }
-        return fruitTypeDAO.getBySlot(slot);
+        return fruitTypeDAO.getBySlot(slot).orElseGet(FruitType::new);
     }
 
     public List<String> getTypeNames() {
-        return fruitTypeDAO.getTypeNames();
+        return fruitTypeDAO.getTypeNames().orElseGet(List::of);
     }
 
     public void addTypes(List<FruitType> typesList) throws NotUniqueTypesException {
@@ -64,10 +61,7 @@ public class FruitTypeService {
     }
 
     private boolean nameIsNotEmpty(FruitType ft1, FruitType ft2) {
-        if (ft1.getName() == null || ft2 == null) {
-            return false;
-        }
-        return true;
+        return ft1.getName() != null && ft2 != null;
     }
 
 }

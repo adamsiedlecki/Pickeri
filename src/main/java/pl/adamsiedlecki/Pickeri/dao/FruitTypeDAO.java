@@ -7,16 +7,17 @@ import org.springframework.stereotype.Repository;
 import pl.adamsiedlecki.Pickeri.entity.FruitType;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Cacheable(cacheNames = "fruitTypeDAO")
 public interface FruitTypeDAO extends JpaRepository<FruitType, Long> {
 
     @Query("SELECT (ft) FROM FruitType ft WHERE ft.slot=?1")
-    FruitType getBySlot(Integer slot);
+    Optional<FruitType> getBySlot(Integer slot);
 
     @Query("SELECT name FROM FruitType ft WHERE ft.name!=NULL")
-    List<String> getTypeNames();
+    Optional<List<String>> getTypeNames();
 
 }
 

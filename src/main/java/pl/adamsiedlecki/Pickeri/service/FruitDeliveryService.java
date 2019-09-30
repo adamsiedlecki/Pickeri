@@ -9,6 +9,7 @@ import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FruitDeliveryService implements Removeable {
@@ -44,19 +45,23 @@ public class FruitDeliveryService implements Removeable {
     }
 
     public List<FruitDelivery> getDeliveriesByPickerId(long id) {
-        return fruitDeliveryDAO.getDeliveriesByPickerId(id);
+        Optional<List<FruitDelivery>> optionalList = fruitDeliveryDAO.getDeliveriesByPickerId(id);
+        return optionalList.orElseGet(List::of);
     }
 
     public List<FruitDelivery> findAllWithType(String type) {
-        return fruitDeliveryDAO.findAllWithType(type);
+        Optional<List<FruitDelivery>> optionalList = fruitDeliveryDAO.findAllWithType(type);
+        return optionalList.orElseGet(List::of);
     }
 
     public List<FruitDelivery> findAllWithVariety(String variety) {
-        return fruitDeliveryDAO.findAllWithVariety(variety);
+        Optional<List<FruitDelivery>> optionalList = fruitDeliveryDAO.findAllWithVariety(variety);
+        return optionalList.orElseGet(List::of);
     }
 
     public List<FruitDelivery> findByIdWithType(Long id, String type) {
-        return fruitDeliveryDAO.findByIdWithType(id, type);
+        Optional<List<FruitDelivery>> optionalList = fruitDeliveryDAO.findByIdWithType(id, type);
+        return optionalList.orElseGet(List::of);
     }
 
     public void removeAll() {
@@ -64,7 +69,8 @@ public class FruitDeliveryService implements Removeable {
     }
 
     public List<FruitDelivery> findAllByIdVariety(Long id, String variety) {
-        return fruitDeliveryDAO.findAllByIdVariety(id, variety);
+        Optional<List<FruitDelivery>> optionalList = fruitDeliveryDAO.findAllByIdVariety(id, variety);
+        return optionalList.orElseGet(List::of);
     }
 
     public long getTotalAmountOfPackages() {
@@ -83,7 +89,6 @@ public class FruitDeliveryService implements Removeable {
         BigDecimal thisAmount = new BigDecimal(0);
         for (FruitDelivery fruitDelivery : thisVariety) {
             thisAmount = thisAmount.add(new BigDecimal(fruitDelivery.getPackageAmount()));
-            // thisAmount+=fruitDelivery.getPackageAmount();
         }
         if (allAmount.equals(new BigDecimal(0))) {
             return new BigDecimal(0);
