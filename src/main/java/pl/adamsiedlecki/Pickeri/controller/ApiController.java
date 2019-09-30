@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1")
 public class ApiController {
@@ -28,39 +30,29 @@ public class ApiController {
 
     @RequestMapping(value = "/get-all/{key}", method = RequestMethod.GET)
     public String getInfo(@PathVariable String key) {
-
-        if (pass.equals(key)) {
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                return mapper.writeValueAsString(fruitPickerService.findAll());
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        }
-        return "ACCESS DENIED";
+        return getData(key, fruitPickerService.findAll());
     }
 
     @RequestMapping(value = "/get-pickers-amount/{key}", method = RequestMethod.GET)
     public String getPickersAmountInfo(@PathVariable String key) {
-
-        if (pass.equals(key)) {
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                return mapper.writeValueAsString(fruitPickerService.getTotalAmountOfPickers());
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        }
-        return "ACCESS DENIED";
+        return getData(key, fruitPickerService.getTotalAmountOfPickers());
     }
 
     @RequestMapping(value = "/get-weight/{key}", method = RequestMethod.GET)
     public String getWeightInfo(@PathVariable String key) {
+        return getData(key, fruitDeliveryService.getWeightSum());
+    }
 
+    @RequestMapping(value = "/get-packages-amount/{key}", method = RequestMethod.GET)
+    public String getPackagesInfo(@PathVariable String key) {
+        return getData(key, fruitDeliveryService.getTotalAmountOfPackages());
+    }
+
+    private String getData(String key, Number getNumberFunction) {
         if (pass.equals(key)) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-                return mapper.writeValueAsString(fruitDeliveryService.getWeightSum());
+                return mapper.writeValueAsString(getNumberFunction);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
@@ -68,13 +60,11 @@ public class ApiController {
         return "ACCESS DENIED";
     }
 
-    @RequestMapping(value = "/get-packages-amount/{key}", method = RequestMethod.GET)
-    public String getPackagesInfo(@PathVariable String key) {
-
+    private String getData(String key, List<?> list) {
         if (pass.equals(key)) {
             ObjectMapper mapper = new ObjectMapper();
             try {
-                return mapper.writeValueAsString(fruitDeliveryService.getTotalAmountOfPackages());
+                return mapper.writeValueAsString(list);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
