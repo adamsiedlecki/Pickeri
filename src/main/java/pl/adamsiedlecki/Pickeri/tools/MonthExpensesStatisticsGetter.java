@@ -24,7 +24,7 @@ public class MonthExpensesStatisticsGetter {
         BigDecimal allSum = expenseService.getTotalAmountOfSpentMoney();
         for (int i = 1; i <= months.size(); i++) {
             BigDecimal sum = new BigDecimal(0);
-            List<Expense> expenses = expenseService.findAll();
+            List<Expense> expenses = expenseService.findAllWithFilter();
             for (Expense expense : expenses) {
                 if (expense.getTime().getMonthValue() == i) {
                     sum = sum.add(expense.getMoneyAmount());

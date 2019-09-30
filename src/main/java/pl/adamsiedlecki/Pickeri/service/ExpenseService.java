@@ -31,20 +31,17 @@ public class ExpenseService {
         return expenseDAO.getOne(id);
     }
 
-    public List<Expense> findAll() {
+    public List<Expense> findAllWithFilter() {
         return expenseDAO.findAll();
     }
 
-    public List<Expense> findAll(String filter) {
-        List<Expense> expenses = expenseDAO.findAll();
-        expenses.removeIf(expense -> !expense.getId().toString().contains(filter) && !expense.getName().contains(filter)
-                && !expense.getTime().toString().contains(filter)
-                && !expense.getMoneyAmount().toPlainString().contains(filter));
+    public List<Expense> findAllWithFilter(String filter) {
+        List<Expense> expenses = expenseDAO.findAllWithFilter(filter);
         return expenses;
     }
 
     public BigDecimal getTotalAmountOfSpentMoney() {
-        List<Expense> expenses = findAll();
+        List<Expense> expenses = findAllWithFilter();
         BigDecimal totalMoney = new BigDecimal(0);
         for (Expense e : expenses) {
             totalMoney = totalMoney.add(e.getMoneyAmount());
@@ -53,7 +50,7 @@ public class ExpenseService {
     }
 
     public BigDecimal getAverageAmountOfSpentMoney() {
-        List<Expense> expenses = findAll();
+        List<Expense> expenses = findAllWithFilter();
         if (expenses.size() == 0) {
             return new BigDecimal(0);
         }

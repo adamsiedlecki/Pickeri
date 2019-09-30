@@ -25,7 +25,7 @@ public class AllExpensesTab extends VerticalLayout {
         this.expenseService = expenseService;
         initComponents();
         filter.addValueChangeListener(e ->
-                expensesGrid.setItems(expenseService.findAll(filter.getValue()))
+                expensesGrid.setItems(expenseService.findAllWithFilter(filter.getValue()))
         );
         filter.setValueChangeMode(ValueChangeMode.LAZY);
     }
@@ -49,7 +49,7 @@ public class AllExpensesTab extends VerticalLayout {
         expensesGrid.addColumn(Expense::getMoneyAmount).setCaption("Kwota");
         expensesGrid.addColumn(Expense::getTimeFormatted).setCaption("Data");
         expensesGrid.setSizeFull();
-        expensesGrid.setItems(expenseService.findAll(filter.getValue()));
+        expensesGrid.setItems(expenseService.findAllWithFilter(filter.getValue()));
         expensesGrid.setHeight(700, Unit.PIXELS);
         root.addComponents(expensesGrid);
     }
