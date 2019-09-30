@@ -9,7 +9,6 @@ import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
 
 import java.math.BigDecimal;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,17 +44,8 @@ public class FruitPickerService implements Removeable {
 
     @Cacheable(cacheNames = "findAllFruitPickers")
     public List<FruitPicker> findAll(String filter) {
-        List<FruitPicker> pickersList = fruitPickerDAO.findAll();
-        Iterator<FruitPicker> iterator = pickersList.iterator();
+        List<FruitPicker> pickersList = fruitPickerDAO.findAllWithFilter(filter);
         setTypeInfo(pickersList);
-
-        while (iterator.hasNext()) {
-            FruitPicker fp = iterator.next();
-            if (!Long.toString(fp.getId()).contains(filter) && !fp.getName().contains(filter) && !fp.getLastName().contains(filter)) {
-                iterator.remove();
-            }
-        }
-
         setOtherData(pickersList);
         return pickersList;
     }
