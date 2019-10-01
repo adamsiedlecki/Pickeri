@@ -10,6 +10,8 @@ import com.vaadin.ui.Embedded;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 
 
@@ -20,16 +22,19 @@ import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 public class ErrorPageUI extends UI {
 
     private VerticalLayout root;
+    private Environment environment;
 
-    public ErrorPageUI() {
+    @Autowired
+    public ErrorPageUI(Environment environment) {
+        this.environment = environment;
     }
 
     @Override
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
         root.addComponent(new Label(request.getPathInfo()));
-        root.addComponent(new Label("Nie znaleziono elementu."));
-        Embedded picture = new Embedded("Wystąpił błąd. Jesteś w polu.", new FileResource(ResourceGetter.getTractorPicture()));
+        root.addComponent(new Label(environment.getProperty("element.not.found")));
+        Embedded picture = new Embedded(environment.getProperty("error.page.label"), new FileResource(ResourceGetter.getTractorPicture()));
         picture.setWidth(50, Unit.PERCENTAGE);
         picture.setHeight(50, Unit.PERCENTAGE);
         root.addComponent(picture);

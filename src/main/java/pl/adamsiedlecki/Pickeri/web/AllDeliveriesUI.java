@@ -10,6 +10,7 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.AllDeliveriesTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
@@ -24,11 +25,14 @@ public class AllDeliveriesUI extends UI {
     private VerticalLayout root;
     private AllDeliveriesTab allDeliveriesTab;
     private MenuTab othersTab;
+    private Environment environment;
 
     @Autowired
-    public AllDeliveriesUI(AllDeliveriesTab allDeliveriesTab, MenuTab othersTab) {
+    public AllDeliveriesUI(AllDeliveriesTab allDeliveriesTab, MenuTab othersTab, Environment environment) {
         this.allDeliveriesTab = allDeliveriesTab;
         this.othersTab = othersTab;
+        this.environment = environment;
+
     }
 
     @Override
@@ -42,8 +46,8 @@ public class AllDeliveriesUI extends UI {
 
     private void addTabs() {
         tabs = new TabSheet();
-        tabs.addTab(allDeliveriesTab, "Wszystkie dostawy");
-        tabs.addTab(othersTab, "Menu");
+        tabs.addTab(allDeliveriesTab, environment.getProperty("all.deliveries.tab.caption"));
+        tabs.addTab(othersTab, environment.getProperty("menu.tab.caption"));
         root.addComponent(tabs);
     }
 
