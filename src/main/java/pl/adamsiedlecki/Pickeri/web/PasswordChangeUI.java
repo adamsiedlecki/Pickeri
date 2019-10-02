@@ -6,6 +6,8 @@ import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import pl.adamsiedlecki.Pickeri.service.PickeriUserDetailsService;
@@ -18,14 +20,17 @@ public class PasswordChangeUI extends UI {
 
     private VerticalLayout root;
     private PickeriUserDetailsService userDetailsService;
+    private Environment env;
 
-    public PasswordChangeUI(PickeriUserDetailsService userDetailsService) {
+    @Autowired
+    public PasswordChangeUI(PickeriUserDetailsService userDetailsService, Environment environment) {
         this.userDetailsService = userDetailsService;
+        this.env = environment;
     }
 
     @Override
     protected void init(VaadinRequest request) {
-        Notification.show("Uwaga! Ta strona przeznaczona jest do zmiany hasła!");
+        Notification.show(env.getProperty("warning.password.change.page"));
         initComponents();
     }
 
@@ -40,14 +45,14 @@ public class PasswordChangeUI extends UI {
             username = principal.toString();
         }
 
-        Label label = new Label("Nazwa aktualnie zalogowanego użytkownika: " + username);
+        Label label = new Label(env.getProperty("actual.logged.username") + username);
         TextField newPassword = new TextField();
-        newPassword.setCaption(" NOWE HASŁO ");
-        Button applyButton = new Button("ZAPISZ NOWE HASŁO");
+        newPassword.setCaption(env.getProperty("new.password.label"));
+        Button applyButton = new Button(env.getProperty("save.new.password.button"));
         applyButton.addClickListener(x -> {
             userDetailsService.changePassword(username, newPassword.getValue());
             newPassword.clear();
-            Notification.show("HASŁO ZOSTAŁO ZMIENIONE ");
+            Notification.show(env.getProperty("password.has.been.changed.notification"));
         });
 
         root.addComponents(label, newPassword, applyButton);

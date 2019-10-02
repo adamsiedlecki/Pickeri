@@ -9,6 +9,7 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.AddPaymentTab;
@@ -28,10 +29,12 @@ public class PickerPaymentsUI extends UI {
     private PickersPaymentsTableTab pickersPaymentsTableTab;
     private PdfGenerationTab pdfGenerationTab;
     private MenuTab othersTab;
+    private Environment env;
 
     @Autowired
     public PickerPaymentsUI(MenuTab othersTab, AddPaymentTab addPaymentTab, PickersPaymentsTableTab pickersPaymentsTableTab,
-                            PdfGenerationTab pdfGenerationTab) {
+                            PdfGenerationTab pdfGenerationTab, Environment environment) {
+        this.env = environment;
         this.addPaymentTab = addPaymentTab;
         this.pickersPaymentsTableTab = pickersPaymentsTableTab;
         this.pdfGenerationTab = pdfGenerationTab;
@@ -42,10 +45,10 @@ public class PickerPaymentsUI extends UI {
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
         tabSheet = new TabSheet();
-        tabSheet.addTab(addPaymentTab, "Dodaj wypłatę");
-        tabSheet.addTab(pickersPaymentsTableTab, "Podsumowanie wypłat");
-        tabSheet.addTab(pdfGenerationTab, "Generowanie PDF");
-        tabSheet.addTab(othersTab, "Menu");
+        tabSheet.addTab(addPaymentTab, env.getProperty("add.payment.tab"));
+        tabSheet.addTab(pickersPaymentsTableTab, env.getProperty("payment.summary.tab"));
+        tabSheet.addTab(pdfGenerationTab, env.getProperty("generate.pdf.tab"));
+        tabSheet.addTab(othersTab, env.getProperty("menu.tab.caption"));
         root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
         root.addComponents(tabSheet);
         this.setContent(root);

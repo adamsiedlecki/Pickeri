@@ -9,6 +9,8 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
@@ -22,6 +24,7 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 @SpringUI(path = "/home")
@@ -41,26 +44,29 @@ public class HomePage extends UI {
     private Label todayAmountOfPackagesLabel;
     private Label totalWeightLabel;
     private Label todayWeightLabel;
+    private Environment environment;
 
-    public HomePage(FruitDeliveryService fruitDeliveryService) {
+    @Autowired
+    public HomePage(FruitDeliveryService fruitDeliveryService, Environment environment) {
         this.fruitDeliveryService = fruitDeliveryService;
+        this.environment = environment;
     }
 
     @Override
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
         fruitPickerId = new TextField();
-        fruitPickerId.setCaption("ID");
+        fruitPickerId.setCaption(environment.getProperty("id.column.caption"));
         qrUpload = new Upload();
-        qrUpload.setCaption("Załaduj kod QR");
+        qrUpload.setCaption(environment.getProperty("qr.upload.caption"));
         nameLabel = new Label();
-        findInfoButton = new Button("SZUKAJ");
+        findInfoButton = new Button(environment.getProperty("search.button.caption"));
         totalAmountOfPackagesLabel = new Label();
         todayAmountOfPackagesLabel = new Label();
         todayWeightLabel = new Label();
         totalWeightLabel = new Label();
         qrUpload.setAcceptMimeTypes("image/jpg");
-        qrUpload.setButtonCaption("Naciśnij aby wybrać obraz");
+        qrUpload.setButtonCaption(environment.getProperty("browse.images.button"));
         qrUpload.setReceiver(new ImageUploader());
 
         qrUpload.addSucceededListener(e -> {
@@ -73,14 +79,14 @@ public class HomePage extends UI {
                     nameLabel.setValue(items.get(1));
 
                 } else {
-                    Notification.show("Obraz nie zawiera poprawnego kodu QR!");
+                    Notification.show(environment.getProperty("not.valid.qr"));
                     fruitPickerId.setValue("");
                     nameLabel.setValue("");
                     File f = new File(path);
                     f.delete();
                 }
             } else {
-                Notification.show("Obraz nie zawiera kodu QR - może zrób wyraźniejsze zdjęcie?");
+                Notification.show(environment.getProperty("not.valid.qr.notification"));
                 fruitPickerId.setValue("");
                 nameLabel.setValue("");
                 File f = new File(path);
@@ -89,10 +95,10 @@ public class HomePage extends UI {
         });
 
         root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
-        root.addComponent(new Label("Welcome to Pickeri!"));
-        root.addComponent(new Link("LOGIN PAGE", new ExternalResource("/login")));
+        root.addComponent(new Label(environment.getProperty("welcome.message")));
+        root.addComponent(new Link(environment.getProperty("login.page.link"), new ExternalResource("/login")));
         root.addComponent(new Label("   "));
-        root.addComponent(new Label("Podaj swoje ID lub zeskanuj kod QR aby sprawdzić stan:"));
+        root.addComponent(new Label(environment.getProperty("input.label.id.or.qr")));
         root.addComponent(new HorizontalLayout(fruitPickerId, qrUpload, findInfoButton));
         root.addComponent(todayAmountOfPackagesLabel);
         root.addComponent(totalAmountOfPackagesLabel);
@@ -115,16 +121,16 @@ public class HomePage extends UI {
                         todayWeight = todayWeight.add(fd.getFruitWeight());
                     }
                 }
-                todayAmountOfPackagesLabel.setValue("Ilość opakowań dzisiaj: " + todayPackages);
-                totalAmountOfPackagesLabel.setValue("Suma wszystkich opakowań: " + totalPackages);
-                todayWeightLabel.setValue("Waga owoców dzisiaj [kg] : " + todayWeight.divide(BigDecimal.valueOf(1000), 2, RoundingMode.FLOOR));
-                totalWeightLabel.setValue("Waga wszystkich owoców [kg] : " + totalWeight.divide(BigDecimal.valueOf(1000), 2, RoundingMode.FLOOR));
+                todayAmountOfPackagesLabel.setValue(environment.getProperty("today.amount.of.packages.label") + todayPackages);
+                totalAmountOfPackagesLabel.setValue(environment.getProperty("all.packages.sum.label") + totalPackages);
+                todayWeightLabel.setValue(environment.getProperty("today.weight.label") + todayWeight.divide(BigDecimal.valueOf(1000), 2, RoundingMode.FLOOR));
+                totalWeightLabel.setValue(environment.getProperty("total.weight.label") + totalWeight.divide(BigDecimal.valueOf(1000), 2, RoundingMode.FLOOR));
                 Grid<FruitDelivery> grid = new Grid<>();
-                grid.addColumn(FruitDelivery::getFruitWeightKgPlainString).setCaption("WAGA");
-                grid.addColumn(FruitDelivery::getPackageAmount).setCaption("OPAKOWANIA");
-                grid.addColumn(FruitDelivery::getFruitVarietyName).setCaption("ODMIANA");
-                grid.addColumn(FruitDelivery::getType).setCaption("TYP");
-                grid.addColumn(FruitDelivery::getDeliveryTimeFormatted).setCaption("CZAS");
+                grid.addColumn(FruitDelivery::getFruitWeightKgPlainString).setCaption(Objects.requireNonNull(environment.getProperty("weight.column.caption")));
+                grid.addColumn(FruitDelivery::getPackageAmount).setCaption(Objects.requireNonNull(environment.getProperty("packages.column.caption")));
+                grid.addColumn(FruitDelivery::getFruitVarietyName).setCaption(Objects.requireNonNull(environment.getProperty("fruit.variety.name.column")));
+                grid.addColumn(FruitDelivery::getType).setCaption(Objects.requireNonNull(environment.getProperty("fruit.delivery.type.name.column")));
+                grid.addColumn(FruitDelivery::getDeliveryTimeFormatted).setCaption(Objects.requireNonNull(environment.getProperty("time.column")));
                 grid.setItems(fruitDeliveryService.getDeliveriesByPickerId(Long.parseLong(fruitPickerId.getValue())));
                 grid.setWidth(80, Unit.PERCENTAGE);
                 grid.setHeight(700, Unit.PIXELS);
@@ -138,9 +144,7 @@ public class HomePage extends UI {
     private class ImageUploader implements Upload.Receiver, Upload.SucceededListener {
         private File file;
 
-        public OutputStream receiveUpload(String filename,
-                                          String mimeType) {
-            System.out.println("UPLOAD RECEIVED");
+        public OutputStream receiveUpload(String filename, String mimeType) {
             // Create upload stream
             FileOutputStream fos; // Stream to write to
             try {
@@ -149,7 +153,7 @@ public class HomePage extends UI {
                 path = file.getAbsolutePath();
                 fos = new FileOutputStream(file);
             } catch (final java.io.FileNotFoundException e) {
-                new Notification("Could not open file",
+                new Notification(environment.getProperty("could.not.open.file.notification"),
                         e.getMessage(),
                         Notification.Type.ERROR_MESSAGE)
                         .show(Page.getCurrent());

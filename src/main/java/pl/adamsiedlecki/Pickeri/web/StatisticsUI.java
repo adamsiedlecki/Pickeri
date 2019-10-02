@@ -9,6 +9,7 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.statisticsTabs.FindPickerTab;
@@ -25,13 +26,15 @@ public class StatisticsUI extends UI {
     private FindPickerTab findPickerTab;
     private StatisticsTab statisticsTab;
     private MenuTab othersTab;
+    private Environment env;
 
     @Autowired
     public StatisticsUI(FindPickerTab findPickerTab, StatisticsTab statisticsTab,
-                        MenuTab othersTab) {
+                        MenuTab othersTab, Environment environment) {
         this.findPickerTab = findPickerTab;
         this.statisticsTab = statisticsTab;
         this.othersTab = othersTab;
+        this.env = environment;
     }
 
     @Override
@@ -44,9 +47,9 @@ public class StatisticsUI extends UI {
 
     private void addTabs() {
         tabs = new TabSheet();
-        tabs.addTab(findPickerTab, "Szukaj pracownika");
-        tabs.addTab(statisticsTab, "Statystyki");
-        tabs.addTab(othersTab, "Menu");
+        tabs.addTab(findPickerTab, env.getProperty("search.for.employee.tab"));
+        tabs.addTab(statisticsTab, env.getProperty("statistics.tab"));
+        tabs.addTab(othersTab, env.getProperty("menu.tab.caption"));
         root.addComponent(tabs);
     }
 

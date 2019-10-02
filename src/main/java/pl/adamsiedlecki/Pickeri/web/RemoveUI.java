@@ -8,6 +8,7 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
@@ -23,35 +24,37 @@ public class RemoveUI extends UI {
     private FruitPickerService fruitPickerService;
     private FruitDeliveryService fruitDeliveryService;
     private FruitVarietyService fruitVarietyService;
+    private Environment env;
 
     public RemoveUI(FruitPickerService fruitPickerService, FruitDeliveryService fruitDeliveryService,
-                    FruitVarietyService fruitVarietyService) {
+                    FruitVarietyService fruitVarietyService, Environment environment) {
         this.fruitVarietyService = fruitVarietyService;
         this.fruitDeliveryService = fruitDeliveryService;
         this.fruitPickerService = fruitPickerService;
+        this.env = environment;
     }
 
     @Override
     protected void init(VaadinRequest request) {
-        Notification.show("Uwaga! Ta strona przeznaczona jest do usuwania danych!");
+        Notification.show(env.getProperty("remove.data.notification"));
         initComponents();
     }
 
     private void initComponents() {
         root = new VerticalLayout();
 
-        Label warningLabel = new Label("UWAGA! UWAŻAJ, CO USUWASZ!");
+        Label warningLabel = new Label(env.getProperty("remove.data.warning"));
         warningLabel.setStyleName(ValoTheme.LABEL_COLORED);
 
-        Button deleteFruitPickersButton = new Button("USUŃ WSZYSTKICH PRACOWNIKÓW");
+        Button deleteFruitPickersButton = new Button(env.getProperty("delete.all.employees.button"));
         deleteFruitPickersButton.setStyleName(ValoTheme.BUTTON_DANGER);
         deleteFruitPickersButton.addClickListener(e -> fruitPickerService.removeAll());
 
-        Button deleteFruitDeliveriesButton = new Button("USUŃ WSZYSTKIE DOSTAWY");
+        Button deleteFruitDeliveriesButton = new Button(env.getProperty("delete.all.deliveries.button"));
         deleteFruitDeliveriesButton.setStyleName(ValoTheme.BUTTON_DANGER);
         deleteFruitDeliveriesButton.addClickListener(e -> fruitDeliveryService.removeAll());
 
-        Button deleteFruitVarietiesButton = new Button("USUŃ WSZYSTKIE ODMIANY");
+        Button deleteFruitVarietiesButton = new Button(env.getProperty("delete.all.varieties.button"));
         deleteFruitVarietiesButton.setStyleName(ValoTheme.BUTTON_DANGER);
         deleteFruitVarietiesButton.addClickListener(e -> fruitVarietyService.removeAll());
 
@@ -63,15 +66,15 @@ public class RemoveUI extends UI {
         root.addComponent(deleteFruitPickersButton);
         root.addComponent(deleteFruitDeliveriesButton);
         root.addComponent(deleteFruitVarietiesButton);
-        root.addComponent(new Link("ZMIANA HASŁA", new ExternalResource("/password-change")));
+        root.addComponent(new Link(env.getProperty("password.change.link"), new ExternalResource("/password-change")));
 
         this.setContent(root);
     }
 
     private void addIndividualsByIdDeletePanel() {
-        addPanel("ID DOSTAWY", "USUŃ DOSTAWĘ O PODANYM ID", fruitDeliveryService);
-        addPanel("ID PRACOWNIKA", "USUŃ PRACOWNIKA O PODANYM ID", fruitPickerService);
-        addPanel("ID ODMIANY", "USUŃ ODMIANĘ O PODANYM ID", fruitVarietyService);
+        addPanel(env.getProperty("delivery.id.field"), env.getProperty("delete.delivery.button"), fruitDeliveryService);
+        addPanel(env.getProperty("employee.id.field"), env.getProperty("delete.employee.button"), fruitPickerService);
+        addPanel(env.getProperty("variety.id.field"), env.getProperty("delete.variety.button"), fruitVarietyService);
 
     }
 
@@ -87,7 +90,7 @@ public class RemoveUI extends UI {
                 Long id = Long.parseLong(value);
                 service.removeById(id);
                 idField.setValue("");
-                Notification.show("Wykonano operację...");
+                Notification.show(env.getProperty("operation.is.done.notifiaction"));
             }
         });
         HorizontalLayout panel = new HorizontalLayout(idField, button);

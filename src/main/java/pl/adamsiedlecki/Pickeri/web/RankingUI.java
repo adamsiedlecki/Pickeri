@@ -9,6 +9,7 @@ import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.RankingTab;
@@ -22,11 +23,13 @@ public class RankingUI extends UI {
     private VerticalLayout root;
     private RankingTab rankingTab;
     private MenuTab othersTab;
+    private Environment env;
 
     @Autowired
-    public RankingUI(RankingTab rankingTab, MenuTab othersTab) {
+    public RankingUI(RankingTab rankingTab, MenuTab othersTab, Environment environment) {
         this.rankingTab = rankingTab;
         this.othersTab = othersTab;
+        this.env = environment;
     }
 
     @Override
@@ -39,8 +42,8 @@ public class RankingUI extends UI {
 
     private void addTabs() {
         TabSheet tabs = new TabSheet();
-        tabs.addTab(rankingTab, "Ranking");
-        tabs.addTab(othersTab, "Menu");
+        tabs.addTab(rankingTab, env.getProperty("ranking.tab"));
+        tabs.addTab(othersTab, env.getProperty("menu.tab.caption"));
         root.addComponent(tabs);
     }
 
