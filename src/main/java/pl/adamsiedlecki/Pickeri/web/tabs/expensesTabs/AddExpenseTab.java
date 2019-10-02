@@ -32,8 +32,8 @@ public class AddExpenseTab extends VerticalLayout {
         root = new VerticalLayout();
         FormLayout formLayout = new FormLayout();
         TextField nameField = new TextField(env.getProperty("expense.name"));
-        TextField amountOfMoneyField = new TextField("Kwota [zł] (grosze oddzielamy kropką)");
-        Button saveButton = new Button("ZAPISZ");
+        TextField amountOfMoneyField = new TextField(env.getProperty("amount.of.money.field"));
+        Button saveButton = new Button(env.getProperty("save.button"));
         saveButton.addClickListener(x -> {
             if (!"".equals(nameField.getValue()) && !"".equals(amountOfMoneyField.getValue()) && NumberUtils.isCreatable(amountOfMoneyField.getValue())) {
                 Expense expense = new Expense(nameField.getValue(), new BigDecimal(amountOfMoneyField.getValue()), LocalDateTime.now());
@@ -41,7 +41,7 @@ public class AddExpenseTab extends VerticalLayout {
                 nameField.clear();
                 amountOfMoneyField.clear();
             } else {
-                Notification.show("Wprowadzone dane są niepoprawne.");
+                Notification.show(env.getProperty("invalid.data.notification"));
             }
         });
         formLayout.addComponents(nameField, amountOfMoneyField, saveButton);
