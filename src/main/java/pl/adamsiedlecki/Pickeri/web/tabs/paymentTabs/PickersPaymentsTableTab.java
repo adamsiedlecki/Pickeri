@@ -6,9 +6,12 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
+
+import java.util.Objects;
 
 @Component
 @Scope("prototype")
@@ -16,16 +19,18 @@ public class PickersPaymentsTableTab extends VerticalLayout {
 
     private FruitPickerService fruitPickerService;
     private Grid<FruitPicker> pickerGrid;
+    private Environment env;
 
     @Autowired
-    public PickersPaymentsTableTab(FruitPickerService fruitPickerService) {
+    public PickersPaymentsTableTab(FruitPickerService fruitPickerService, Environment environment) {
+        this.env = environment;
         this.fruitPickerService = fruitPickerService;
         pickerGrid = new Grid<>();
-        Button refreshButton = new Button("ODŚWIEŻ");
-        pickerGrid.addColumn(FruitPicker::getId).setCaption("ID");
-        pickerGrid.addColumn(FruitPicker::getName).setCaption("Imię");
-        pickerGrid.addColumn(FruitPicker::getLastName).setCaption("Nazwisko");
-        pickerGrid.addColumn(FruitPicker::getFundsPaid).setCaption("Wypłacone środki [zł]");
+        Button refreshButton = new Button(env.getProperty("refresh.button"));
+        pickerGrid.addColumn(FruitPicker::getId).setCaption(Objects.requireNonNull(env.getProperty("id.column.caption")));
+        pickerGrid.addColumn(FruitPicker::getName).setCaption(Objects.requireNonNull(env.getProperty("name.person.column")));
+        pickerGrid.addColumn(FruitPicker::getLastName).setCaption(Objects.requireNonNull(env.getProperty("surname.column")));
+        pickerGrid.addColumn(FruitPicker::getFundsPaid).setCaption(Objects.requireNonNull(env.getProperty("payments.done.column")));
         refreshData();
         refreshButton.addClickListener(e -> refreshData());
         this.addComponents(refreshButton, pickerGrid);

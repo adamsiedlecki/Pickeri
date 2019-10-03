@@ -24,7 +24,7 @@ public class MenuTab extends VerticalLayout {
         this.addComponent(new Link(env.getProperty("statistics.and.employees.ui"), new ExternalResource("/statistics-and-info")));
         this.addComponent(new Link(env.getProperty("ranking.ui"), new ExternalResource("/ranking")));
         this.addComponent(new Link(env.getProperty("all.deliveries.ui"), new ExternalResource("/all-deliveries")));
-        this.addComponent(new Link("expenses.ui", new ExternalResource("/expenses")));
+        this.addComponent(new Link(env.getProperty("expenses.ui"), new ExternalResource("/expenses")));
         this.addComponent(new Link(env.getProperty("payments.ui"), new ExternalResource("/picker-payments")));
         this.addComponent(new Link(env.getProperty("other.ui"), new ExternalResource("/other")));
         this.addComponent(new Link(env.getProperty("logout.button"), new ExternalResource("/logout")));

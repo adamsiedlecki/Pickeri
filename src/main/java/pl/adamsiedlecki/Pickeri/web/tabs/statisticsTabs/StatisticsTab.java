@@ -8,6 +8,7 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
@@ -16,6 +17,7 @@ import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Objects;
 
 @SpringComponent
 @Scope("prototype")
@@ -30,13 +32,15 @@ public class StatisticsTab extends VerticalLayout {
     private Label weightSumLabel;
     private Grid<FruitVariety> varietiesGridPackageStat;
     private Grid<FruitVariety> varietiesGridWeightStat;
+    private Environment env;
 
     @Autowired
     public StatisticsTab(FruitDeliveryService fruitDeliveryService, FruitPickerService fruitPickerService,
-                         FruitVarietyService fruitVarietyService) {
+                         FruitVarietyService fruitVarietyService, Environment env) {
         this.fruitVarietyService = fruitVarietyService;
         this.fruitDeliveryService = fruitDeliveryService;
         this.fruitPickerService = fruitPickerService;
+        this.env = env;
         initComponents();
     }
 
@@ -47,19 +51,27 @@ public class StatisticsTab extends VerticalLayout {
         varietiesSumLabel = new Label();
         weightSumLabel = new Label();
         VerticalLayout varietiesPackageAmountAndPercentageLayout = new VerticalLayout();
-        Button refreshButton = new Button("Odśwież");
+        Button refreshButton = new Button(env.getProperty("refresh.button"));
         refreshButton.addClickListener(e -> refreshData());
         varietiesGridPackageStat = new Grid<>();
-        varietiesGridPackageStat.addColumn(FruitVariety::getId).setCaption("ID");
-        varietiesGridPackageStat.addColumn(FruitVariety::getName).setCaption("Nazwa");
-        varietiesGridPackageStat.addColumn(FruitVariety::getTotalPackages).setCaption("Suma opakowań").setId("total");
-        varietiesGridPackageStat.addColumn(FruitVariety::getPercentageParticipationInPackagesAmountPlainText).setCaption("% udział");
+        varietiesGridPackageStat.addColumn(FruitVariety::getId)
+                .setCaption(Objects.requireNonNull(env.getProperty("id.column")));
+        varietiesGridPackageStat.addColumn(FruitVariety::getName)
+                .setCaption(Objects.requireNonNull(env.getProperty("name.column")));
+        varietiesGridPackageStat.addColumn(FruitVariety::getTotalPackages)
+                .setCaption(Objects.requireNonNull(env.getProperty("packages.sum.column.caption"))).setId("total");
+        varietiesGridPackageStat.addColumn(FruitVariety::getPercentageParticipationInPackagesAmountPlainText)
+                .setCaption(Objects.requireNonNull(env.getProperty("percentage.participation")));
 
         varietiesGridWeightStat = new Grid<>();
-        varietiesGridWeightStat.addColumn(FruitVariety::getId).setCaption("ID");
-        varietiesGridWeightStat.addColumn(FruitVariety::getName).setCaption("Nazwa");
-        varietiesGridWeightStat.addColumn(FruitVariety::getTotalWeightKgPlainText).setCaption("Waga całkowita").setId("total");
-        varietiesGridWeightStat.addColumn(FruitVariety::getPercentageParticipationInWeightPlainText).setCaption("% udział");
+        varietiesGridWeightStat.addColumn(FruitVariety::getId)
+                .setCaption(Objects.requireNonNull(env.getProperty("id.column")));
+        varietiesGridWeightStat.addColumn(FruitVariety::getName)
+                .setCaption(Objects.requireNonNull(env.getProperty("name.column")));
+        varietiesGridWeightStat.addColumn(FruitVariety::getTotalWeightKgPlainText)
+                .setCaption(Objects.requireNonNull(env.getProperty("weight.sum"))).setId("total");
+        varietiesGridWeightStat.addColumn(FruitVariety::getPercentageParticipationInWeightPlainText)
+                .setCaption(Objects.requireNonNull(env.getProperty("percentage.participation")));
 
         refreshData();
 
@@ -76,10 +88,10 @@ public class StatisticsTab extends VerticalLayout {
     }
 
     private void refreshData() {
-        pickersSumLabel.setValue("Ilość pracowników w systemie: " + fruitPickerService.getTotalAmountOfPickers());
-        packagesSumLabel.setValue("Suma wszystkich opakowań: " + fruitDeliveryService.getTotalAmountOfPackages());
-        varietiesSumLabel.setValue("Suma odmian w systemie: " + fruitVarietyService.findAll().size());
-        weightSumLabel.setValue("Całkowita masa owoców w systemie [w kg]: " + fruitDeliveryService.getWeightSum()
+        pickersSumLabel.setValue(env.getProperty("employees.total.amount") + fruitPickerService.getTotalAmountOfPickers());
+        packagesSumLabel.setValue(env.getProperty("all.packages.sum.label") + fruitDeliveryService.getTotalAmountOfPackages());
+        varietiesSumLabel.setValue(env.getProperty("varieties.total.amount") + fruitVarietyService.findAll().size());
+        weightSumLabel.setValue(env.getProperty("total.fruits.weight") + fruitDeliveryService.getWeightSum()
                 .divide(new BigDecimal(1000), 4, RoundingMode.FLOOR));
         List<FruitVariety> varieties = fruitVarietyService.findAll();
 

@@ -4,6 +4,7 @@ import com.vaadin.ui.*;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
@@ -16,12 +17,14 @@ import java.util.Optional;
 public class AddPaymentTab extends VerticalLayout {
 
     private FruitPickerService fruitPickerService;
+    private Environment env;
 
     @Autowired
-    public AddPaymentTab(FruitPickerService fruitPickerService) {
-        TextField pickerIdField = new TextField("ID pracownika");
-        TextField paymentAmount = new TextField("Dokonana wypłata [zł] (grosze oddzielamy kropką)");
-        Button saveButton = new Button("ZAPISZ");
+    public AddPaymentTab(FruitPickerService fruitPickerService, Environment environment) {
+        this.env = environment;
+        TextField pickerIdField = new TextField(env.getProperty("employee.id"));
+        TextField paymentAmount = new TextField(env.getProperty("done.payments"));
+        Button saveButton = new Button(env.getProperty("save.button"));
         HorizontalLayout fieldsLayout = new HorizontalLayout(pickerIdField, paymentAmount);
 
         this.addComponent(fieldsLayout);
@@ -42,8 +45,8 @@ public class AddPaymentTab extends VerticalLayout {
                     paymentAmount.clear();
                 });
             } else {
-                Notification.show("Niepoprawne dane",
-                        "Coś poszło nie tak. Możliwe, że podane wartości nie są liczbowe.", Notification.Type.ERROR_MESSAGE);
+                Notification.show(env.getProperty("incorrect.values.notification"),
+                        env.getProperty("not.numeric.values.notification"), Notification.Type.ERROR_MESSAGE);
             }
         });
 
