@@ -22,10 +22,10 @@ public class AddExpenseTab extends VerticalLayout {
 
     @Autowired
     public AddExpenseTab(ExpenseService expenseService, Environment environment) {
+        this.env = environment;
         this.expenseService = expenseService;
         initComponents();
         this.addComponentsAndExpand(root);
-        this.env = environment;
     }
 
     private void initComponents() {
