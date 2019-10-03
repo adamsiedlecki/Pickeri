@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitType;
 import pl.adamsiedlecki.Pickeri.exceptions.NotUniqueTypesException;
@@ -29,23 +30,25 @@ public class AddDeleteTypeTab extends VerticalLayout {
     private TextField typeFourField;
     private Button refreshButton;
     private Button saveButton;
+    private Environment env;
 
     @Autowired
-    public AddDeleteTypeTab(FruitTypeService fruitTypeService) {
+    public AddDeleteTypeTab(FruitTypeService fruitTypeService, Environment environment) {
         this.fruitTypeService = fruitTypeService;
+        this.env = environment;
         initFields();
         refreshData();
     }
 
     private void initFields() {
-        typeOneField = new TextField("Typ 1");
-        typeTwoField = new TextField("Typ 2");
-        typeThreeField = new TextField("Typ 3");
-        typeFourField = new TextField("Typ 4");
+        typeOneField = new TextField(env.getProperty("type.one.field"));
+        typeTwoField = new TextField(env.getProperty("type.two.field"));
+        typeThreeField = new TextField(env.getProperty("type.three.field"));
+        typeFourField = new TextField(env.getProperty("type.four.field"));
 
-        refreshButton = new Button("ODŚWIEŻ");
+        refreshButton = new Button(env.getProperty("refresh.button"));
         refreshButton.addClickListener(e -> refreshData());
-        saveButton = new Button("ZAPISZ");
+        saveButton = new Button(env.getProperty("save.button"));
         saveButton.addClickListener(e -> {
             FruitType t1 = new FruitType(typeOneField.getValue(), 0);
             FruitType t2 = new FruitType(typeTwoField.getValue(), 1);
@@ -61,10 +64,10 @@ public class AddDeleteTypeTab extends VerticalLayout {
 
             try {
                 fruitTypeService.addTypes(types);
-                Notification.show("Poczekaj chwilę", "Aktualizacja może potwać chwilkę. Odśwież, aby dowiedzieć się, czy się powiodła.",
+                Notification.show(env.getProperty("wait.a.while.notification"), env.getProperty("data.update.delay.notification"),
                         Notification.Type.HUMANIZED_MESSAGE);
             } catch (NotUniqueTypesException ex) {
-                Notification.show("Typy nie są różne!", Notification.Type.ERROR_MESSAGE);
+                Notification.show(env.getProperty("types.are.not.different.notification"), Notification.Type.ERROR_MESSAGE);
             }
             try {
                 Thread.sleep(2000);

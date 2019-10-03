@@ -7,8 +7,11 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
+
+import java.util.Objects;
 
 @SpringUI
 @Scope("prototype")
@@ -17,16 +20,18 @@ public class AllVarietiesTab extends VerticalLayout {
     private Grid<FruitVariety> varietyGrid;
     private Button refreshButton;
     private FruitVarietyService fruitVarietyService;
+    private Environment env;
 
     @Autowired
-    public AllVarietiesTab(FruitVarietyService fruitVarietyService) {
+    public AllVarietiesTab(FruitVarietyService fruitVarietyService, Environment environment) {
+        this.env = environment;
         this.fruitVarietyService = fruitVarietyService;
-        refreshButton = new Button("ODŚWIEŻ");
+        refreshButton = new Button(env.getProperty("refresh.button"));
         this.addComponent(refreshButton);
         varietyGrid = new Grid<>();
-        varietyGrid.addColumn(FruitVariety::getId).setCaption("ID");
-        varietyGrid.addColumn(FruitVariety::getName).setCaption("Nazwa");
-        varietyGrid.addColumn(FruitVariety::getComment).setCaption("Komentarz do odmiany");
+        varietyGrid.addColumn(FruitVariety::getId).setCaption(Objects.requireNonNull(env.getProperty("id.column")));
+        varietyGrid.addColumn(FruitVariety::getName).setCaption(Objects.requireNonNull(env.getProperty("name.column")));
+        varietyGrid.addColumn(FruitVariety::getComment).setCaption(Objects.requireNonNull(env.getProperty("comment")));
         varietyGrid.setWidth(80, Unit.PERCENTAGE);
         varietyGrid.setHeight(700, Unit.PIXELS);
         refreshButton.addClickListener(x -> refreshTable());
