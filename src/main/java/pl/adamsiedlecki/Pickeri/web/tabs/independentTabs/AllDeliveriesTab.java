@@ -6,8 +6,11 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
+
+import java.util.Objects;
 
 @SpringComponent
 @Scope("prototype")
@@ -15,25 +18,27 @@ public class AllDeliveriesTab extends VerticalLayout {
 
     private Grid<FruitDelivery> fruitDeliveryGrid;
     private FruitDeliveryService fruitDeliveryService;
+    private Environment env;
 
     @Autowired
-    public AllDeliveriesTab(FruitDeliveryService fruitDeliveryService) {
+    public AllDeliveriesTab(FruitDeliveryService fruitDeliveryService, Environment environment) {
         this.fruitDeliveryService = fruitDeliveryService;
+        this.env = environment;
         addComponents();
     }
 
     private void addComponents() {
-        Button refreshButton = new Button("Odśwież");
+        Button refreshButton = new Button(env.getProperty("refresh.button"));
         refreshButton.addClickListener(e -> refreshGrid());
         fruitDeliveryGrid = new Grid<>();
-        fruitDeliveryGrid.addColumn(FruitDelivery::getPackageAmount).setCaption("Ilość opakowań");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getWeightSumKgPlainText).setCaption("Waga [kg]");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitPickerId).setCaption("Id pracownika");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getType).setCaption("Typ");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitVarietyName).setCaption("Odmiana");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getComment).setCaption("Komentarz");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getDeliveryTimeFormatted).setCaption("Czas");
-        fruitDeliveryGrid.addColumn(FruitDelivery::getId).setCaption("ID");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getPackageAmount).setCaption(Objects.requireNonNull(env.getProperty("package.amount")));
+        fruitDeliveryGrid.addColumn(FruitDelivery::getWeightSumKgPlainText).setCaption(Objects.requireNonNull(env.getProperty("weight.kg.column")));
+        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitPickerId).setCaption(Objects.requireNonNull(env.getProperty("employee.id.column")));
+        fruitDeliveryGrid.addColumn(FruitDelivery::getType).setCaption(Objects.requireNonNull(env.getProperty("fruit.delivery.type.name.column")));
+        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitVarietyName).setCaption("fruit.variety.name.column");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getComment).setCaption(Objects.requireNonNull(env.getProperty("comment")));
+        fruitDeliveryGrid.addColumn(FruitDelivery::getDeliveryTimeFormatted).setCaption(Objects.requireNonNull(env.getProperty("time.column")));
+        fruitDeliveryGrid.addColumn(FruitDelivery::getId).setCaption(Objects.requireNonNull(env.getProperty("id.column")));
         fruitDeliveryGrid.setSizeFull();
         this.addComponent(refreshButton);
         this.addComponent(fruitDeliveryGrid);

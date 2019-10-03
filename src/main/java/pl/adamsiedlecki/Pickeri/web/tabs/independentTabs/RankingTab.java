@@ -7,10 +7,12 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 
 import java.util.List;
+import java.util.Objects;
 
 @SpringComponent
 @Scope("prototype")
@@ -19,22 +21,24 @@ public class RankingTab extends VerticalLayout {
     private FruitPickerService fruitPickerService;
     private Grid<FruitPicker> pickersGrid;
     private Button refreshButton;
+    private Environment env;
 
     @Autowired
-    public RankingTab(FruitPickerService fruitPickerService) {
+    public RankingTab(FruitPickerService fruitPickerService, Environment environment) {
         this.fruitPickerService = fruitPickerService;
+        this.env = environment;
         addContent();
     }
 
     private void addContent() {
-        refreshButton = new Button("Odśwież");
+        refreshButton = new Button(env.getProperty("refresh.button"));
         refreshButton.addClickListener(e -> refreshData());
         pickersGrid = new Grid<>();
-        pickersGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setCaption("Suma opakowań").setId("packageDeliveryAmount");
-        pickersGrid.addColumn(FruitPicker::getWeightSumKgPlainText).setCaption("Waga [kg]");
-        pickersGrid.addColumn(FruitPicker::getName).setCaption("Imię");
-        pickersGrid.addColumn(FruitPicker::getLastName).setCaption("Nazwisko");
-        pickersGrid.addColumn(FruitPicker::getGender).setCaption("Płeć");
+        pickersGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setCaption(Objects.requireNonNull(env.getProperty("packages.sum.column.caption"))).setId("packageDeliveryAmount");
+        pickersGrid.addColumn(FruitPicker::getWeightSumKgPlainText).setCaption(Objects.requireNonNull(env.getProperty("weight.kg.column")));
+        pickersGrid.addColumn(FruitPicker::getName).setCaption(Objects.requireNonNull(env.getProperty("name.column")));
+        pickersGrid.addColumn(FruitPicker::getLastName).setCaption(Objects.requireNonNull(env.getProperty("surname.column")));
+        pickersGrid.addColumn(FruitPicker::getGender).setCaption(Objects.requireNonNull(env.getProperty("gender.column")));
         pickersGrid.setSizeFull();
         refreshData();
         this.addComponent(refreshButton);

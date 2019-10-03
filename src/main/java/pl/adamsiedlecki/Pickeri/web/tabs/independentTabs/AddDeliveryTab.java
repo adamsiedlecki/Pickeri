@@ -8,6 +8,7 @@ import com.vaadin.ui.*;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.GeoLocalization;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
@@ -41,13 +42,15 @@ public class AddDeliveryTab extends VerticalLayout {
     private String path;
     private FruitTypeService fruitTypeService;
     private TextField weightField;
+    private Environment env;
 
     @Autowired
     public AddDeliveryTab(FruitDeliveryService fruitDeliveryService, FruitVarietyService fruitVarietyService,
-                          FruitTypeService fruitTypeService) {
+                          FruitTypeService fruitTypeService, Environment environment) {
         this.fruitVarietyService = fruitVarietyService;
         this.fruitDeliveryService = fruitDeliveryService;
         this.fruitTypeService = fruitTypeService;
+        this.env = environment;
 
         initComponents();
 
@@ -61,14 +64,14 @@ public class AddDeliveryTab extends VerticalLayout {
                     commentField.setValue(items.get(1));
 
                 } else {
-                    Notification.show("Obraz nie zawiera poprawnego kodu QR!");
+                    Notification.show(env.getProperty("not.valid.qr"));
                     fruitPickerId.setValue("");
                     commentField.setValue("");
                     File f = new File(path);
                     f.delete();
                 }
             } else {
-                Notification.show("Obraz nie zawiera kodu QR - może zrób wyraźniejsze zdjęcie?");
+                Notification.show(env.getProperty("not.valid.qr.notification"));
                 fruitPickerId.setValue("");
                 commentField.setValue("");
                 File f = new File(path);
@@ -83,7 +86,7 @@ public class AddDeliveryTab extends VerticalLayout {
         HorizontalLayout pickerInfoLayout = new HorizontalLayout();
         root = new VerticalLayout();
 
-        Button refreshVarietiesButton = new Button("Odśwież formularz");
+        Button refreshVarietiesButton = new Button(env.getProperty("refresh.button"));
         refreshVarietiesButton.addClickListener(e ->
                 refreshVarieties()
         );
@@ -91,28 +94,28 @@ public class AddDeliveryTab extends VerticalLayout {
         horizontalLayout.setComponentAlignment(refreshVarietiesButton, Alignment.MIDDLE_CENTER);
 
         qrUpload = new Upload();
-        qrUpload.setCaption("Załaduj kod QR ");
+        qrUpload.setCaption(env.getProperty("qr.upload.caption"));
         qrUpload.setAcceptMimeTypes("image/jpg");
-        qrUpload.setButtonCaption("Naciśnij aby wybrać obraz");
+        qrUpload.setButtonCaption(env.getProperty("browse.images.button"));
         qrUpload.setReceiver(new ImageUploader());
         qrUpload.setImmediateMode(true);
 
-        fruitPickerId = new TextField("ID pracownika"); // "ID pracownika"
-        packageAmount = new TextField("Ilość opakowań"); // "Ilość opakowań"
+        fruitPickerId = new TextField(env.getProperty("employee.id.field"));
+        packageAmount = new TextField(env.getProperty("package.amount"));
         packageAmount.setValue("0");
-        weightField = new TextField("Waga w gramach");
+        weightField = new TextField(env.getProperty("weight.in.gram"));
         weightField.setValue("0");
         HorizontalLayout amountAndWeight = new HorizontalLayout(packageAmount, weightField);
         fruitTypeRadioButton = new RadioButtonGroup<>();
         fruitVarietyRadioButton = new RadioButtonGroup<>();
-        commentField = new TextField("Komentarz");
-        save = new Button("Zapisz");
+        commentField = new TextField(env.getProperty("comment"));
+        save = new Button(env.getProperty("save.button"));
 
         refreshTypes();
-        fruitTypeRadioButton.setCaption("Typ owocu");
+        fruitTypeRadioButton.setCaption(env.getProperty("fruit.type.caption"));
 
         refreshVarieties();
-        fruitVarietyRadioButton.setCaption("Odmiana owocu");
+        fruitVarietyRadioButton.setCaption(env.getProperty("fruit.variety.caption"));
 
         pickerInfoLayout.addComponents(fruitPickerId, qrUpload);
         formLayout.addComponents(pickerInfoLayout, amountAndWeight, fruitTypeRadioButton, fruitVarietyRadioButton, commentField, save);
@@ -122,7 +125,7 @@ public class AddDeliveryTab extends VerticalLayout {
     }
 
     private void refreshVarieties() {
-        List<String> fruitVarietyNames = fruitVarietyService.getVarietiesNames();//.findAll().stream().map(FruitVariety::getName).collect(Collectors.toList());
+        List<String> fruitVarietyNames = fruitVarietyService.getVarietiesNames();
         fruitVarietyRadioButton.setItems(fruitVarietyNames);
     }
 
@@ -136,7 +139,7 @@ public class AddDeliveryTab extends VerticalLayout {
                 && NumberUtils.isCreatable(weightField.getValue())) {
             if (fruitPickerId.isEmpty() || packageAmount.isEmpty() || fruitTypeRadioButton.isEmpty() || fruitVarietyRadioButton.isEmpty()
                     || weightField.isEmpty()) {
-                Notification.show("Uzupełnij wymagane pola!");
+                Notification.show(env.getProperty("complete.fields.notification"));
             } else {
                 FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerId.getValue()),
                         fruitTypeRadioButton.getValue(), Long.parseLong(packageAmount.getValue()), commentField.getValue(),
@@ -152,7 +155,7 @@ public class AddDeliveryTab extends VerticalLayout {
                 cleanFields();
             }
         } else {
-            Notification.show("Id pracownika oraz ilość opakowań powinny być liczbami całkowitymi!");
+            Notification.show(env.getProperty("id.and.amount.must.be.integr"));
         }
 
     }
@@ -170,9 +173,7 @@ public class AddDeliveryTab extends VerticalLayout {
         private File file;
 
 
-        public OutputStream receiveUpload(String filename,
-                                          String mimeType) {
-            System.out.println("UPLOAD RECEIVED");
+        public OutputStream receiveUpload(String filename, String mimeType) {
             // Create upload stream
             FileOutputStream fos; // Stream to write to
             try {
@@ -181,14 +182,14 @@ public class AddDeliveryTab extends VerticalLayout {
                 path = file.getAbsolutePath();
                 fos = new FileOutputStream(file);
             } catch (final java.io.FileNotFoundException e) {
-                new Notification("Could not open file",
+                new Notification(env.getProperty("could.not.open.file.notification"),
                         e.getMessage(),
                         Notification.Type.ERROR_MESSAGE)
                         .show(Page.getCurrent());
                 return null;
             }
 
-            return fos; // Return the output stream to write to
+            return fos;
         }
 
         public void uploadSucceeded(Upload.SucceededEvent event) {
