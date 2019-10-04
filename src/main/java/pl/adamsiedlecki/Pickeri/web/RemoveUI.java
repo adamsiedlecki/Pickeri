@@ -10,6 +10,7 @@ import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
+import pl.adamsiedlecki.Pickeri.service.ExpenseService;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
@@ -25,9 +26,11 @@ public class RemoveUI extends UI {
     private FruitDeliveryService fruitDeliveryService;
     private FruitVarietyService fruitVarietyService;
     private Environment env;
+    private ExpenseService expenseService;
 
     public RemoveUI(FruitPickerService fruitPickerService, FruitDeliveryService fruitDeliveryService,
-                    FruitVarietyService fruitVarietyService, Environment environment) {
+                    FruitVarietyService fruitVarietyService, Environment environment, ExpenseService expenseService) {
+        this.expenseService = expenseService;
         this.fruitVarietyService = fruitVarietyService;
         this.fruitDeliveryService = fruitDeliveryService;
         this.fruitPickerService = fruitPickerService;
@@ -58,6 +61,10 @@ public class RemoveUI extends UI {
         deleteFruitVarietiesButton.setStyleName(ValoTheme.BUTTON_DANGER);
         deleteFruitVarietiesButton.addClickListener(e -> fruitVarietyService.removeAll());
 
+        Button deleteExpensesButton = new Button(env.getProperty("delete.all.expenses.button"));
+        deleteExpensesButton.setStyleName(ValoTheme.BUTTON_DANGER);
+        deleteExpensesButton.addClickListener(e -> expenseService.removeAll());
+
         root.addComponent(warningLabel);
 
         addIndividualsByIdDeletePanel();
@@ -66,6 +73,7 @@ public class RemoveUI extends UI {
         root.addComponent(deleteFruitPickersButton);
         root.addComponent(deleteFruitDeliveriesButton);
         root.addComponent(deleteFruitVarietiesButton);
+        root.addComponent(deleteExpensesButton);
         root.addComponent(new Link(env.getProperty("password.change.link"), new ExternalResource("/password-change")));
 
         this.setContent(root);
@@ -75,6 +83,7 @@ public class RemoveUI extends UI {
         addPanel(env.getProperty("delivery.id.field"), env.getProperty("delete.delivery.button"), fruitDeliveryService);
         addPanel(env.getProperty("employee.id.field"), env.getProperty("delete.employee.button"), fruitPickerService);
         addPanel(env.getProperty("variety.id.field"), env.getProperty("delete.variety.button"), fruitVarietyService);
+        addPanel(env.getProperty("expense.id.field"), env.getProperty("delete.expense.button"), expenseService);
 
     }
 

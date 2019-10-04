@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.ExpenseDAO;
 import pl.adamsiedlecki.Pickeri.entity.Expense;
+import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
 @Service
-public class ExpenseService {
+public class ExpenseService implements Removeable {
 
     private ExpenseDAO expenseDAO;
 
@@ -57,4 +58,15 @@ public class ExpenseService {
         BigDecimal totalAmount = getTotalAmountOfSpentMoney();
         return totalAmount.divide(new BigDecimal(expenses.size()), 2, RoundingMode.FLOOR);
     }
+
+    public void removeAll() {
+        expenseDAO.deleteAll();
+    }
+
+    @Override
+    public void removeById(Long id) {
+        expenseDAO.deleteById(id);
+    }
+
+
 }
