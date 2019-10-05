@@ -15,6 +15,7 @@ import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.AddPaymentTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.PdfGenerationTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.PickersPaymentsTableTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.SubtractPaymentTab;
 
 
 @SpringUI(path = "/picker-payments")
@@ -30,14 +31,16 @@ public class PickerPaymentsUI extends UI {
     private PdfGenerationTab pdfGenerationTab;
     private MenuTab othersTab;
     private Environment env;
+    private SubtractPaymentTab subtractPaymentTab;
 
     @Autowired
     public PickerPaymentsUI(MenuTab othersTab, AddPaymentTab addPaymentTab, PickersPaymentsTableTab pickersPaymentsTableTab,
-                            PdfGenerationTab pdfGenerationTab, Environment environment) {
+                            PdfGenerationTab pdfGenerationTab, Environment environment, SubtractPaymentTab subtractPaymentTab) {
         this.env = environment;
         this.addPaymentTab = addPaymentTab;
         this.pickersPaymentsTableTab = pickersPaymentsTableTab;
         this.pdfGenerationTab = pdfGenerationTab;
+        this.subtractPaymentTab = subtractPaymentTab;
         this.othersTab = othersTab;
     }
 
@@ -48,6 +51,7 @@ public class PickerPaymentsUI extends UI {
         tabSheet.addTab(addPaymentTab, env.getProperty("add.payment.tab"));
         tabSheet.addTab(pickersPaymentsTableTab, env.getProperty("payment.summary.tab"));
         tabSheet.addTab(pdfGenerationTab, env.getProperty("generate.pdf.tab"));
+        tabSheet.addTab(subtractPaymentTab, env.getProperty("subtract.payment.tab.caption"));
         tabSheet.addTab(othersTab, env.getProperty("menu.tab.caption"));
         root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
         root.addComponents(tabSheet);
