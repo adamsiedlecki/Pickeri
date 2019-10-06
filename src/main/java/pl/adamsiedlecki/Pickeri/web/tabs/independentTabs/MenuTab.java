@@ -3,9 +3,7 @@ package pl.adamsiedlecki.Pickeri.web.tabs.independentTabs;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.FileResource;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.Embedded;
-import com.vaadin.ui.Link;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
@@ -20,17 +18,42 @@ public class MenuTab extends VerticalLayout {
     @Autowired
     public MenuTab(Environment environment) {
         this.env = environment;
-        this.addComponent(new Link(env.getProperty("add.fruits.ui"), new ExternalResource("/")));
-        this.addComponent(new Link(env.getProperty("statistics.and.employees.ui"), new ExternalResource("/statistics-and-info")));
-        this.addComponent(new Link(env.getProperty("ranking.ui"), new ExternalResource("/ranking")));
-        this.addComponent(new Link(env.getProperty("all.deliveries.ui"), new ExternalResource("/all-deliveries")));
-        this.addComponent(new Link(env.getProperty("expenses.ui"), new ExternalResource("/expenses")));
-        this.addComponent(new Link(env.getProperty("payments.ui"), new ExternalResource("/picker-payments")));
-        this.addComponent(new Link(env.getProperty("other.ui"), new ExternalResource("/other")));
-        this.addComponent(new Link(env.getProperty("logout.button"), new ExternalResource("/logout")));
-        Embedded logo = new Embedded("", new FileResource(ResourceGetter.getSiedleckiBlackLogo()));
-        logo.setWidth(60, Unit.PERCENTAGE);
-        this.addComponent(logo);
+        HorizontalLayout root = new HorizontalLayout();
+        VerticalLayout pageList = new VerticalLayout();
+        VerticalLayout rightList = new VerticalLayout();
+        pageList.addComponent(new Link(env.getProperty("add.fruits.ui"), new ExternalResource("/")));
+        pageList.addComponent(new Link(env.getProperty("statistics.and.employees.ui"), new ExternalResource("/statistics-and-info")));
+        pageList.addComponent(new Link(env.getProperty("ranking.ui"), new ExternalResource("/ranking")));
+        pageList.addComponent(new Link(env.getProperty("all.deliveries.ui"), new ExternalResource("/all-deliveries")));
+        pageList.addComponent(new Link(env.getProperty("expenses.ui"), new ExternalResource("/expenses")));
+        pageList.addComponent(new Link(env.getProperty("payments.ui"), new ExternalResource("/picker-payments")));
+        pageList.addComponent(new Link(env.getProperty("other.ui"), new ExternalResource("/other")));
+        pageList.addComponent(new Link(env.getProperty("logout.button"), new ExternalResource("/logout")));
+        pageList.setMargin(false);
+
+        Image logo = new Image(null, new FileResource(ResourceGetter.getSiedleckiBlackLogo()));
+        logo.setWidth(30, Unit.PERCENTAGE);
+        logo.setStyleName("logo");
+        HorizontalLayout logoLayout = new HorizontalLayout();
+        logoLayout.setMargin(false);
+        logoLayout.setCaption("");
+        logoLayout.setWidth(100, Unit.PERCENTAGE);
+        logoLayout.addComponent(logo);
+        logoLayout.addStyleName("logo-div");
+        logoLayout.setComponentAlignment(logo, Alignment.MIDDLE_CENTER);
+        logoLayout.setHeight(logo.getHeight(), logo.getHeightUnits());
+
+        root.setWidth(100, Unit.PERCENTAGE);
+        root.addComponent(pageList);
+        root.addComponent(rightList);
+        rightList.addComponent(new Label("AAAAAAAAA"));
+        root.setComponentAlignment(pageList, Alignment.TOP_LEFT);
+        root.setComponentAlignment(rightList, Alignment.TOP_RIGHT);
+        root.setMargin(false);
+        this.addComponent(root);
+        this.addComponent(logoLayout);
+        this.setWidth(100, Unit.PERCENTAGE);
+        this.setComponentAlignment(logoLayout, Alignment.MIDDLE_CENTER);
 
     }
 

@@ -67,6 +67,21 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 @mixin mytheme {
   @include valo;
 
+  #gwt-uid-16.v-caption{
+  height: 1 px;
+  }
+
+    #gwt-uid-17{
+        margin: auto;
+    }
+
+    .logo-div{
+        background-color: black;
+    }
+
+    .logo{
+        margin: auto;
+    }
 
   // login screen - for small screens, see below
   .login-screen {
