@@ -4,7 +4,10 @@ package pl.adamsiedlecki.Pickeri.tools;
 import com.google.common.io.Resources;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.Sizeable;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Embedded;
+import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
 
 import java.io.File;
 import java.net.URL;
@@ -16,6 +19,21 @@ public class ResourceGetter {
         logo.setHeight(30, Sizeable.Unit.PERCENTAGE);
         logo.setWidth(30, Sizeable.Unit.PERCENTAGE);
         return logo;
+    }
+
+    public static HorizontalLayout getSiedleckiLogoWithLayout() {
+        Image logo = new Image(null, new FileResource(ResourceGetter.getSiedleckiBlackLogo()));
+        logo.setWidth(30, Sizeable.Unit.PERCENTAGE);
+        logo.setStyleName("logo");
+        HorizontalLayout logoLayout = new HorizontalLayout();
+        logoLayout.setMargin(false);
+        logoLayout.setCaption("");
+        logoLayout.setWidth(100, Sizeable.Unit.PERCENTAGE);
+        logoLayout.addComponent(logo);
+        logoLayout.addStyleName("logo-div");
+        logoLayout.setComponentAlignment(logo, Alignment.MIDDLE_CENTER);
+        logoLayout.setHeight(logo.getHeight(), logo.getHeightUnits());
+        return logoLayout;
     }
 
     public static File getPickeriLogo() {

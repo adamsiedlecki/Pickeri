@@ -1,7 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.tabs.independentTabs;
 
 import com.vaadin.server.ExternalResource;
-import com.vaadin.server.FileResource;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,19 +29,7 @@ public class MenuTab extends VerticalLayout {
         pageList.addComponent(new Link(env.getProperty("other.ui"), new ExternalResource("/other")));
         pageList.addComponent(new Link(env.getProperty("logout.button"), new ExternalResource("/logout")));
         pageList.setMargin(false);
-
-        Image logo = new Image(null, new FileResource(ResourceGetter.getSiedleckiBlackLogo()));
-        logo.setWidth(30, Unit.PERCENTAGE);
-        logo.setStyleName("logo");
-        HorizontalLayout logoLayout = new HorizontalLayout();
-        logoLayout.setMargin(false);
-        logoLayout.setCaption("");
-        logoLayout.setWidth(100, Unit.PERCENTAGE);
-        logoLayout.addComponent(logo);
-        logoLayout.addStyleName("logo-div");
-        logoLayout.setComponentAlignment(logo, Alignment.MIDDLE_CENTER);
-        logoLayout.setHeight(logo.getHeight(), logo.getHeightUnits());
-
+        HorizontalLayout logoLayout = ResourceGetter.getSiedleckiLogoWithLayout();
         root.setWidth(100, Unit.PERCENTAGE);
         root.addComponent(pageList);
         root.addComponent(rightList);
