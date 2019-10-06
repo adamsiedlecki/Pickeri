@@ -30,7 +30,7 @@ import java.util.Objects;
 @SpringUI(path = "/home")
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
-@Title("Home")
+@Title("${home.title}")
 public class HomePage extends UI {
 
     private VerticalLayout root;

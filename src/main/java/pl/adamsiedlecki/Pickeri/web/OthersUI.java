@@ -17,7 +17,7 @@ import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 @SpringUI(path = "/other")
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
-@Title("Inne")
+@Title("${other.title}")
 public class OthersUI extends UI {
 
     private TabSheet tabs;

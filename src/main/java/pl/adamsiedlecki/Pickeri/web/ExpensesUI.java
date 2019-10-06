@@ -20,7 +20,7 @@ import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 @SpringUI(path = "/expenses")
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
-@Title("Wydatki")
+@Title("${expenses.title}")
 public class ExpensesUI extends UI {
 
     private VerticalLayout root;

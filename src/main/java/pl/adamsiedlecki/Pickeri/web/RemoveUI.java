@@ -18,7 +18,7 @@ import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
 @SpringUI(path = "/usuwaniedanych")
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
-@Title("Usuwanie")
+@Title("${delete.title}")
 public class RemoveUI extends UI {
 
     private VerticalLayout root;

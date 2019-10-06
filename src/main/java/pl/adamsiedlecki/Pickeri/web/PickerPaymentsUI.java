@@ -21,7 +21,7 @@ import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.SubtractPaymentTab;
 @SpringUI(path = "/picker-payments")
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
-@Title("Wypłaty")
+@Title("${payments.title}")
 public class PickerPaymentsUI extends UI {
 
     private VerticalLayout root;

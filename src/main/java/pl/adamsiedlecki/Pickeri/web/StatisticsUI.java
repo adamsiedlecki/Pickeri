@@ -18,7 +18,7 @@ import pl.adamsiedlecki.Pickeri.web.tabs.statisticsTabs.StatisticsTab;
 @SpringUI(path = "/statistics-and-info")
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
-@Title("Statystyki")
+@Title("${statistics.title}")
 public class StatisticsUI extends UI {
 
     private TabSheet tabs;

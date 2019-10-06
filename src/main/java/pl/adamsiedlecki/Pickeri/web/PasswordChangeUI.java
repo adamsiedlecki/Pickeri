@@ -15,7 +15,7 @@ import pl.adamsiedlecki.Pickeri.service.PickeriUserDetailsService;
 @SpringUI(path = "/password-change")
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
-@Title("Zmiana hasła")
+@Title("${password.change.title}")
 public class PasswordChangeUI extends UI {
 
     private VerticalLayout root;

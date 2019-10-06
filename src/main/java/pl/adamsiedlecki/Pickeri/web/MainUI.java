@@ -18,7 +18,7 @@ import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 @SpringUI
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
-@Title("Dodawanie")
+@Title("${add.delivery.title}")
 public class MainUI extends UI {
 
     private TabSheet tabs;

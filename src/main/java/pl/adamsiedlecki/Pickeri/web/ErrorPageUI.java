@@ -18,7 +18,7 @@ import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 @SpringUI(path = "/errorPage")
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
-@Title("Error")
+@Title("${error.title}")
 public class ErrorPageUI extends UI {
 
     private VerticalLayout root;
