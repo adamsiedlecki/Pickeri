@@ -67,6 +67,8 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 @mixin mytheme {
   @include valo;
 
+
+
   #gwt-uid-16.v-caption{
   height: 1 px;
   }

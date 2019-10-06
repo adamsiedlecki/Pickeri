@@ -18,30 +18,38 @@ public class MenuTab extends VerticalLayout {
     public MenuTab(Environment environment) {
         this.env = environment;
         HorizontalLayout root = new HorizontalLayout();
-        VerticalLayout pageList = new VerticalLayout();
-        VerticalLayout rightList = new VerticalLayout();
-        pageList.addComponent(new Link(env.getProperty("add.fruits.ui"), new ExternalResource("/")));
-        pageList.addComponent(new Link(env.getProperty("statistics.and.employees.ui"), new ExternalResource("/statistics-and-info")));
-        pageList.addComponent(new Link(env.getProperty("ranking.ui"), new ExternalResource("/ranking")));
-        pageList.addComponent(new Link(env.getProperty("all.deliveries.ui"), new ExternalResource("/all-deliveries")));
-        pageList.addComponent(new Link(env.getProperty("expenses.ui"), new ExternalResource("/expenses")));
-        pageList.addComponent(new Link(env.getProperty("payments.ui"), new ExternalResource("/picker-payments")));
-        pageList.addComponent(new Link(env.getProperty("other.ui"), new ExternalResource("/other")));
-        pageList.addComponent(new Link(env.getProperty("logout.button"), new ExternalResource("/logout")));
-        pageList.setMargin(false);
+        VerticalLayout firstList = new VerticalLayout();
+        VerticalLayout secondList = new VerticalLayout();
+        addLink(firstList, "add.fruits.ui", "/");
+        addLink(firstList, "statistics.and.employees.ui", "/statistics-and-info");
+        addLink(firstList, "ranking.ui", "/ranking");
+        addLink(firstList, "all.deliveries.ui", "/all-deliveries");
+        addLink(firstList, "expenses.ui", "/expenses");
+        addLink(firstList, "payments.ui", "/picker-payments");
+        addLink(firstList, "other.ui", "/other");
+        addLink(firstList, "logout.button", "/logout");
+        firstList.setMargin(false);
+        firstList.setStyleName("firstListMenu");
         HorizontalLayout logoLayout = ResourceGetter.getSiedleckiLogoWithLayout();
         root.setWidth(100, Unit.PERCENTAGE);
-        root.addComponent(pageList);
-        root.addComponent(rightList);
-        rightList.addComponent(new Label("AAAAAAAAA"));
-        root.setComponentAlignment(pageList, Alignment.TOP_LEFT);
-        root.setComponentAlignment(rightList, Alignment.TOP_RIGHT);
+        root.addComponent(firstList);
+        root.addComponent(secondList);
+        secondList.addComponent(new Label("AAAAAAAAA"));
+        root.setComponentAlignment(firstList, Alignment.TOP_LEFT);
+        root.setComponentAlignment(secondList, Alignment.TOP_RIGHT);
         root.setMargin(false);
         this.addComponent(root);
         this.addComponent(logoLayout);
         this.setWidth(100, Unit.PERCENTAGE);
         this.setComponentAlignment(logoLayout, Alignment.MIDDLE_CENTER);
 
+    }
+
+    private void addLink(VerticalLayout layout, String propertyName, String path) {
+        String name = env.getProperty(propertyName);
+        Link link = new Link(name, new ExternalResource(path));
+        layout.addComponent(link);
+        layout.setComponentAlignment(link, Alignment.MIDDLE_CENTER);
     }
 
 }
