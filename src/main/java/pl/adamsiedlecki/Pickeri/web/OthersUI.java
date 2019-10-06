@@ -56,7 +56,7 @@ public class OthersUI extends UI {
         tabs.addTab(fruitVarietyTab, env.getProperty("add.fruit.type.tab"));
         tabs.addTab(allVarietiesTab, env.getProperty("fruit.varieties.list.tab"));
         tabs.addTab(addPickerTab, env.getProperty("add.picker.tab"));
-        tabs.addTab(addDeleteTypeTab, env.getProperty("add.or.delete.fruit.tab"));
+        tabs.addTab(addDeleteTypeTab, env.getProperty("add.or.delete.fruit.type.tab"));
         tabs.addTab(pdfDocumentsGeneratorTab, env.getProperty("generate.pdf.tab"));
         tabs.addTab(othersTab, env.getProperty("menu.tab.caption"));
         root.addComponent(tabs);

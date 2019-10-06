@@ -99,7 +99,7 @@ public class RemoveUI extends UI {
                 Long id = Long.parseLong(value);
                 service.removeById(id);
                 idField.setValue("");
-                Notification.show(env.getProperty("operation.is.done.notifiaction"));
+                Notification.show(env.getProperty("operation.is.done.notification"));
             }
         });
         HorizontalLayout panel = new HorizontalLayout(idField, button);
