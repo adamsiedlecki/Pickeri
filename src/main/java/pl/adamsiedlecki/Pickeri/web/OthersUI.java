@@ -11,8 +11,8 @@ import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
-import pl.adamsiedlecki.Pickeri.web.tabs.OthersUITabs.*;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.othersUITabs.*;
 
 @SpringUI(path = "/other")
 @Theme("mytheme")
