@@ -4,10 +4,17 @@ import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
+import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.noteTabs.AddNoteTab;
 
 @SpringUI(path = "/notes")
 @Scope("prototype")
@@ -17,14 +24,24 @@ import org.springframework.context.annotation.Scope;
 public class NotesUI extends UI {
 
     private TabSheet tabs;
+    private Environment env;
+    private VerticalLayout root;
 
-    public NotesUI() {
-
+    @Autowired
+    public NotesUI(Environment environment, AddNoteTab addNoteTab, MenuTab menuTab) {
+        this.env = environment;
+        tabs = new TabSheet();
+        tabs.addTab(addNoteTab).setCaption(environment.getProperty("add.note.tab"));
+        tabs.addTab(menuTab).setCaption(environment.getProperty("menu.tab.caption"));
     }
 
     @Override
     protected void init(VaadinRequest request) {
-
+        root = new VerticalLayout();
+        root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
+        root.setMargin(new MarginInfo(false, true, true, true));
+        root.addComponent(tabs);
+        this.setContent(root);
     }
 
 }
