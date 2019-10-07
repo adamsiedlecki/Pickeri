@@ -41,7 +41,8 @@ public class MenuTab extends VerticalLayout {
                 "<script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script><script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 21,cityid: '771384',appid: '2bde50bdcc809a6230f17e9ba8e7f95',units: 'metric',containerid: 'openweathermap-widget-21',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = \"utf-8\";script.src = \"//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js\";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script>");
         weatherWidget.setContentMode(ContentMode.HTML);
         secondList.addComponent(weatherWidget);
-        TextArea lastNote = new TextArea(noteService.getLastNote().getContent());
+        TextArea lastNote = new TextArea(env.getProperty("last.note"));
+        lastNote.setValue(noteService.getLastNote().getContent());
         lastNote.setWidth(100, Unit.PERCENTAGE);
         secondList.addComponent(lastNote);
         root.setComponentAlignment(firstList, Alignment.TOP_LEFT);

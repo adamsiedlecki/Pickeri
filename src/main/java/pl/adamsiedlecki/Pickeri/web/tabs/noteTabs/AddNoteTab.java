@@ -32,6 +32,7 @@ public class AddNoteTab extends VerticalLayout {
                 textArea.clear();
             }
         });
+        this.addComponents(textArea, saveButton);
     }
 
 }
