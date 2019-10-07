@@ -35,4 +35,8 @@ public class NoteService {
         return last;
     }
 
+    public void save(Note note) {
+        noteDAO.save(note);
+    }
+
 }
