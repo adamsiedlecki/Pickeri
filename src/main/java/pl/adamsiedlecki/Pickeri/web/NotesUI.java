@@ -15,6 +15,7 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.noteTabs.AddNoteTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.noteTabs.AllNotesTab;
 
 @SpringUI(path = "/notes")
 @Scope("prototype")
@@ -28,10 +29,11 @@ public class NotesUI extends UI {
     private VerticalLayout root;
 
     @Autowired
-    public NotesUI(Environment environment, AddNoteTab addNoteTab, MenuTab menuTab) {
+    public NotesUI(Environment environment, AddNoteTab addNoteTab, MenuTab menuTab, AllNotesTab allNotesTab) {
         this.env = environment;
         tabs = new TabSheet();
         tabs.addTab(addNoteTab).setCaption(environment.getProperty("add.note.tab"));
+        tabs.addTab(allNotesTab, env.getProperty("all.notes.tab"));
         tabs.addTab(menuTab).setCaption(environment.getProperty("menu.tab.caption"));
     }
 
