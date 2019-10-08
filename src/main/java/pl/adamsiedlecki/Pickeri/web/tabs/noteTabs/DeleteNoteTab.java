@@ -17,7 +17,7 @@ public class DeleteNoteTab extends VerticalLayout {
     public DeleteNoteTab(NoteService noteService, Environment env) {
         TextField idField = new TextField(env.getProperty("id.column"));
         Button deleteButton = new Button(env.getProperty("delete.button"));
-        deleteButton.setStyleName(ValoTheme.LABEL_COLORED);
+        deleteButton.setStyleName(ValoTheme.BUTTON_DANGER);
 
         deleteButton.addClickListener(e -> {
             if (NumberUtils.isDigits(idField.getValue())) {
