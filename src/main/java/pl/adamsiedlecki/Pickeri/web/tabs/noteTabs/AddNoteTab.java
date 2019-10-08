@@ -1,9 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.tabs.noteTabs;
 
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Notification;
-import com.vaadin.ui.TextArea;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
@@ -33,6 +30,10 @@ public class AddNoteTab extends VerticalLayout {
             }
         });
         this.addComponents(textArea, saveButton);
+        textArea.setWidth(30, Unit.PERCENTAGE);
+        textArea.setHeight(25, Unit.PERCENTAGE);
+        this.setComponentAlignment(textArea, Alignment.MIDDLE_CENTER);
+        this.setComponentAlignment(saveButton, Alignment.MIDDLE_CENTER);
     }
 
 }
