@@ -27,7 +27,7 @@ public class AllNotesTab extends VerticalLayout {
         notesGrid = new Grid<>();
         refreshButton = new Button(env.getProperty("refresh.button"));
         refreshButton.addClickListener(e -> refreshData());
-        notesGrid.addColumn(Note::getId).setCaption(Objects.requireNonNull(env.getProperty("id.column")));
+        notesGrid.addColumn(Note::getId).setCaption(Objects.requireNonNull(env.getProperty("id.column"))).setWidth(60);
         notesGrid.addColumn(Note::getContent).setCaption(Objects.requireNonNull(env.getProperty("note.content.column")));
         this.addComponents(refreshButton, notesGrid);
         notesGrid.setWidth(80, Unit.PERCENTAGE);
