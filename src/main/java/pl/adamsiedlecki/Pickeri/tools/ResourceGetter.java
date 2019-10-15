@@ -8,7 +8,6 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
-
 import java.io.File;
 import java.net.URL;
 
