@@ -36,7 +36,9 @@ public class MenuTab extends VerticalLayout {
         root.addComponent(firstList);
         root.addComponent(secondList);
         addLink(secondList, "notes.ui", "/notes");
+        addLink(secondList, "worktime.registry", "/work-time");
         TextArea lastNote = new TextArea(env.getProperty("last.note"));
+        lastNote.setEnabled(false);
         lastNote.setValue(noteService.getLastNote().getContent());
         lastNote.setWidth(100, Unit.PERCENTAGE);
         secondList.addComponent(lastNote);

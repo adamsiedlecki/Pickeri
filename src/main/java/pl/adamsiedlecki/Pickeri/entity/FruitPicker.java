@@ -3,6 +3,7 @@ package pl.adamsiedlecki.Pickeri.entity;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @Entity
 @Table
@@ -27,6 +28,9 @@ public class FruitPicker {
 
     @Column(columnDefinition = "Decimal(10,2) default '0.00'")
     private BigDecimal fundsPaid;
+
+    @ManyToMany
+    private List<WorkTime> workTimeList;
 
     @Transient
     private long packageDeliveryAmount;
@@ -57,6 +61,14 @@ public class FruitPicker {
 
     @Transient
     private BigDecimal weightWithTypeFour;
+
+    public List<WorkTime> getWorkTimeList() {
+        return workTimeList;
+    }
+
+    public void setWorkTimeList(List<WorkTime> workTimeList) {
+        this.workTimeList = workTimeList;
+    }
 
     public BigDecimal getFundsPaid() {
         return fundsPaid;
