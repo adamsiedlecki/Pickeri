@@ -26,6 +26,7 @@ import java.util.Optional;
 public class AddTimeToPickerTab extends VerticalLayout {
 
     private static Logger log = LoggerFactory.getLogger(AddTimeToPickerTab.class);
+    private VerticalLayout root;
     private WorkTimeService workTimeService;
     private FruitPickerService fruitPickerService;
     private TextField amountOfHoursField;
@@ -38,13 +39,14 @@ public class AddTimeToPickerTab extends VerticalLayout {
 
     @Autowired
     public AddTimeToPickerTab(WorkTimeService workTimeService, Environment env, FruitPickerService fruitPickerService){
+        root = new VerticalLayout();
         this.fruitPickerService = fruitPickerService;
         this.env = env;
         this.workTimeService = workTimeService;
         idField = new TextField(env.getProperty("id.column"));
         beginDateField = new DateField(env.getProperty("begin.date"));
         beginDateField.setDateFormat("yyyy-MM-dd");
-        beginDateField.setWidth(30, Unit.PERCENTAGE);
+        //beginDateField.setWidth(30, Unit.PERCENTAGE);
         beginDateField.addValueChangeListener(new ClickListener());
         beginTimeField = new TextField(env.getProperty("begin.time"));
         beginTimeField.addValueChangeListener(new ClickListener());
@@ -52,13 +54,14 @@ public class AddTimeToPickerTab extends VerticalLayout {
 
         endDateField = new DateField(env.getProperty("end.date"));
         endDateField.setDateFormat("yyyy-MM-dd");
-        endDateField.setWidth(30, Unit.PERCENTAGE);
+        //endDateField.setWidth(30, Unit.PERCENTAGE);
         endDateField.addValueChangeListener(new ClickListener());
         endTimeField = new TextField(env.getProperty("end.time"));
         endTimeField.addValueChangeListener(new ClickListener());
 
 
         amountOfHoursField = new TextField(env.getProperty("hours.amount"));
+        amountOfHoursField.setDescription(env.getProperty("decimal.hours.description"));
 
         Button saveButton = new Button(env.getProperty("save.button"));
         saveButton.addClickListener(e->{
@@ -68,9 +71,13 @@ public class AddTimeToPickerTab extends VerticalLayout {
             }
         });
 
-        this.addComponents(idField, beginDateField, beginTimeField, endDateField, endTimeField, amountOfHoursField, saveButton);
-        //endTimeField.setValue("20:00");
-        //beginTimeField.setValue("07:00");
+        root.addComponents(idField, beginDateField, beginTimeField, endDateField, endTimeField, amountOfHoursField, saveButton);
+        this.addComponent(root);
+        root.forEach(component -> root.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
+        beginTimeField.setValue("07:00");
+        endTimeField.setValue("20:00");
+        beginDateField.setValue(LocalDate.now());
+        endDateField.setValue(LocalDate.now());
     }
 
     private Optional<WorkTime> getWorkTimeObject(){
@@ -78,20 +85,27 @@ public class AddTimeToPickerTab extends VerticalLayout {
             if(isTimeValid(beginTimeField.getValue())&&isTimeValid(endTimeField.getValue())){
                 LocalDate begin = beginDateField.getValue();
                 LocalDate end = endDateField.getValue();
-                LocalDateTime beginTime = LocalDateTime.of(begin, LocalTime.parse(beginTimeField.getValue()+":00"));
-                LocalDateTime endTime = LocalDateTime.of(end, LocalTime.parse(endTimeField.getValue()+":00"));
 
-                Duration workTime = Duration.between(beginTime, endTime);
+                if(begin!=null&end!=null){
+                    LocalDateTime beginTime = LocalDateTime.of(begin, LocalTime.parse(beginTimeField.getValue()+":00"));
+                    LocalDateTime endTime = LocalDateTime.of(end, LocalTime.parse(endTimeField.getValue()+":00"));
 
-                if(!idField.isEmpty()&& NumberUtils.isDigits(idField.getValue())){
-                    Optional<FruitPicker> fp = fruitPickerService.getFruitPickerById(Long.parseLong(idField.getValue()));
-                    if(fp.isPresent()){
-                        return  Optional.of(new WorkTime(fp.get(), beginTime, endTime, workTime));
+                    Duration workTime = Duration.between(beginTime, endTime);
+
+                    if(!idField.isEmpty()&& NumberUtils.isDigits(idField.getValue())){
+                        Optional<FruitPicker> fp = fruitPickerService.getFruitPickerById(Long.parseLong(idField.getValue()));
+                        if(fp.isPresent()){
+                            return  Optional.of(new WorkTime(fp.get(), beginTime, endTime, workTime));
+                        }else{
+                            return Optional.of(new WorkTime(null, beginTime, endTime, workTime));
+                        }
                     }else{
                         return Optional.of(new WorkTime(null, beginTime, endTime, workTime));
                     }
                 }else{
-                    return Optional.of(new WorkTime(null, beginTime, endTime, workTime));
+                    if(fieldsNotEmpty()){
+                        amountOfHoursField.clear();
+                    }
                 }
 
             }else{
