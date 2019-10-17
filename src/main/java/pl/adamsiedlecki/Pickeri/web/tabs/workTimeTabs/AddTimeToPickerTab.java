@@ -67,6 +67,7 @@ public class AddTimeToPickerTab extends VerticalLayout {
             Optional<WorkTime> optionalWorkTime = getWorkTimeObject();
             if(optionalWorkTime.isPresent()&&optionalWorkTime.get().getFruitPicker()!=null){
                 workTimeService.save(optionalWorkTime.get());
+                Notification.show(env.getProperty("work.time.saved.successfully"), Notification.Type.TRAY_NOTIFICATION);
             }else{
                 Notification.show(env.getProperty("wrong.values.provided"), Notification.Type.ERROR_MESSAGE);
             }
