@@ -2,18 +2,24 @@ package pl.adamsiedlecki.Pickeri.web.tabs.workTimeTabs;
 
 import com.vaadin.data.HasValue;
 import com.vaadin.ui.*;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
+import pl.adamsiedlecki.Pickeri.entity.WorkTime;
+import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.WorkTimeService;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.*;
+import java.time.temporal.TemporalUnit;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 @Scope("prototype")
@@ -21,18 +27,21 @@ public class AddTimeToPickerTab extends VerticalLayout {
 
     private static Logger log = LoggerFactory.getLogger(AddTimeToPickerTab.class);
     private WorkTimeService workTimeService;
+    private FruitPickerService fruitPickerService;
     private TextField amountOfHoursField;
     private DateField beginDateField;
     private TextField beginTimeField;
     private DateField endDateField;
     private TextField endTimeField;
     private Environment env;
+    private TextField idField;
 
     @Autowired
-    public AddTimeToPickerTab(WorkTimeService workTimeService, Environment env){
+    public AddTimeToPickerTab(WorkTimeService workTimeService, Environment env, FruitPickerService fruitPickerService){
+        this.fruitPickerService = fruitPickerService;
         this.env = env;
         this.workTimeService = workTimeService;
-        TextField idField = new TextField(env.getProperty("id.column"));
+        idField = new TextField(env.getProperty("id.column"));
         beginDateField = new DateField(env.getProperty("begin.date"));
         beginDateField.setDateFormat("yyyy-MM-dd");
         beginDateField.setWidth(30, Unit.PERCENTAGE);
@@ -52,52 +61,107 @@ public class AddTimeToPickerTab extends VerticalLayout {
         amountOfHoursField = new TextField(env.getProperty("hours.amount"));
 
         Button saveButton = new Button(env.getProperty("save.button"));
+        saveButton.addClickListener(e->{
+            Optional<WorkTime> optionalWorkTime = getWorkTimeObject();
+            if(optionalWorkTime.isPresent()&&optionalWorkTime.get().getFruitPicker()!=null){
+                workTimeService.save(optionalWorkTime.get());
+            }
+        });
 
         this.addComponents(idField, beginDateField, beginTimeField, endDateField, endTimeField, amountOfHoursField, saveButton);
         //endTimeField.setValue("20:00");
         //beginTimeField.setValue("07:00");
     }
 
-    private class ClickListener implements HasValue.ValueChangeListener {
+    private Optional<WorkTime> getWorkTimeObject(){
+        if(beginDateField!=null && beginTimeField!=null && endDateField!=null && endTimeField!=null){
+            if(isTimeValid(beginTimeField.getValue())&&isTimeValid(endTimeField.getValue())){
+                LocalDate begin = beginDateField.getValue();
+                LocalDate end = endDateField.getValue();
+                LocalDateTime beginTime = LocalDateTime.of(begin, LocalTime.parse(beginTimeField.getValue()+":00"));
+                LocalDateTime endTime = LocalDateTime.of(end, LocalTime.parse(endTimeField.getValue()+":00"));
 
-        @Override
-        public void valueChange(HasValue.ValueChangeEvent event) {
+                Duration workTime = Duration.between(beginTime, endTime);
 
-            if(beginDateField!=null && beginTimeField!=null && endDateField!=null && endTimeField!=null){
-                if(isTimeValid(beginTimeField.getValue())&&isTimeValid(endTimeField.getValue())){
-                    LocalDate begin = beginDateField.getValue();
-                    LocalDate end = endDateField.getValue();
-                    LocalDateTime beginTime = LocalDateTime.of(begin, LocalTime.parse(beginTimeField.getValue()+":00"));
-                    LocalDateTime endTime = LocalDateTime.of(end, LocalTime.parse(endTimeField.getValue()+":00"));
-                    amountOfHoursField.setValue(endTime+" "+beginTime);
-                    log.info("Value has changed.");
+                if(!idField.isEmpty()&& NumberUtils.isDigits(idField.getValue())){
+                    Optional<FruitPicker> fp = fruitPickerService.getFruitPickerById(Long.parseLong(idField.getValue()));
+                    if(fp.isPresent()){
+                        return  Optional.of(new WorkTime(fp.get(), beginTime, endTime, workTime));
+                    }else{
+                        return Optional.of(new WorkTime(null, beginTime, endTime, workTime));
+                    }
+                }else{
+                    return Optional.of(new WorkTime(null, beginTime, endTime, workTime));
                 }
+
             }else{
-                Notification.show(env.getProperty("complete.fields.notification"));
+                if(fieldsNotEmpty()){
+                    amountOfHoursField.clear();
+                }
             }
+        }else{
+            Notification.show(env.getProperty("complete.fields.notification"), Notification.Type.ERROR_MESSAGE);
+        }
+        return Optional.empty();
+    }
+
+    private boolean isTimeValid(String time){
+        if(time==null){
+            log.info("Time is null.");
+            return false;
+        }
+        if(time.length()!=5){
+            log.info("Time String value has illegal length: "+time.length());
+            return false;
+        }
+        if(time.charAt(2)!=':'){
+            log.info("There is no ':' in the time. ");
+            return false;
+        }
+        char c = time.charAt(0);
+        if(c<48||c>53){
+            log.info("There are numbers greater than 5 and smaller than zero.  ");return false;
+        }
+        c = time.charAt(3);
+        if(c<48||c>53){
+            log.info("There are numbers greater than 5 and smaller than zero.  ");return false;
+        }
+        c = time.charAt(1);
+        if(c<48||c>57){
+            log.info("There are non numeric values in the time. ");return false;
+        }
+        c = time.charAt(4);
+        if(c<48||c>57){
+            log.info("There are non numeric values in the time.  ");return false;
         }
 
-        private boolean isTimeValid(String time){
-            if(time==null){
-                log.info("Time is null.");
-                return false;
+        try{
+            LocalTime.parse(time+":00");
+        }catch(Exception ex){
+            log.info("String is not parsable to time.");
+            return false;
+        }
+        log.info("Time is valid.");
+        return true;
+    }
+
+    private boolean fieldsNotEmpty(){
+        if(beginDateField.isEmpty() || beginTimeField.isEmpty() || endDateField.isEmpty() || endTimeField.isEmpty()){
+            return false;
+        }
+        return true;
+    }
+
+    private class ClickListener implements HasValue.ValueChangeListener {
+        @Override
+        public void valueChange(HasValue.ValueChangeEvent event) {
+            Optional<WorkTime> optionalWorkTime = getWorkTimeObject();
+            if(optionalWorkTime.isPresent()){
+                WorkTime  workTime = optionalWorkTime.get();
+                BigDecimal workHours = new BigDecimal(workTime.getDuration().getSeconds())
+                        .divide(new BigDecimal(3600),2, RoundingMode.FLOOR);
+                amountOfHoursField.setValue(workHours.toPlainString());
             }
-            if(time.length()!=5){
-                log.info("Time String value has illegal length: "+time.length());
-                return false;
-            }
-            if(time.charAt(2)!=':'){
-                log.info("There is no ':' in the time. ");
-                return false;
-            }
-            try{
-                LocalTime.parse(time+":00");
-            }catch(Exception ex){
-                log.info("String is not parsable to time.");
-                return false;
-            }
-            log.info("Time is valid.");
-            return true;
         }
     }
 
