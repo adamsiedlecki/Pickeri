@@ -46,7 +46,6 @@ public class AddTimeToPickerTab extends VerticalLayout {
         idField = new TextField(env.getProperty("id.column"));
         beginDateField = new DateField(env.getProperty("begin.date"));
         beginDateField.setDateFormat("yyyy-MM-dd");
-        //beginDateField.setWidth(30, Unit.PERCENTAGE);
         beginDateField.addValueChangeListener(new ClickListener());
         beginTimeField = new TextField(env.getProperty("begin.time"));
         beginTimeField.addValueChangeListener(new ClickListener());
@@ -54,13 +53,13 @@ public class AddTimeToPickerTab extends VerticalLayout {
 
         endDateField = new DateField(env.getProperty("end.date"));
         endDateField.setDateFormat("yyyy-MM-dd");
-        //endDateField.setWidth(30, Unit.PERCENTAGE);
         endDateField.addValueChangeListener(new ClickListener());
         endTimeField = new TextField(env.getProperty("end.time"));
         endTimeField.addValueChangeListener(new ClickListener());
 
 
         amountOfHoursField = new TextField(env.getProperty("hours.amount"));
+        amountOfHoursField.setEnabled(false);
         amountOfHoursField.setDescription(env.getProperty("decimal.hours.description"));
 
         Button saveButton = new Button(env.getProperty("save.button"));
@@ -68,6 +67,8 @@ public class AddTimeToPickerTab extends VerticalLayout {
             Optional<WorkTime> optionalWorkTime = getWorkTimeObject();
             if(optionalWorkTime.isPresent()&&optionalWorkTime.get().getFruitPicker()!=null){
                 workTimeService.save(optionalWorkTime.get());
+            }else{
+                Notification.show(env.getProperty("wrong.values.provided"), Notification.Type.ERROR_MESSAGE);
             }
         });
 
