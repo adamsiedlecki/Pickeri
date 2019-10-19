@@ -13,6 +13,7 @@ import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.workTimeTabs.AddTimeToPickerTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.workTimeTabs.AllWorkTimesTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.workTimeTabs.WorkTimeRanking;
 
 @SpringUI(path="/work-time")
 @Title("${worktime.registry}")
@@ -26,8 +27,11 @@ public class WorkTimeRegistryUI extends UI {
     private Environment env;
     private AllWorkTimesTab allWorkTimesTab;
     private MenuTab menuTab;
+    private WorkTimeRanking workTimeRanking;
 
-    public WorkTimeRegistryUI(AddTimeToPickerTab addTimeToPickerTab, Environment env, AllWorkTimesTab allWorkTimesTab, MenuTab menuTab){
+    public WorkTimeRegistryUI(AddTimeToPickerTab addTimeToPickerTab, Environment env, AllWorkTimesTab allWorkTimesTab,
+                              MenuTab menuTab, WorkTimeRanking workTimeRanking){
+        this.workTimeRanking = workTimeRanking;
         this.env = env;
         this.addTimeToPickerTab = addTimeToPickerTab;
         this.allWorkTimesTab = allWorkTimesTab;
@@ -40,6 +44,7 @@ public class WorkTimeRegistryUI extends UI {
         tabs = new TabSheet();
         tabs.addTab(addTimeToPickerTab).setCaption(env.getProperty("add.work.time"));
         tabs.addTab(allWorkTimesTab).setCaption(env.getProperty("all.work.times"));
+        tabs.addTab(workTimeRanking).setCaption(env.getProperty("work.time.ranking"));
         tabs.addTab(menuTab, env.getProperty("menu.tab.caption"));
         root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
         root.addComponent(tabs);

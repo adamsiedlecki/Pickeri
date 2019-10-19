@@ -29,7 +29,7 @@ public class FruitPicker {
     @Column(columnDefinition = "Decimal(10,2) default '0.00'")
     private BigDecimal fundsPaid;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "fruitPicker", cascade = CascadeType.ALL)
     private List<WorkTime> workTimeList;
 
     @Transient
@@ -61,6 +61,16 @@ public class FruitPicker {
 
     @Transient
     private BigDecimal weightWithTypeFour;
+
+    public BigDecimal getWorkTimeHours(){
+        BigDecimal hours = BigDecimal.ZERO;
+        for(WorkTime workTime : workTimeList){
+            BigDecimal timeAmount = new BigDecimal(workTime.getDuration().getSeconds());
+            timeAmount = timeAmount.divide(new BigDecimal(3600), 2, RoundingMode.FLOOR);
+            hours = hours.add(timeAmount);
+        }
+        return hours;
+    }
 
     public List<WorkTime> getWorkTimeList() {
         return workTimeList;
@@ -221,4 +231,5 @@ public class FruitPicker {
     public void setGender(String gender) {
         this.gender = gender;
     }
+
 }
