@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.tabs.workTimeTabs;
 
+import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
@@ -24,7 +25,7 @@ public class WorkTimeRanking extends VerticalLayout {
 
         fruitPickerGrid.addColumn(FruitPicker::getId);
         fruitPickerGrid.addColumn(FruitPicker::getName);
-        fruitPickerGrid.addColumn(FruitPicker::getWorkTimeHours);
+        fruitPickerGrid.addColumn(FruitPicker::getWorkTimeHours).setId("hours");
         fruitPickerGrid.setWidth(80, Unit.PERCENTAGE);
         this.addComponents(refreshButton, fruitPickerGrid);
         refreshButton.addClickListener(e->refreshData());
@@ -34,6 +35,7 @@ public class WorkTimeRanking extends VerticalLayout {
 
     private void refreshData(){
         fruitPickerGrid.setItems(fruitPickerService.findAll());
+        fruitPickerGrid.sort("hours", SortDirection.DESCENDING);
     }
 
 }
