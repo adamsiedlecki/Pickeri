@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 
+import java.util.Objects;
+
 @Component
 @Scope("prototype")
 public class WorkTimeRanking extends VerticalLayout {
@@ -23,9 +25,10 @@ public class WorkTimeRanking extends VerticalLayout {
         fruitPickerGrid = new Grid<>();
         Button refreshButton = new Button(env.getProperty("refresh.button"));
 
-        fruitPickerGrid.addColumn(FruitPicker::getId);
-        fruitPickerGrid.addColumn(FruitPicker::getName);
-        fruitPickerGrid.addColumn(FruitPicker::getWorkTimeHours).setId("hours");
+        fruitPickerGrid.addColumn(FruitPicker::getId).setCaption(Objects.requireNonNull(env.getProperty("id.column")));
+        fruitPickerGrid.addColumn(FruitPicker::getName).setCaption(Objects.requireNonNull(env.getProperty("name.person.column")));
+        fruitPickerGrid.addColumn(FruitPicker::getLastName).setCaption(Objects.requireNonNull(env.getProperty("surname.column")));
+        fruitPickerGrid.addColumn(FruitPicker::getWorkTimeHours).setId("hours").setCaption(Objects.requireNonNull(env.getProperty("hours.amount")));
         fruitPickerGrid.setWidth(80, Unit.PERCENTAGE);
         this.addComponents(refreshButton, fruitPickerGrid);
         refreshButton.addClickListener(e->refreshData());
