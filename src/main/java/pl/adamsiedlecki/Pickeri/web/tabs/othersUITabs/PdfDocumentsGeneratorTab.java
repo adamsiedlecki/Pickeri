@@ -160,7 +160,7 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
                 check.delete();
             }
             List<FruitPicker> fruitPickers = fruitPickerService.findAll();
-            PickersToPdfWriter.writeRaport(fruitPickers, pdfPath, fruitTypeService);
+            PickersToPdfWriter.writeRaport(fruitPickers, pdfPath, fruitTypeService, env);
             this.addComponent(new Link(env.getProperty("download.raport.link"), new ExternalResource("/download/pdf/pickersRaport.pdf")));
         });
     }

@@ -4,6 +4,7 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.tools.qr.QRCodeWriterTool;
@@ -104,7 +105,7 @@ public class PickersToPdfWriter {
         writer.setPageEvent(event);
     }
 
-    public static void writeRaport(List<FruitPicker> fruitPickers, String pdfPath, FruitTypeService fruitTypeService) {
+    public static void writeRaport(List<FruitPicker> fruitPickers, String pdfPath, FruitTypeService fruitTypeService, Environment env) {
 
         Document document = new Document();
         PdfWriter writer = null;
@@ -119,20 +120,20 @@ public class PickersToPdfWriter {
             Font font = FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL);
             float[] pointColumnWidths = {100};
             if (fruitTypeService.getTypeAmount() == 0) {
-                pointColumnWidths = new float[]{90F, 190F, 180F, 180F};
+                pointColumnWidths = new float[]{90F, 190F, 180F, 180F, 180F};
             }
             if (fruitTypeService.getTypeAmount() == 1) {
-                pointColumnWidths = new float[]{90F, 190F, 180F, 180F, 180F, 180F};
+                pointColumnWidths = new float[]{90F, 190F, 180F, 180F, 180F, 180F, 180F};
             }
             if (fruitTypeService.getTypeAmount() == 2) {
-                pointColumnWidths = new float[]{90F, 190F, 180F, 180F, 220F, 220F, 220F, 220F};
+                pointColumnWidths = new float[]{90F, 190F, 180F, 180F, 220F, 220F, 220F, 220F, 180F};
             }
             if (fruitTypeService.getTypeAmount() == 3) {
-                pointColumnWidths = new float[]{90F, 190F, 180F, 180F, 180F, 180F, 180F, 180F, 180F, 180F};
+                pointColumnWidths = new float[]{90F, 190F, 180F, 180F, 180F, 180F, 180F, 180F, 180F, 180F, 180F};
                 font.setSize(9);
             }
             if (fruitTypeService.getTypeAmount() == 4) {
-                pointColumnWidths = new float[]{85F, 190F, 190F, 190F, 190F, 190F, 190F, 190F, 190F, 190F, 185F, 185F};
+                pointColumnWidths = new float[]{85F, 190F, 190F, 190F, 190F, 190F, 190F, 190F, 190F, 190F, 185F, 185F, 180F};
                 font.setSize(7);
             }
 
@@ -140,6 +141,7 @@ public class PickersToPdfWriter {
             PdfPTable table = new PdfPTable(pointColumnWidths);
             table.addCell(new Phrase("ID", font));
             table.addCell(new Phrase("Imię i nazwisko", font));
+            table.addCell(new Phrase("Czas pracy [h]", font));
             table.addCell(new Phrase("Suma [opak.]", font));
             table.addCell(new Phrase("Suma [kg]", font));
             for (int i = 0; i < 4; i++) {
@@ -158,6 +160,7 @@ public class PickersToPdfWriter {
 
                 table.addCell(new Phrase(Long.toString(fp.getId()), font));
                 table.addCell(new Phrase(fp.getName() + " " + fp.getLastName(), font));
+                table.addCell(new Phrase(fp.getWorkTimeHours().toPlainString(), font));
                 table.addCell(new Phrase(Long.toString(fp.getPackageDeliveryAmount()), font));
                 table.addCell(new Phrase(fp.getWeightSumKgPlainText(), font));
                 if (amountInfo1.size() == 2) {
