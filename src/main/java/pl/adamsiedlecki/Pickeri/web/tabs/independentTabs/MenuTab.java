@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.NoteService;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.web.components.StockInfoPanel;
 
 @SpringComponent
 @Scope("prototype")
@@ -16,7 +17,7 @@ public class MenuTab extends VerticalLayout {
     private Environment env;
 
     @Autowired
-    public MenuTab(Environment environment, NoteService noteService) {
+    public MenuTab(Environment environment, NoteService noteService, StockInfoPanel stockInfoPanel) {
         this.env = environment;
         HorizontalLayout root = new HorizontalLayout();
         VerticalLayout firstList = new VerticalLayout();
@@ -42,6 +43,7 @@ public class MenuTab extends VerticalLayout {
         lastNote.setValue(noteService.getLastNote().getContent());
         lastNote.setWidth(100, Unit.PERCENTAGE);
         secondList.addComponent(lastNote);
+        secondList.addComponent(stockInfoPanel);
         root.setComponentAlignment(firstList, Alignment.TOP_LEFT);
         root.setComponentAlignment(secondList, Alignment.TOP_RIGHT);
         root.setMargin(false);
