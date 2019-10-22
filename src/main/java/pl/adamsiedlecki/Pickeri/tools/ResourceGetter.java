@@ -83,5 +83,4 @@ public class ResourceGetter {
         return logo;
     }
 
-
 }
