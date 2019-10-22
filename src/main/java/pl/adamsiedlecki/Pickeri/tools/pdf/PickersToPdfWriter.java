@@ -96,7 +96,7 @@ public class PickersToPdfWriter {
                     FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.BOLD)));
             document.add(new Paragraph(" "));
         } catch (DocumentException e) {
-            log.error("Add title - DocumentException");
+            log.error("Add title - DocumentException - "+e.getMessage());
         }
     }
 
@@ -115,7 +115,7 @@ public class PickersToPdfWriter {
             addHeaderFooter(writer);
 
             document.open();
-            addTitle(document, "Raport pracowniczy Pickeri " + LocalDate.now());
+            addTitle(document, env.getProperty("employee.raport.title") + LocalDate.now());
 
             Font font = FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL);
             float[] pointColumnWidths = {100};
@@ -139,15 +139,15 @@ public class PickersToPdfWriter {
 
             document.setMargins(10F, 10F, 70F, 10F);
             PdfPTable table = new PdfPTable(pointColumnWidths);
-            table.addCell(new Phrase("ID", font));
-            table.addCell(new Phrase("Imię i nazwisko", font));
-            table.addCell(new Phrase("Czas pracy [h]", font));
-            table.addCell(new Phrase("Suma [opak.]", font));
-            table.addCell(new Phrase("Suma [kg]", font));
+            table.addCell(new Phrase(env.getProperty("id.column"), font));
+            table.addCell(new Phrase(env.getProperty("name.and.surname.column"), font));
+            table.addCell(new Phrase(env.getProperty("work.time.raport"), font));
+            table.addCell(new Phrase(env.getProperty("packages.sum.raport"), font));
+            table.addCell(new Phrase(env.getProperty("weight.sum.raport"), font));
             for (int i = 0; i < 4; i++) {
                 if (fruitTypeService.getType(i).getName() != null) {
-                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + " [opak.]", font));
-                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + " [kg]", font));
+                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + env.getProperty("packages.unit"), font));
+                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + env.getProperty("weight.unit"), font));
                 }
             }
 
