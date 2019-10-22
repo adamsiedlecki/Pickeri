@@ -36,7 +36,6 @@ public class MonthExpensesStatisticsGetter {
         return result;
     }
 
-
     private static Map<Integer, String> getMonths() {
         Map<Integer, String> months = new TreeMap<>();
         months.put(1, "Styczeń");
@@ -53,6 +52,5 @@ public class MonthExpensesStatisticsGetter {
         months.put(12, "Grudzień");
         return months;
     }
-
 
 }
