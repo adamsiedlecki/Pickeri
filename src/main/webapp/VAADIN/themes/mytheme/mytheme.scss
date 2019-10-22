@@ -372,6 +372,7 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
       border-color: #1d69b4;
   }
   .v-link {
+      min-width: 160px;
       background-color: black;
       color: white;
       border: 2px solid #4CAF50;

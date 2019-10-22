@@ -22,6 +22,8 @@ public class MenuTab extends VerticalLayout {
         HorizontalLayout root = new HorizontalLayout();
         VerticalLayout firstList = new VerticalLayout();
         VerticalLayout secondList = new VerticalLayout();
+        VerticalLayout thirdList = new VerticalLayout();
+
         addLink(firstList, "add.fruits.ui", "/");
         addLink(firstList, "statistics.and.employees.ui", "/statistics-and-info");
         addLink(firstList, "ranking.ui", "/ranking");
@@ -32,10 +34,7 @@ public class MenuTab extends VerticalLayout {
         addLink(firstList, "logout.button", "/logout");
         firstList.setMargin(false);
         firstList.setStyleName("firstListMenu");
-        HorizontalLayout logoLayout = ResourceGetter.getSiedleckiLogoWithLayout();
-        root.setWidth(100, Unit.PERCENTAGE);
-        root.addComponent(firstList);
-        root.addComponent(secondList);
+
         addLink(secondList, "notes.ui", "/notes");
         addLink(secondList, "worktime.registry", "/work-time");
         TextArea lastNote = new TextArea(env.getProperty("last.note"));
@@ -44,8 +43,15 @@ public class MenuTab extends VerticalLayout {
         lastNote.setWidth(100, Unit.PERCENTAGE);
         secondList.addComponent(lastNote);
         secondList.addComponent(stockInfoPanel);
+
+        //thirdList.addComponent();
+
+        HorizontalLayout logoLayout = ResourceGetter.getSiedleckiLogoWithLayout();
+        root.setWidth(100, Unit.PERCENTAGE);
+        root.addComponents(firstList, secondList, thirdList);
         root.setComponentAlignment(firstList, Alignment.TOP_LEFT);
-        root.setComponentAlignment(secondList, Alignment.TOP_RIGHT);
+        root.setComponentAlignment(secondList, Alignment.MIDDLE_CENTER);
+        root.setComponentAlignment(thirdList, Alignment.TOP_RIGHT);
         root.setMargin(false);
         this.addComponent(root);
         this.addComponent(logoLayout);
