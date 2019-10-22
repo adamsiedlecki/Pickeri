@@ -53,10 +53,13 @@ public class MenuTab extends VerticalLayout {
         root.setComponentAlignment(secondList, Alignment.MIDDLE_CENTER);
         root.setComponentAlignment(thirdList, Alignment.TOP_RIGHT);
         root.setMargin(false);
+        root.setHeight(100, Unit.PERCENTAGE);
         this.addComponent(root);
         this.addComponent(logoLayout);
+        this.setComponentAlignment(logoLayout, Alignment.BOTTOM_CENTER);
+        this.setHeight(100, Unit.PERCENTAGE);
         this.setWidth(100, Unit.PERCENTAGE);
-        this.setComponentAlignment(logoLayout, Alignment.MIDDLE_CENTER);
+        this.setComponentAlignment(logoLayout, Alignment.BOTTOM_CENTER);
 
     }
 

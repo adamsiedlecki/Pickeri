@@ -6,12 +6,14 @@ import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.spring.annotation.SpringUI;
+import com.vaadin.ui.Embedded;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
+import pl.adamsiedlecki.Pickeri.tools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.noteTabs.AddNoteTab;
@@ -42,9 +44,11 @@ public class NotesUI extends UI {
     @Override
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
-        root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
+        Embedded pickeriLogo = ResourceGetter.getPickeriLogoAsEmbeddedComponent();
+        root.addComponent(pickeriLogo);
         root.setMargin(new MarginInfo(false, true, true, true));
         root.addComponent(tabs);
+        AlignmentSetter.apply(root, pickeriLogo, tabs);
         this.setContent(root);
     }
 

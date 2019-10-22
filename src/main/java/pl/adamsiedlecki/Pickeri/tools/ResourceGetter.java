@@ -15,14 +15,15 @@ public class ResourceGetter {
 
     public static Embedded getPickeriLogoAsEmbeddedComponent() {
         Embedded logo = new Embedded("", new FileResource(ResourceGetter.getPickeriLogo()));
-        logo.setHeight(30, Sizeable.Unit.PERCENTAGE);
-        logo.setWidth(30, Sizeable.Unit.PERCENTAGE);
+        logo.setHeight(80, Sizeable.Unit.PIXELS);
+        logo.setWidth(140, Sizeable.Unit.PIXELS);
+        logo.setCaption("");
         return logo;
     }
 
     public static HorizontalLayout getSiedleckiLogoWithLayout() {
         Image logo = new Image(null, new FileResource(ResourceGetter.getSiedleckiBlackLogo()));
-        logo.setWidth(30, Sizeable.Unit.PERCENTAGE);
+        logo.setWidth(250, Sizeable.Unit.PIXELS);
         logo.setStyleName("logo");
         HorizontalLayout logoLayout = new HorizontalLayout();
         logoLayout.setMargin(false);
