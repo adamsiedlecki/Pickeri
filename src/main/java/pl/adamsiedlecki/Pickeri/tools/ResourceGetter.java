@@ -16,7 +16,7 @@ public class ResourceGetter {
     public static Embedded getPickeriLogoAsEmbeddedComponent() {
         Embedded logo = new Embedded("", new FileResource(ResourceGetter.getPickeriLogo()));
         logo.setHeight(80, Sizeable.Unit.PIXELS);
-        logo.setWidth(140, Sizeable.Unit.PIXELS);
+        logo.setWidth(160, Sizeable.Unit.PIXELS);
         logo.setCaption("");
         return logo;
     }
