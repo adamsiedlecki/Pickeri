@@ -3,6 +3,7 @@ package pl.adamsiedlecki.Pickeri.web;
 import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.spring.annotation.SpringUI;
@@ -34,7 +35,6 @@ public class AllDeliveriesUI extends UI {
         this.allDeliveriesTab = allDeliveriesTab;
         this.othersTab = othersTab;
         this.environment = environment;
-
     }
 
     @Override

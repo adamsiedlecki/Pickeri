@@ -41,9 +41,9 @@ public class MainUI extends UI {
         root = new VerticalLayout();
         Embedded pickeriLogo = ResourceGetter.getPickeriLogoAsEmbeddedComponent();
         root.addComponent(pickeriLogo);
-        AlignmentSetter.apply(root, pickeriLogo, tabs);
         root.setMargin(new MarginInfo(false, true, true, true));
         addTabs();
+        AlignmentSetter.apply(root, pickeriLogo, tabs);
         this.setContent(root);
     }
 

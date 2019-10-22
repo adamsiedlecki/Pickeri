@@ -23,7 +23,7 @@ public class ResourceGetter {
 
     public static HorizontalLayout getSiedleckiLogoWithLayout() {
         Image logo = new Image(null, new FileResource(ResourceGetter.getSiedleckiBlackLogo()));
-        logo.setWidth(250, Sizeable.Unit.PIXELS);
+        logo.setWidth(370, Sizeable.Unit.PIXELS);
         logo.setStyleName("logo");
         HorizontalLayout logoLayout = new HorizontalLayout();
         logoLayout.setMargin(false);
