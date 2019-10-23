@@ -14,6 +14,7 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.tools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.devicesTabs.DeviceControllerTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.devicesTabs.DevicesAdvancedSettingsTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.othersUITabs.AddPickerTab;
 
@@ -27,9 +28,15 @@ public class DevicesControllerUI extends UI {
     private VerticalLayout root;
     private Environment env;
     private DeviceControllerTab deviceControllerTab;
+    private DevicesAdvancedSettingsTab devicesAdvancedSettingsTab;
+    private MenuTab menuTab;
 
     @Autowired
-    public DevicesControllerUI(Environment environment, DeviceControllerTab deviceControllerTab) {
+    public DevicesControllerUI(Environment environment, DeviceControllerTab deviceControllerTab,
+                               DevicesAdvancedSettingsTab devicesAdvancedSettingsTab, MenuTab menuTab) {
+        this.menuTab = menuTab;
+        this.deviceControllerTab = deviceControllerTab;
+        this.devicesAdvancedSettingsTab = devicesAdvancedSettingsTab;
         this.env = environment;
         this.deviceControllerTab = deviceControllerTab;
     }
@@ -47,6 +54,8 @@ public class DevicesControllerUI extends UI {
     private void addTabs() {
         tabs = new TabSheet();
         tabs.addTab(deviceControllerTab, env.getProperty("devices.controller.title"));
+        tabs.addTab(devicesAdvancedSettingsTab, env.getProperty("advanced.device.settings"));
+        tabs.addTab(menuTab, env.getProperty("menu.title"));
         root.addComponent(tabs);
     }
 

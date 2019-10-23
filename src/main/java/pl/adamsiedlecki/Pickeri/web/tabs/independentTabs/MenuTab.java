@@ -94,8 +94,7 @@ public class MenuTab extends VerticalLayout {
         addIconIfPropertyContains(propertyName,"employees",VaadinIcons.GROUP, link);
         addIconIfPropertyContains(propertyName,"stat",VaadinIcons.TRENDING_UP, link);
         addIconIfPropertyContains(propertyName,"devices",VaadinIcons.AUTOMATION, link);
-
-
+        
         link.addClickListener(e->{
             if(this.getUI().getPage()!=null){
                 this.getUI().getPage().setLocation(path);
