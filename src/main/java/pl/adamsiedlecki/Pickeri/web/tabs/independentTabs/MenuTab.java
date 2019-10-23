@@ -50,6 +50,7 @@ public class MenuTab extends VerticalLayout {
 
         addLink(thirdList, "documents.title", "/documents-generator");
         addLink(thirdList,"varieties.and.types.of.fruits","/varieties-and-types");
+        addLink(thirdList, "devices.controller.title", "/devices-controller");
 
         root.setWidth(100, Unit.PERCENTAGE);
         root.addComponents(firstList, secondList, thirdList);
@@ -92,6 +93,8 @@ public class MenuTab extends VerticalLayout {
         addIconIfPropertyContains(propertyName,"varieties",VaadinIcons.CLUSTER, link);
         addIconIfPropertyContains(propertyName,"employees",VaadinIcons.GROUP, link);
         addIconIfPropertyContains(propertyName,"stat",VaadinIcons.TRENDING_UP, link);
+        addIconIfPropertyContains(propertyName,"devices",VaadinIcons.AUTOMATION, link);
+
 
         link.addClickListener(e->{
             if(this.getUI().getPage()!=null){

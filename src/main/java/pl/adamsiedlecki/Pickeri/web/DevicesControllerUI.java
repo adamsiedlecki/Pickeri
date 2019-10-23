@@ -13,30 +13,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.tools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.web.tabs.devicesTabs.DeviceControllerTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
-import pl.adamsiedlecki.Pickeri.web.tabs.othersUITabs.*;
-import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.PdfGenerationTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.othersUITabs.AddPickerTab;
 
-@SpringUI(path = "/documents-generator")
+@SpringUI(path = "/devices-controller")
 @Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
-@Title("${documents.title}")
-public class DocumentsUI extends UI {
+@Title("${devices.controller.title}")
+public class DevicesControllerUI extends UI {
 
     private TabSheet tabs;
     private VerticalLayout root;
-    private PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab;
-    private MenuTab othersTab;
     private Environment env;
-    private PdfGenerationTab pdfGenerationTab;
+    private DeviceControllerTab deviceControllerTab;
 
     @Autowired
-    public DocumentsUI(PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab, MenuTab othersTab, Environment environment,
-                       PdfGenerationTab pdfGenerationTab) {
-        this.pdfDocumentsGeneratorTab = pdfDocumentsGeneratorTab;
-        this.pdfGenerationTab = pdfGenerationTab;
-        this.othersTab = othersTab;
+    public DevicesControllerUI(Environment environment, DeviceControllerTab deviceControllerTab) {
         this.env = environment;
+        this.deviceControllerTab = deviceControllerTab;
     }
 
     @Override
@@ -51,9 +46,7 @@ public class DocumentsUI extends UI {
 
     private void addTabs() {
         tabs = new TabSheet();
-        tabs.addTab(pdfGenerationTab, env.getProperty("generate.pdf.tab"));
-        tabs.addTab(pdfDocumentsGeneratorTab, env.getProperty("generate.pdf.tab"));
-        tabs.addTab(othersTab, env.getProperty("menu.tab.caption"));
+        tabs.addTab(deviceControllerTab, env.getProperty("devices.controller.title"));
         root.addComponent(tabs);
     }
 
