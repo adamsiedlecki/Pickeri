@@ -20,9 +20,18 @@ public class Device {
     public Device(Long pin, String name, DeviceController deviceController) {
         this.pin = pin;
         this.name = name;
+        this.deviceController = deviceController;
     }
 
     public Device() {
+    }
+
+    public DeviceController getDeviceController() {
+        return deviceController;
+    }
+
+    public void setDeviceController(DeviceController deviceController) {
+        this.deviceController = deviceController;
     }
 
     public Long getId() {
@@ -47,6 +56,14 @@ public class Device {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void start(){
+        //TODO
+    }
+
+    public void stop(){
+        //TODO
     }
 
     @Override

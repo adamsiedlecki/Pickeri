@@ -69,8 +69,12 @@ public class DevicesAdvancedSettingsTab extends VerticalLayout {
                     deviceNameField.clear();
                     devicePinField.clear();
                     controllerIdField.clear();
+                }else{
+                    Notification.show(env.getProperty("cannot.find.controller.with.id"), Notification.Type.ERROR_MESSAGE);
                 }
 
+            }else{
+                Notification.show(env.getProperty("not.numeric.values.notification"));
             }
         });
         root.addComponents(deviceNameField, devicePinField,controllerIdField, saveButton);
