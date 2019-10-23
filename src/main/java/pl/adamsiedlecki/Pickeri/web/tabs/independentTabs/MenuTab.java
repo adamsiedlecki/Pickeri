@@ -36,7 +36,7 @@ public class MenuTab extends VerticalLayout {
         addLink(firstList, "expenses.ui", "/expenses");
         addLink(firstList, "payments.ui", "/picker-payments");
         addLink(firstList, "other.ui", "/other");
-        firstList.setStyleName("firstListMenu");
+        //firstList.setStyleName("firstListMenu");
 
         addLink(secondList, "notes.ui", "/notes");
         addLink(secondList, "worktime.registry", "/work-time");
@@ -44,6 +44,7 @@ public class MenuTab extends VerticalLayout {
         lastNote.setEnabled(false);
         lastNote.setValue(noteService.getLastNote().getContent());
         lastNote.setWidth(100, Unit.PERCENTAGE);
+        lastNote.setRows(2);
         secondList.addComponent(lastNote);
         secondList.addComponent(stockInfoPanel);
 
@@ -51,8 +52,11 @@ public class MenuTab extends VerticalLayout {
 
         root.setWidth(100, Unit.PERCENTAGE);
         root.addComponents(firstList, secondList, thirdList);
+        firstList.setHeight(350, Unit.PIXELS);
+        secondList.setHeight(300, Unit.PIXELS);
+        thirdList.setHeight(350, Unit.PIXELS);
         root.setComponentAlignment(firstList, Alignment.TOP_LEFT);
-        root.setComponentAlignment(secondList, Alignment.MIDDLE_CENTER);
+        root.setComponentAlignment(secondList, Alignment.TOP_CENTER);
         root.setComponentAlignment(thirdList, Alignment.TOP_RIGHT);
         root.setMargin(false);
         root.setHeight(100, Unit.PERCENTAGE);
@@ -63,6 +67,8 @@ public class MenuTab extends VerticalLayout {
         this.setComponentAlignment(logoLayout, Alignment.BOTTOM_CENTER);
         this.setHeight(100, Unit.PERCENTAGE);
         this.setWidth(100, Unit.PERCENTAGE);
+        this.setExpandRatio(root,6);
+        this.setExpandRatio(logoLayout, 1);
         this.setComponentAlignment(logoLayout, Alignment.BOTTOM_CENTER);
 
     }
@@ -87,12 +93,12 @@ public class MenuTab extends VerticalLayout {
             if(this.getUI().getPage()!=null){
                 this.getUI().getPage().setLocation(path);
             }else{
-                log.error("Navigator is null.");
+                log.error("Page is null.");
             }
 
         });
         layout.addComponent(link);
-        layout.setComponentAlignment(link, Alignment.MIDDLE_CENTER);
+        layout.setComponentAlignment(link, Alignment.TOP_CENTER);
 
         if(propertyName!=null && propertyName.contains("logout")){
             link.setIcon(VaadinIcons.ARROW_CIRCLE_DOWN);

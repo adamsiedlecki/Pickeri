@@ -27,7 +27,7 @@ public class ResourceGetter {
         logo.setStyleName("logo");
         HorizontalLayout logoLayout = new HorizontalLayout();
         logoLayout.setMargin(false);
-        logoLayout.setCaption("");
+        logoLayout.setCaption(null);
         logoLayout.setWidth(100, Sizeable.Unit.PERCENTAGE);
         logoLayout.addComponent(logo);
         logoLayout.addStyleName("logo-div");
