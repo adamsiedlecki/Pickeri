@@ -55,7 +55,7 @@ public class DevicesControllerUI extends UI {
         tabs = new TabSheet();
         tabs.addTab(deviceControllerTab, env.getProperty("devices.controller.title"));
         tabs.addTab(devicesAdvancedSettingsTab, env.getProperty("advanced.device.settings"));
-        tabs.addTab(menuTab, env.getProperty("menu.title"));
+        tabs.addTab(menuTab, env.getProperty("menu.tab.caption"));
         root.addComponent(tabs);
     }
 
