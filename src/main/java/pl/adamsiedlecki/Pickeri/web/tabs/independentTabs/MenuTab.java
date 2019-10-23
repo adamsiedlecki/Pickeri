@@ -35,7 +35,7 @@ public class MenuTab extends VerticalLayout {
         addLink(firstList, "all.deliveries.ui", "/all-deliveries");
         addLink(firstList, "expenses.ui", "/expenses");
         addLink(firstList, "payments.ui", "/picker-payments");
-        addLink(firstList, "other.ui", "/other");
+        addLink(firstList, "employees.ui", "/other");
         //firstList.setStyleName("firstListMenu");
 
         addLink(secondList, "notes.ui", "/notes");
@@ -48,7 +48,8 @@ public class MenuTab extends VerticalLayout {
         secondList.addComponent(lastNote);
         secondList.addComponent(stockInfoPanel);
 
-        //thirdList.addComponent();
+        addLink(thirdList, "documents.title", "/documents-generator");
+        addLink(thirdList,"varieties.and.types.of.fruits","/varieties-and-types");
 
         root.setWidth(100, Unit.PERCENTAGE);
         root.addComponents(firstList, secondList, thirdList);
@@ -80,7 +81,6 @@ public class MenuTab extends VerticalLayout {
         link.addStyleNames(ValoTheme.BUTTON_LARGE);
 
         addIconIfPropertyContains(propertyName,"ranking",VaadinIcons.TABLE, link);
-        addIconIfPropertyContains(propertyName,"stat",VaadinIcons.TRENDING_UP, link);
         addIconIfPropertyContains(propertyName,"add.fruits",VaadinIcons.PLUS_CIRCLE, link);
         addIconIfPropertyContains(propertyName,"all.deliveries",VaadinIcons.TABLE, link);
         addIconIfPropertyContains(propertyName,"expenses",VaadinIcons.BOOK_DOLLAR, link);
@@ -88,6 +88,10 @@ public class MenuTab extends VerticalLayout {
         addIconIfPropertyContains(propertyName,"other",VaadinIcons.ARCHIVES, link);
         addIconIfPropertyContains(propertyName,"notes",VaadinIcons.NOTEBOOK, link);
         addIconIfPropertyContains(propertyName,"time",VaadinIcons.TIMER, link);
+        addIconIfPropertyContains(propertyName,"document",VaadinIcons.FILE_TABLE, link);
+        addIconIfPropertyContains(propertyName,"varieties",VaadinIcons.CLUSTER, link);
+        addIconIfPropertyContains(propertyName,"employees",VaadinIcons.GROUP, link);
+        addIconIfPropertyContains(propertyName,"stat",VaadinIcons.TRENDING_UP, link);
 
         link.addClickListener(e->{
             if(this.getUI().getPage()!=null){

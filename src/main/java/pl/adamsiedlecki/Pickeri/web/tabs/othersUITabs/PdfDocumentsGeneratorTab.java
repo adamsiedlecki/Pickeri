@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.tabs.othersUITabs;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
@@ -35,6 +36,7 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
         this.addComponent(warning);
         this.setComponentAlignment(warning, Alignment.MIDDLE_CENTER);
         Button generatePdfButton = new Button(env.getProperty("generate.qr.codes.button"));
+        generatePdfButton.setIcon(VaadinIcons.QRCODE);
         this.addComponent(generatePdfButton);
 
         Button generateListButton = new Button(env.getProperty("generate.id.list.button"));
