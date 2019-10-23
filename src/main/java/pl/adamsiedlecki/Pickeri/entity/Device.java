@@ -1,9 +1,6 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 
 @Entity
 public class Device {
@@ -16,10 +13,11 @@ public class Device {
 
     private String name;
 
+    @ManyToOne
     @JoinColumn(name="controller_id", referencedColumnName="id")
     private DeviceController deviceController;
 
-    public Device(Long pin, String name) {
+    public Device(Long pin, String name, DeviceController deviceController) {
         this.pin = pin;
         this.name = name;
     }
@@ -49,5 +47,13 @@ public class Device {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Device{" +
+                "pin=" + pin +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

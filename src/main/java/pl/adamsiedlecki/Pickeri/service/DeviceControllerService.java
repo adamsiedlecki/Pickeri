@@ -6,6 +6,7 @@ import pl.adamsiedlecki.Pickeri.dao.DeviceControllerDAO;
 import pl.adamsiedlecki.Pickeri.entity.DeviceController;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DeviceControllerService {
@@ -23,6 +24,10 @@ public class DeviceControllerService {
 
     public List<DeviceController> findAll(){
         return deviceControllerDAO.findAll();
+    }
+
+    public Optional<DeviceController> findById(Long id){
+        return deviceControllerDAO.findById(id);
     }
 
 }
