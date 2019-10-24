@@ -1,5 +1,7 @@
 package pl.adamsiedlecki.Pickeri.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +22,7 @@ import java.io.IOException;
 public class DownloadController {
 
     private ServletContext context;
+    private Logger log = LoggerFactory.getLogger(DownloadController.class);
 
     @Autowired
     public DownloadController(ServletContext servletContext) {
@@ -28,7 +31,7 @@ public class DownloadController {
 
     @RequestMapping(value = "/pdf/{fileName}", method = RequestMethod.GET, produces = "application/pdf")
     public ResponseEntity<InputStreamResource> downloadPdf(@PathVariable("fileName") String fileName) throws IOException {
-        System.out.println("Calling Download:- " + fileName);
+        log.info("Calling Download:- " + fileName);
         File file = new File("src\\main\\resources\\downloads\\" + fileName);
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
         return ResponseEntity.ok()
@@ -41,7 +44,7 @@ public class DownloadController {
 
     @RequestMapping(value = "/excel/{fileName}", method = RequestMethod.GET, produces = "application/vnd.ms-excel")
     public ResponseEntity<InputStreamResource> downloadExcel(@PathVariable("fileName") String fileName) throws IOException {
-        System.out.println("Calling Download:- " + fileName);
+        log.info("Calling Download:- " + fileName);
         File file = new File("src\\main\\resources\\downloads\\" + fileName);
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
         return ResponseEntity.ok()
