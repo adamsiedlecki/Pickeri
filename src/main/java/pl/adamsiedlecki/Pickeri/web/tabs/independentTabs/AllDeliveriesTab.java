@@ -35,7 +35,7 @@ public class AllDeliveriesTab extends VerticalLayout {
         fruitDeliveryGrid.addColumn(FruitDelivery::getWeightSumKgPlainText).setCaption(Objects.requireNonNull(env.getProperty("weight.kg.column")));
         fruitDeliveryGrid.addColumn(FruitDelivery::getFruitPickerId).setCaption(Objects.requireNonNull(env.getProperty("employee.id.column")));
         fruitDeliveryGrid.addColumn(FruitDelivery::getType).setCaption(Objects.requireNonNull(env.getProperty("fruit.delivery.type.name.column")));
-        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitVarietyName).setCaption("fruit.variety.name.column");
+        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitVarietyName).setCaption(env.getProperty("fruit.variety.name.column","variety"));
         fruitDeliveryGrid.addColumn(FruitDelivery::getComment).setCaption(Objects.requireNonNull(env.getProperty("comment")));
         fruitDeliveryGrid.addColumn(FruitDelivery::getDeliveryTimeFormatted).setCaption(Objects.requireNonNull(env.getProperty("time.column")));
         fruitDeliveryGrid.addColumn(FruitDelivery::getId).setCaption(Objects.requireNonNull(env.getProperty("id.column")));

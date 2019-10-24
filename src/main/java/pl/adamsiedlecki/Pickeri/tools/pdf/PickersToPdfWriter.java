@@ -146,8 +146,8 @@ public class PickersToPdfWriter {
             table.addCell(new Phrase(env.getProperty("weight.sum.raport"), font));
             for (int i = 0; i < 4; i++) {
                 if (fruitTypeService.getType(i).getName() != null) {
-                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + env.getProperty("packages.unit"), font));
-                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() + env.getProperty("weight.unit"), font));
+                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() +" "+ env.getProperty("packages.unit"), font));
+                    table.addCell(new Phrase(fruitTypeService.getType(i).getName() +" "+ env.getProperty("weight.unit"), font));
                 }
             }
 
