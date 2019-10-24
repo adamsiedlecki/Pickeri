@@ -39,7 +39,7 @@ public class DownloadController {
 
     }
 
-    @RequestMapping(value = "/excel/{fileName}", method = RequestMethod.GET, produces = "application/xls")
+    @RequestMapping(value = "/excel/{fileName}", method = RequestMethod.GET, produces = "application/vnd.ms-excel")
     public ResponseEntity<InputStreamResource> downloadExcel(@PathVariable("fileName") String fileName) throws IOException {
         System.out.println("Calling Download:- " + fileName);
         File file = new File("src\\main\\resources\\downloads\\" + fileName);
