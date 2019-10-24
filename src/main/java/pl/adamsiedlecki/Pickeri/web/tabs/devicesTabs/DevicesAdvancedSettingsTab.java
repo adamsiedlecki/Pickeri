@@ -1,6 +1,7 @@
 package pl.adamsiedlecki.Pickeri.web.tabs.devicesTabs;
 
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -28,7 +29,7 @@ public class DevicesAdvancedSettingsTab extends VerticalLayout {
         this.deviceControllerService = deviceControllerService;
         this.env = env;
         HorizontalLayout root = new HorizontalLayout();
-        root.addComponents(getControllerListPanel(), getAddDevicePanel(), getAddControllerPanel());
+        root.addComponents(getControllerListPanel(), getAddDevicePanel(), getAddControllerPanel(), getDeleteControllerPanel());
         this.addComponent(root);
     }
 
@@ -103,6 +104,26 @@ public class DevicesAdvancedSettingsTab extends VerticalLayout {
             }
         });
         root.addComponents(controllerNameField, controllerPasswordField,controllerAddressField, saveButton);
+        panel.setContent(root);
+        root.forEach(component -> root.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
+        return panel;
+    }
+
+    private Panel getDeleteControllerPanel(){
+        Panel panel = new Panel(env.getProperty("delete.controller.panel"));
+        panel.setWidth(190, Unit.PIXELS);
+        panel.setHeight(320, Unit.PIXELS);
+        VerticalLayout root = new VerticalLayout();
+        TextField controllerIdField = new TextField(env.getProperty("controller.id.field"));
+        Button saveButton = new Button(env.getProperty("save.button"));
+        saveButton.addClickListener(e->{
+            if(!controllerIdField.isEmpty()&&NumberUtils.isDigits(controllerIdField.getValue())){
+                deviceControllerService.deleteById(Long.parseLong(controllerIdField.getValue()));
+                controllerIdField.clear();
+            }
+        });
+        saveButton.setStyleName(ValoTheme.BUTTON_DANGER);
+        root.addComponents(controllerIdField, saveButton);
         panel.setContent(root);
         root.forEach(component -> root.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
         return panel;

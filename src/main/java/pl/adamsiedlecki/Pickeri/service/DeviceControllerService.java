@@ -30,4 +30,8 @@ public class DeviceControllerService {
         return deviceControllerDAO.findById(id);
     }
 
+    public void deleteById(Long id){
+       deviceControllerDAO.deleteById(id);
+    }
+
 }
