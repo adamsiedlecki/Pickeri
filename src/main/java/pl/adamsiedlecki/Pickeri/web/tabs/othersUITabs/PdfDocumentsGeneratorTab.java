@@ -12,6 +12,7 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
+import pl.adamsiedlecki.Pickeri.tools.excel.ExcelCreator;
 import pl.adamsiedlecki.Pickeri.tools.pdf.PickersToPdfWriter;
 
 import java.io.File;
@@ -44,6 +45,19 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
 
         Button generatePickersRaport = new Button(env.getProperty("generate.raport.button"));
         this.addComponent(generatePickersRaport);
+
+        Button generatePickersRaportExcel = new Button(env.getProperty("generate.raport.excel.button"));
+        this.addComponent(generatePickersRaportExcel);
+        generatePickersRaportExcel.addClickListener(e->{
+            String pdfPath = "src\\main\\resources\\downloads\\excelRaport.xls";
+            File check = new File(pdfPath);
+            if (check.exists()) {
+                check.delete();
+            }
+            List<FruitPicker> fruitPickers = fruitPickerService.findAll();
+            ExcelCreator.getEmployeesExcelRaport(fruitPickers, pdfPath,fruitTypeService, env);
+            this.addComponent(new Link(env.getProperty("download.excel.raport"), new ExternalResource("/download/excel/excelRaport.xls")));
+        });
 
         Button generateEarningsRaport = new Button(env.getProperty("generate.earnings.by.kg.raport"));
         HorizontalLayout earningsByKgLayout = new HorizontalLayout();
