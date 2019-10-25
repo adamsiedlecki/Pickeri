@@ -135,7 +135,12 @@ public class ExcelCreator {
                 row.createCell(5).setCellValue(delivery.getType());
                 row.createCell(6).setCellValue(delivery.getFruitVarietyName());
                 row.createCell(7).setCellValue(delivery.getDeliveryTimeFormatted());
-                row.createCell(8).setCellValue(delivery.getComment());
+                String comment = delivery.getComment();
+                if(comment!=null&&!comment.isBlank()&&!comment.contains(":")){
+                    row.createCell(8).setCellValue(comment);
+                }else{
+                    row.createCell(8).setCellValue(" ");
+                }
                 i++;
             }
             FileOutputStream fileOut = new FileOutputStream(file);

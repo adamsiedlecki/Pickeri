@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
@@ -42,9 +43,10 @@ public class ExcelGenerationTab extends VerticalLayout {
     }
 
     private void addGenerateButton(String buttonNamePropertyKey, String filePath, String linkPropertyName, String downloadPath, int raportNumber){
-        Button generatePickersRaportExcel = new Button(env.getProperty(buttonNamePropertyKey));
-        this.addComponent(generatePickersRaportExcel);
-        generatePickersRaportExcel.addClickListener(e->{
+        Button button = new Button(env.getProperty(buttonNamePropertyKey));
+        button.setIcon(VaadinIcons.FILE_TABLE);
+        this.addComponent(button);
+        button.addClickListener(e->{
             File check = new File(filePath);
             if (check.exists()) {
                 check.delete();
