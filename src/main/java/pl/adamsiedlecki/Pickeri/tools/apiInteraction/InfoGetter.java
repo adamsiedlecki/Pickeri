@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.tools.ApiReader;
+package pl.adamsiedlecki.Pickeri.tools.apiInteraction;
 
 import org.json.JSONArray;
 import org.json.JSONException;

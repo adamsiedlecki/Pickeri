@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.tools.ApiReader;
+package pl.adamsiedlecki.Pickeri.tools.apiInteraction;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

@@ -2,7 +2,6 @@ package pl.adamsiedlecki.Pickeri.web.components;
 
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Label;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
-import pl.adamsiedlecki.Pickeri.tools.ApiReader.InfoGetter;
+import pl.adamsiedlecki.Pickeri.tools.apiInteraction.InfoGetter;
 
 
 @Component
