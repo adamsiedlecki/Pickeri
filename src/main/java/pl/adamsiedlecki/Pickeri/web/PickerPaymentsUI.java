@@ -15,7 +15,6 @@ import pl.adamsiedlecki.Pickeri.tools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.AddPaymentTab;
-import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.PdfGenerationTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.PickersPaymentsTableTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.SubtractPaymentTab;
 

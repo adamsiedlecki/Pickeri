@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.web.tabs.othersUITabs;
+package pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.ExternalResource;
@@ -45,19 +45,6 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
 
         Button generatePickersRaport = new Button(env.getProperty("generate.raport.button"));
         this.addComponent(generatePickersRaport);
-
-        Button generatePickersRaportExcel = new Button(env.getProperty("generate.raport.excel.button"));
-        this.addComponent(generatePickersRaportExcel);
-        generatePickersRaportExcel.addClickListener(e->{
-            String pdfPath = "src\\main\\resources\\downloads\\excelRaport.xls";
-            File check = new File(pdfPath);
-            if (check.exists()) {
-                check.delete();
-            }
-            List<FruitPicker> fruitPickers = fruitPickerService.findAll();
-            ExcelCreator.getEmployeesExcelRaport(fruitPickers, pdfPath,fruitTypeService, env);
-            this.addComponent(new Link(env.getProperty("download.excel.raport"), new ExternalResource("/download/excel/excelRaport.xls")));
-        });
 
         Button generateEarningsRaport = new Button(env.getProperty("generate.earnings.by.kg.raport"));
         HorizontalLayout earningsByKgLayout = new HorizontalLayout();

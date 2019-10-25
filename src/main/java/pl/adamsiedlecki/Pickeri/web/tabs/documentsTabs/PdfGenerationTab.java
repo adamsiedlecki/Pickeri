@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs;
+package pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs;
 
 import com.vaadin.server.ExternalResource;
 import com.vaadin.ui.*;

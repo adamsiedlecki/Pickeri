@@ -1,5 +1,7 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
+import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;

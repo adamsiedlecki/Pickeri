@@ -13,9 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.tools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs.ExcelGenerationTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs.PdfDocumentsGeneratorTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
-import pl.adamsiedlecki.Pickeri.web.tabs.othersUITabs.*;
-import pl.adamsiedlecki.Pickeri.web.tabs.paymentTabs.PdfGenerationTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs.PdfGenerationTab;
 
 @SpringUI(path = "/documents-generator")
 @Theme("mytheme")
@@ -26,17 +27,19 @@ public class DocumentsUI extends UI {
     private TabSheet tabs;
     private VerticalLayout root;
     private PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab;
-    private MenuTab othersTab;
+    private MenuTab menuTab;
     private Environment env;
     private PdfGenerationTab pdfGenerationTab;
+    private ExcelGenerationTab excelGenerationTab;
 
     @Autowired
-    public DocumentsUI(PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab, MenuTab othersTab, Environment environment,
-                       PdfGenerationTab pdfGenerationTab) {
+    public DocumentsUI(PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab, MenuTab menuTab, Environment environment,
+                       PdfGenerationTab pdfGenerationTab, ExcelGenerationTab excelGenerationTab) {
         this.pdfDocumentsGeneratorTab = pdfDocumentsGeneratorTab;
         this.pdfGenerationTab = pdfGenerationTab;
-        this.othersTab = othersTab;
+        this.menuTab = menuTab;
         this.env = environment;
+        this.excelGenerationTab = excelGenerationTab;
     }
 
     @Override
@@ -53,7 +56,8 @@ public class DocumentsUI extends UI {
         tabs = new TabSheet();
         tabs.addTab(pdfGenerationTab, env.getProperty("generate.pdf.tab"));
         tabs.addTab(pdfDocumentsGeneratorTab, env.getProperty("generate.pdf.tab"));
-        tabs.addTab(othersTab, env.getProperty("menu.tab.caption"));
+        tabs.addTab(excelGenerationTab, env.getProperty("generate.excel.tab"));
+        tabs.addTab(menuTab, env.getProperty("menu.tab.caption"));
         root.addComponent(tabs);
     }
 
