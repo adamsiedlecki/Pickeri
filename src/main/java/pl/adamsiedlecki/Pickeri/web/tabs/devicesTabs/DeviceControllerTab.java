@@ -1,5 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.tabs.devicesTabs;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
@@ -46,6 +47,11 @@ public class DeviceControllerTab extends VerticalLayout {
                     stopButton.addClickListener(event->{
                         device.stop();
                     });
+                    if(device.isEnabled()){
+                        startButton.setIcon(VaadinIcons.BULLSEYE);
+                    }else {
+                        stopButton.setIcon(VaadinIcons.CLOSE_SMALL);
+                    }
                     panelRoot.addComponents(startButton, stopButton);
                     panelRoot.forEach(component -> panelRoot.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
                     panel.setContent(panelRoot);

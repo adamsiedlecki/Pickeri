@@ -16,28 +16,36 @@ public class DeviceApiInteraction {
 
     private static final Logger log = LoggerFactory.getLogger(DeviceApiInteraction.class);
 
-    public static String setDeviceState(String address, int pin, boolean enabled){
+    public static void setDeviceState(String address, int pin, boolean enabled){
+        String fullApiAddress;
+        if(address.endsWith("/")){
+            fullApiAddress = address+"api/v1/setDevState?"+pin;
+        }else{
+            fullApiAddress = address+"/api/v1/setDevState?"+pin;
+        }
 
-        String fullApiAddress = address+"/api/v1/setDevState?"+pin;
 
         if(enabled){
             fullApiAddress = fullApiAddress.concat("?on");
         }else{
             fullApiAddress = fullApiAddress.concat("?off");
         }
-
         try {
             String result = readStringFromURL(fullApiAddress);
             log.info("RESULT OF API INTERACTION: "+result);
         } catch (IOException e) {
             log.error(e.getMessage());
         }
-        return "";
     }
 
     public static boolean getDeviceState(String address, int pin){
 
-        String fullApiAddress = address+"/api/v1/getDevStateByPin?"+pin;
+        String fullApiAddress;
+        if(address.endsWith("/")){
+            fullApiAddress = address+"api/v1/setDevState?"+pin;
+        }else{
+            fullApiAddress = address+"/api/v1/setDevState?"+pin;
+        }
 
         try {
             String result = readStringFromURL(fullApiAddress);

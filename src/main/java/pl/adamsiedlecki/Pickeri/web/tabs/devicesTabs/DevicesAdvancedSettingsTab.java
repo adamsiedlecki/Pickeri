@@ -66,7 +66,7 @@ public class DevicesAdvancedSettingsTab extends VerticalLayout {
             if(NumberUtils.isDigits(devicePinField.getValue()) && NumberUtils.isDigits(controllerIdField.getValue())){
                 Optional<DeviceController> deviceController = deviceControllerService.findById(Long.parseLong(controllerIdField.getValue()));
                 if(deviceController.isPresent()){
-                    deviceService.save(new Device(Long.parseLong(devicePinField.getValue()), deviceNameField.getValue(),deviceController.get()));
+                    deviceService.save(new Device(Integer.parseInt(devicePinField.getValue()), deviceNameField.getValue(),deviceController.get()));
                     deviceNameField.clear();
                     devicePinField.clear();
                     controllerIdField.clear();

@@ -1,5 +1,7 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
+import pl.adamsiedlecki.Pickeri.tools.apiInteraction.DeviceApiInteraction;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +11,7 @@ public class Device {
     @GeneratedValue
     private Long id;
 
-    private Long pin;
+    private int pin;
 
     private String name;
 
@@ -17,7 +19,7 @@ public class Device {
     @JoinColumn(name="controller_id", referencedColumnName="id")
     private DeviceController deviceController;
 
-    public Device(Long pin, String name, DeviceController deviceController) {
+    public Device(int pin, String name, DeviceController deviceController) {
         this.pin = pin;
         this.name = name;
         this.deviceController = deviceController;
@@ -42,11 +44,11 @@ public class Device {
         this.id = id;
     }
 
-    public Long getPin() {
+    public int getPin() {
         return pin;
     }
 
-    public void setPin(Long pin) {
+    public void setPin(int pin) {
         this.pin = pin;
     }
 
@@ -59,11 +61,15 @@ public class Device {
     }
 
     public void start(){
-        //TODO
+        DeviceApiInteraction.setDeviceState(this.getDeviceController().getAddress(), this.getPin(), true);
     }
 
     public void stop(){
-        //TODO
+        DeviceApiInteraction.setDeviceState(this.getDeviceController().getAddress(), this.getPin(), false);
+    }
+
+    public boolean isEnabled(){
+        return DeviceApiInteraction.getDeviceState(this.getDeviceController().getAddress(), this.getPin());
     }
 
     @Override
