@@ -61,11 +61,13 @@ public class Device {
     }
 
     public void start(){
-        DeviceApiInteraction.setDeviceState(this.getDeviceController().getAddress(), this.getPin(), true);
+        DeviceApiInteraction.setDeviceState(this.getDeviceController().getAddress(), this.getPin(), true,
+                getDeviceController().getPassword());
     }
 
     public void stop(){
-        DeviceApiInteraction.setDeviceState(this.getDeviceController().getAddress(), this.getPin(), false);
+        DeviceApiInteraction.setDeviceState(this.getDeviceController().getAddress(), this.getPin(), false,
+                getDeviceController().getPassword());
     }
 
     public boolean isEnabled(){
