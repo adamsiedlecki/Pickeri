@@ -74,8 +74,6 @@ public class DeviceApiInteraction {
     public static String getWithPOST(String url, ApiDevice apiDevice){
         CloseableHttpResponse response;
         String json = apiDevice.toString();
-        System.out.println("URL: "+url);
-        System.out.println("ApiDevice :"+apiDevice);
         try {
             StringEntity entity = new StringEntity(json);
             CloseableHttpClient client = HttpClients.createDefault();
@@ -88,14 +86,14 @@ public class DeviceApiInteraction {
             response = client.execute(httpPost);
             client.close();
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return "";
+            log.error(e.getMessage());
+            return e.getMessage();
         } catch (ClientProtocolException e) {
-            e.printStackTrace();
-            return "";
+            log.error(e.getMessage());
+            return e.getMessage();
         } catch (IOException e) {
             e.printStackTrace();
-            return "";
+            return e.getMessage();
         }
         return response.toString();
 
