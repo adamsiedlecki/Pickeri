@@ -85,14 +85,8 @@ public class DeviceApiInteraction {
 
             response = client.execute(httpPost);
             client.close();
-        } catch (UnsupportedEncodingException e) {
-            log.error(e.getMessage());
-            return e.getMessage();
-        } catch (ClientProtocolException e) {
-            log.error(e.getMessage());
-            return e.getMessage();
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return e.getMessage();
         }
         return response.toString();

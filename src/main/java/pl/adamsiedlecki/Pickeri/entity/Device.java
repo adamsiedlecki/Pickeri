@@ -1,11 +1,19 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import pl.adamsiedlecki.Pickeri.tools.apiInteraction.DeviceApiInteraction;
 
 import javax.persistence.*;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 @Entity
 public class Device {
+
+    @Transient
+    private Logger log = LoggerFactory.getLogger(Device.class);
 
     @Id
     @GeneratedValue
@@ -72,6 +80,25 @@ public class Device {
 
     public boolean isEnabled(){
         return DeviceApiInteraction.getDeviceState(this.getDeviceController().getAddress(), this.getPin());
+    }
+
+    public boolean isAlive(){
+        try {
+            String textAddress = this.getDeviceController().getAddress();
+            textAddress = textAddress.replace("https://", "");
+            textAddress = textAddress.replace("http://", "");
+            String[] parts = textAddress.split(":");
+            textAddress = parts[0];
+            InetAddress address = InetAddress.getByName(textAddress);
+            if(address.isReachable(5000)){
+                return true;
+            }else{
+                return false;
+            }
+        } catch (IOException e) {
+            log.error(e.getMessage());
+        }
+        return false;
     }
 
     @Override

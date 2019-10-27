@@ -31,34 +31,32 @@ public class DeviceControllerTab extends VerticalLayout {
             int j = amountOfPanelsInRow-1;
             for(Device device : devices){
                 if(i<j){
-                    Panel panel = new Panel(env.getProperty("device.id")+": "+device.getId());
-                    VerticalLayout panelRoot = new VerticalLayout();
-                    panelRoot.addComponent(new Label(device.getName()));
                     if(device.getDeviceController()!=null){
-                        panelRoot.addComponent(new Label(env.getProperty("controller")+": "+device.getDeviceController().getName()));
-                    }else{
-                        panelRoot.addComponent(new Label("cannot recognise controller"));
+                        Panel panel = new Panel(env.getProperty("device.id")+": "+device.getId());
+                        VerticalLayout panelRoot = new VerticalLayout();
+                        panelRoot.addComponent(new Label(device.getName()));
+                        Label controllerName = new Label(env.getProperty("controller")+": "
+                                +device.getDeviceController().getName());
+                        panelRoot.addComponent(controllerName);
+                        Button startButton = new Button(env.getProperty("on"));
+                        Button stopButton = new Button(env.getProperty("off"));
+                        startButton.addClickListener(ev->{
+                            device.start();
+                            setIcons(device, startButton, stopButton, panel);
+                        });
+                        stopButton.addClickListener(event->{
+                            device.stop();
+                            setIcons(device, startButton, stopButton, panel);
+                        });
+                        setIcons(device, startButton, stopButton, panel);
+                        panelRoot.addComponents(startButton, stopButton);
+                        panelRoot.forEach(component -> panelRoot.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
+                        panel.setContent(panelRoot);
+                        panel.setWidth(220, Unit.PIXELS);
+                        panel.setHeight(320, Unit.PIXELS);
+                        panels[i] = panel;
+                        i++;
                     }
-                    Button startButton = new Button(env.getProperty("on"));
-                    startButton.addClickListener(ev->{
-                        device.start();
-                    });
-                    Button stopButton = new Button(env.getProperty("off"));
-                    stopButton.addClickListener(event->{
-                        device.stop();
-                    });
-                    if(device.isEnabled()){
-                        startButton.setIcon(VaadinIcons.BULLSEYE);
-                    }else {
-                        stopButton.setIcon(VaadinIcons.CLOSE_SMALL);
-                    }
-                    panelRoot.addComponents(startButton, stopButton);
-                    panelRoot.forEach(component -> panelRoot.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
-                    panel.setContent(panelRoot);
-                    panel.setWidth(220, Unit.PIXELS);
-                    panel.setHeight(320, Unit.PIXELS);
-                    panels[i] = panel;
-                    i++;
                 }else{
                     addPanels(panels, root);
                     panels = new Panel[amountOfPanelsInRow];
@@ -83,6 +81,21 @@ public class DeviceControllerTab extends VerticalLayout {
         row.setWidth(94, Unit.PERCENTAGE);
         row.forEach(component -> row.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
         root.addComponent(row);
+    }
+
+    private void setIcons(Device device, Button startButton, Button stopButton, Panel panel){
+        if(device.isEnabled()){
+            startButton.setIcon(VaadinIcons.CHECK_CIRCLE);
+            stopButton.setIcon(null);
+        }else {
+            stopButton.setIcon(VaadinIcons.CLOSE_SMALL);
+            startButton.setIcon(null);
+        }
+        if(device.isAlive()){
+            panel.setIcon(VaadinIcons.BULLSEYE);
+        }else{
+            panel.setIcon(VaadinIcons.EXCLAMATION_CIRCLE);
+        }
     }
 
 
