@@ -7,6 +7,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.Device;
 import pl.adamsiedlecki.Pickeri.service.DeviceService;
+import pl.adamsiedlecki.Pickeri.tools.net.PingTest;
 
 import java.util.List;
 
@@ -91,7 +92,7 @@ public class DeviceControllerTab extends VerticalLayout {
             stopButton.setIcon(VaadinIcons.CLOSE_SMALL);
             startButton.setIcon(null);
         }
-        if(device.isAlive()){
+        if(PingTest.isAlive(device)){
             panel.setIcon(VaadinIcons.BULLSEYE);
         }else{
             panel.setIcon(VaadinIcons.EXCLAMATION_CIRCLE);

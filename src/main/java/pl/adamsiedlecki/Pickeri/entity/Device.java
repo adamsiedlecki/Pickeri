@@ -82,25 +82,6 @@ public class Device {
         return DeviceApiInteraction.getDeviceState(this.getDeviceController().getAddress(), this.getPin());
     }
 
-    public boolean isAlive(){
-        try {
-            String textAddress = this.getDeviceController().getAddress();
-            textAddress = textAddress.replace("https://", "");
-            textAddress = textAddress.replace("http://", "");
-            String[] parts = textAddress.split(":");
-            textAddress = parts[0];
-            InetAddress address = InetAddress.getByName(textAddress);
-            if(address.isReachable(5000)){
-                return true;
-            }else{
-                return false;
-            }
-        } catch (IOException e) {
-            log.error(e.getMessage());
-        }
-        return false;
-    }
-
     @Override
     public String toString() {
         return "Device{" +
