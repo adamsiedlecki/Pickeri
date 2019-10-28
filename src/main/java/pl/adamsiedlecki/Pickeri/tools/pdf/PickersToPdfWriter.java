@@ -22,7 +22,7 @@ public class PickersToPdfWriter {
 
     private static final Logger log = LoggerFactory.getLogger(PickersToPdfWriter.class);
 
-    public static void writeWithQR(List<FruitPicker> fruitPickers, String pathToFile) {
+    public static void writeWithQR(List<FruitPicker> fruitPickers, String pathToFile, Environment env) {
 
         Document document = new Document();
         PdfWriter writer = null;
@@ -31,7 +31,7 @@ public class PickersToPdfWriter {
             writer.setStrictImageSequence(true);
             addHeaderFooter(writer);
             document.open();
-            addTitle(document, "Lista pracowników z Pickeri " + LocalDate.now());
+            addTitle(document, env.getProperty("pickeri.employees.list") + LocalDate.now());
         } catch (DocumentException | FileNotFoundException e) {
             log.error("Write QR ", e.getCause());
         }
@@ -50,7 +50,7 @@ public class PickersToPdfWriter {
         writer.close();
     }
 
-    public static void writeWithoutQR(List<FruitPicker> fruitPickers, String pathToFile) {
+    public static void writeWithoutQR(List<FruitPicker> fruitPickers, String pathToFile, Environment env) {
 
         Document document = new Document();
         PdfWriter writer = null;
@@ -60,7 +60,7 @@ public class PickersToPdfWriter {
             addHeaderFooter(writer);
 
             document.open();
-            addTitle(document, "Lista pracowników z Pickeri " + LocalDate.now());
+            addTitle(document, env.getProperty("pickeri.employees.list") + LocalDate.now());
         } catch (DocumentException | FileNotFoundException e1) {
             log.error("Write QR - DocumentException or FileNotFoundException");
         }
@@ -224,7 +224,8 @@ public class PickersToPdfWriter {
     }
 
     public static void writeEarningsRaportByKg(List<FruitPicker> fruitPickers, String pdfPath, String priceForTypeOne,
-                                               String priceForTypeTwo, String priceForTypeThree, String priceForTypeFour, boolean includeFundsPaid) {
+                                               String priceForTypeTwo, String priceForTypeThree, String priceForTypeFour,
+                                               boolean includeFundsPaid, Environment env) {
 
         Document document = new Document();
         PdfWriter writer = null;
@@ -234,7 +235,7 @@ public class PickersToPdfWriter {
             addHeaderFooter(writer);
 
             document.open();
-            addTitle(document, "Raport zarobków pracowników Pickeri [kg] " + LocalDate.now());
+            addTitle(document, env.getProperty("employees.earnings.based.on.kg") + LocalDate.now());
         } catch (DocumentException | FileNotFoundException e1) {
             log.error("Raport - DocumentException or FileNotFoundException");
         }
@@ -274,7 +275,7 @@ public class PickersToPdfWriter {
 
     public static void writeEarningsRaportByPackages(List<FruitPicker> fruitPickers, String pdfPath, String priceForTypeOne,
                                                      String priceForTypeTwo, String priceForTypeThree, String priceForTypeFour,
-                                                     boolean includeFundsPaid) {
+                                                     boolean includeFundsPaid, Environment env) {
 
         Document document = new Document();
         PdfWriter writer = null;
@@ -284,7 +285,7 @@ public class PickersToPdfWriter {
             addHeaderFooter(writer);
 
             document.open();
-            addTitle(document, "Raport zarobków pracowników Pickeri [opakowania] " + LocalDate.now());
+            addTitle(document,  env.getProperty("employees.earnings.based.on.packages") + LocalDate.now());
         } catch (DocumentException | FileNotFoundException e1) {
             log.error("Raport - DocumentException or FileNotFoundException");
         }

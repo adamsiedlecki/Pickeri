@@ -79,7 +79,6 @@ public class DeviceApiInteraction {
             return e.getMessage();
         }
         return response.toString();
-
     }
 
     public static String readStringFromURL(String requestURL) throws IOException
