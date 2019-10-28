@@ -85,17 +85,53 @@ public class DeviceControllerTab extends VerticalLayout {
     }
 
     private void setIcons(Device device, Button startButton, Button stopButton, Panel panel){
-        if(device.isEnabled()){
-            startButton.setIcon(VaadinIcons.CHECK_CIRCLE);
-            stopButton.setIcon(null);
-        }else {
-            stopButton.setIcon(VaadinIcons.CLOSE_SMALL);
-            startButton.setIcon(null);
+        Runnable isEnabledTest = new IsEnabledTestRunnable(startButton, stopButton, device);
+        isEnabledTest.run();
+        Runnable pingTestThread = new PingTestRunnable(panel, device);
+        pingTestThread.run();
+    }
+
+    private class PingTestRunnable implements Runnable{
+
+        private Panel panel;
+        private Device device;
+
+        public PingTestRunnable(Panel panel, Device device){
+            this.panel = panel;
+            this.device = device;
         }
-        if(PingTest.isAlive(device)){
-            panel.setIcon(VaadinIcons.BULLSEYE);
-        }else{
-            panel.setIcon(VaadinIcons.EXCLAMATION_CIRCLE);
+
+        @Override
+        public void run() {
+            if(PingTest.isAlive(device)){
+                panel.setIcon(VaadinIcons.BULLSEYE);
+            }else{
+                panel.setIcon(VaadinIcons.EXCLAMATION_CIRCLE);
+            }
+        }
+    }
+
+    private class IsEnabledTestRunnable implements Runnable{
+
+        private Button startButton;
+        private Button stopButton;
+        private Device device;
+
+        public IsEnabledTestRunnable(Button startButton, Button stopButton, Device device){
+            this.stopButton = stopButton;
+            this.startButton = startButton;
+            this.device = device;
+        }
+
+        @Override
+        public void run() {
+            if(device.isEnabled()){
+                startButton.setIcon(VaadinIcons.CHECK_CIRCLE);
+                stopButton.setIcon(null);
+            }else {
+                stopButton.setIcon(VaadinIcons.CLOSE_SMALL);
+                startButton.setIcon(null);
+            }
         }
     }
 
