@@ -85,13 +85,13 @@ public class DeviceControllerTab extends VerticalLayout {
     }
 
     private void setIcons(Device device, Button startButton, Button stopButton, Panel panel){
-        Runnable isEnabledTest = new IsEnabledTestRunnable(startButton, stopButton, device);
-        isEnabledTest.run();
-        Runnable pingTestThread = new PingTestRunnable(panel, device);
-        pingTestThread.run();
+        Thread isEnabledTest = new IsEnabledTestRunnable(startButton, stopButton, device);
+        isEnabledTest.start();
+        Thread pingTestThread = new PingTestRunnable(panel, device);
+        pingTestThread.start();
     }
 
-    private class PingTestRunnable implements Runnable{
+    private static class PingTestRunnable extends Thread{
 
         private Panel panel;
         private Device device;
@@ -111,7 +111,7 @@ public class DeviceControllerTab extends VerticalLayout {
         }
     }
 
-    private class IsEnabledTestRunnable implements Runnable{
+    private static class IsEnabledTestRunnable extends Thread{
 
         private Button startButton;
         private Button stopButton;
