@@ -103,7 +103,8 @@ public class DeviceControllerTab extends VerticalLayout {
 
         @Override
         public void run() {
-            if(PingTest.isAlive(device)){
+            PingTest pingTest = new PingTest();
+            if(pingTest.isAlive(device)){
                 panel.setIcon(VaadinIcons.BULLSEYE);
             }else{
                 panel.setIcon(VaadinIcons.EXCLAMATION_CIRCLE);

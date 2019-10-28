@@ -11,7 +11,7 @@ public class PingTest {
 
     private static final Logger log = LoggerFactory.getLogger(PingTest.class);
 
-    public static boolean isAlive(Device device){
+    public boolean isAlive(Device device){
         try {
             String textAddress = device.getDeviceController().getAddress();
             textAddress = textAddress.replace("https://", "");
@@ -30,7 +30,7 @@ public class PingTest {
         return false;
     }
 
-    public static boolean isAlive(String textAddress){
+    public  boolean isAlive(String textAddress){
         try {
             textAddress = textAddress.replace("https://", "");
             textAddress = textAddress.replace("http://", "");
