@@ -67,7 +67,7 @@ public class PdfGenerationTab extends VerticalLayout {
                 }
                 List<FruitPicker> fruitPickers = fruitPickerService.findAll();
                 PickersToPdfWriter.writeEarningsRaportByKg(fruitPickers, pdfPath, priceTypeOneField.getValue(),
-                        priceTypeTwoField.getValue(), priceTypeThreeField.getValue(), priceTypeFourField.getValue(), true);
+                        priceTypeTwoField.getValue(), priceTypeThreeField.getValue(), priceTypeFourField.getValue(), true, env);
                 this.addComponent(new Link(env.getProperty("download.earnings.pdf.button"), new ExternalResource("/download/pdf/earnings.pdf")));
             } else {
                 Notification.show(env.getProperty("incorrect.values.notification"));
@@ -111,7 +111,7 @@ public class PdfGenerationTab extends VerticalLayout {
                 }
                 List<FruitPicker> fruitPickers = fruitPickerService.findAll();
                 PickersToPdfWriter.writeEarningsRaportByPackages(fruitPickers, pdfPath, priceTypeOneFieldPackages.getValue(),
-                        priceTypeTwoFieldPackages.getValue(), priceTypeThreeFieldPackages.getValue(), priceTypeFourFieldPackages.getValue(), true);
+                        priceTypeTwoFieldPackages.getValue(), priceTypeThreeFieldPackages.getValue(), priceTypeFourFieldPackages.getValue(), true, env);
                 this.addComponent(new Link(env.getProperty("download.earnings.by.packages.pdf.button"), new ExternalResource("/download/pdf/earningsBasedOnPackages.pdf")));
             } else {
                 Notification.show(env.getProperty("incorrect.values.notification"));

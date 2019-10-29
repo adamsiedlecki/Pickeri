@@ -82,7 +82,7 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
                 }
                 List<FruitPicker> fruitPickers = fruitPickerService.findAll();
                 PickersToPdfWriter.writeEarningsRaportByKg(fruitPickers, pdfPath, priceTypeOneField.getValue(),
-                        priceTypeTwoField.getValue(), priceTypeThreeField.getValue(), priceTypeFourField.getValue(), false);
+                        priceTypeTwoField.getValue(), priceTypeThreeField.getValue(), priceTypeFourField.getValue(), false, env);
                 this.addComponent(new Link(env.getProperty("download.earnings.pdf.button"), new ExternalResource("/download/pdf/earnings.pdf")));
             } else {
                 Notification.show(env.getProperty("incorrect.values.notification"));
@@ -126,7 +126,7 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
                 }
                 List<FruitPicker> fruitPickers = fruitPickerService.findAll();
                 PickersToPdfWriter.writeEarningsRaportByPackages(fruitPickers, pdfPath, priceTypeOneFieldPackages.getValue(),
-                        priceTypeTwoFieldPackages.getValue(), priceTypeThreeFieldPackages.getValue(), priceTypeFourFieldPackages.getValue(), false);
+                        priceTypeTwoFieldPackages.getValue(), priceTypeThreeFieldPackages.getValue(), priceTypeFourFieldPackages.getValue(), false, env);
                 this.addComponent(new Link(env.getProperty("download.earnings.by.packages.pdf.button"),
                         new ExternalResource("/download/pdf/earningsBasedOnPackages.pdf")));
             } else {
@@ -141,7 +141,7 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
                 check.delete();
             }
             List<FruitPicker> fruitPickers = fruitPickerService.findAll();
-            PickersToPdfWriter.writeWithQR(fruitPickers, pdfPath);
+            PickersToPdfWriter.writeWithQR(fruitPickers, pdfPath, env);
             this.addComponent(new Link(env.getProperty("download.pdf.with.qr.and.id"), new ExternalResource("/download/pdf/qrcodes.pdf")));
         });
 
@@ -152,7 +152,7 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
                 check.delete();
             }
             List<FruitPicker> fruitPickers = fruitPickerService.findAll();
-            PickersToPdfWriter.writeWithoutQR(fruitPickers, pdfPath);
+            PickersToPdfWriter.writeWithoutQR(fruitPickers, pdfPath, env);
             this.addComponent(new Link(env.getProperty("download.pdf.with.id"), new ExternalResource("/download/pdf/idList.pdf")));
         });
 

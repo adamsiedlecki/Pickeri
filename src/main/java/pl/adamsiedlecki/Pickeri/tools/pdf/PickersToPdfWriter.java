@@ -24,30 +24,24 @@ public class PickersToPdfWriter {
 
     public static void writeWithQR(List<FruitPicker> fruitPickers, String pathToFile, Environment env) {
 
-        Document document = new Document();
-        PdfWriter writer = null;
-        try {
-            writer = PdfWriter.getInstance(document, new FileOutputStream(pathToFile));
-            writer.setStrictImageSequence(true);
-            addHeaderFooter(writer);
-            document.open();
-            addTitle(document, env.getProperty("pickeri.employees.list") + LocalDate.now());
-        } catch (DocumentException | FileNotFoundException e) {
-            log.error("Write QR ", e.getCause());
-        }
+        PdfCreator pdfCreator = new PdfCreator();
+        DocumentAndPdfWriter documentAndPdfWriter = pdfCreator.getBasics(pathToFile,
+                env.getProperty("pickeri.employees.list") + LocalDate.now());
+        Document document = documentAndPdfWriter.getDocument();
+        PdfWriter pdfWriter = documentAndPdfWriter.getWriter();
 
         for (FruitPicker fp : fruitPickers) {
             File qrFile = QRCodeWriterTool.encode(fp.getId(), fp.getName(), fp.getLastName(), "src\\main\\resources\\qr_codes");
             try {
                 Image image = Image.getInstance(qrFile.getAbsolutePath());
-                PdfContentByte cb = writer.getDirectContentUnder();
+                PdfContentByte cb = pdfWriter.getDirectContentUnder();
                 document.add(getWatermarkedImage(cb, image, fp.getId() + " " + fp.getName() + " " + fp.getLastName()));
             } catch (DocumentException | IOException e) {
                 log.error("Write QR - Document Exception or IOException");
             }
         }
-        document.close();
-        writer.close();
+        documentAndPdfWriter.getDocument().close();
+        documentAndPdfWriter.getWriter().close();
     }
 
     public static void writeWithoutQR(List<FruitPicker> fruitPickers, String pathToFile, Environment env) {
@@ -136,7 +130,6 @@ public class PickersToPdfWriter {
                 pointColumnWidths = new float[]{85F, 190F, 190F, 190F, 190F, 190F, 190F, 190F, 190F, 190F, 185F, 185F, 180F};
                 font.setSize(7);
             }
-
             document.setMargins(10F, 10F, 70F, 10F);
             PdfPTable table = new PdfPTable(pointColumnWidths);
             table.addCell(new Phrase(env.getProperty("id.column"), font));

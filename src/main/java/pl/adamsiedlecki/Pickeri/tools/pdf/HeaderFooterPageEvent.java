@@ -13,7 +13,7 @@ import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import java.io.IOException;
 
 
-public class HeaderFooterPageEvent extends PdfPageEventHelper {
+class HeaderFooterPageEvent extends PdfPageEventHelper {
 
     private static final Logger logger = LoggerFactory.getLogger(HeaderFooterPageEvent.class);
 
