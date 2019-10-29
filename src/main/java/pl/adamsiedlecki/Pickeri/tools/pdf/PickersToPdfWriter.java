@@ -46,19 +46,11 @@ public class PickersToPdfWriter {
 
     public static void writeWithoutQR(List<FruitPicker> fruitPickers, String pathToFile, Environment env) {
 
-        Document document = new Document();
-        PdfWriter writer = null;
-        try {
-            writer = PdfWriter.getInstance(document, new FileOutputStream(pathToFile));
-            writer.setStrictImageSequence(true);
-            addHeaderFooter(writer);
-
-            document.open();
-            addTitle(document, env.getProperty("pickeri.employees.list") + LocalDate.now());
-        } catch (DocumentException | FileNotFoundException e1) {
-            log.error("Write QR - DocumentException or FileNotFoundException");
-        }
-
+        PdfCreator pdfCreator = new PdfCreator();
+        DocumentAndPdfWriter documentAndPdfWriter = pdfCreator.getBasics(pathToFile,
+                env.getProperty("pickeri.employees.list") + LocalDate.now());
+        Document document = documentAndPdfWriter.getDocument();
+        PdfWriter writer = documentAndPdfWriter.getWriter();
 
         for (FruitPicker fp : fruitPickers) {
             try {
@@ -84,32 +76,18 @@ public class PickersToPdfWriter {
         return Image.getInstance(template);
     }
 
-    private static void addTitle(Document document, String title) {
-        try {
-            document.add(new Paragraph(title,
-                    FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.BOLD)));
-            document.add(new Paragraph(" "));
-        } catch (DocumentException e) {
-            log.error("Add title - DocumentException - "+e.getMessage());
-        }
-    }
-
     private static void addHeaderFooter(PdfWriter writer) {
         HeaderFooterPageEvent event = new HeaderFooterPageEvent();
         writer.setPageEvent(event);
     }
 
-    public static void writeRaport(List<FruitPicker> fruitPickers, String pdfPath, FruitTypeService fruitTypeService, Environment env) {
+    public static void writeRaport(List<FruitPicker> fruitPickers, String pathToFile, FruitTypeService fruitTypeService, Environment env) {
 
-        Document document = new Document();
-        PdfWriter writer = null;
-        try {
-            writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
-            writer.setStrictImageSequence(true);
-            addHeaderFooter(writer);
-
-            document.open();
-            addTitle(document, env.getProperty("employee.raport.title") + LocalDate.now());
+        PdfCreator pdfCreator = new PdfCreator();
+        DocumentAndPdfWriter documentAndPdfWriter = pdfCreator.getBasics(pathToFile,
+                env.getProperty("employee.raport.title") + LocalDate.now());
+        Document document = documentAndPdfWriter.getDocument();
+        PdfWriter writer = documentAndPdfWriter.getWriter();
 
             Font font = FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 10, Font.NORMAL);
             float[] pointColumnWidths = {100};
@@ -178,9 +156,6 @@ public class PickersToPdfWriter {
             } catch (DocumentException e) {
                 log.error(" Raport - DocumentException");
             }
-        } catch (DocumentException | FileNotFoundException e1) {
-            log.error("Raport - DocumentException or FileNotFoundException");
-        }
 
         document.close();
         writer.close();
@@ -216,22 +191,15 @@ public class PickersToPdfWriter {
         return List.of(result,result2);
     }
 
-    public static void writeEarningsRaportByKg(List<FruitPicker> fruitPickers, String pdfPath, String priceForTypeOne,
+    public static void writeEarningsRaportByKg(List<FruitPicker> fruitPickers, String pathToFile, String priceForTypeOne,
                                                String priceForTypeTwo, String priceForTypeThree, String priceForTypeFour,
                                                boolean includeFundsPaid, Environment env) {
 
-        Document document = new Document();
-        PdfWriter writer = null;
-        try {
-            writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
-            writer.setStrictImageSequence(true);
-            addHeaderFooter(writer);
-
-            document.open();
-            addTitle(document, env.getProperty("employees.earnings.based.on.kg") + LocalDate.now());
-        } catch (DocumentException | FileNotFoundException e1) {
-            log.error("Raport - DocumentException or FileNotFoundException");
-        }
+        PdfCreator pdfCreator = new PdfCreator();
+        DocumentAndPdfWriter documentAndPdfWriter = pdfCreator.getBasics(pathToFile,
+                env.getProperty("employees.earnings.based.on.kg") + LocalDate.now());
+        Document document = documentAndPdfWriter.getDocument();
+        PdfWriter writer = documentAndPdfWriter.getWriter();
 
         for (FruitPicker fp : fruitPickers) {
             try {
@@ -266,22 +234,15 @@ public class PickersToPdfWriter {
         return amount.multiply(price);
     }
 
-    public static void writeEarningsRaportByPackages(List<FruitPicker> fruitPickers, String pdfPath, String priceForTypeOne,
+    public static void writeEarningsRaportByPackages(List<FruitPicker> fruitPickers, String pathToFile, String priceForTypeOne,
                                                      String priceForTypeTwo, String priceForTypeThree, String priceForTypeFour,
                                                      boolean includeFundsPaid, Environment env) {
 
-        Document document = new Document();
-        PdfWriter writer = null;
-        try {
-            writer = PdfWriter.getInstance(document, new FileOutputStream(pdfPath));
-            writer.setStrictImageSequence(true);
-            addHeaderFooter(writer);
-
-            document.open();
-            addTitle(document,  env.getProperty("employees.earnings.based.on.packages") + LocalDate.now());
-        } catch (DocumentException | FileNotFoundException e1) {
-            log.error("Raport - DocumentException or FileNotFoundException");
-        }
+        PdfCreator pdfCreator = new PdfCreator();
+        DocumentAndPdfWriter documentAndPdfWriter = pdfCreator.getBasics(pathToFile,
+                env.getProperty("employees.earnings.based.on.packages") + LocalDate.now());
+        Document document = documentAndPdfWriter.getDocument();
+        PdfWriter writer = documentAndPdfWriter.getWriter();
 
         for (FruitPicker fp : fruitPickers) {
             try {
