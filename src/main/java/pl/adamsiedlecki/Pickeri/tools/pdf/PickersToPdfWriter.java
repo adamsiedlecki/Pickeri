@@ -35,7 +35,7 @@ public class PickersToPdfWriter {
             try {
                 Image image = Image.getInstance(qrFile.getAbsolutePath());
                 PdfContentByte cb = pdfWriter.getDirectContentUnder();
-                document.add(getWatermarkedImage(cb, image, fp.getId() + " " + fp.getName() + " " + fp.getLastName()));
+                document.add(QrWithCaptionMaker.getCaptionedImage(cb, image, fp.getId() + " " + fp.getName() + " " + fp.getLastName()));
             } catch (DocumentException | IOException e) {
                 log.error("Write QR - Document Exception or IOException");
             }
@@ -63,22 +63,6 @@ public class PickersToPdfWriter {
         }
         document.close();
         writer.close();
-    }
-
-    private static Image getWatermarkedImage(PdfContentByte cb, Image img, String watermark)
-            throws DocumentException {
-        float width = img.getScaledWidth();
-        float height = img.getScaledHeight();
-        PdfTemplate template = cb.createTemplate(width, height);
-        template.addImage(img, width, 0, 0, height, 0, 0);
-        ColumnText.showTextAligned(template, Element.TITLE,
-                new Phrase(watermark, FontFactory.getFont(FontFactory.HELVETICA, "CP1250", 12, Font.NORMAL)), width / 3, height - 15, 0);
-        return Image.getInstance(template);
-    }
-
-    private static void addHeaderFooter(PdfWriter writer) {
-        HeaderFooterPageEvent event = new HeaderFooterPageEvent();
-        writer.setPageEvent(event);
     }
 
     public static void writeRaport(List<FruitPicker> fruitPickers, String pathToFile, FruitTypeService fruitTypeService, Environment env) {
