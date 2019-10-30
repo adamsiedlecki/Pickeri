@@ -3,7 +3,6 @@ package pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
-import com.vaadin.ui.themes.ValoTheme;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,20 +47,19 @@ public class EarningsRaportGenerationTab extends VerticalLayout {
         Button generateEarningsByKgRaportButton = new Button(env.getProperty("generate.earnings.by.kg.raport"));
         HorizontalLayout earningsByKgLayout = new HorizontalLayout();
         
-        Optional<TextField> priceTypeOneField = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(0, earningsByKgLayout);
-        Optional<TextField> priceTypeTwoField = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(1, earningsByKgLayout);
-        Optional<TextField> priceTypeThreeField = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(2, earningsByKgLayout);
-        Optional<TextField> priceTypeFourField = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(3, earningsByKgLayout);
+        Optional<TextField> priceTypeOneFieldKg = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(0, earningsByKgLayout, true);
+        Optional<TextField> priceTypeTwoFieldKg = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(1, earningsByKgLayout, true);
+        Optional<TextField> priceTypeThreeFieldKg = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(2, earningsByKgLayout, true);
+        Optional<TextField> priceTypeFourFieldKg = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(3, earningsByKgLayout, true);
 
         this.addComponent(generateEarningsByKgRaportButton);
         this.addComponent(earningsByKgLayout);
 
         generateEarningsByKgRaportButton.addClickListener(e -> {
-            String price1 = priceTypeOneField.isPresent() ? priceTypeOneField.get().getValue() : "0.00";
-            String price2 = priceTypeTwoField.isPresent() ? priceTypeTwoField.get().getValue() : "0.00";
-            String price3 = priceTypeThreeField.isPresent() ? priceTypeThreeField.get().getValue() : "0.00";
-            String price4 = priceTypeFourField.isPresent() ? priceTypeFourField.get().getValue() : "0.00";
-
+            String price1 = priceTypeOneFieldKg.isPresent() ? priceTypeOneFieldKg.get().getValue() : "0.00";
+            String price2 = priceTypeTwoFieldKg.isPresent() ? priceTypeTwoFieldKg.get().getValue() : "0.00";
+            String price3 = priceTypeThreeFieldKg.isPresent() ? priceTypeThreeFieldKg.get().getValue() : "0.00";
+            String price4 = priceTypeFourFieldKg.isPresent() ? priceTypeFourFieldKg.get().getValue() : "0.00";
             if (NumberUtils.isCreatable(price1) && NumberUtils.isCreatable(price2) && NumberUtils.isCreatable(price3)
                     && NumberUtils.isCreatable(price4)) {
                 String pdfPath = "src\\main\\resources\\downloads\\earnings.pdf";
@@ -75,44 +73,29 @@ public class EarningsRaportGenerationTab extends VerticalLayout {
             }
         });
 
-        /// Earnings based on amount of packages
-        Button generateEarningsRaportPackages = new Button(env.getProperty("generate.earnings.by.packages.raport"));
+        // Earnings based on amount of packages
+        Button generateEarningsRaportPackagesButton = new Button(env.getProperty("generate.earnings.by.packages.raport"));
         HorizontalLayout earningsByPackagesLayout = new HorizontalLayout();
 
-        TextField priceTypeOneFieldPackages = new TextField(env.getProperty("price.field.caption") + fruitTypeService.getType(0).getName());
-        priceTypeOneFieldPackages.setValue("0");
-        if (fruitTypeService.getType(0).getName() != null) {
-            earningsByPackagesLayout.addComponent(priceTypeOneFieldPackages);
-        }
-        TextField priceTypeTwoFieldPackages = new TextField(env.getProperty("price.field.caption") + fruitTypeService.getType(1).getName());
-        priceTypeTwoFieldPackages.setValue("0");
-        if (fruitTypeService.getType(1).getName() != null) {
-            earningsByPackagesLayout.addComponent(priceTypeTwoFieldPackages);
-        }
-        TextField priceTypeThreeFieldPackages = new TextField(env.getProperty("price.field.caption") + fruitTypeService.getType(2).getName());
-        priceTypeThreeFieldPackages.setValue("0");
-        if (fruitTypeService.getType(2).getName() != null) {
-            earningsByPackagesLayout.addComponent(priceTypeThreeFieldPackages);
-        }
-        TextField priceTypeFourFieldPackages = new TextField(env.getProperty("price.field.caption") + fruitTypeService.getType(3).getName());
-        priceTypeFourFieldPackages.setValue("0");
-        if (fruitTypeService.getType(3).getName() != null) {
-            earningsByPackagesLayout.addComponent(priceTypeFourFieldPackages);
-        }
-        this.addComponent(generateEarningsRaportPackages);
+        Optional<TextField> priceTypeOneFieldPackages = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(0, earningsByPackagesLayout, false);
+        Optional<TextField> priceTypeTwoFieldPackages = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(1, earningsByPackagesLayout, false);
+        Optional<TextField> priceTypeThreeFieldPackages = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(2, earningsByPackagesLayout, false);
+        Optional<TextField> priceTypeFourFieldPackages = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(3, earningsByPackagesLayout, false);
+
+        this.addComponent(generateEarningsRaportPackagesButton);
         this.addComponent(earningsByPackagesLayout);
 
-        generateEarningsRaportPackages.addClickListener(e -> {
-            if (NumberUtils.isCreatable(priceTypeOneFieldPackages.getValue()) && NumberUtils.isCreatable(priceTypeTwoFieldPackages.getValue()) &&
-                    NumberUtils.isCreatable(priceTypeThreeFieldPackages.getValue()) && NumberUtils.isCreatable(priceTypeFourFieldPackages.getValue())) {
+        generateEarningsRaportPackagesButton.addClickListener(e -> {
+            String price1 = priceTypeOneFieldPackages.isPresent() ? priceTypeOneFieldPackages.get().getValue() : "0.00";
+            String price2 = priceTypeTwoFieldPackages.isPresent() ? priceTypeTwoFieldPackages.get().getValue() : "0.00";
+            String price3 = priceTypeThreeFieldPackages.isPresent() ? priceTypeThreeFieldPackages.get().getValue() : "0.00";
+            String price4 = priceTypeFourFieldPackages.isPresent() ? priceTypeFourFieldPackages.get().getValue() : "0.00";
+            if (NumberUtils.isCreatable(price1) && NumberUtils.isCreatable(price2) &&
+                    NumberUtils.isCreatable(price3) && NumberUtils.isCreatable(price4)) {
                 String pdfPath = "src\\main\\resources\\downloads\\earningsBasedOnPackages.pdf";
-                File check = new File(pdfPath);
-                if (check.exists()) {
-                    check.delete();
-                }
+                DeleteFile.ifExists(new File(pdfPath));
                 List<FruitPicker> fruitPickers = fruitPickerService.findAll();
-                PickersToPdfWriter.writeEarningsRaportByPackages(fruitPickers, pdfPath, priceTypeOneFieldPackages.getValue(),
-                        priceTypeTwoFieldPackages.getValue(), priceTypeThreeFieldPackages.getValue(), priceTypeFourFieldPackages.getValue(), true, env);
+                PickersToPdfWriter.writeEarningsRaportByPackages(fruitPickers, pdfPath, price1, price2, price3, price4, true, env);
                 this.addComponent(new Link(env.getProperty("download.earnings.by.packages.pdf.button"), new ExternalResource("/download/pdf/earningsBasedOnPackages.pdf")));
             } else {
                 Notification.show(env.getProperty("incorrect.values.notification"));
@@ -120,58 +103,32 @@ public class EarningsRaportGenerationTab extends VerticalLayout {
         });
     }
 
-    private Optional<TextField> getPriceFieldIfTypeNameIsNotNullAndAddToLayout(int typeSlot, Layout layout){
-        TextField textField;
-        if (fruitTypeService.getType(typeSlot).getName() != null) {
-            textField = new TextField();
-            textField.setCaption(env.getProperty("price.field.caption") + fruitTypeService.getType(typeSlot).getName());
-            textField.setValue("0.00");
-            layout.addComponent(textField);
-            return Optional.of(textField);
-        }
-        return Optional.empty();
-    }
-
     public void addSecondRow(){
         Label warning = new Label(env.getProperty("pdf.not.includes.payments.warning"));
         this.addComponent(warning);
-        Button generateEarningsRaport = new Button(env.getProperty("generate.earnings.by.kg.raport"));
+        Button generateEarningsRaportButton = new Button(env.getProperty("generate.earnings.by.kg.raport"));
         HorizontalLayout earningsByKgLayout = new HorizontalLayout();
 
-        TextField priceTypeOneField = new TextField(env.getProperty("price.field.caption") + fruitTypeService.getType(0).getName());
-        priceTypeOneField.setValue("0");
-        if (fruitTypeService.getType(0).getName() != null) {
-            earningsByKgLayout.addComponentsAndExpand(priceTypeOneField);
-        }
-        TextField priceTypeTwoField = new TextField(env.getProperty("price.field.caption") + fruitTypeService.getType(1).getName());
-        priceTypeTwoField.setValue("0");
-        if (fruitTypeService.getType(1).getName() != null) {
-            earningsByKgLayout.addComponentsAndExpand(priceTypeTwoField);
-        }
-        TextField priceTypeThreeField = new TextField(env.getProperty("price.field.caption") + fruitTypeService.getType(2).getName());
-        priceTypeThreeField.setValue("0");
-        if (fruitTypeService.getType(2).getName() != null) {
-            earningsByKgLayout.addComponentsAndExpand(priceTypeThreeField);
-        }
-        TextField priceTypeFourField = new TextField(env.getProperty("price.field.caption") + fruitTypeService.getType(3).getName());
-        priceTypeFourField.setValue("0");
-        if (fruitTypeService.getType(3).getName() != null) {
-            earningsByKgLayout.addComponentsAndExpand(priceTypeFourField);
-        }
-        this.addComponent(generateEarningsRaport);
+        Optional<TextField> priceTypeOneFieldKg = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(0, earningsByKgLayout, true);
+        Optional<TextField> priceTypeTwoFieldKg = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(1, earningsByKgLayout, true);
+        Optional<TextField> priceTypeThreeFieldKg = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(2, earningsByKgLayout, true);
+        Optional<TextField> priceTypeFourFieldKg = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(3, earningsByKgLayout, true);
+
+        this.addComponent(generateEarningsRaportButton);
         this.addComponent(earningsByKgLayout);
 
-        generateEarningsRaport.addClickListener(e -> {
-            if (NumberUtils.isCreatable(priceTypeOneField.getValue()) && NumberUtils.isCreatable(priceTypeTwoField.getValue()) &&
-                    NumberUtils.isCreatable(priceTypeThreeField.getValue()) && NumberUtils.isCreatable(priceTypeFourField.getValue())) {
+        generateEarningsRaportButton.addClickListener(e -> {
+            String price1 = priceTypeOneFieldKg.isPresent() ? priceTypeOneFieldKg.get().getValue() : "0.00";
+            String price2 = priceTypeTwoFieldKg.isPresent() ? priceTypeTwoFieldKg.get().getValue() : "0.00";
+            String price3 = priceTypeThreeFieldKg.isPresent() ? priceTypeThreeFieldKg.get().getValue() : "0.00";
+            String price4 = priceTypeFourFieldKg.isPresent() ? priceTypeFourFieldKg.get().getValue() : "0.00";
+            if (NumberUtils.isCreatable(price1) && NumberUtils.isCreatable(price2) &&
+                    NumberUtils.isCreatable(price3) && NumberUtils.isCreatable(price4)) {
                 String pdfPath = "src\\main\\resources\\downloads\\earnings.pdf";
-                File check = new File(pdfPath);
-                if (check.exists()) {
-                    check.delete();
-                }
+                DeleteFile.ifExists(new File(pdfPath));
                 List<FruitPicker> fruitPickers = fruitPickerService.findAll();
-                PickersToPdfWriter.writeEarningsRaportByKg(fruitPickers, pdfPath, priceTypeOneField.getValue(),
-                        priceTypeTwoField.getValue(), priceTypeThreeField.getValue(), priceTypeFourField.getValue(), false, env);
+                PickersToPdfWriter.writeEarningsRaportByKg(fruitPickers, pdfPath, price1, price2, price3, price4,
+                        false, env);
                 this.addComponent(new Link(env.getProperty("download.earnings.pdf.button"), new ExternalResource("/download/pdf/earnings.pdf")));
             } else {
                 Notification.show(env.getProperty("incorrect.values.notification"));
@@ -179,43 +136,29 @@ public class EarningsRaportGenerationTab extends VerticalLayout {
         });
 
         /// Earnings based on amount of packages
+
         Button generateEarningsRaportPackages = new Button(env.getProperty("generate.earnings.by.packages.raport"));
         HorizontalLayout earningsByPackagesLayout = new HorizontalLayout();
 
-        TextField priceTypeOneFieldPackages = new TextField(env.getProperty("price.per.package.for.type") + fruitTypeService.getType(0).getName());
-        priceTypeOneFieldPackages.setValue("0");
-        if (fruitTypeService.getType(0).getName() != null) {
-            earningsByPackagesLayout.addComponentsAndExpand(priceTypeOneFieldPackages);
-        }
-        TextField priceTypeTwoFieldPackages = new TextField(env.getProperty("price.per.package.for.type") + fruitTypeService.getType(1).getName());
-        priceTypeTwoFieldPackages.setValue("0");
-        if (fruitTypeService.getType(1).getName() != null) {
-            earningsByPackagesLayout.addComponentsAndExpand(priceTypeTwoFieldPackages);
-        }
-        TextField priceTypeThreeFieldPackages = new TextField(env.getProperty("price.per.package.for.type") + fruitTypeService.getType(2).getName());
-        priceTypeThreeFieldPackages.setValue("0");
-        if (fruitTypeService.getType(2).getName() != null) {
-            earningsByPackagesLayout.addComponentsAndExpand(priceTypeThreeFieldPackages);
-        }
-        TextField priceTypeFourFieldPackages = new TextField(env.getProperty("price.per.package.for.type") + fruitTypeService.getType(3).getName());
-        priceTypeFourFieldPackages.setValue("0");
-        if (fruitTypeService.getType(3).getName() != null) {
-            earningsByPackagesLayout.addComponentsAndExpand(priceTypeFourFieldPackages);
-        }
+        Optional<TextField> priceTypeOneFieldPackages = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(0, earningsByPackagesLayout, false);
+        Optional<TextField> priceTypeTwoFieldPackages = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(1, earningsByPackagesLayout, false);
+        Optional<TextField> priceTypeThreeFieldPackages = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(2, earningsByPackagesLayout, false);
+        Optional<TextField> priceTypeFourFieldPackages = getPriceFieldIfTypeNameIsNotNullAndAddToLayout(3, earningsByPackagesLayout, false);
+
         this.addComponent(generateEarningsRaportPackages);
         this.addComponent(earningsByPackagesLayout);
 
         generateEarningsRaportPackages.addClickListener(e -> {
-            if (NumberUtils.isCreatable(priceTypeOneFieldPackages.getValue()) && NumberUtils.isCreatable(priceTypeTwoFieldPackages.getValue()) &&
-                    NumberUtils.isCreatable(priceTypeThreeFieldPackages.getValue()) && NumberUtils.isCreatable(priceTypeFourFieldPackages.getValue())) {
+            String price1 = priceTypeOneFieldPackages.isPresent() ? priceTypeOneFieldPackages.get().getValue() : "0.00";
+            String price2 = priceTypeTwoFieldPackages.isPresent() ? priceTypeTwoFieldPackages.get().getValue() : "0.00";
+            String price3 = priceTypeThreeFieldPackages.isPresent() ? priceTypeThreeFieldPackages.get().getValue() : "0.00";
+            String price4 = priceTypeFourFieldPackages.isPresent() ? priceTypeFourFieldPackages.get().getValue() : "0.00";
+            if (NumberUtils.isCreatable(price1) && NumberUtils.isCreatable(price2) &&
+                    NumberUtils.isCreatable(price3) && NumberUtils.isCreatable(price4)) {
                 String pdfPath = "src\\main\\resources\\downloads\\earningsBasedOnPackages.pdf";
-                File check = new File(pdfPath);
-                if (check.exists()) {
-                    check.delete();
-                }
+                DeleteFile.ifExists(new File(pdfPath));
                 List<FruitPicker> fruitPickers = fruitPickerService.findAll();
-                PickersToPdfWriter.writeEarningsRaportByPackages(fruitPickers, pdfPath, priceTypeOneFieldPackages.getValue(),
-                        priceTypeTwoFieldPackages.getValue(), priceTypeThreeFieldPackages.getValue(), priceTypeFourFieldPackages.getValue(), false, env);
+                PickersToPdfWriter.writeEarningsRaportByPackages(fruitPickers, pdfPath, price1, price2, price3, price4, false, env);
                 this.addComponent(new Link(env.getProperty("download.earnings.by.packages.pdf.button"),
                         new ExternalResource("/download/pdf/earningsBasedOnPackages.pdf")));
             } else {
@@ -223,6 +166,22 @@ public class EarningsRaportGenerationTab extends VerticalLayout {
             }
         });
 
+    }
+
+    private Optional<TextField> getPriceFieldIfTypeNameIsNotNullAndAddToLayout(int typeSlot, Layout layout, boolean isPerKgPrice){
+        TextField textField;
+        if (fruitTypeService.getType(typeSlot).getName() != null) {
+            textField = new TextField();
+            if(isPerKgPrice){
+                textField.setCaption(env.getProperty("price.field.kg.caption") + fruitTypeService.getType(typeSlot).getName());
+            }else{
+                textField.setCaption(env.getProperty("price.per.package.for.type") + fruitTypeService.getType(typeSlot).getName());
+            }
+            textField.setValue("0.00");
+            layout.addComponent(textField);
+            return Optional.of(textField);
+        }
+        return Optional.empty();
     }
 
 }
