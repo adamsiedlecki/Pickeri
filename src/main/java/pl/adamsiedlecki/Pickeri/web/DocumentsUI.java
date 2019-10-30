@@ -16,7 +16,7 @@ import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs.ExcelGenerationTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs.PdfDocumentsGeneratorTab;
 import pl.adamsiedlecki.Pickeri.web.tabs.independentTabs.MenuTab;
-import pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs.PdfGenerationTab;
+import pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs.EarningsRaportGenerationTab;
 
 @SpringUI(path = "/documents-generator")
 @Theme("mytheme")
@@ -29,12 +29,12 @@ public class DocumentsUI extends UI {
     private PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab;
     private MenuTab menuTab;
     private Environment env;
-    private PdfGenerationTab pdfGenerationTab;
+    private EarningsRaportGenerationTab pdfGenerationTab;
     private ExcelGenerationTab excelGenerationTab;
 
     @Autowired
     public DocumentsUI(PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab, MenuTab menuTab, Environment environment,
-                       PdfGenerationTab pdfGenerationTab, ExcelGenerationTab excelGenerationTab) {
+                       EarningsRaportGenerationTab pdfGenerationTab, ExcelGenerationTab excelGenerationTab) {
         this.pdfDocumentsGeneratorTab = pdfDocumentsGeneratorTab;
         this.pdfGenerationTab = pdfGenerationTab;
         this.menuTab = menuTab;

@@ -8,10 +8,7 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.tools.qr.QRCodeWriterTool;
-
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -105,7 +102,6 @@ public class PickersToPdfWriter {
                     table.addCell(new Phrase(fruitTypeService.getType(i).getName() +" "+ env.getProperty("weight.unit"), font));
                 }
             }
-
             for (FruitPicker fp : fruitPickers) {
 
                 List<String> amountInfo1 = (getTypeInfoToString(fruitTypeService, fp, 0));
