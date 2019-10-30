@@ -1,18 +1,15 @@
 package pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs;
 
 import com.vaadin.icons.VaadinIcons;
-import com.vaadin.server.ExternalResource;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
-import com.vaadin.ui.themes.ValoTheme;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
-import pl.adamsiedlecki.Pickeri.tools.excel.ExcelCreator;
+import pl.adamsiedlecki.Pickeri.tools.file.FileDownloader;
 import pl.adamsiedlecki.Pickeri.tools.pdf.PickersToPdfWriter;
 
 import java.io.File;
@@ -51,7 +48,8 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
             }
             List<FruitPicker> fruitPickers = fruitPickerService.findAll();
             PickersToPdfWriter.writeWithQR(fruitPickers, pdfPath, env);
-            this.addComponent(new Link(env.getProperty("download.pdf.with.qr.and.id"), new ExternalResource("/download/pdf/qrcodes.pdf")));
+            //this.addComponent(new Link(env.getProperty("download.pdf.with.qr.and.id"), new ExternalResource("/download/pdf/qrcodes.pdf")));
+            FileDownloader.action(this, "","/download/pdf/qrcodes.pdf");
         });
 
         generateListButton.addClickListener(e -> {
@@ -62,7 +60,8 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
             }
             List<FruitPicker> fruitPickers = fruitPickerService.findAll();
             PickersToPdfWriter.writeWithoutQR(fruitPickers, pdfPath, env);
-            this.addComponent(new Link(env.getProperty("download.pdf.with.id"), new ExternalResource("/download/pdf/idList.pdf")));
+            //this.addComponent(new Link(env.getProperty("download.pdf.with.id"), new ExternalResource("/download/pdf/idList.pdf")));
+            FileDownloader.action(this, "","/download/pdf/idList.pdf");
         });
 
         generatePickersRaport.addClickListener(e -> {
@@ -73,7 +72,8 @@ public class PdfDocumentsGeneratorTab extends VerticalLayout {
             }
             List<FruitPicker> fruitPickers = fruitPickerService.findAll();
             PickersToPdfWriter.writeRaport(fruitPickers, pdfPath, fruitTypeService, env);
-            this.addComponent(new Link(env.getProperty("download.raport.link"), new ExternalResource("/download/pdf/pickersRaport.pdf")));
+            //this.addComponent(new Link(env.getProperty("download.raport.link"), new ExternalResource("/download/pdf/pickersRaport.pdf")));
+            FileDownloader.action(this, "","/download/pdf/pickersRaport.pdf");
         });
 
         this.forEach(component -> this.setComponentAlignment(component, Alignment.MIDDLE_CENTER));

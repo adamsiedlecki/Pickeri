@@ -15,6 +15,7 @@ import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.tools.excel.ExcelCreator;
+import pl.adamsiedlecki.Pickeri.tools.file.FileDownloader;
 
 import java.io.File;
 import java.util.List;
@@ -61,7 +62,8 @@ public class ExcelGenerationTab extends VerticalLayout {
                     break;
                 }
             }
-            this.addComponent(new Link(env.getProperty(linkPropertyName), new ExternalResource(downloadPath)));
+            //this.addComponent(new Link(env.getProperty(linkPropertyName), new ExternalResource(downloadPath)));
+            FileDownloader.action(this,"",downloadPath );
         });
     }
 

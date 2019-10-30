@@ -55,7 +55,7 @@ public class DocumentsUI extends UI {
     private void addTabs() {
         tabs = new TabSheet();
         tabs.addTab(pdfGenerationTab, env.getProperty("generate.pdf.tab"));
-        tabs.addTab(pdfDocumentsGeneratorTab, env.getProperty("generate.pdf.tab"));
+        tabs.addTab(pdfDocumentsGeneratorTab, env.getProperty("generate.qr.list.raport.tab"));
         tabs.addTab(excelGenerationTab, env.getProperty("generate.excel.tab"));
         tabs.addTab(menuTab, env.getProperty("menu.tab.caption"));
         root.addComponent(tabs);

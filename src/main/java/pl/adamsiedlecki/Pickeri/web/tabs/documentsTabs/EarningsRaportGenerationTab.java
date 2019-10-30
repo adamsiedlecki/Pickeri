@@ -1,6 +1,5 @@
 package pl.adamsiedlecki.Pickeri.web.tabs.documentsTabs;
 
-import com.vaadin.server.ExternalResource;
 import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.ui.*;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -14,6 +13,7 @@ import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.tools.file.DeleteFile;
+import pl.adamsiedlecki.Pickeri.tools.file.FileDownloader;
 import pl.adamsiedlecki.Pickeri.tools.pdf.PickersToPdfWriter;
 
 import java.io.File;
@@ -67,7 +67,7 @@ public class EarningsRaportGenerationTab extends VerticalLayout {
                 List<FruitPicker> fruitPickers = fruitPickerService.findAll();
                 PickersToPdfWriter.writeEarningsRaportByKg(fruitPickers, pdfPath, price1,
                         price2, price3, price4, true, env);
-                this.addComponent(new Link(env.getProperty("download.earnings.pdf.button"), new ExternalResource("/download/pdf/earnings.pdf")));
+                FileDownloader.action(this, env.getProperty("download.earnings.pdf.button"), "/download/pdf/earnings.pdf");
             } else {
                 Notification.show(env.getProperty("incorrect.values.notification"));
             }
@@ -96,7 +96,8 @@ public class EarningsRaportGenerationTab extends VerticalLayout {
                 DeleteFile.ifExists(new File(pdfPath));
                 List<FruitPicker> fruitPickers = fruitPickerService.findAll();
                 PickersToPdfWriter.writeEarningsRaportByPackages(fruitPickers, pdfPath, price1, price2, price3, price4, true, env);
-                this.addComponent(new Link(env.getProperty("download.earnings.by.packages.pdf.button"), new ExternalResource("/download/pdf/earningsBasedOnPackages.pdf")));
+                FileDownloader.action(this, env.getProperty("download.earnings.by.packages.pdf.button"),
+                        "/download/pdf/earningsBasedOnPackages.pdf");
             } else {
                 Notification.show(env.getProperty("incorrect.values.notification"));
             }
@@ -129,14 +130,13 @@ public class EarningsRaportGenerationTab extends VerticalLayout {
                 List<FruitPicker> fruitPickers = fruitPickerService.findAll();
                 PickersToPdfWriter.writeEarningsRaportByKg(fruitPickers, pdfPath, price1, price2, price3, price4,
                         false, env);
-                this.addComponent(new Link(env.getProperty("download.earnings.pdf.button"), new ExternalResource("/download/pdf/earnings.pdf")));
+                FileDownloader.action(this, env.getProperty("download.earnings.pdf.button"), "/download/pdf/earnings.pdf");
             } else {
                 Notification.show(env.getProperty("incorrect.values.notification"));
             }
         });
 
-        /// Earnings based on amount of packages
-
+        // Earnings based on amount of packages
         Button generateEarningsRaportPackages = new Button(env.getProperty("generate.earnings.by.packages.raport"));
         HorizontalLayout earningsByPackagesLayout = new HorizontalLayout();
 
@@ -159,8 +159,7 @@ public class EarningsRaportGenerationTab extends VerticalLayout {
                 DeleteFile.ifExists(new File(pdfPath));
                 List<FruitPicker> fruitPickers = fruitPickerService.findAll();
                 PickersToPdfWriter.writeEarningsRaportByPackages(fruitPickers, pdfPath, price1, price2, price3, price4, false, env);
-                this.addComponent(new Link(env.getProperty("download.earnings.by.packages.pdf.button"),
-                        new ExternalResource("/download/pdf/earningsBasedOnPackages.pdf")));
+                FileDownloader.action(this, env.getProperty("download.earnings.by.packages.pdf.button"),"/download/pdf/earningsBasedOnPackages.pdf");
             } else {
                 Notification.show(env.getProperty("incorrect.values.notification"));
             }
