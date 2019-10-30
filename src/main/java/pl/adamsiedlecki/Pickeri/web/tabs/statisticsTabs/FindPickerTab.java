@@ -61,9 +61,9 @@ public class FindPickerTab extends VerticalLayout {
         addTypeColumnIfExists(2);
         addTypeColumnIfExists(3);
         fruitPickerGrid.setSizeFull();
-        fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()));
         fruitPickerGrid.setHeight(700, Unit.PIXELS);
-        root.addComponents(fruitPickerGrid);
+        RefreshThread refreshThread = new RefreshThread();
+        refreshThread.start();
     }
 
     private void addTypeColumnIfExists(int slot) {
@@ -91,6 +91,14 @@ public class FindPickerTab extends VerticalLayout {
                 fruitPickerGrid.addColumn(FruitPicker::getWeightKgWithTypeFourPlainText)
                         .setCaption(fruitTypeService.getType(slot).getName() + env.getProperty("weight.kg"));
             }
+        }
+    }
+
+    private class RefreshThread extends Thread{
+        @Override
+        public void run(){
+            fruitPickerGrid.setItems(fruitPickerService.findAll(filter.getValue()));
+            root.addComponents(fruitPickerGrid);
         }
     }
 

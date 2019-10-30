@@ -9,6 +9,7 @@ import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
+import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
@@ -88,21 +89,28 @@ public class StatisticsTab extends VerticalLayout {
     }
 
     private void refreshData() {
-        pickersSumLabel.setValue(env.getProperty("employees.total.amount") + fruitPickerService.getTotalAmountOfPickers());
-        packagesSumLabel.setValue(env.getProperty("all.packages.sum.label") + fruitDeliveryService.getTotalAmountOfPackages());
-        varietiesSumLabel.setValue(env.getProperty("varieties.total.amount") + fruitVarietyService.findAll().size());
-        weightSumLabel.setValue(env.getProperty("total.fruits.weight") + fruitDeliveryService.getWeightSum()
-                .divide(new BigDecimal(1000), 4, RoundingMode.FLOOR));
-        List<FruitVariety> varieties = fruitVarietyService.findAll();
-
-        setGrid(varietiesGridPackageStat, varieties);
-        setGrid(varietiesGridWeightStat, varieties);
+        RefreshThread refreshThread = new RefreshThread();
+        refreshThread.start();
     }
 
     private void setGrid(Grid<FruitVariety> grid, List<FruitVariety> varieties) {
         grid.setItems(varieties);
         grid.setSizeFull();
         grid.sort("total", SortDirection.DESCENDING);
+    }
+
+    private class RefreshThread extends Thread{
+        @Override
+        public void run(){
+            pickersSumLabel.setValue(env.getProperty("employees.total.amount") + fruitPickerService.getTotalAmountOfPickers());
+            packagesSumLabel.setValue(env.getProperty("all.packages.sum.label") + fruitDeliveryService.getTotalAmountOfPackages());
+            varietiesSumLabel.setValue(env.getProperty("varieties.total.amount") + fruitVarietyService.findAll().size());
+            weightSumLabel.setValue(env.getProperty("total.fruits.weight") + fruitDeliveryService.getWeightSum()
+                    .divide(new BigDecimal(1000), 4, RoundingMode.FLOOR));
+            List<FruitVariety> varieties = fruitVarietyService.findAll();
+            setGrid(varietiesGridPackageStat, varieties);
+            setGrid(varietiesGridWeightStat, varieties);
+        }
     }
 
 }

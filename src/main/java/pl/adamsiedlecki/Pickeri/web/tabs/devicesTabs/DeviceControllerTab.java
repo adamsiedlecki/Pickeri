@@ -2,6 +2,8 @@ package pl.adamsiedlecki.Pickeri.web.tabs.devicesTabs;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -16,6 +18,7 @@ import java.util.List;
 public class DeviceControllerTab extends VerticalLayout {
 
     private DeviceService deviceService;
+    private static final Logger log = LoggerFactory.getLogger(DeviceControllerTab.class);
 
     public DeviceControllerTab(Environment env, DeviceService deviceService){
         this.deviceService = deviceService;
@@ -43,13 +46,14 @@ public class DeviceControllerTab extends VerticalLayout {
                         Button stopButton = new Button(env.getProperty("off"));
                         startButton.addClickListener(ev->{
                             device.start();
-                            setIcons(device, startButton, stopButton, panel);
+                            setButtonIcons(device, startButton, stopButton);
                         });
                         stopButton.addClickListener(event->{
                             device.stop();
-                            setIcons(device, startButton, stopButton, panel);
+                            setButtonIcons(device, startButton, stopButton);
                         });
-                        setIcons(device, startButton, stopButton, panel);
+                        setButtonIcons(device, startButton, stopButton);
+                        setPanelIcons(device, panel);
                         panelRoot.addComponents(startButton, stopButton);
                         panelRoot.forEach(component -> panelRoot.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
                         panel.setContent(panelRoot);
@@ -84,9 +88,12 @@ public class DeviceControllerTab extends VerticalLayout {
         root.addComponent(row);
     }
 
-    private void setIcons(Device device, Button startButton, Button stopButton, Panel panel){
+    private void setButtonIcons(Device device, Button startButton, Button stopButton){
         Thread isEnabledTest = new IsEnabledTestRunnable(startButton, stopButton, device);
         isEnabledTest.start();
+    }
+
+    private void setPanelIcons(Device device, Panel panel){
         Thread pingTestThread = new PingTestRunnable(panel, device);
         pingTestThread.start();
     }
@@ -112,7 +119,7 @@ public class DeviceControllerTab extends VerticalLayout {
         }
     }
 
-    private static class IsEnabledTestRunnable extends Thread{
+    private class IsEnabledTestRunnable extends Thread{
 
         private Button startButton;
         private Button stopButton;
@@ -126,12 +133,19 @@ public class DeviceControllerTab extends VerticalLayout {
 
         @Override
         public void run() {
-            if(device.isEnabled()){
-                startButton.setIcon(VaadinIcons.CHECK_CIRCLE);
-                stopButton.setIcon(null);
-            }else {
-                stopButton.setIcon(VaadinIcons.CLOSE_SMALL);
-                startButton.setIcon(null);
+            try {
+                Thread.sleep(1000);
+                if(device.isEnabled()){
+                    startButton.setIcon(VaadinIcons.CHECK_CIRCLE);
+                    stopButton.setIcon(null);
+                    //DeviceControllerTab.this.getUI().getPage().reload();
+                }else {
+                    stopButton.setIcon(VaadinIcons.CLOSE_SMALL);
+                    startButton.setIcon(null);
+                    //DeviceControllerTab.this.getUI().getPage().reload();
+                }
+            } catch (InterruptedException e) {
+                log.error(e.getMessage());
             }
         }
     }

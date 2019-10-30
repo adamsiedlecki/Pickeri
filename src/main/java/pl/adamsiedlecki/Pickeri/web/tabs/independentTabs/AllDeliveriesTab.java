@@ -46,7 +46,15 @@ public class AllDeliveriesTab extends VerticalLayout {
     }
 
     private void refreshGrid() {
-        fruitDeliveryGrid.setItems(fruitDeliveryService.findAll());
-        fruitDeliveryGrid.setHeight(700, Unit.PIXELS);
+        Thread refreshThread = new RefreshThread();
+        refreshThread.start();
+    }
+
+    private class RefreshThread extends Thread{
+        @Override
+        public void run(){
+            fruitDeliveryGrid.setItems(fruitDeliveryService.findAll());
+            fruitDeliveryGrid.setHeight(700, Unit.PIXELS);
+        }
     }
 }
