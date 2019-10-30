@@ -20,7 +20,11 @@ public class InfoGetter {
             JSONArray bids = (JSONArray) json.get("bids");
             JSONArray offer = (JSONArray) bids.get(0);
             String price = offer.get(0).toString();
-            return price;
+            if(price.isEmpty()){
+                return "--";
+            }else{
+                return price;
+            }
         } catch (IOException e) {
             log.error(e.getMessage());
         } catch (JSONException e) {
@@ -35,7 +39,12 @@ public class InfoGetter {
             JSONObject object = JsonReader.readJsonFromUrl(url);
             JSONArray array = (JSONArray) object.get("rates");
             JSONObject rate = array.getJSONObject(0);
-            return  Double.toString((Double) rate.get("bid"));
+            String price = Double.toString((Double) rate.get("bid"));
+            if(price.isEmpty()){
+                return "--";
+            }else{
+                return price;
+            }
         } catch (IOException e) {
             log.error(e.getMessage());
         } catch (JSONException e) {
