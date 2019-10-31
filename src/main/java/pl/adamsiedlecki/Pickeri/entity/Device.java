@@ -28,6 +28,15 @@ public class Device {
     private DeviceController deviceController;
 
     public Device(int pin, String name, DeviceController deviceController) {
+        if(pin<0){
+            throw new IllegalArgumentException();
+        }
+        if(name==null || name.isBlank() || name.isEmpty()){
+            throw new IllegalArgumentException();
+        }
+        if(deviceController==null){
+            throw new IllegalArgumentException();
+        }
         this.pin = pin;
         this.name = name;
         this.deviceController = deviceController;
