@@ -14,6 +14,9 @@ public class InfoGetter {
     private static final Logger log = LoggerFactory.getLogger(InfoGetter.class);
 
     public static String getBitcoinPrice(Environment env){
+        if(env==null){
+            throw new IllegalArgumentException("Environment cannot be null.");
+        }
         String url = env.getProperty("bitcoin.api");
         try {
             JSONObject json = JsonReader.readJsonFromUrl(url);
