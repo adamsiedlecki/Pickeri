@@ -47,16 +47,20 @@ public class DeviceControllerTab extends VerticalLayout {
                         Button stopButton = new Button(env.getProperty("off"));
                         final MagicClick magicClick1 = new MagicClick((short) 0);
                         startButton.addClickListener(ev->{
-                            device.start();
-                            setButtonIcons(device, startButton, stopButton);
-                            magicClick1.perform(startButton);
+                            if(panel.getIcon()!=VaadinIcons.EXCLAMATION_CIRCLE){
+                                device.start();
+                                setButtonIcons(device, startButton, stopButton);
+                                magicClick1.perform(startButton);
+                            }
 
                         });
                         final MagicClick magicClick2 = new MagicClick((short) 0);
                         stopButton.addClickListener(event->{
-                            device.stop();
-                            setButtonIcons(device, startButton, stopButton);
-                            magicClick2.perform(stopButton);
+                            if(panel.getIcon()!=VaadinIcons.EXCLAMATION_CIRCLE){
+                                device.stop();
+                                setButtonIcons(device, startButton, stopButton);
+                                magicClick2.perform(stopButton);
+                            }
 
                         });
                         setButtonIcons(device, startButton, stopButton);
