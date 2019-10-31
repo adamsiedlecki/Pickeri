@@ -133,8 +133,7 @@ public class DeviceControllerTab extends VerticalLayout {
 
         @Override
         public void run() {
-            try {
-                Thread.sleep(1000);
+
                 if(device.isEnabled()){
                     startButton.setIcon(VaadinIcons.CHECK_CIRCLE);
                     stopButton.setIcon(null);
@@ -144,9 +143,7 @@ public class DeviceControllerTab extends VerticalLayout {
                     startButton.setIcon(null);
                     //DeviceControllerTab.this.getUI().getPage().reload();
                 }
-            } catch (InterruptedException e) {
-                log.error(e.getMessage());
-            }
+
         }
     }
 

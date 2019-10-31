@@ -36,8 +36,7 @@ public class ApiDevice {
         this.key = key;
     }
 
-    @Override
-    public String toString() {
+    public String toJson() {
         return "{" +
                 "\"pin\":" + pin +
                 ", \"state\":\"" + state + '\"' +

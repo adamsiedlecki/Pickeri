@@ -62,7 +62,7 @@ public class DeviceApiInteraction {
 
     public static String getWithPOST(String url, ApiDevice apiDevice){
         CloseableHttpResponse response;
-        String json = apiDevice.toString();
+        String json = apiDevice.toJson();
         try {
             StringEntity entity = new StringEntity(json);
             CloseableHttpClient client = HttpClients.createDefault();
