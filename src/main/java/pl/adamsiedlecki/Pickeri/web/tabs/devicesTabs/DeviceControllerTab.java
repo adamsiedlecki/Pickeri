@@ -9,6 +9,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.Device;
 import pl.adamsiedlecki.Pickeri.service.DeviceService;
+import pl.adamsiedlecki.Pickeri.tools.MagicClick;
 import pl.adamsiedlecki.Pickeri.tools.net.PingTest;
 
 import java.util.List;
@@ -44,13 +45,19 @@ public class DeviceControllerTab extends VerticalLayout {
                         panelRoot.addComponent(controllerName);
                         Button startButton = new Button(env.getProperty("on"));
                         Button stopButton = new Button(env.getProperty("off"));
+                        final MagicClick magicClick1 = new MagicClick((short) 0);
                         startButton.addClickListener(ev->{
                             device.start();
                             setButtonIcons(device, startButton, stopButton);
+                            magicClick1.perform(startButton);
+
                         });
+                        final MagicClick magicClick2 = new MagicClick((short) 0);
                         stopButton.addClickListener(event->{
                             device.stop();
                             setButtonIcons(device, startButton, stopButton);
+                            magicClick2.perform(stopButton);
+
                         });
                         setButtonIcons(device, startButton, stopButton);
                         setPanelIcons(device, panel);
@@ -110,6 +117,10 @@ public class DeviceControllerTab extends VerticalLayout {
 
         @Override
         public void run() {
+            perform();
+        }
+
+         private void perform(){
             PingTest pingTest = new PingTest();
             if(pingTest.isAlive(device)){
                 panel.setIcon(VaadinIcons.BULLSEYE);
@@ -125,7 +136,7 @@ public class DeviceControllerTab extends VerticalLayout {
         private Button stopButton;
         private Device device;
 
-        public IsEnabledTestRunnable(Button startButton, Button stopButton, Device device){
+        IsEnabledTestRunnable(Button startButton, Button stopButton, Device device){
             this.stopButton = stopButton;
             this.startButton = startButton;
             this.device = device;
@@ -133,16 +144,18 @@ public class DeviceControllerTab extends VerticalLayout {
 
         @Override
         public void run() {
-
-                if(device.isEnabled()){
-                    startButton.setIcon(VaadinIcons.CHECK_CIRCLE);
-                    stopButton.setIcon(null);
-                    //DeviceControllerTab.this.getUI().getPage().reload();
-                }else {
-                    stopButton.setIcon(VaadinIcons.CLOSE_SMALL);
-                    startButton.setIcon(null);
-                    //DeviceControllerTab.this.getUI().getPage().reload();
-                }
+            perform();
+        }
+         private void perform(){
+            if(device.isEnabled()){
+                startButton.setIcon(VaadinIcons.CHECK_CIRCLE);
+                stopButton.setIcon(null);
+                //DeviceControllerTab.this.getUI().getPage().reload();
+            }else {
+                stopButton.setIcon(VaadinIcons.CLOSE_SMALL);
+                startButton.setIcon(null);
+                //DeviceControllerTab.this.getUI().getPage().reload();
+            }
 
         }
     }
