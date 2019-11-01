@@ -1,6 +1,9 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
+import com.google.common.base.Preconditions;
+
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,15 +23,24 @@ public class DeviceController {
     private List<Device> devices;
 
     public DeviceController(String name, String password, String address) {
+        Preconditions.checkArgument(name!=null, "Name cannot be null.");
+        Preconditions.checkArgument(!name.isEmpty(), "Name cannot be empty.");
+        Preconditions.checkArgument(!name.isBlank(), "Name cannot be blank.");
+        Preconditions.checkArgument(password!=null, "Password cannot be null.");
+        Preconditions.checkArgument(address!=null, "Address cannot be null.");
+        Preconditions.checkArgument(!address.isEmpty(), "Address cannot be empty.");
+        Preconditions.checkArgument(!address.isBlank(), "Address cannot be blank.");
         this.name = name;
         this.password = password;
         this.address = address;
+        devices = new ArrayList<>();
     }
 
     public DeviceController() {
     }
 
     public void addDevice(Device device){
+        Preconditions.checkArgument(device!=null, "Device cannot be null.");
         this.devices.add(device);
     }
 
@@ -45,6 +57,7 @@ public class DeviceController {
     }
 
     public void setName(String name) {
+        Preconditions.checkArgument(name!=null, "Name cannot be null.");
         this.name = name;
     }
 
@@ -53,6 +66,7 @@ public class DeviceController {
     }
 
     public void setPassword(String password) {
+        Preconditions.checkArgument(password!=null, "Password cannot be null.");
         this.password = password;
     }
 
@@ -61,6 +75,7 @@ public class DeviceController {
     }
 
     public void setAddress(String address) {
+        Preconditions.checkArgument(address!=null, "Address cannot be null.");
         this.address = address;
     }
 

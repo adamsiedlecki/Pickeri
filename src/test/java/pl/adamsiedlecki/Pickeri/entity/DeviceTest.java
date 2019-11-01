@@ -14,12 +14,16 @@ public class DeviceTest {
     public void setPin(){
         Device device = new Device(2,"name", mock(DeviceController.class));
         Assert.assertEquals(2, device.getPin());
+        device.setPin(3);
+        Assert.assertEquals(3, device.getPin());
     }
 
     @Test
     public void setName(){
         Device device = new Device(2,"name123", mock(DeviceController.class));
         Assert.assertEquals("name123", device.getName());
+        device.setName("name2");
+        Assert.assertEquals("name2", device.getName());
     }
 
     @Test
