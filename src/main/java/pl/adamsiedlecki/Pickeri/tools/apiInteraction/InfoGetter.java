@@ -30,10 +30,11 @@ public class InfoGetter {
             }
         } catch (IOException e) {
             log.error(e.getMessage());
+
         } catch (JSONException e) {
             log.error(e.getMessage());
         }
-        return "";
+        return "--";
     }
 
     public static String getDollarPrice(Environment env){
@@ -53,7 +54,7 @@ public class InfoGetter {
         } catch (JSONException e) {
             log.error(e.getMessage());
         }
-        return "";
+        return "--";
     }
 
 }
