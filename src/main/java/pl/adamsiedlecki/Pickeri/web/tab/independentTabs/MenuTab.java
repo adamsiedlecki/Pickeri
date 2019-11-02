@@ -51,6 +51,7 @@ public class MenuTab extends VerticalLayout {
         addLink(thirdList, "documents.title", "/documents-generator");
         addLink(thirdList,"varieties.and.types.of.fruits","/varieties-and-types");
         addLink(thirdList, "devices.controller.title", "/devices-controller");
+        addLink(thirdList, "settings.title", "/settings");
 
         root.setWidth(100, Unit.PERCENTAGE);
         root.addComponents(firstList, secondList, thirdList);
@@ -94,6 +95,7 @@ public class MenuTab extends VerticalLayout {
         addIconIfPropertyContains(propertyName,"employees",VaadinIcons.GROUP, link);
         addIconIfPropertyContains(propertyName,"stat",VaadinIcons.TRENDING_UP, link);
         addIconIfPropertyContains(propertyName,"devices",VaadinIcons.AUTOMATION, link);
+        addIconIfPropertyContains(propertyName,"settings",VaadinIcons.ELLIPSIS_CIRCLE, link);
         
         link.addClickListener(e->{
             if(this.getUI().getPage()!=null){
@@ -107,7 +109,7 @@ public class MenuTab extends VerticalLayout {
         layout.setComponentAlignment(link, Alignment.TOP_CENTER);
 
         if(propertyName!=null && propertyName.contains("logout")){
-            link.setIcon(VaadinIcons.ARROW_CIRCLE_DOWN);
+            link.setIcon(VaadinIcons.SIGN_OUT);
             layout.setComponentAlignment(link, Alignment.BOTTOM_CENTER);
             link.setWidth(20, Unit.PERCENTAGE);
             link.setStyleName(ValoTheme.BUTTON_PRIMARY);
