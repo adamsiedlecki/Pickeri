@@ -2,6 +2,7 @@ package pl.adamsiedlecki.Pickeri.web.tab.independentTabs;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Resource;
+import com.vaadin.server.Sizeable;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.NoteService;
+import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.components.StockInfoPanel;
 
@@ -20,10 +22,12 @@ public class MenuTab extends VerticalLayout {
 
     private Environment env;
     private Logger log = LoggerFactory.getLogger(MenuTab.class);
+    private SettingsService settingsService;
 
     @Autowired
-    public MenuTab(Environment environment, NoteService noteService, StockInfoPanel stockInfoPanel) {
+    public MenuTab(Environment environment, NoteService noteService, StockInfoPanel stockInfoPanel, SettingsService settingsService) {
         this.env = environment;
+        this.settingsService = settingsService;
         HorizontalLayout root = new HorizontalLayout();
         VerticalLayout firstList = new VerticalLayout();
         VerticalLayout secondList = new VerticalLayout();
@@ -63,6 +67,13 @@ public class MenuTab extends VerticalLayout {
         root.setComponentAlignment(thirdList, Alignment.TOP_RIGHT);
         root.setMargin(false);
         root.setHeight(100, Unit.PERCENTAGE);
+
+        Label headerLabel = new Label(settingsService.get("menu.header.text").getState());
+        headerLabel.setStyleName(ValoTheme.LABEL_H3);
+        headerLabel.setHeight(10, Sizeable.Unit.PIXELS);
+        this.addComponent(headerLabel);
+        this.setComponentAlignment(headerLabel, Alignment.TOP_CENTER);
+
         this.addComponent(root);
         addLink(this, "logout.button", "/logout");
         HorizontalLayout logoLayout = ResourceGetter.getSiedleckiLogoWithLayout();
@@ -80,7 +91,23 @@ public class MenuTab extends VerticalLayout {
         String name = env.getProperty(propertyName);
         Button link = new Button(name);
         link.setWidth(240, Unit.PIXELS);
-        link.addStyleNames(ValoTheme.BUTTON_LARGE);
+        System.out.println(settingsService.get("menu.buttons.style").getState());
+        switch (settingsService.get("menu.buttons.style").getState()) {
+            case "LARGE":
+            case "":
+                link.setStyleName(ValoTheme.BUTTON_LARGE);
+                break;
+            case "PRIMARY":
+                link.setStyleName(ValoTheme.BUTTON_PRIMARY);
+                break;
+            case "BORDERLESS":
+                link.setStyleName(ValoTheme.BUTTON_BORDERLESS);
+                break;
+            case "QUIET":
+                link.setStyleName(ValoTheme.BUTTON_QUIET);
+                break;
+        }
+
 
         addIconIfPropertyContains(propertyName,"ranking",VaadinIcons.TABLE, link);
         addIconIfPropertyContains(propertyName,"add.fruits",VaadinIcons.PLUS_CIRCLE, link);
