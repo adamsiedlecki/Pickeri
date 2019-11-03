@@ -23,6 +23,7 @@ public class MenuTab extends VerticalLayout {
     private Environment env;
     private Logger log = LoggerFactory.getLogger(MenuTab.class);
     private SettingsService settingsService;
+    private static String buttonStyle;
 
     @Autowired
     public MenuTab(Environment environment, NoteService noteService, StockInfoPanel stockInfoPanel, SettingsService settingsService) {
@@ -32,6 +33,22 @@ public class MenuTab extends VerticalLayout {
         VerticalLayout firstList = new VerticalLayout();
         VerticalLayout secondList = new VerticalLayout();
         VerticalLayout thirdList = new VerticalLayout();
+
+        switch (settingsService.get("menu.buttons.style").getState()) {
+            case "LARGE":
+            case "":
+                buttonStyle = ValoTheme.BUTTON_LARGE;
+                break;
+            case "PRIMARY":
+                buttonStyle = ValoTheme.BUTTON_PRIMARY;
+                break;
+            case "BORDERLESS":
+                buttonStyle = ValoTheme.BUTTON_BORDERLESS;
+                break;
+            case "QUIET":
+                buttonStyle = ValoTheme.BUTTON_QUIET;
+                break;
+        }
 
         addLink(firstList, "add.fruits.ui", "/");
         addLink(firstList, "statistics.and.employees.ui", "/statistics-and-info");
@@ -91,23 +108,7 @@ public class MenuTab extends VerticalLayout {
         String name = env.getProperty(propertyName);
         Button link = new Button(name);
         link.setWidth(240, Unit.PIXELS);
-        System.out.println(settingsService.get("menu.buttons.style").getState());
-        switch (settingsService.get("menu.buttons.style").getState()) {
-            case "LARGE":
-            case "":
-                link.setStyleName(ValoTheme.BUTTON_LARGE);
-                break;
-            case "PRIMARY":
-                link.setStyleName(ValoTheme.BUTTON_PRIMARY);
-                break;
-            case "BORDERLESS":
-                link.setStyleName(ValoTheme.BUTTON_BORDERLESS);
-                break;
-            case "QUIET":
-                link.setStyleName(ValoTheme.BUTTON_QUIET);
-                break;
-        }
-
+        link.setStyleName(buttonStyle);
 
         addIconIfPropertyContains(propertyName,"ranking",VaadinIcons.TABLE, link);
         addIconIfPropertyContains(propertyName,"add.fruits",VaadinIcons.PLUS_CIRCLE, link);
