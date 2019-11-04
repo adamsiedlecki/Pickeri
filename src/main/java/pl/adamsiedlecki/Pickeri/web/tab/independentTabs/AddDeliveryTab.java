@@ -135,29 +135,46 @@ public class AddDeliveryTab extends VerticalLayout {
     }
 
     private void saveAction() {
-        if (NumberUtils.isCreatable(fruitPickerId.getValue()) && NumberUtils.isCreatable(packageAmount.getValue())
-                && NumberUtils.isCreatable(weightField.getValue())) {
-            if (fruitPickerId.isEmpty() || packageAmount.isEmpty() || fruitTypeRadioButton.isEmpty() || fruitVarietyRadioButton.isEmpty()
-                    || weightField.isEmpty()) {
+        if (areValuesNumeric()) {
+            if (areFieldsNotEmpty()) {
                 Notification.show(env.getProperty("complete.fields.notification"));
             } else {
-                FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerId.getValue()),
-                        fruitTypeRadioButton.getValue(), Long.parseLong(packageAmount.getValue()), commentField.getValue(),
-                        fruitVarietyRadioButton.getValue(), LocalDateTime.now());
-                fruitDelivery.setFruitWeight(new BigDecimal(weightField.getValue()));
-                Geolocation geo = new Geolocation(this.getUI());
-                geo.getCurrentPosition(position -> {
-                    Coordinates coordinates = position.getCoordinates();
-                    fruitDelivery.setGeoLocalization(new GeoLocalization(coordinates.getLatitude(),
-                            coordinates.getLongitude()));
-                });
-                fruitDeliveryService.addDelivery(fruitDelivery);
-                cleanFields();
+                if(areValuesNotLessThanZero()){
+                    FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerId.getValue()),
+                            fruitTypeRadioButton.getValue(), Long.parseLong(packageAmount.getValue()), commentField.getValue(),
+                            fruitVarietyRadioButton.getValue(), LocalDateTime.now());
+                    fruitDelivery.setFruitWeight(new BigDecimal(weightField.getValue()));
+                    Geolocation geo = new Geolocation(this.getUI());
+                    geo.getCurrentPosition(position -> {
+                        Coordinates coordinates = position.getCoordinates();
+                        fruitDelivery.setGeoLocalization(new GeoLocalization(coordinates.getLatitude(),
+                                coordinates.getLongitude()));
+                    });
+                    fruitDeliveryService.addDelivery(fruitDelivery);
+                    cleanFields();
+                }else{
+                    // values cannot be less than zero
+                }
             }
         } else {
             Notification.show(env.getProperty("id.and.amount.must.be.integr"));
         }
 
+    }
+
+    private boolean areValuesNotLessThanZero(){
+        return Integer.parseInt(fruitPickerId.getValue())>0 && Integer.parseInt(packageAmount.getValue())>0
+                && Integer.parseInt(weightField.getValue())>0;
+    }
+
+    private boolean areValuesNumeric(){
+        return NumberUtils.isCreatable(fruitPickerId.getValue()) && NumberUtils.isCreatable(packageAmount.getValue())
+                && NumberUtils.isCreatable(weightField.getValue());
+    }
+
+    private boolean areFieldsNotEmpty(){
+        return fruitPickerId.isEmpty() || packageAmount.isEmpty() || fruitTypeRadioButton.isEmpty() || fruitVarietyRadioButton.isEmpty()
+                || weightField.isEmpty();
     }
 
     private void cleanFields() {
