@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Objects;
 
 @Entity
 public class Device {
@@ -98,4 +99,5 @@ public class Device {
                 ", name='" + name + '\'' +
                 '}';
     }
+
 }
