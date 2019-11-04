@@ -153,7 +153,7 @@ public class AddDeliveryTab extends VerticalLayout {
                     fruitDeliveryService.addDelivery(fruitDelivery);
                     cleanFields();
                 }else{
-                    // values cannot be less than zero
+                    Notification.show(env.getProperty("some.values.cannot.be.less.than.zero"));
                 }
             }
         } else {
@@ -163,8 +163,8 @@ public class AddDeliveryTab extends VerticalLayout {
     }
 
     private boolean areValuesNotLessThanZero(){
-        return Integer.parseInt(fruitPickerId.getValue())>0 && Integer.parseInt(packageAmount.getValue())>0
-                && Integer.parseInt(weightField.getValue())>0;
+        return Integer.parseInt(fruitPickerId.getValue())>=0 && Integer.parseInt(packageAmount.getValue())>=0
+                && Integer.parseInt(weightField.getValue())>=0;
     }
 
     private boolean areValuesNumeric(){
