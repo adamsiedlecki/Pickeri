@@ -54,6 +54,7 @@ public class GeneralSettingsTab extends VerticalLayout {
         row.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         Button button = new Button(buttonCaption);
         ComboBox<String> valueField = new ComboBox<>();
+        valueField.setEmptySelectionAllowed(false);
         valueField.setItems(values);
         valueField.setValue(settingsService.get(key).getState());
         valueField.setWidth(250, Unit.PIXELS);
