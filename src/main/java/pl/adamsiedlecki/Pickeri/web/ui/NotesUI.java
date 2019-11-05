@@ -13,7 +13,9 @@ import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
+import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.AlignmentSetter;
+import pl.adamsiedlecki.Pickeri.tools.HeaderAdder;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tab.noteTabs.AddNoteTab;
@@ -30,10 +32,13 @@ public class NotesUI extends UI {
     private TabSheet tabs;
     private Environment env;
     private VerticalLayout root;
+    private SettingsService settingsService;
 
     @Autowired
-    public NotesUI(Environment environment, AddNoteTab addNoteTab, MenuTab menuTab, AllNotesTab allNotesTab, DeleteNoteTab deleteNoteTab) {
+    public NotesUI(Environment environment, AddNoteTab addNoteTab, MenuTab menuTab, AllNotesTab allNotesTab, DeleteNoteTab deleteNoteTab,
+                   SettingsService settingsService) {
         this.env = environment;
+        this.settingsService = settingsService;
         tabs = new TabSheet();
         tabs.addTab(addNoteTab).setCaption(environment.getProperty("add.note.tab"));
         tabs.addTab(allNotesTab, env.getProperty("all.notes.tab"));
@@ -44,11 +49,9 @@ public class NotesUI extends UI {
     @Override
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
-        Embedded pickeriLogo = ResourceGetter.getPickeriLogoAsEmbeddedComponent();
-        root.addComponent(pickeriLogo);
-        root.setMargin(new MarginInfo(false, true, true, true));
+        HeaderAdder.add(root, settingsService);
         root.addComponent(tabs);
-        AlignmentSetter.apply(root, pickeriLogo, tabs);
+        AlignmentSetter.apply(root, tabs);
         this.setContent(root);
     }
 

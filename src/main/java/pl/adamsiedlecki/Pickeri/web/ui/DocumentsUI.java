@@ -11,7 +11,9 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.AlignmentSetter;
+import pl.adamsiedlecki.Pickeri.tools.HeaderAdder;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tab.documentsTabs.ExcelGenerationTab;
 import pl.adamsiedlecki.Pickeri.web.tab.documentsTabs.PdfDocumentsGeneratorTab;
@@ -31,24 +33,26 @@ public class DocumentsUI extends UI {
     private Environment env;
     private EarningsRaportGenerationTab pdfGenerationTab;
     private ExcelGenerationTab excelGenerationTab;
+    private SettingsService settingsService;
 
     @Autowired
     public DocumentsUI(PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab, MenuTab menuTab, Environment environment,
-                       EarningsRaportGenerationTab pdfGenerationTab, ExcelGenerationTab excelGenerationTab) {
+                       EarningsRaportGenerationTab pdfGenerationTab, ExcelGenerationTab excelGenerationTab,
+                       SettingsService settingsService) {
         this.pdfDocumentsGeneratorTab = pdfDocumentsGeneratorTab;
         this.pdfGenerationTab = pdfGenerationTab;
         this.menuTab = menuTab;
         this.env = environment;
         this.excelGenerationTab = excelGenerationTab;
+        this.settingsService = settingsService;
     }
 
     @Override
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
-        Embedded pickeriLogo = ResourceGetter.getPickeriLogoAsEmbeddedComponent();
-        root.addComponent(pickeriLogo);
+        HeaderAdder.add(root, settingsService);
         addTabs();
-        AlignmentSetter.apply(root, pickeriLogo, tabs);
+        AlignmentSetter.apply(root, tabs);
         this.setContent(root);
     }
 

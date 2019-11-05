@@ -11,7 +11,9 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.AlignmentSetter;
+import pl.adamsiedlecki.Pickeri.tools.HeaderAdder;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tab.statisticsTabs.FindPickerTab;
@@ -29,23 +31,24 @@ public class StatisticsUI extends UI {
     private StatisticsTab statisticsTab;
     private MenuTab othersTab;
     private Environment env;
+    private SettingsService settingsService;
 
     @Autowired
     public StatisticsUI(FindPickerTab findPickerTab, StatisticsTab statisticsTab,
-                        MenuTab othersTab, Environment environment) {
+                        MenuTab othersTab, Environment environment, SettingsService settingsService) {
         this.findPickerTab = findPickerTab;
         this.statisticsTab = statisticsTab;
         this.othersTab = othersTab;
         this.env = environment;
+        this.settingsService = settingsService;
     }
 
     @Override
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
-        Embedded pickeriLogo = ResourceGetter.getPickeriLogoAsEmbeddedComponent();
-        root.addComponent(pickeriLogo);
+        HeaderAdder.add(root, settingsService);
         addTabs();
-        AlignmentSetter.apply(root, pickeriLogo, tabs);
+        AlignmentSetter.apply(root, tabs);
         this.setContent(root);
     }
 

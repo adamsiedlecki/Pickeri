@@ -11,7 +11,9 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.AlignmentSetter;
+import pl.adamsiedlecki.Pickeri.tools.HeaderAdder;
 import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tab.othersUITabs.AddDeleteTypeTab;
@@ -31,25 +33,26 @@ public class VerietiesAndTypesOfFruitsUI extends UI {
     private AddDeleteTypeTab addDeleteTypeTab;
     private AllVarietiesTab allVarietiesTab;
     private Environment env;
+    private SettingsService settingsService;
 
     @Autowired
     public VerietiesAndTypesOfFruitsUI(AddFruitVarietyTab addFruitVarietyTab, MenuTab othersTab,
                                        AddDeleteTypeTab addDeleteTypeTab, AllVarietiesTab allVarietiesTab,
-                                       Environment environment) {
+                                       Environment environment, SettingsService settingsService) {
         this.addDeleteTypeTab = addDeleteTypeTab;
         this.fruitVarietyTab = addFruitVarietyTab;
         this.othersTab = othersTab;
         this.allVarietiesTab = allVarietiesTab;
         this.env = environment;
+        this.settingsService = settingsService;
     }
 
     @Override
     protected void init(VaadinRequest request) {
         root = new VerticalLayout();
-        Embedded pickeriLogo = ResourceGetter.getPickeriLogoAsEmbeddedComponent();
-        root.addComponent(pickeriLogo);
+        HeaderAdder.add(root, settingsService);
         addTabs();
-        AlignmentSetter.apply(root, pickeriLogo, tabs);
+        AlignmentSetter.apply(root, tabs);
         this.setContent(root);
     }
 

@@ -9,10 +9,16 @@ import pl.adamsiedlecki.Pickeri.service.SettingsService;
 
 public class AlignmentSetter {
 
-    public static void apply(VerticalLayout root, Embedded pickeriLogo, TabSheet tabs){
+    public static void apply(VerticalLayout root, TabSheet tabs){
         root.setSizeFull();
         root.setMargin(new MarginInfo(false, true, false, true));
-        root.setExpandRatio(pickeriLogo, 1);
+        root.setExpandRatio(tabs,7);
+        tabs.setHeight(100, Sizeable.Unit.PERCENTAGE);
+    }
+
+    public static void apply(VerticalLayout root, Embedded embedded, TabSheet tabs){
+        root.setSizeFull();
+        root.setMargin(new MarginInfo(false, true, false, true));
         root.setExpandRatio(tabs,7);
         tabs.setHeight(100, Sizeable.Unit.PERCENTAGE);
     }
