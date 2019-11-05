@@ -85,12 +85,6 @@ public class MenuTab extends VerticalLayout {
         root.setMargin(false);
         root.setHeight(100, Unit.PERCENTAGE);
 
-        Label headerLabel = new Label(settingsService.get("menu.header.text").getState());
-        headerLabel.setStyleName(ValoTheme.LABEL_H3);
-        headerLabel.setHeight(10, Sizeable.Unit.PIXELS);
-        this.addComponent(headerLabel);
-        this.setComponentAlignment(headerLabel, Alignment.TOP_CENTER);
-
         this.addComponent(root);
         addLink(this, "logout.button", "/logout");
         HorizontalLayout logoLayout = ResourceGetter.getSiedleckiLogoWithLayout();
