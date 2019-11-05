@@ -72,6 +72,10 @@ public class FruitPicker {
         return hours;
     }
 
+    public String getIdNameLastName(){
+        return id+" "+name+" "+lastName;
+    }
+
     public List<WorkTime> getWorkTimeList() {
         return workTimeList;
     }

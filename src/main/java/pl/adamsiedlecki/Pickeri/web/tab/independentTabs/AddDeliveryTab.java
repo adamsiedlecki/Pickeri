@@ -2,7 +2,10 @@ package pl.adamsiedlecki.Pickeri.web.tab.independentTabs;
 
 import com.vaadin.addon.geolocation.Coordinates;
 import com.vaadin.addon.geolocation.Geolocation;
+import com.vaadin.annotations.HtmlImport;
+import com.vaadin.annotations.JavaScript;
 import com.vaadin.server.Page;
+import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -10,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
+import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.entity.GeoLocalization;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
+import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
 import pl.adamsiedlecki.Pickeri.tools.qr.QRCodeReader;
@@ -43,10 +48,13 @@ public class AddDeliveryTab extends VerticalLayout {
     private FruitTypeService fruitTypeService;
     private TextField weightField;
     private Environment env;
+    private ComboBox<String> pickersComboBox;
+    private FruitPickerService fruitPickerService;
 
     @Autowired
     public AddDeliveryTab(FruitDeliveryService fruitDeliveryService, FruitVarietyService fruitVarietyService,
-                          FruitTypeService fruitTypeService, Environment environment) {
+                          FruitTypeService fruitTypeService, Environment environment, FruitPickerService fruitPickerService) {
+        this.fruitPickerService = fruitPickerService;
         this.fruitVarietyService = fruitVarietyService;
         this.fruitDeliveryService = fruitDeliveryService;
         this.fruitTypeService = fruitTypeService;
@@ -101,6 +109,16 @@ public class AddDeliveryTab extends VerticalLayout {
         qrUpload.setImmediateMode(true);
 
         fruitPickerId = new TextField(env.getProperty("employee.id.field"));
+        pickersComboBox = new ComboBox<>();
+        pickersComboBox.setCaption(env.getProperty("fruit.pickers.list"));
+        pickersComboBox.setWidth(210, Unit.PIXELS);
+        pickersComboBox.addValueChangeListener(e->{
+            String[] tab = pickersComboBox.getValue().split(" ");
+            int id = Integer.parseInt(tab[0]);
+            fruitPickerId.setValue(String.valueOf(id));
+        });
+        refreshFruitPickers();
+
         packageAmount = new TextField(env.getProperty("package.amount"));
         packageAmount.setValue("0");
         weightField = new TextField(env.getProperty("weight.in.gram"));
@@ -117,11 +135,15 @@ public class AddDeliveryTab extends VerticalLayout {
         refreshVarieties();
         fruitVarietyRadioButton.setCaption(env.getProperty("fruit.variety.caption"));
 
-        pickerInfoLayout.addComponents(fruitPickerId, qrUpload);
+        pickerInfoLayout.addComponents(fruitPickerId, pickersComboBox, qrUpload);
         formLayout.addComponents(pickerInfoLayout, amountAndWeight, fruitTypeRadioButton, fruitVarietyRadioButton, commentField, save);
 
         root.addComponent(horizontalLayout);
         this.addComponent(root);
+    }
+
+    private void refreshFruitPickers(){
+        pickersComboBox.setItems(fruitPickerService.findAll().stream().map(FruitPicker::getIdNameLastName));
     }
 
     private void refreshVarieties() {
@@ -147,6 +169,7 @@ public class AddDeliveryTab extends VerticalLayout {
                     Geolocation geo = new Geolocation(this.getUI());
                     geo.getCurrentPosition(position -> {
                         Coordinates coordinates = position.getCoordinates();
+                        //
                         fruitDelivery.setGeoLocalization(new GeoLocalization(coordinates.getLatitude(),
                                 coordinates.getLongitude()));
                     });
