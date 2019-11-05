@@ -144,6 +144,7 @@ public class AddDeliveryTab extends VerticalLayout {
 
     private void refreshFruitPickers(){
         pickersComboBox.setItems(fruitPickerService.findAll().stream().map(FruitPicker::getIdNameLastName));
+        pickersComboBox.setEmptySelectionAllowed(false);
     }
 
     private void refreshVarieties() {
@@ -191,7 +192,7 @@ public class AddDeliveryTab extends VerticalLayout {
     }
 
     private boolean areValuesNumeric(){
-        return NumberUtils.isCreatable(fruitPickerId.getValue()) && NumberUtils.isCreatable(packageAmount.getValue())
+        return NumberUtils.isDigits(fruitPickerId.getValue()) && NumberUtils.isCreatable(packageAmount.getValue())
                 && NumberUtils.isCreatable(weightField.getValue());
     }
 
