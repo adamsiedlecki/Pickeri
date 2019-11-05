@@ -22,7 +22,7 @@ public class GeneralSettingsTab extends VerticalLayout {
         this.env = env;
         this.settingsService = settingsService;
         root = new VerticalLayout();
-        addRow(env.getProperty("menu.header.text"),env.getProperty("save.button"), "menu.header.text");
+        addRow(env.getProperty("header.text"),env.getProperty("save.button"), "header.text");
         addRowWithComboBox(env.getProperty("menu.buttons.style"), env.getProperty("save.button"), "menu.buttons.style",
                 List.of("LARGE","BORDERLESS", "QUIET", "PRIMARY"));
 

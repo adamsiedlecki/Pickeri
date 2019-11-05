@@ -10,7 +10,7 @@ public class HeaderAdder {
 
     public static void add(VerticalLayout root, SettingsService settingsService){
         Embedded pickeriLogo = ResourceGetter.getPickeriLogoAsEmbeddedComponent();
-        Label nameLabel = new Label(settingsService.get("menu.header.text").getState());
+        Label nameLabel = new Label(settingsService.get("header.text").getState());
         HorizontalLayout horizontalLayout = new HorizontalLayout(pickeriLogo, nameLabel);
         horizontalLayout.setWidth(100, Sizeable.Unit.PERCENTAGE);
         horizontalLayout.setComponentAlignment(nameLabel, Alignment.MIDDLE_CENTER);
