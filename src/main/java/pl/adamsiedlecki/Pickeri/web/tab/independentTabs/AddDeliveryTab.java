@@ -3,6 +3,7 @@ package pl.adamsiedlecki.Pickeri.web.tab.independentTabs;
 import com.vaadin.addon.geolocation.Coordinates;
 import com.vaadin.addon.geolocation.Geolocation;
 import com.vaadin.server.Page;
+import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -26,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 @SpringComponent
@@ -106,14 +108,19 @@ public class AddDeliveryTab extends VerticalLayout {
         qrUpload.setReceiver(new ImageUploader());
         qrUpload.setImmediateMode(true);
 
+        AtomicBoolean isEventAfterEnteringNotExistingId = new AtomicBoolean(false);
         fruitPickerIdField = new TextField(env.getProperty("employee.id.field"));
+        fruitPickerIdField.setValueChangeMode(ValueChangeMode.LAZY);
         pickersComboBox = new ComboBox<>();
         pickersComboBox.setCaption(env.getProperty("fruit.pickers.list"));
         pickersComboBox.setWidth(210, Unit.PIXELS);
         pickersComboBox.setEmptySelectionAllowed(true);
         pickersComboBox.addValueChangeListener(e->{
             if(pickersComboBox.getValue()==null || pickersComboBox.getValue().isEmpty()){
-                fruitPickerIdField.setValue("");
+                if(!isEventAfterEnteringNotExistingId.get()){
+                    fruitPickerIdField.setValue("");
+                }
+                isEventAfterEnteringNotExistingId.set(false);
             }else {
                 String[] tab = pickersComboBox.getValue().split(" ");
                 int id = Integer.parseInt(tab[0]);
@@ -128,6 +135,7 @@ public class AddDeliveryTab extends VerticalLayout {
                 if(fp.isPresent()){
                     pickersComboBox.setSelectedItem(fp.get().getIdNameLastName());
                 }else{
+                    isEventAfterEnteringNotExistingId.set(true);
                     pickersComboBox.setSelectedItem("");
                 }
             }
