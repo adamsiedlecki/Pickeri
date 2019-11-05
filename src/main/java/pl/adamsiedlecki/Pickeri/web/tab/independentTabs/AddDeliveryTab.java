@@ -2,10 +2,7 @@ package pl.adamsiedlecki.Pickeri.web.tab.independentTabs;
 
 import com.vaadin.addon.geolocation.Coordinates;
 import com.vaadin.addon.geolocation.Geolocation;
-import com.vaadin.annotations.HtmlImport;
-import com.vaadin.annotations.JavaScript;
 import com.vaadin.server.Page;
-import com.vaadin.shared.ui.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -28,6 +25,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 @SpringComponent
@@ -35,7 +33,7 @@ import java.util.List;
 public class AddDeliveryTab extends VerticalLayout {
 
     private VerticalLayout root;
-    private TextField fruitPickerId;
+    private TextField fruitPickerIdField;
     private TextField packageAmount;
     private RadioButtonGroup<String> fruitTypeRadioButton;
     private RadioButtonGroup<String> fruitVarietyRadioButton;
@@ -68,19 +66,19 @@ public class AddDeliveryTab extends VerticalLayout {
                 List<String> items = Arrays.asList(value.split("\\s*,\\s*"));
                 System.out.println(items.size() + value);
                 if (items.size() == 2) {
-                    fruitPickerId.setValue(items.get(0));
+                    fruitPickerIdField.setValue(items.get(0));
                     commentField.setValue(items.get(1));
 
                 } else {
                     Notification.show(env.getProperty("not.valid.qr"));
-                    fruitPickerId.setValue("");
+                    fruitPickerIdField.setValue("");
                     commentField.setValue("");
                     File f = new File(path);
                     f.delete();
                 }
             } else {
                 Notification.show(env.getProperty("not.valid.qr.notification"));
-                fruitPickerId.setValue("");
+                fruitPickerIdField.setValue("");
                 commentField.setValue("");
                 File f = new File(path);
                 f.delete();
@@ -108,16 +106,32 @@ public class AddDeliveryTab extends VerticalLayout {
         qrUpload.setReceiver(new ImageUploader());
         qrUpload.setImmediateMode(true);
 
-        fruitPickerId = new TextField(env.getProperty("employee.id.field"));
+        fruitPickerIdField = new TextField(env.getProperty("employee.id.field"));
         pickersComboBox = new ComboBox<>();
         pickersComboBox.setCaption(env.getProperty("fruit.pickers.list"));
         pickersComboBox.setWidth(210, Unit.PIXELS);
+        pickersComboBox.setEmptySelectionAllowed(true);
         pickersComboBox.addValueChangeListener(e->{
-            String[] tab = pickersComboBox.getValue().split(" ");
-            int id = Integer.parseInt(tab[0]);
-            fruitPickerId.setValue(String.valueOf(id));
+            if(pickersComboBox.getValue()==null || pickersComboBox.getValue().isEmpty()){
+                fruitPickerIdField.setValue("");
+            }else {
+                String[] tab = pickersComboBox.getValue().split(" ");
+                int id = Integer.parseInt(tab[0]);
+                fruitPickerIdField.setValue(String.valueOf(id));
+            }
         });
         refreshFruitPickers();
+
+        fruitPickerIdField.addValueChangeListener(e->{
+            if(NumberUtils.isDigits(fruitPickerIdField.getValue())){
+                Optional<FruitPicker> fp = fruitPickerService.getFruitPickerById(Long.parseLong(fruitPickerIdField.getValue()));
+                if(fp.isPresent()){
+                    pickersComboBox.setSelectedItem(fp.get().getIdNameLastName());
+                }else{
+                    pickersComboBox.setSelectedItem("");
+                }
+            }
+        });
 
         packageAmount = new TextField(env.getProperty("package.amount"));
         packageAmount.setValue("0");
@@ -135,7 +149,7 @@ public class AddDeliveryTab extends VerticalLayout {
         refreshVarieties();
         fruitVarietyRadioButton.setCaption(env.getProperty("fruit.variety.caption"));
 
-        pickerInfoLayout.addComponents(fruitPickerId, pickersComboBox, qrUpload);
+        pickerInfoLayout.addComponents(fruitPickerIdField, pickersComboBox, qrUpload);
         formLayout.addComponents(pickerInfoLayout, amountAndWeight, fruitTypeRadioButton, fruitVarietyRadioButton, commentField, save);
 
         root.addComponent(horizontalLayout);
@@ -144,7 +158,6 @@ public class AddDeliveryTab extends VerticalLayout {
 
     private void refreshFruitPickers(){
         pickersComboBox.setItems(fruitPickerService.findAll().stream().map(FruitPicker::getIdNameLastName));
-        pickersComboBox.setEmptySelectionAllowed(false);
     }
 
     private void refreshVarieties() {
@@ -163,7 +176,7 @@ public class AddDeliveryTab extends VerticalLayout {
                 Notification.show(env.getProperty("complete.fields.notification"));
             } else {
                 if(areValuesNotLessThanZero()){
-                    FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerId.getValue()),
+                    FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerIdField.getValue()),
                             fruitTypeRadioButton.getValue(), Long.parseLong(packageAmount.getValue()), commentField.getValue(),
                             fruitVarietyRadioButton.getValue(), LocalDateTime.now());
                     fruitDelivery.setFruitWeight(new BigDecimal(weightField.getValue()));
@@ -187,22 +200,22 @@ public class AddDeliveryTab extends VerticalLayout {
     }
 
     private boolean areValuesNotLessThanZero(){
-        return Integer.parseInt(fruitPickerId.getValue())>=0 && Integer.parseInt(packageAmount.getValue())>=0
+        return Integer.parseInt(fruitPickerIdField.getValue())>=0 && Integer.parseInt(packageAmount.getValue())>=0
                 && Integer.parseInt(weightField.getValue())>=0;
     }
 
     private boolean areValuesNumeric(){
-        return NumberUtils.isDigits(fruitPickerId.getValue()) && NumberUtils.isCreatable(packageAmount.getValue())
+        return NumberUtils.isDigits(fruitPickerIdField.getValue()) && NumberUtils.isCreatable(packageAmount.getValue())
                 && NumberUtils.isCreatable(weightField.getValue());
     }
 
     private boolean areFieldsNotEmpty(){
-        return fruitPickerId.isEmpty() || packageAmount.isEmpty() || fruitTypeRadioButton.isEmpty() || fruitVarietyRadioButton.isEmpty()
+        return fruitPickerIdField.isEmpty() || packageAmount.isEmpty() || fruitTypeRadioButton.isEmpty() || fruitVarietyRadioButton.isEmpty()
                 || weightField.isEmpty();
     }
 
     private void cleanFields() {
-        fruitPickerId.clear();
+        fruitPickerIdField.clear();
         packageAmount.clear();
         fruitTypeRadioButton.clear();
         fruitVarietyRadioButton.clear();
