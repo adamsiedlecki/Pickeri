@@ -2,10 +2,13 @@ package pl.adamsiedlecki.Pickeri.web.tab.independentTabs;
 
 import com.vaadin.addon.geolocation.Coordinates;
 import com.vaadin.addon.geolocation.Geolocation;
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -145,10 +148,16 @@ public class AddDeliveryTab extends VerticalLayout {
         packageAmount.setValue("0");
         weightField = new TextField(env.getProperty("weight.in.gram"));
         weightField.setValue("0");
-        HorizontalLayout amountAndWeight = new HorizontalLayout(packageAmount, weightField);
+        HorizontalLayout amountAndWeightLayout = new HorizontalLayout(packageAmount, weightField);
+        amountAndWeightLayout.setIcon(VaadinIcons.STORAGE);
+
         fruitTypeRadioButton = new RadioButtonGroup<>();
+        fruitTypeRadioButton.setIcon(VaadinIcons.DIAMOND);
+
         fruitVarietyRadioButton = new RadioButtonGroup<>();
+        fruitVarietyRadioButton.setIcon(VaadinIcons.CLUSTER);
         commentField = new TextField(env.getProperty("comment"));
+        commentField.setIcon(VaadinIcons.CLIPBOARD_TEXT);
         save = new Button(env.getProperty("save.button"));
 
         refreshTypes();
@@ -158,7 +167,8 @@ public class AddDeliveryTab extends VerticalLayout {
         fruitVarietyRadioButton.setCaption(env.getProperty("fruit.variety.caption"));
 
         pickerInfoLayout.addComponents(fruitPickerIdField, pickersComboBox, qrUpload);
-        formLayout.addComponents(pickerInfoLayout, amountAndWeight, fruitTypeRadioButton, fruitVarietyRadioButton, commentField, save);
+        pickerInfoLayout.setIcon(VaadinIcons.USER);
+        formLayout.addComponents(pickerInfoLayout, amountAndWeightLayout, fruitTypeRadioButton, fruitVarietyRadioButton, commentField, save);
 
         root.addComponent(horizontalLayout);
         this.addComponent(root);
@@ -223,6 +233,7 @@ public class AddDeliveryTab extends VerticalLayout {
     }
 
     private void cleanFields() {
+        pickersComboBox.clear();
         fruitPickerIdField.clear();
         packageAmount.clear();
         fruitTypeRadioButton.clear();

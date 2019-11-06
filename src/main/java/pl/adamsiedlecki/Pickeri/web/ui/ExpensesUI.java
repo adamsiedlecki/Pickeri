@@ -60,6 +60,7 @@ public class ExpensesUI extends UI {
         tabs.addTab(allExpensesTab, environment.getProperty("all.expenses.tab.caption"));
         tabs.addTab(expensesStatistics, environment.getProperty("statistics.expenses.tab"));
         tabs.addTab(othersTab, environment.getProperty("menu.tab.caption"));
+        root.addComponent(tabs);
     }
 
 }
