@@ -20,63 +20,26 @@ public class DeviceControllerTab extends VerticalLayout {
 
     private DeviceService deviceService;
     private static final Logger log = LoggerFactory.getLogger(DeviceControllerTab.class);
+    private int counter = 0;
+    private int amountOfPanelsInRow = 5;
 
-    public DeviceControllerTab(Environment env, DeviceService deviceService){
+    public DeviceControllerTab(Environment env, DeviceService deviceService) {
         this.deviceService = deviceService;
         Button refreshButton = new Button(env.getProperty("refresh.button"));
         VerticalLayout root = new VerticalLayout();
         this.addComponents(refreshButton, root);
-        refreshButton.addClickListener(e->{
+        refreshButton.addClickListener(e -> {
             root.removeAllComponents();
             List<Device> devices = deviceService.findAll();
-
-            int amountOfPanelsInRow = 5;
             Panel[] panels = new Panel[amountOfPanelsInRow];
-            int i = 0;
-            int j = amountOfPanelsInRow-1;
-            for(Device device : devices){
-                if(i<j){
-                    if(device.getDeviceController()!=null){
-                        Panel panel = new Panel(env.getProperty("device.id")+": "+device.getId());
-                        VerticalLayout panelRoot = new VerticalLayout();
-                        panelRoot.addComponent(new Label(device.getName()));
-                        Label controllerName = new Label(env.getProperty("controller")+": "
-                                +device.getDeviceController().getName());
-                        panelRoot.addComponent(controllerName);
-                        Button startButton = new Button(env.getProperty("on"));
-                        Button stopButton = new Button(env.getProperty("off"));
-                        final MagicClick magicClick1 = new MagicClick((short) 0);
-                        startButton.addClickListener(ev->{
-                            if(panel.getIcon()!=VaadinIcons.EXCLAMATION_CIRCLE){
-                                device.start();
-                                setButtonIcons(device, startButton, stopButton);
-                                magicClick1.perform(startButton);
-                            }
-
-                        });
-                        final MagicClick magicClick2 = new MagicClick((short) 0);
-                        stopButton.addClickListener(event->{
-                            if(panel.getIcon()!=VaadinIcons.EXCLAMATION_CIRCLE){
-                                device.stop();
-                                setButtonIcons(device, startButton, stopButton);
-                                magicClick2.perform(stopButton);
-                            }
-
-                        });
-                        setButtonIcons(device, startButton, stopButton);
-                        setPanelIcons(device, panel);
-                        panelRoot.addComponents(startButton, stopButton);
-                        panelRoot.forEach(component -> panelRoot.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
-                        panel.setContent(panelRoot);
-                        panel.setWidth(220, Unit.PIXELS);
-                        panel.setHeight(320, Unit.PIXELS);
-                        panels[i] = panel;
-                        i++;
-                    }
-                }else{
+            int panelsInRow = amountOfPanelsInRow - 1;
+            for (Device device : devices) {
+                if (counter < panelsInRow) {
+                    configurePanel(device, env, panels);
+                } else {
                     addPanels(panels, root);
                     panels = new Panel[amountOfPanelsInRow];
-                    i=0;
+                    counter = 0;
                 }
             }
             addPanels(panels, root);
@@ -87,10 +50,50 @@ public class DeviceControllerTab extends VerticalLayout {
         refreshButton.click();
     }
 
-    private void addPanels(Panel[] panels, Layout root){
+    private void configurePanel(Device device, Environment env, Panel[] panels) {
+        if (device.getDeviceController() != null) {
+            Panel panel = new Panel(env.getProperty("device.id") + ": " + device.getId());
+            VerticalLayout panelRoot = new VerticalLayout();
+            panelRoot.addComponent(new Label(device.getName()));
+            Label controllerName = new Label(env.getProperty("controller") + ": "
+                    + device.getDeviceController().getName());
+            panelRoot.addComponent(controllerName);
+            Button startButton = new Button(env.getProperty("on"));
+            Button stopButton = new Button(env.getProperty("off"));
+            final MagicClick magicClick1 = new MagicClick((short) 0);
+            startButton.addClickListener(ev -> {
+                if (panel.getIcon() != VaadinIcons.EXCLAMATION_CIRCLE) {
+                    device.start();
+                    setButtonIcons(device, startButton, stopButton);
+                    magicClick1.perform(startButton);
+                }
+
+            });
+            final MagicClick magicClick2 = new MagicClick((short) 0);
+            stopButton.addClickListener(event -> {
+                if (panel.getIcon() != VaadinIcons.EXCLAMATION_CIRCLE) {
+                    device.stop();
+                    setButtonIcons(device, startButton, stopButton);
+                    magicClick2.perform(stopButton);
+                }
+
+            });
+            setButtonIcons(device, startButton, stopButton);
+            setPanelIcons(device, panel);
+            panelRoot.addComponents(startButton, stopButton);
+            panelRoot.forEach(component -> panelRoot.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
+            panel.setContent(panelRoot);
+            panel.setWidth(220, Unit.PIXELS);
+            panel.setHeight(320, Unit.PIXELS);
+            panels[counter] = panel;
+            counter++;
+        }
+    }
+
+    private void addPanels(Panel[] panels, Layout root) {
         HorizontalLayout row = new HorizontalLayout();
-        for(Panel panel : panels){
-            if(panel!=null){
+        for (Panel panel : panels) {
+            if (panel != null) {
                 row.addComponent(panel);
             }
         }
@@ -99,22 +102,22 @@ public class DeviceControllerTab extends VerticalLayout {
         root.addComponent(row);
     }
 
-    private void setButtonIcons(Device device, Button startButton, Button stopButton){
+    private void setButtonIcons(Device device, Button startButton, Button stopButton) {
         Thread isEnabledTest = new IsEnabledTestRunnable(startButton, stopButton, device);
         isEnabledTest.start();
     }
 
-    private void setPanelIcons(Device device, Panel panel){
+    private void setPanelIcons(Device device, Panel panel) {
         Thread pingTestThread = new PingTestRunnable(panel, device);
         pingTestThread.start();
     }
 
-    private static class PingTestRunnable extends Thread{
+    private static class PingTestRunnable extends Thread {
 
         private Panel panel;
         private Device device;
 
-        public PingTestRunnable(Panel panel, Device device){
+        public PingTestRunnable(Panel panel, Device device) {
             this.panel = panel;
             this.device = device;
         }
@@ -124,23 +127,23 @@ public class DeviceControllerTab extends VerticalLayout {
             perform();
         }
 
-         private void perform(){
+        private void perform() {
             PingTest pingTest = new PingTest();
-            if(pingTest.isAlive(device)){
+            if (pingTest.isAlive(device)) {
                 panel.setIcon(VaadinIcons.BULLSEYE);
-            }else{
+            } else {
                 panel.setIcon(VaadinIcons.EXCLAMATION_CIRCLE);
             }
         }
     }
 
-    private class IsEnabledTestRunnable extends Thread{
+    private class IsEnabledTestRunnable extends Thread {
 
         private Button startButton;
         private Button stopButton;
         private Device device;
 
-        IsEnabledTestRunnable(Button startButton, Button stopButton, Device device){
+        IsEnabledTestRunnable(Button startButton, Button stopButton, Device device) {
             this.stopButton = stopButton;
             this.startButton = startButton;
             this.device = device;
@@ -150,12 +153,13 @@ public class DeviceControllerTab extends VerticalLayout {
         public void run() {
             perform();
         }
-         private void perform(){
-            if(device.isEnabled()){
+
+        private void perform() {
+            if (device.isEnabled()) {
                 startButton.setIcon(VaadinIcons.CHECK_CIRCLE);
                 stopButton.setIcon(null);
                 //DeviceControllerTab.this.getUI().getPage().reload();
-            }else {
+            } else {
                 stopButton.setIcon(VaadinIcons.CLOSE_SMALL);
                 startButton.setIcon(null);
                 //DeviceControllerTab.this.getUI().getPage().reload();

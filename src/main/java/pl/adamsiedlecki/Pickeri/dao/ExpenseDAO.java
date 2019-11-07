@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 @Cacheable(cacheNames = "expenseDAO")
 public interface ExpenseDAO extends JpaRepository<Expense, Long> {
-
     @Query("SELECT e FROM Expense e WHERE e.id LIKE CONCAT('%',:filter,'%') OR e.name LIKE CONCAT('%',:filter,'%') " +
             "OR e.time LIKE CONCAT('%',:filter,'%') OR e.moneyAmount LIKE CONCAT('%',:filter,'%')")
     List<Expense> findAllWithFilter(String filter);
