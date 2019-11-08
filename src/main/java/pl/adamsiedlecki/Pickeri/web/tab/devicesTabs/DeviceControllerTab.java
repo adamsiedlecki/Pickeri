@@ -28,26 +28,28 @@ public class DeviceControllerTab extends VerticalLayout {
         Button refreshButton = new Button(env.getProperty("refresh.button"));
         VerticalLayout root = new VerticalLayout();
         this.addComponents(refreshButton, root);
-        refreshButton.addClickListener(e -> {
-            root.removeAllComponents();
-            List<Device> devices = deviceService.findAll();
-            Panel[] panels = new Panel[amountOfPanelsInRow];
-            int panelsInRow = amountOfPanelsInRow - 1;
-            for (Device device : devices) {
-                if (counter < panelsInRow) {
-                    configurePanel(device, env, panels);
-                } else {
-                    addPanels(panels, root);
-                    panels = new Panel[amountOfPanelsInRow];
-                    counter = 0;
-                }
-            }
-            addPanels(panels, root);
-        });
+        refreshButton.addClickListener(e -> refreshRootLayout(root, env));
         this.setMargin(true);
         root.forEach(component -> root.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
         this.forEach(component -> this.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
         refreshButton.click();
+    }
+
+    private void refreshRootLayout(VerticalLayout root, Environment env){
+        root.removeAllComponents();
+        List<Device> devices = deviceService.findAll();
+        Panel[] panels = new Panel[amountOfPanelsInRow];
+        int panelsInRow = amountOfPanelsInRow - 1;
+        for (Device device : devices) {
+            if (counter < panelsInRow) {
+                configurePanel(device, env, panels);
+            } else {
+                addPanels(panels, root);
+                panels = new Panel[amountOfPanelsInRow];
+                counter = 0;
+            }
+        }
+        addPanels(panels, root);
     }
 
     private void configurePanel(Device device, Environment env, Panel[] panels) {
