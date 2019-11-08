@@ -1,5 +1,7 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -14,13 +16,16 @@ public class WorkTime {
     @GeneratedValue
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="picker_id", referencedColumnName="id")
     private FruitPicker fruitPicker;
 
+    @JsonIgnore
     @Column(nullable = true)
     private LocalDateTime startTime;
 
+    @JsonIgnore
     @Column(nullable = true)
     private LocalDateTime endTime;
 
@@ -36,6 +41,7 @@ public class WorkTime {
     public WorkTime() {
     }
 
+    @JsonIgnore
     public String getPickerInfo(){
         return fruitPicker.getId()+" "+fruitPicker.getName()+" "+fruitPicker.getLastName();
     }
@@ -52,6 +58,7 @@ public class WorkTime {
         return startTime;
     }
 
+    @JsonIgnore
     public String getStartTimePlainString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return startTime.format(formatter);
@@ -65,6 +72,7 @@ public class WorkTime {
         return endTime;
     }
 
+    @JsonIgnore
     public String getEndTimePlainString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
         return endTime.format(formatter);
@@ -74,6 +82,7 @@ public class WorkTime {
         this.endTime = endTime;
     }
 
+    @JsonIgnore
     public Duration getDuration() {
         return duration;
     }
