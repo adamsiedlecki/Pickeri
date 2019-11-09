@@ -27,7 +27,7 @@ public class AllWorkTimesTab extends VerticalLayout {
         Button refreshButton = new Button(env.getProperty("refresh.button"));
         workTimeGrid.setWidth(80,Unit.PERCENTAGE);
         workTimeGrid.addColumn(WorkTime::getPickerInfo).setCaption(Objects.requireNonNull(env.getProperty("employee.info")));
-        workTimeGrid.addColumn(WorkTime::getDurationPlainString).setCaption(Objects.requireNonNull(env.getProperty("worktime.registry")+" [h]"))
+        workTimeGrid.addColumn(WorkTime::getDurationPlainString).setCaption(Objects.requireNonNull(env.getProperty("worktime.registry")))
                 .setComparator((v1, v2)-> TimeComparator.compare(TimeConverter.getString(v1.getDuration()), TimeConverter.getString(v2.getDuration())));
         workTimeGrid.addColumn(WorkTime::getStartTimePlainString).setCaption(Objects.requireNonNull(env.getProperty("begin.date")));
         workTimeGrid.addColumn(WorkTime::getEndTimePlainString).setCaption(Objects.requireNonNull(env.getProperty("end.date")));

@@ -30,7 +30,7 @@ public class WorkTimeRanking extends VerticalLayout {
         fruitPickerGrid.addColumn(FruitPicker::getId).setCaption(Objects.requireNonNull(env.getProperty("id.column")));
         fruitPickerGrid.addColumn(FruitPicker::getName).setCaption(Objects.requireNonNull(env.getProperty("name.person.column")));
         fruitPickerGrid.addColumn(FruitPicker::getLastName).setCaption(Objects.requireNonNull(env.getProperty("surname.column")));
-        fruitPickerGrid.addColumn(FruitPicker::getWorkTimeHours).setId("hours").setCaption(Objects.requireNonNull(env.getProperty("hours.amount")))
+        fruitPickerGrid.addColumn(FruitPicker::getWorkTimeHours).setId("hours").setCaption(Objects.requireNonNull(env.getProperty("worktime.registry")))
                 .setComparator((v1, v2)->{
             return TimeComparator.compare(v1.getWorkTimeHours(), v2.getWorkTimeHours());
         });
