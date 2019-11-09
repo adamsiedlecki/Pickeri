@@ -1,10 +1,9 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import pl.adamsiedlecki.Pickeri.tools.time.TimeConverter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -88,9 +87,7 @@ public class WorkTime {
     }
 
     public String getDurationPlainString() {
-        BigDecimal workHours = new BigDecimal(getDuration().getSeconds())
-                .divide(new BigDecimal(3600),2, RoundingMode.FLOOR);
-        return String.valueOf(workHours);
+        return TimeConverter.getString(this);
     }
 
     public void setDuration(Duration duration) {

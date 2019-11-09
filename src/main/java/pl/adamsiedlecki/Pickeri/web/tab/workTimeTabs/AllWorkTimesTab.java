@@ -9,6 +9,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.WorkTime;
 import pl.adamsiedlecki.Pickeri.service.WorkTimeService;
+import pl.adamsiedlecki.Pickeri.tools.time.TimeComparator;
+import pl.adamsiedlecki.Pickeri.tools.time.TimeConverter;
 
 import java.util.Objects;
 
@@ -25,7 +27,8 @@ public class AllWorkTimesTab extends VerticalLayout {
         Button refreshButton = new Button(env.getProperty("refresh.button"));
         workTimeGrid.setWidth(80,Unit.PERCENTAGE);
         workTimeGrid.addColumn(WorkTime::getPickerInfo).setCaption(Objects.requireNonNull(env.getProperty("employee.info")));
-        workTimeGrid.addColumn(WorkTime::getDurationPlainString).setCaption(Objects.requireNonNull(env.getProperty("worktime.registry")+" [h]"));
+        workTimeGrid.addColumn(WorkTime::getDurationPlainString).setCaption(Objects.requireNonNull(env.getProperty("worktime.registry")+" [h]"))
+                .setComparator((v1, v2)-> TimeComparator.compare(TimeConverter.getString(v1.getDuration()), TimeConverter.getString(v2.getDuration())));
         workTimeGrid.addColumn(WorkTime::getStartTimePlainString).setCaption(Objects.requireNonNull(env.getProperty("begin.date")));
         workTimeGrid.addColumn(WorkTime::getEndTimePlainString).setCaption(Objects.requireNonNull(env.getProperty("end.date")));
         this.addComponents(refreshButton, workTimeGrid);

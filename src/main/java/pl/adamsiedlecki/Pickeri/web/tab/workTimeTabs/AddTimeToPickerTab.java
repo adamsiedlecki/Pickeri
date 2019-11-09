@@ -14,9 +14,8 @@ import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.entity.WorkTime;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.WorkTimeService;
+import pl.adamsiedlecki.Pickeri.tools.time.TimeConverter;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.*;
 import java.util.Optional;
 
@@ -184,9 +183,8 @@ public class AddTimeToPickerTab extends VerticalLayout {
             Optional<WorkTime> optionalWorkTime = getWorkTimeObject();
             if(optionalWorkTime.isPresent()){
                 WorkTime  workTime = optionalWorkTime.get();
-                BigDecimal workHours = new BigDecimal(workTime.getDuration().getSeconds())
-                        .divide(new BigDecimal(3600),2, RoundingMode.FLOOR);
-                amountOfHoursField.setValue(workHours.toPlainString());
+                String time = TimeConverter.getString(workTime);
+                amountOfHoursField.setValue(time);
             }
         }
     }

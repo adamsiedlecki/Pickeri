@@ -111,7 +111,7 @@ public class PickersToPdfWriter {
 
                 table.addCell(new Phrase(Long.toString(fp.getId()), font));
                 table.addCell(new Phrase(fp.getName() + " " + fp.getLastName(), font));
-                table.addCell(new Phrase(fp.getWorkTimeHours().toPlainString(), font));
+                table.addCell(new Phrase(fp.getWorkTimeHours(), font));
                 table.addCell(new Phrase(Long.toString(fp.getPackageDeliveryAmount()), font));
                 table.addCell(new Phrase(fp.getWeightSumKgPlainText(), font));
                 if (amountInfo1.size() == 2) {

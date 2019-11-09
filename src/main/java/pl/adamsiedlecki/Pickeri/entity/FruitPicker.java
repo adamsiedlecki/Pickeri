@@ -1,8 +1,12 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import pl.adamsiedlecki.Pickeri.tools.time.TimeConverter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Duration;
 import java.util.List;
 
 @Entity
@@ -62,14 +66,13 @@ public class FruitPicker {
     @Transient
     private BigDecimal weightWithTypeFour;
 
-    public BigDecimal getWorkTimeHours(){
-        BigDecimal hours = BigDecimal.ZERO;
+    @JsonIgnore
+    public String getWorkTimeHours(){
+        Duration durationSum = Duration.ofMillis(0);
         for(WorkTime workTime : workTimeList){
-            BigDecimal timeAmount = new BigDecimal(workTime.getDuration().getSeconds());
-            timeAmount = timeAmount.divide(new BigDecimal(3600), 2, RoundingMode.FLOOR);
-            hours = hours.add(timeAmount);
+            durationSum = durationSum.plus(workTime.getDuration());
         }
-        return hours;
+        return TimeConverter.getString(durationSum);
     }
 
     public String getIdNameLastName(){

@@ -49,7 +49,7 @@ public class ExcelCreator {
                 row.createCell(0).setCellValue(fruitPicker.getId());
                 row.createCell(1).setCellValue(fruitPicker.getName());
                 row.createCell(2).setCellValue(fruitPicker.getLastName());
-                row.createCell(3).setCellValue(fruitPicker.getWorkTimeHours().toPlainString());
+                row.createCell(3).setCellValue(fruitPicker.getWorkTimeHours());
                 row.createCell(4).setCellValue(fruitPicker.getPackageDeliveryAmount());
                 row.createCell(5).setCellValue(fruitPicker.getWeightSumKgPlainText());
                 addFruitTypesData(fruitTypeService, fruitPicker, row,6);
