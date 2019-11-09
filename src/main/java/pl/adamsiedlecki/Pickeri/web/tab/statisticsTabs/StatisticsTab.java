@@ -13,6 +13,7 @@ import pl.adamsiedlecki.Pickeri.entity.FruitVariety;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
+import pl.adamsiedlecki.Pickeri.service.WorkTimeService;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -28,19 +29,22 @@ public class StatisticsTab extends VerticalLayout {
     private FruitVarietyService fruitVarietyService;
     private Label pickersSumLabel;
     private Label packagesSumLabel;
-    private Label varietiesSumLabel;
     private Label weightSumLabel;
+    private Label timeSumLabel;
+    private Label varietiesSumLabel;
     private Grid<FruitVariety> varietiesGridPackageStat;
     private Grid<FruitVariety> varietiesGridWeightStat;
     private Environment env;
+    private WorkTimeService workTimeService;
 
     @Autowired
     public StatisticsTab(FruitDeliveryService fruitDeliveryService, FruitPickerService fruitPickerService,
-                         FruitVarietyService fruitVarietyService, Environment env) {
+                         FruitVarietyService fruitVarietyService, Environment env, WorkTimeService workTimeService) {
         this.fruitVarietyService = fruitVarietyService;
         this.fruitDeliveryService = fruitDeliveryService;
         this.fruitPickerService = fruitPickerService;
         this.env = env;
+        this.workTimeService = workTimeService;
         initComponents();
     }
 
@@ -50,6 +54,7 @@ public class StatisticsTab extends VerticalLayout {
         packagesSumLabel = new Label();
         varietiesSumLabel = new Label();
         weightSumLabel = new Label();
+        timeSumLabel = new Label();
         VerticalLayout varietiesPackageAmountAndPercentageLayout = new VerticalLayout();
         Button refreshButton = new Button(env.getProperty("refresh.button"));
         refreshButton.addClickListener(e -> refreshData());
@@ -77,9 +82,10 @@ public class StatisticsTab extends VerticalLayout {
 
         root.addComponent(refreshButton);
         root.addComponent(pickersSumLabel);
+        root.addComponent(weightSumLabel);
+        root.addComponent(timeSumLabel);
         root.addComponent(packagesSumLabel);
         root.addComponent(varietiesSumLabel);
-        root.addComponent(weightSumLabel);
         root.addComponent(varietiesPackageAmountAndPercentageLayout);
         root.addComponent(varietiesGridPackageStat);
         root.addComponent(varietiesGridWeightStat);
@@ -101,6 +107,7 @@ public class StatisticsTab extends VerticalLayout {
     private class RefreshThread extends Thread{
         @Override
         public void run(){
+            timeSumLabel.setValue(env.getProperty("time.sum") + workTimeService.getWorkTimeSum());
             pickersSumLabel.setValue(env.getProperty("employees.total.amount") + fruitPickerService.getTotalAmountOfPickers());
             packagesSumLabel.setValue(env.getProperty("all.packages.sum.label") + fruitDeliveryService.getTotalAmountOfPackages());
             varietiesSumLabel.setValue(env.getProperty("varieties.total.amount") + fruitVarietyService.findAll().size());

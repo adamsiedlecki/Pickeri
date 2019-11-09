@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.WorkTimeDAO;
 import pl.adamsiedlecki.Pickeri.entity.WorkTime;
+import pl.adamsiedlecki.Pickeri.tools.time.TimeConverter;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class WorkTimeService {
@@ -27,6 +30,16 @@ public class WorkTimeService {
 
     public List<WorkTime> findAll(){
         return workTimeDAO.findAll();
+    }
+
+    public String getWorkTimeSum(){
+        List<WorkTime> all = findAll();
+        List<Duration> durationList = all.stream().map(e->e.getDuration()).collect(Collectors.toList());
+        var ref = new Object() {
+            Duration sumDuration = Duration.ofMillis(0);
+        };
+        durationList.forEach(e-> ref.sumDuration = ref.sumDuration.plus(e));
+        return TimeConverter.getString(ref.sumDuration);
     }
 
 }
