@@ -157,6 +157,10 @@ public class FruitPicker {
         return result.toPlainString();
     }
 
+    public BigDecimal getWeightSumKg() {
+        return weightSum.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
+    }
+
     public void setWeightSum(BigDecimal weightSum) {
         this.weightSum = weightSum;
     }

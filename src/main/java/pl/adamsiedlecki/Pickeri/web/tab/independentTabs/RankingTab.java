@@ -37,7 +37,7 @@ public class RankingTab extends VerticalLayout {
         refreshButton.addClickListener(e -> refreshData());
         pickersGrid = new Grid<>();
         pickersGrid.addColumn(FruitPicker::getPackageDeliveryAmount).setCaption(Objects.requireNonNull(env.getProperty("packages.sum.column.caption"))).setId("packageDeliveryAmount");
-        pickersGrid.addColumn(FruitPicker::getWeightSumKgPlainText).setCaption(Objects.requireNonNull(env.getProperty("weight.kg.column")));
+        pickersGrid.addColumn(FruitPicker::getWeightSumKg).setCaption(Objects.requireNonNull(env.getProperty("weight.kg.column")));
         pickersGrid.addColumn(FruitPicker::getWorkTimeHours).setCaption(Objects.requireNonNull(env.getProperty("worktime.registry"))).setComparator((v1, v2)-> TimeComparator.compare(v1.getWorkTimeHours(), v2.getWorkTimeHours()));
         pickersGrid.addColumn(FruitPicker::getName).setCaption(Objects.requireNonNull(env.getProperty("name.person.column")));
         pickersGrid.addColumn(FruitPicker::getLastName).setCaption(Objects.requireNonNull(env.getProperty("surname.column")));
