@@ -87,8 +87,8 @@ public class StatisticsTab extends VerticalLayout {
         root.addComponent(varietiesGridPackageStat);
         root.addComponent(varietiesGridWeightStat);
 
-        this.addComponent(root);
         root.forEach(component->root.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
+        this.addComponent(root);
     }
 
     private void refreshData() {
