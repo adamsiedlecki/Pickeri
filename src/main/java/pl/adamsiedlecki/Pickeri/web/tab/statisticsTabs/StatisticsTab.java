@@ -98,7 +98,9 @@ public class StatisticsTab extends VerticalLayout {
 
     private void setGrid(Grid<FruitVariety> grid, List<FruitVariety> varieties) {
         grid.setItems(varieties);
-        grid.setSizeFull();
+        grid.setWidth(70, Unit.PERCENTAGE);
+        double rowsAmount = varieties.size();
+        grid.setHeightByRows(rowsAmount);
         grid.sort("total", SortDirection.DESCENDING);
     }
 
