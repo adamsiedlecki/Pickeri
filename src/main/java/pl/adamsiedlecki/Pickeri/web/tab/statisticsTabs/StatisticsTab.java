@@ -2,10 +2,7 @@ package pl.adamsiedlecki.Pickeri.web.tab.statisticsTabs;
 
 import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.Grid;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
+import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
@@ -91,6 +88,7 @@ public class StatisticsTab extends VerticalLayout {
         root.addComponent(varietiesGridWeightStat);
 
         this.addComponent(root);
+        root.forEach(component->root.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
     }
 
     private void refreshData() {
