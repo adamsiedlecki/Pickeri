@@ -2,6 +2,7 @@ package pl.adamsiedlecki.Pickeri.web.tab.independentTabs;
 
 import com.vaadin.shared.data.sort.SortDirection;
 import com.vaadin.spring.annotation.SpringComponent;
+import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
@@ -42,10 +43,11 @@ public class RankingTab extends VerticalLayout {
         pickersGrid.addColumn(FruitPicker::getName).setCaption(Objects.requireNonNull(env.getProperty("name.person.column")));
         pickersGrid.addColumn(FruitPicker::getLastName).setCaption(Objects.requireNonNull(env.getProperty("surname.column")));
         pickersGrid.addColumn(FruitPicker::getGender).setCaption(Objects.requireNonNull(env.getProperty("gender.column")));
-        pickersGrid.setSizeFull();
+        pickersGrid.setWidth(80, Unit.PERCENTAGE);
         refreshData();
         this.addComponent(refreshButton);
         this.addComponent(pickersGrid);
+        this.forEach(component -> this.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
     }
 
     private List<FruitPicker> getCurrentPickers() {
@@ -53,9 +55,10 @@ public class RankingTab extends VerticalLayout {
     }
 
     private void refreshData() {
-        pickersGrid.setItems(getCurrentPickers());
+        List<FruitPicker> pickerList = getCurrentPickers();
+        pickersGrid.setItems(pickerList);
         pickersGrid.sort("packageDeliveryAmount", SortDirection.DESCENDING);
-        pickersGrid.setHeight(700, Unit.PIXELS);
+        pickersGrid.setHeightByRows(pickerList.size());
     }
 
 }
