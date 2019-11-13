@@ -32,17 +32,17 @@ public class ExpenseService implements Removeable {
         return expenseDAO.getOne(id);
     }
 
-    public List<Expense> findAllWithFilter() {
+    public List<Expense> findAll() {
         return expenseDAO.findAll();
     }
 
-    public List<Expense> findAllWithFilter(String filter) {
+    public List<Expense> findAll(String filter) {
         List<Expense> expenses = expenseDAO.findAllWithFilter(filter);
         return expenses;
     }
 
     public BigDecimal getTotalAmountOfSpentMoney() {
-        List<Expense> expenses = findAllWithFilter();
+        List<Expense> expenses = findAll();
         BigDecimal totalMoney = new BigDecimal(0);
         for (Expense e : expenses) {
             totalMoney = totalMoney.add(e.getMoneyAmount());
@@ -51,7 +51,7 @@ public class ExpenseService implements Removeable {
     }
 
     public BigDecimal getAverageAmountOfSpentMoney() {
-        List<Expense> expenses = findAllWithFilter();
+        List<Expense> expenses = findAll();
         if (expenses.size() == 0) {
             return new BigDecimal(0);
         }

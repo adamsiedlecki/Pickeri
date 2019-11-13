@@ -7,10 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
-import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
-import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
+import pl.adamsiedlecki.Pickeri.entity.*;
+import pl.adamsiedlecki.Pickeri.service.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -18,37 +19,41 @@ public class ApiController {
 
     private FruitPickerService fruitPickerService;
     private FruitDeliveryService fruitDeliveryService;
-    private String pass;
     private static final Logger log = LoggerFactory.getLogger(ApiController.class);
+    private Environment env;
 
     @Autowired
-    public ApiController(FruitPickerService pickerService, FruitDeliveryService fruitDeliveryService, Environment environment) {
+    public ApiController(FruitPickerService pickerService, FruitDeliveryService fruitDeliveryService, Environment environment,
+                         DeviceService deviceService, DeviceControllerService deviceControllerService, ExpenseService expenseService,
+                         FruitTypeService fruitTypeService) {
+        this.env = environment;
         this.fruitPickerService = pickerService;
         this.fruitDeliveryService = fruitDeliveryService;
-        pass = environment.getProperty("api.pass");
+
     }
 
     @GetMapping(value = "/get-all/{key}")
-    public String getInfo(@PathVariable String key) {
-        return getData(key, fruitPickerService.findAll());
+    public String getInfoString(@PathVariable String key) {
+        return getDataStrings(key, fruitPickerService.findAll());
     }
 
     @GetMapping(value = "/get-pickers-amount/{key}")
     public String getPickersAmountInfo(@PathVariable String key) {
-        return getData(key, fruitPickerService.getTotalAmountOfPickers());
+        return getDataStrings(key, fruitPickerService.getTotalAmountOfPickers());
     }
 
     @GetMapping(value = "/get-weight/{key}")
     public String getWeightInfo(@PathVariable String key) {
-        return getData(key, fruitDeliveryService.getWeightSum());
+        return getDataStrings(key, fruitDeliveryService.getWeightSum());
     }
 
     @GetMapping(value = "/get-packages-amount/{key}")
     public String getPackagesInfo(@PathVariable String key) {
-        return getData(key, fruitDeliveryService.getTotalAmountOfPackages());
+        return getDataStrings(key, fruitDeliveryService.getTotalAmountOfPackages());
     }
 
-    private String getData(String key, Number getNumberFunction) {
+    private String getDataStrings(String key, Number getNumberFunction) {
+        String pass = env.getProperty("api.pass");
         if (pass.equals(key)) {
             ObjectMapper mapper = new ObjectMapper();
             try {
@@ -60,7 +65,8 @@ public class ApiController {
         return "ACCESS DENIED";
     }
 
-    private String getData(String key, List<?> list) {
+    private String getDataStrings(String key, List<?> list) {
+        String pass = env.getProperty("api.pass");
         if (pass.equals(key)) {
             ObjectMapper mapper = new ObjectMapper();
             try {
