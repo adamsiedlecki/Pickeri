@@ -25,13 +25,21 @@ public class ObjectiveApiController {
     private FruitTypeService fruitTypeService;
     private FruitVarietyService fruitVarietyService;
     private NoteService noteService;
+    private SettingsService settingsService;
+    private PickeriUserDetailsService userDetailsService;
+    private WorkTimeService workTimeService;
     private static final Logger log = LoggerFactory.getLogger(ApiController.class);
     private Environment env;
 
     @Autowired
     public ObjectiveApiController(FruitPickerService pickerService, FruitDeliveryService fruitDeliveryService, Environment environment,
                          DeviceService deviceService, DeviceControllerService deviceControllerService, ExpenseService expenseService,
-                         FruitTypeService fruitTypeService, FruitVarietyService fruitVarietyService, NoteService noteService) {
+                         FruitTypeService fruitTypeService, FruitVarietyService fruitVarietyService, NoteService noteService,
+                                  SettingsService settingsService, PickeriUserDetailsService userDetailsService,
+                                  WorkTimeService workTimeService) {
+        this.workTimeService = workTimeService;
+        this.userDetailsService = userDetailsService;
+        this.settingsService = settingsService;
         this.noteService = noteService;
         this.fruitVarietyService = fruitVarietyService;
         this.expenseService = expenseService;
@@ -42,6 +50,21 @@ public class ObjectiveApiController {
         this.fruitDeliveryService = fruitDeliveryService;
         this.fruitTypeService = fruitTypeService;
 
+    }
+
+    @GetMapping(value = "/get-work-time/{key}")
+    public List<WorkTime> getWorkTimeList(@PathVariable String key) {
+        return getDataObjects(key, workTimeService.findAll());
+    }
+
+    @GetMapping(value = "/get-users/{key}")
+    public List<User> getUsers(@PathVariable String key) {
+        return getDataObjects(key, userDetailsService.findAll());
+    }
+
+    @GetMapping(value = "/get-settings/{key}")
+    public List<SettingsEntity> getSettings(@PathVariable String key) {
+        return getDataObjects(key, settingsService.findAll());
     }
 
     @GetMapping(value = "/get-notes/{key}")

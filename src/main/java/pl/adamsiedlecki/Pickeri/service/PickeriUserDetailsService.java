@@ -18,13 +18,16 @@ public class PickeriUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
 
-
     @Autowired
     public PickeriUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
         //addUser("a","a",List.of(new UserRole("ADMIN")));
         //addUser("admin","pass",List.of(new UserRole("ADMIN")));
         //addUser("b","b",List.of(new UserRole("ADMIN")));
+    }
+
+    public List<User> findAll(){
+        return userRepository.findAll();
     }
 
     @Override

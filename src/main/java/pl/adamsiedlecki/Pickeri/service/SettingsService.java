@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.adamsiedlecki.Pickeri.dao.SettingsDAO;
 import pl.adamsiedlecki.Pickeri.entity.SettingsEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +20,10 @@ public class SettingsService {
 
     public void save(SettingsEntity settingsEntity){
         settingsDAO.save(settingsEntity);
+    }
+
+    public List<SettingsEntity> findAll(){
+        return settingsDAO.findAll();
     }
 
     public SettingsEntity get(String key){

@@ -28,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/VAADIN/**", "/PUSH/**", "/UIDL/**", "/login", "/login/**", "/error/**", "/accessDenied/**", "/vaadinServlet/**").permitAll()
                 .antMatchers("/home").permitAll()
                 .antMatchers("/api/v1/**").permitAll()
+                .antMatchers("/api/v2/**").permitAll()
                 .antMatchers("/errorPage").permitAll()
 
                 .and()
