@@ -13,13 +13,13 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.HeaderAdder;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tab.othersUITabs.AddDeleteTypeTab;
 import pl.adamsiedlecki.Pickeri.web.tab.othersUITabs.AddFruitVarietyTab;
 import pl.adamsiedlecki.Pickeri.web.tab.othersUITabs.AllVarietiesTab;
 
 @SpringUI(path = "/varieties-and-types")
-@Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("${other.title}")
 public class VerietiesAndTypesOfFruitsUI extends UI {
@@ -52,6 +52,7 @@ public class VerietiesAndTypesOfFruitsUI extends UI {
         addTabs();
         AlignmentSetter.apply(root, tabs);
         this.setContent(root);
+        ThemeSetter.set(this);
     }
 
     private void addTabs() {

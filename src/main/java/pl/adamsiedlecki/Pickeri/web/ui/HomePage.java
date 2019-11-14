@@ -14,6 +14,7 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.tools.qr.QRCodeReader;
 
 import java.io.File;
@@ -28,7 +29,6 @@ import java.util.Objects;
 
 
 @SpringUI(path = "/home")
-@Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("${home.title}")
 public class HomePage extends UI {
@@ -139,6 +139,7 @@ public class HomePage extends UI {
             }
         });
         this.setContent(root);
+        ThemeSetter.set(this);
     }
 
     private class ImageUploader implements Upload.Receiver, Upload.SucceededListener {

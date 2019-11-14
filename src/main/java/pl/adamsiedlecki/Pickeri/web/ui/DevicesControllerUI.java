@@ -13,12 +13,12 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.HeaderAdder;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.web.tab.devicesTabs.DeviceControllerTab;
 import pl.adamsiedlecki.Pickeri.web.tab.devicesTabs.DevicesAdvancedSettingsTab;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
 
 @SpringUI(path = "/devices-controller")
-@Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("${devices.controller.title}")
 public class DevicesControllerUI extends UI {
@@ -48,6 +48,7 @@ public class DevicesControllerUI extends UI {
         addTabs();
         AlignmentSetter.apply(root, tabs);
         this.setContent(root);
+        ThemeSetter.set(this);
     }
 
     private void addTabs() {

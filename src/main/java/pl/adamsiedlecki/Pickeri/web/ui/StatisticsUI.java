@@ -13,12 +13,12 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.HeaderAdder;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tab.statisticsTabs.FindPickerTab;
 import pl.adamsiedlecki.Pickeri.web.tab.statisticsTabs.StatisticsTab;
 
 @SpringUI(path = "/statistics-and-info")
-@Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("${statistics.title}")
 public class StatisticsUI extends UI {
@@ -48,6 +48,7 @@ public class StatisticsUI extends UI {
         addTabs();
         AlignmentSetter.apply(root, tabs);
         this.setContent(root);
+        ThemeSetter.set(this);
     }
 
     private void addTabs() {

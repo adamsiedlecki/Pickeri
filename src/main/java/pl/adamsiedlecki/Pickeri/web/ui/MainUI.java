@@ -13,11 +13,11 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.HeaderAdder;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.AddDeliveryTab;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
 
 @SpringUI
-@Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("${add.delivery.title}")
 public class MainUI extends UI {
@@ -44,6 +44,7 @@ public class MainUI extends UI {
         addTabs();
         AlignmentSetter.apply(root, tabs);
         this.setContent(root);
+        ThemeSetter.set(this);
     }
 
     private void addTabs() {

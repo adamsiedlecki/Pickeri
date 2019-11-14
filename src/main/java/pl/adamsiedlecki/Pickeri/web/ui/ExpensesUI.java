@@ -13,6 +13,7 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.HeaderAdder;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.web.tab.expensesTabs.AddExpenseTab;
 import pl.adamsiedlecki.Pickeri.web.tab.expensesTabs.AllExpensesTab;
 import pl.adamsiedlecki.Pickeri.web.tab.expensesTabs.ExpensesStatistics;
@@ -20,7 +21,6 @@ import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
 
 
 @SpringUI(path = "/expenses")
-@Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("${expenses.title}")
 public class ExpensesUI extends UI {
@@ -53,6 +53,7 @@ public class ExpensesUI extends UI {
         addTabs();
         AlignmentSetter.apply(root, tabs);
         this.setContent(root);
+        ThemeSetter.set(this);
     }
 
     private void addTabs(){

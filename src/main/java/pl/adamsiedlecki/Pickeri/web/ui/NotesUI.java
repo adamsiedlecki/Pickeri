@@ -14,6 +14,7 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.HeaderAdder;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tab.noteTabs.AddNoteTab;
 import pl.adamsiedlecki.Pickeri.web.tab.noteTabs.AllNotesTab;
@@ -21,7 +22,6 @@ import pl.adamsiedlecki.Pickeri.web.tab.noteTabs.DeleteNoteTab;
 
 @SpringUI(path = "/notes")
 @Scope("prototype")
-@Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("${notes.title}")
 public class NotesUI extends UI {
@@ -50,6 +50,7 @@ public class NotesUI extends UI {
         root.addComponent(tabs);
         AlignmentSetter.apply(root, tabs);
         this.setContent(root);
+        ThemeSetter.set(this);
     }
 
 }

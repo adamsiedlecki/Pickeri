@@ -10,6 +10,7 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.HeaderAdder;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tab.workTimeTabs.AddTimeToPickerTab;
 import pl.adamsiedlecki.Pickeri.web.tab.workTimeTabs.AllWorkTimesTab;
@@ -17,7 +18,6 @@ import pl.adamsiedlecki.Pickeri.web.tab.workTimeTabs.WorkTimeRanking;
 
 @SpringUI(path="/work-time")
 @Title("${worktime.registry}")
-@Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 public class WorkTimeRegistryUI extends UI {
 
@@ -47,6 +47,7 @@ public class WorkTimeRegistryUI extends UI {
         addTabs();
         AlignmentSetter.apply(root, tabs);
         this.setContent(root);
+        ThemeSetter.set(this);
     }
 
     private void addTabs(){

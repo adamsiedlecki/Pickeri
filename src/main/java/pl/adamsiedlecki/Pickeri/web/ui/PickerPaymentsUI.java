@@ -13,6 +13,7 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.HeaderAdder;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
 import pl.adamsiedlecki.Pickeri.web.tab.paymentTabs.AddPaymentTab;
 import pl.adamsiedlecki.Pickeri.web.tab.paymentTabs.PickersPaymentsTableTab;
@@ -20,7 +21,6 @@ import pl.adamsiedlecki.Pickeri.web.tab.paymentTabs.SubtractPaymentTab;
 
 
 @SpringUI(path = "/picker-payments")
-@Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("${payments.title}")
 public class PickerPaymentsUI extends UI {
@@ -57,5 +57,6 @@ public class PickerPaymentsUI extends UI {
         root.addComponent(tabs);
         AlignmentSetter.apply(root, tabs);
         this.setContent(root);
+        ThemeSetter.set(this);
     }
 }

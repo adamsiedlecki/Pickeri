@@ -14,9 +14,9 @@ import pl.adamsiedlecki.Pickeri.service.ExpenseService;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 
 @SpringUI(path = "/usuwaniedanych")
-@Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("${delete.title}")
 public class RemoveUI extends UI {
@@ -41,6 +41,7 @@ public class RemoveUI extends UI {
     protected void init(VaadinRequest request) {
         Notification.show(env.getProperty("remove.data.notification"));
         initComponents();
+        ThemeSetter.set(this);
     }
 
     private void initComponents() {

@@ -11,9 +11,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import pl.adamsiedlecki.Pickeri.service.PickeriUserDetailsService;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 
 @SpringUI(path = "/password-change")
-@Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("${password.change.title}")
 public class PasswordChangeUI extends UI {
@@ -57,6 +57,7 @@ public class PasswordChangeUI extends UI {
 
         root.addComponents(label, newPassword, applyButton);
         this.setContent(root);
+        ThemeSetter.set(this);
     }
 
 }

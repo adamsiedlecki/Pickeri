@@ -13,10 +13,10 @@ import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 
 
 @SpringUI(path = "/errorPage")
-@Theme("mytheme")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 @Title("${error.title}")
 public class ErrorPageUI extends UI {
@@ -40,5 +40,6 @@ public class ErrorPageUI extends UI {
         root.addComponent(picture);
         root.addComponent(ResourceGetter.getPickeriLogoAsEmbeddedComponent());
         this.setContent(root);
+        ThemeSetter.set(this);
     }
 }
