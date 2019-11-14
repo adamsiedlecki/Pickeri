@@ -65,7 +65,6 @@ public class GeneralSettingsTab extends VerticalLayout {
         row.addComponents(label, valueField, button);
         button.addClickListener(e->{
             settingsService.update(key, valueField.getValue());
-            System.out.println(key);
             if(key.equals("theme.name")){
                 ThemeSetter.set(this.getUI());
             }
