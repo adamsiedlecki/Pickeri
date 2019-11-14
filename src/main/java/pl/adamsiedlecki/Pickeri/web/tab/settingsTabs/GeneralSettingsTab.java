@@ -25,6 +25,8 @@ public class GeneralSettingsTab extends VerticalLayout {
         addRow(env.getProperty("header.text"),env.getProperty("save.button"), "header.text");
         addRowWithComboBox(env.getProperty("menu.buttons.style"), env.getProperty("save.button"), "menu.buttons.style",
                 List.of("LARGE","BORDERLESS", "QUIET", "PRIMARY"));
+        addRowWithComboBox(env.getProperty("theme"), env.getProperty("save.button"), "theme.name",
+                List.of("lightTheme","darktheme"));
 
         this.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         root.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);

@@ -64,7 +64,7 @@ $v-layout-spacing-horizontal: round($v-unit-size / 1.8) !default;
 @import "../valo/valo.scss";
 
 
-@mixin mytheme {
+@mixin lightTheme {
   @include valo;
 
   .huge.button.font{
