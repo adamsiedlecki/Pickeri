@@ -5,7 +5,7 @@ import com.vaadin.ui.UI;
 public class ThemeSetter {
 
     public static void set(UI ui){
-        String themeName = "mytheme";
+        String themeName = "darktheme";
         ui.setTheme(themeName);
     }
 
