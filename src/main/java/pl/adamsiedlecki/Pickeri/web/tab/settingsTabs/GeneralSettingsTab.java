@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
 
 import java.util.List;
 
@@ -64,6 +65,10 @@ public class GeneralSettingsTab extends VerticalLayout {
         row.addComponents(label, valueField, button);
         button.addClickListener(e->{
             settingsService.update(key, valueField.getValue());
+            System.out.println(key);
+            if(key.equals("theme.name")){
+                ThemeSetter.set(this.getUI());
+            }
         });
         root.addComponent(row);
         root.setComponentAlignment(row, Alignment.MIDDLE_CENTER);
