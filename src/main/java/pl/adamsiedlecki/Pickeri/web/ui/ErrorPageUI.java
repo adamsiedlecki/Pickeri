@@ -12,7 +12,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ResourceGetter;
 
 
 @SpringUI(path = "/errorPage")

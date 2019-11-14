@@ -9,7 +9,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.entity.Device;
 import pl.adamsiedlecki.Pickeri.service.DeviceService;
-import pl.adamsiedlecki.Pickeri.tools.MagicClick;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.MagicClick;
 import pl.adamsiedlecki.Pickeri.tools.net.PingTest;
 
 import java.util.List;

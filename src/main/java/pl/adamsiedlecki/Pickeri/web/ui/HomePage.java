@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
-import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.tools.qr.QRCodeReader;
 
 import java.io.File;

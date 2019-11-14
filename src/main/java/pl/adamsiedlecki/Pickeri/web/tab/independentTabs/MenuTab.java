@@ -2,7 +2,6 @@ package pl.adamsiedlecki.Pickeri.web.tab.independentTabs;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Resource;
-import com.vaadin.server.Sizeable;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
@@ -13,7 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.NoteService;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
-import pl.adamsiedlecki.Pickeri.tools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.components.StockInfoPanel;
 
 @SpringComponent
