@@ -10,9 +10,9 @@ import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.AlignmentSetter;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.HeaderAdder;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.AlignmentSetter;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.HeaderAdder;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.AllDeliveriesTab;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
 

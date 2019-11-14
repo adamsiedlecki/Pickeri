@@ -1,7 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.ui;
 
 import com.vaadin.annotations.StyleSheet;
-import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -11,7 +10,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import pl.adamsiedlecki.Pickeri.service.PickeriUserDetailsService;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
 
 @SpringUI(path = "/password-change")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})

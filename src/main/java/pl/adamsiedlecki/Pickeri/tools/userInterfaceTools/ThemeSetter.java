@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools;
+package pl.adamsiedlecki.Pickeri.tools.userInterfaceTools;
 
 import com.vaadin.ui.UI;
 import org.springframework.beans.factory.annotation.Autowired;

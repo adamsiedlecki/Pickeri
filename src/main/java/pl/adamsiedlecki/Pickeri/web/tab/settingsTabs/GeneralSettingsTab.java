@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class GeneralSettingsTab extends VerticalLayout {
         addRowWithComboBox(env.getProperty("menu.buttons.style"), env.getProperty("save.button"), "menu.buttons.style",
                 List.of("LARGE","BORDERLESS", "QUIET", "PRIMARY"));
         addRowWithComboBox(env.getProperty("theme"), env.getProperty("save.button"), "theme.name",
-                List.of("lightTheme","darktheme"));
+                List.of("lightTheme","darkTheme"));
 
         this.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);
         root.setDefaultComponentAlignment(Alignment.MIDDLE_CENTER);

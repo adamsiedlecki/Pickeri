@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools;
+package pl.adamsiedlecki.Pickeri.tools.userInterfaceTools;
 
 
 import com.google.common.io.Resources;

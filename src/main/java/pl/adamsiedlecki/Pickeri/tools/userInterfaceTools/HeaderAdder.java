@@ -1,11 +1,10 @@
-package pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools;
+package pl.adamsiedlecki.Pickeri.tools.userInterfaceTools;
 
 import com.vaadin.server.Sizeable;
 import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ResourceGetter;
 
 public class HeaderAdder {
 

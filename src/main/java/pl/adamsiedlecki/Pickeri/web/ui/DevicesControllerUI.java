@@ -1,7 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.ui;
 
 import com.vaadin.annotations.StyleSheet;
-import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
@@ -11,9 +10,9 @@ import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.AlignmentSetter;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.HeaderAdder;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.AlignmentSetter;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.HeaderAdder;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.web.tab.devicesTabs.DeviceControllerTab;
 import pl.adamsiedlecki.Pickeri.web.tab.devicesTabs.DevicesAdvancedSettingsTab;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;

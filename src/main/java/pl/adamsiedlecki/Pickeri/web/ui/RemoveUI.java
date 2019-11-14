@@ -1,7 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.ui;
 
 import com.vaadin.annotations.StyleSheet;
-import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.VaadinRequest;
@@ -14,7 +13,7 @@ import pl.adamsiedlecki.Pickeri.service.ExpenseService;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.FruitVarietyService;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
 
 @SpringUI(path = "/usuwaniedanych")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})

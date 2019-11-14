@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.NoteService;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.web.components.StockInfoPanel;
 
 @SpringComponent

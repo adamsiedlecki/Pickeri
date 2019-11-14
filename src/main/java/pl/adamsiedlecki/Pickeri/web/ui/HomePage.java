@@ -1,7 +1,6 @@
 package pl.adamsiedlecki.Pickeri.web.ui;
 
 import com.vaadin.annotations.StyleSheet;
-import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.ExternalResource;
 import com.vaadin.server.Page;
@@ -13,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ResourceGetter;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ThemeSetter;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.tools.qr.QRCodeReader;
 
 import java.io.File;

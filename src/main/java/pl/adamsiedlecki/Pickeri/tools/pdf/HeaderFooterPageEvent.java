@@ -8,7 +8,7 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import pl.adamsiedlecki.Pickeri.tools.UserInterfaceTools.ResourceGetter;
+import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ResourceGetter;
 
 import java.io.IOException;
 
