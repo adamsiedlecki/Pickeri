@@ -29,7 +29,7 @@ public class StockInfoPanel extends VerticalLayout {
         setHeight(50, Unit.PIXELS);
         btcPriceLabel = new Label();
         dollarPriceLabel = new Label();
-        this.addComponents(btcPriceLabel, new Label(), new Label(), dollarPriceLabel);
+        this.addComponents(new Label(), btcPriceLabel, new Label(), new Label(), dollarPriceLabel);
         refreshPrice();
         this.forEach(component -> {this.setComponentAlignment(component, Alignment.MIDDLE_CENTER);});
         this.addLayoutClickListener(event -> refreshPrice());
