@@ -8,10 +8,15 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Embedded;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.net.URL;
 
 public class ResourceGetter {
+
+    private static final Logger log = LoggerFactory.getLogger(ResourceGetter.class);
 
     public static Embedded getPickeriLogoAsEmbeddedComponent() {
         Embedded logo = new Embedded("", new FileResource(ResourceGetter.getPickeriLogo()));
@@ -54,32 +59,30 @@ public class ResourceGetter {
 
     private static File getFileByName(String fileNameWithExtension) {
         File logo = null;
-        String osName = System.getProperty("os.name").toLowerCase();
-        if (osName.contains("win")) {
-            logo = new File("src\\main\\resources\\images\\" + fileNameWithExtension);
-        } else if (osName.contains("nux")) {
-            logo = new File("trzydziestka.jpg");
-            if (!logo.exists()) {
-                logo = new File("src/main/resources/images/" + fileNameWithExtension);
-            }
-            if (!logo.exists()) {
-                URL url2 = Resources.getResource("images/" + fileNameWithExtension);
-                logo = new File(url2.getFile());
-            }
-            if (!logo.exists()) {
-                logo = new File("src/main/resources/images/" + fileNameWithExtension);
-            }
-            if (!logo.exists()) {
-                logo = new File(fileNameWithExtension);
-            }
-            if (!logo.exists()) {
-                URL url = Resources.getResource("/images/" + fileNameWithExtension);
-                logo = new File(url.getFile());
-            }
-            if (!logo.exists()) {
-                System.out.println("ERROR: " + fileNameWithExtension + " NOT FOUND");
-            }
+        logo = new File("src\\main\\resources\\images\\" + fileNameWithExtension);
+        if (!logo.exists()) {
+            logo = new File("src/main/resources/images/" + fileNameWithExtension);
         }
+        if (!logo.exists()) {
+            logo = new File("images\\" + fileNameWithExtension);
+        }
+        if (!logo.exists()) {
+            logo = new File("src/main/resources/images/" + fileNameWithExtension);
+        }
+        if (!logo.exists()) {
+            logo = new File(fileNameWithExtension);
+        }
+        if (!logo.exists()) {
+            logo = new File("/images/" + fileNameWithExtension);
+        }
+        if (!logo.exists()) {
+            URL url = Resources.getResource("/images/" + fileNameWithExtension);
+            logo = new File(url.getFile());
+        }
+        if (!logo.exists()) {
+            log.error("ERROR: " + fileNameWithExtension + " NOT FOUND");
+        }
+
         return logo;
     }
 
