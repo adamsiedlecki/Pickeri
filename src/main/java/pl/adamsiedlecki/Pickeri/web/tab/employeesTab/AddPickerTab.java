@@ -1,4 +1,4 @@
-package pl.adamsiedlecki.Pickeri.web.tab.othersUITabs;
+package pl.adamsiedlecki.Pickeri.web.tab.employeesTab;
 
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;

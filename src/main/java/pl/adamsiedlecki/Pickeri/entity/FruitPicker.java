@@ -243,4 +243,8 @@ public class FruitPicker {
         this.gender = gender;
     }
 
+    public String getIdNameSurnameString(){
+        return id+" "+name+" "+lastName;
+    }
+
 }

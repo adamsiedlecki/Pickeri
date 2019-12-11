@@ -61,23 +61,41 @@ public class ResourceGetter {
         File logo = null;
         logo = new File("src\\main\\resources\\images\\" + fileNameWithExtension);
         if (!logo.exists()) {
-            logo = new File("src/main/resources/images/" + fileNameWithExtension);
-        }
-        if (!logo.exists()) {
             logo = new File("images\\" + fileNameWithExtension);
         }
+        if(logo.exists()){
+            return logo;
+        }
         if (!logo.exists()) {
             logo = new File("src/main/resources/images/" + fileNameWithExtension);
+        }
+        if(logo.exists()){
+            return logo;
+        }
+        if (!logo.exists()) {
+            logo = new File("src/main/resources/images/" + fileNameWithExtension);
+        }
+        if(logo.exists()){
+            return logo;
         }
         if (!logo.exists()) {
             logo = new File(fileNameWithExtension);
         }
+        if(logo.exists()){
+            return logo;
+        }
         if (!logo.exists()) {
             logo = new File("/images/" + fileNameWithExtension);
+        }
+        if(logo.exists()){
+            return logo;
         }
         if (!logo.exists()) {
             URL url = Resources.getResource("/images/" + fileNameWithExtension);
             logo = new File(url.getFile());
+        }
+        if(logo.exists()){
+            return logo;
         }
         if (!logo.exists()) {
             log.error("ERROR: " + fileNameWithExtension + " NOT FOUND");
@@ -85,5 +103,7 @@ public class ResourceGetter {
 
         return logo;
     }
+
+
 
 }

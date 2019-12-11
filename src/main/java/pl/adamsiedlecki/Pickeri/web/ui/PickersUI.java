@@ -13,8 +13,9 @@ import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.HeaderAdder;
 import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
+import pl.adamsiedlecki.Pickeri.web.tab.employeesTab.AddPickerTab;
+import pl.adamsiedlecki.Pickeri.web.tab.employeesTab.DeletePickerTab;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
-import pl.adamsiedlecki.Pickeri.web.tab.othersUITabs.*;
 
 @SpringUI(path = "/other")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
@@ -27,13 +28,15 @@ public class PickersUI extends UI {
     private AddPickerTab addPickerTab;
     private Environment env;
     private SettingsService settingsService;
+    private DeletePickerTab deletePickerTab;
 
     @Autowired
-    public PickersUI(MenuTab othersTab, AddPickerTab addPickerTab, Environment environment, SettingsService settingsService) {
+    public PickersUI(MenuTab othersTab, AddPickerTab addPickerTab, DeletePickerTab deletePickerTab, Environment environment, SettingsService settingsService) {
         this.addPickerTab = addPickerTab;
         this.othersTab = othersTab;
         this.env = environment;
         this.settingsService = settingsService;
+        this.deletePickerTab = deletePickerTab;
     }
 
     @Override
@@ -49,8 +52,8 @@ public class PickersUI extends UI {
     private void addTabs() {
         tabs = new TabSheet();
         tabs.addTab(addPickerTab, env.getProperty("add.picker.tab"));
+        tabs.addTab(deletePickerTab, env.getProperty("delete.employee"));
         tabs.addTab(othersTab, env.getProperty("menu.tab.caption"));
         root.addComponent(tabs);
     }
-
 }
