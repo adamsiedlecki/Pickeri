@@ -19,6 +19,10 @@ public class FruitVarietyService implements Removeable {
     public FruitVarietyService(FruitVarietyDAO fruitVarietyDAO, FruitDeliveryService fruitDeliveryService) {
         this.fruitVarietyDAO = fruitVarietyDAO;
         this.fruitDeliveryService = fruitDeliveryService;
+        if(fruitVarietyDAO.findAll().size()==0){
+            fruitVarietyDAO.save(new FruitVariety("ALBA", ""));
+            fruitVarietyDAO.save(new FruitVariety("MARMOLADA", ""));
+        }
     }
 
     public List<FruitVariety> findAll() {

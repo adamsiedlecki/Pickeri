@@ -17,6 +17,10 @@ public class FruitTypeService {
     @Autowired
     public FruitTypeService(FruitTypeDAO fruitTypeDAO) {
         this.fruitTypeDAO = fruitTypeDAO;
+        if(fruitTypeDAO.findAll().size()==0){
+            fruitTypeDAO.save(new FruitType("z szypułką", 1));
+            fruitTypeDAO.save(new FruitType("bez szypułki", 2));
+        }
     }
 
     public List<FruitType> findAll() {

@@ -194,19 +194,23 @@ public class AddDeliveryTab extends VerticalLayout {
                 Notification.show(env.getProperty("complete.fields.notification"));
             } else {
                 if(areValuesNotLessThanZero()){
-                    FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerIdField.getValue()),
-                            fruitTypeRadioButton.getValue(), Long.parseLong(packageAmount.getValue()), commentField.getValue(),
-                            fruitVarietyRadioButton.getValue(), LocalDateTime.now());
-                    fruitDelivery.setFruitWeight(new BigDecimal(weightField.getValue()));
-                    Geolocation geo = new Geolocation(this.getUI());
-                    geo.getCurrentPosition(position -> {
-                        Coordinates coordinates = position.getCoordinates();
-                        //
-                        fruitDelivery.setGeoLocalization(new GeoLocalization(coordinates.getLatitude(),
-                                coordinates.getLongitude()));
-                    });
-                    fruitDeliveryService.addDelivery(fruitDelivery);
-                    cleanFields();
+                    if(pickerExists(fruitPickerIdField.getValue())){
+                        FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerIdField.getValue()),
+                                fruitTypeRadioButton.getValue(), Long.parseLong(packageAmount.getValue()), commentField.getValue(),
+                                fruitVarietyRadioButton.getValue(), LocalDateTime.now());
+                        fruitDelivery.setFruitWeight(new BigDecimal(weightField.getValue()));
+                        Geolocation geo = new Geolocation(this.getUI());
+                        geo.getCurrentPosition(position -> {
+                            Coordinates coordinates = position.getCoordinates();
+                            //
+                            fruitDelivery.setGeoLocalization(new GeoLocalization(coordinates.getLatitude(),
+                                    coordinates.getLongitude()));
+                        });
+                        fruitDeliveryService.addDelivery(fruitDelivery);
+                        cleanFields();
+                    }else{
+                        Notification.show("Picker with provided id does not exist.");
+                    }
                 }else{
                     Notification.show(env.getProperty("some.values.cannot.be.less.than.zero"));
                 }
@@ -215,6 +219,12 @@ public class AddDeliveryTab extends VerticalLayout {
             Notification.show(env.getProperty("id.and.amount.must.be.integr"));
         }
 
+    }
+
+    private boolean pickerExists(String id) {
+        Long idLong = Long.parseLong(id);
+        Optional<FruitPicker> fp = fruitPickerService.getFruitPickerById(idLong);
+        return fp.isPresent();
     }
 
     private boolean areValuesNotLessThanZero(){
