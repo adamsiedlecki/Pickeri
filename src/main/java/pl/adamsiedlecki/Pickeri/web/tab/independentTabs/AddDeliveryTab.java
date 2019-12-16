@@ -4,11 +4,9 @@ import com.vaadin.addon.geolocation.Coordinates;
 import com.vaadin.addon.geolocation.Geolocation;
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.server.Page;
-import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.ui.*;
-import com.vaadin.ui.themes.ValoTheme;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -53,6 +51,7 @@ public class AddDeliveryTab extends VerticalLayout {
     private Environment env;
     private ComboBox<String> pickersComboBox;
     private FruitPickerService fruitPickerService;
+    private Label weightInKgLabel = new Label();
 
     @Autowired
     public AddDeliveryTab(FruitDeliveryService fruitDeliveryService, FruitVarietyService fruitVarietyService,
@@ -148,7 +147,14 @@ public class AddDeliveryTab extends VerticalLayout {
         packageAmount.setValue("0");
         weightField = new TextField(env.getProperty("weight.in.gram"));
         weightField.setValue("0");
-        HorizontalLayout amountAndWeightLayout = new HorizontalLayout(packageAmount, weightField);
+        weightField.addValueChangeListener(e -> {
+            if (NumberUtils.isCreatable(weightField.getValue())) {
+                float value = Float.parseFloat(weightField.getValue());
+                value = value / 1000;
+                weightInKgLabel.setValue(value + " kg");
+            }
+        });
+        HorizontalLayout amountAndWeightLayout = new HorizontalLayout(packageAmount, weightField, weightInKgLabel);
         amountAndWeightLayout.setIcon(VaadinIcons.STORAGE);
 
         fruitTypeRadioButton = new RadioButtonGroup<>();
