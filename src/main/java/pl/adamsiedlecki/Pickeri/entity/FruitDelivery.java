@@ -1,7 +1,5 @@
 package pl.adamsiedlecki.Pickeri.entity;
 
-import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -39,7 +37,7 @@ public class FruitDelivery {
     @Column
     private BigDecimal fruitWeight;
 
-    @Column
+    @Embedded
     private GeoLocalization geoLocalization;
 
     public FruitDelivery() {
