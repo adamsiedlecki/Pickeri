@@ -58,7 +58,7 @@ public class RankingTab extends VerticalLayout {
         List<FruitPicker> pickerList = getCurrentPickers();
         pickersGrid.setItems(pickerList);
         pickersGrid.sort("packageDeliveryAmount", SortDirection.DESCENDING);
-        pickersGrid.setHeightByRows(pickerList.size());
+        pickersGrid.setHeightByRows(pickerList.size()==0? 1 : pickerList.size());
     }
 
 }

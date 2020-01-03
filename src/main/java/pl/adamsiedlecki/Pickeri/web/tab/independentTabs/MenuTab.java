@@ -28,10 +28,13 @@ public class MenuTab extends VerticalLayout {
     public MenuTab(Environment environment, NoteService noteService, StockInfoPanel stockInfoPanel, SettingsService settingsService) {
         this.env = environment;
         this.settingsService = settingsService;
-        HorizontalLayout root = new HorizontalLayout();
-        VerticalLayout firstList = new VerticalLayout();
-        VerticalLayout secondList = new VerticalLayout();
-        VerticalLayout thirdList = new VerticalLayout();
+//        HorizontalLayout root = new HorizontalLayout();
+//        VerticalLayout firstList = new VerticalLayout();
+//        VerticalLayout secondList = new VerticalLayout();
+//        VerticalLayout thirdList = new VerticalLayout();
+        GridLayout rootLayout = new GridLayout(4, 8);
+        rootLayout.setSpacing(true);
+        rootLayout.setWidth(100, Unit.PERCENTAGE);
 
         switch (settingsService.get("menu.buttons.style").getState()) {
             case "LARGE":
@@ -49,55 +52,59 @@ public class MenuTab extends VerticalLayout {
                 break;
         }
 
-        addLink(firstList, "add.fruits.ui", "/");
-        addLink(firstList, "statistics.and.employees.ui", "/statistics-and-info");
-        addLink(firstList, "ranking.ui", "/ranking");
-        addLink(firstList, "all.deliveries.ui", "/all-deliveries");
-        addLink(firstList, "expenses.ui", "/expenses");
-        addLink(firstList, "payments.ui", "/picker-payments");
-        addLink(firstList, "employees.ui", "/other");
+        addLink(rootLayout, "add.fruits.ui", "/", 1, 1);
+        addLink(rootLayout, "statistics.and.employees.ui", "/statistics-and-info", 1, 2);
+        addLink(rootLayout, "ranking.ui", "/ranking", 1, 3);
+        addLink(rootLayout, "all.deliveries.ui", "/all-deliveries", 1, 4);
+        addLink(rootLayout, "expenses.ui", "/expenses", 1, 5);
+        addLink(rootLayout, "payments.ui", "/picker-payments", 1, 6);
+        addLink(rootLayout, "employees.ui", "/other", 1, 7);
         //firstList.setStyleName("firstListMenu");
 
-        addLink(secondList, "notes.ui", "/notes");
-        addLink(secondList, "worktime.registry", "/work-time");
+        addLink(rootLayout, "notes.ui", "/notes", 2, 1);
+        addLink(rootLayout, "worktime.registry", "/work-time", 2, 2);
+
         TextArea lastNote = new TextArea(env.getProperty("last.note"));
         lastNote.setEnabled(false);
-        lastNote.setValue(noteService.getLastNote().getContent());
-        lastNote.setWidth(100, Unit.PERCENTAGE);
+        String lastNoteText = noteService.getLastNote().getContent();
+        lastNote.setValue(lastNoteText==null?" " : lastNoteText);
+        lastNote.setWidth(240, Unit.PIXELS);
         lastNote.setRows(2);
-        secondList.addComponent(lastNote);
-        secondList.addComponent(stockInfoPanel);
+        rootLayout.addComponent(lastNote, 2, 3, 2, 4);
 
-        addLink(thirdList, "documents.title", "/documents-generator");
-        addLink(thirdList,"varieties.and.types.of.fruits","/varieties-and-types");
-        addLink(thirdList, "devices.controller.title", "/devices-controller");
-        addLink(thirdList, "settings.title", "/settings");
+        rootLayout.addComponent(stockInfoPanel, 2, 5, 2, 6);
+        stockInfoPanel.setWidth(240, Unit.PIXELS);
 
-        root.setWidth(100, Unit.PERCENTAGE);
-        root.addComponents(firstList, secondList, thirdList);
-        firstList.setHeight(350, Unit.PIXELS);
-        secondList.setHeight(300, Unit.PIXELS);
-        thirdList.setHeight(350, Unit.PIXELS);
-        root.setComponentAlignment(firstList, Alignment.TOP_LEFT);
-        root.setComponentAlignment(secondList, Alignment.TOP_CENTER);
-        root.setComponentAlignment(thirdList, Alignment.TOP_RIGHT);
-        root.setMargin(false);
-        root.setHeight(100, Unit.PERCENTAGE);
+        addLink(rootLayout, "documents.title", "/documents-generator", 3, 1);
+        addLink(rootLayout, "varieties.and.types.of.fruits", "/varieties-and-types", 3, 2);
+        addLink(rootLayout, "devices.controller.title", "/devices-controller", 3, 3);
+        addLink(rootLayout, "settings.title", "/settings", 3, 4);
 
-        this.addComponent(root);
-        addLink(this, "logout.button", "/logout");
+//        root.setWidth(100, Unit.PERCENTAGE);
+//        root.addComponents(firstList, secondList, thirdList);
+//        firstList.setHeight(350, Unit.PIXELS);
+//        secondList.setHeight(300, Unit.PIXELS);
+//        thirdList.setHeight(350, Unit.PIXELS);
+//        root.setComponentAlignment(firstList, Alignment.TOP_LEFT);
+//        root.setComponentAlignment(secondList, Alignment.TOP_CENTER);
+//        root.setComponentAlignment(thirdList, Alignment.TOP_RIGHT);
+//        root.setMargin(false);
+//        root.setHeight(100, Unit.PERCENTAGE);
+
+        this.addComponent(rootLayout);
+        addLink(this, "logout.button", "/logout", 0, 0);
         HorizontalLayout logoLayout = ResourceGetter.getSiedleckiLogoWithLayout();
         this.addComponent(logoLayout);
         this.setComponentAlignment(logoLayout, Alignment.BOTTOM_CENTER);
         this.setHeight(100, Unit.PERCENTAGE);
         this.setWidth(100, Unit.PERCENTAGE);
-        this.setExpandRatio(root,6);
+        this.setExpandRatio(rootLayout, 6);
         this.setExpandRatio(logoLayout, 1);
         this.setComponentAlignment(logoLayout, Alignment.BOTTOM_CENTER);
 
     }
 
-    private void addLink(VerticalLayout layout, String propertyName, String path) {
+    private void addLink(Layout layout, String propertyName, String path, int column, int row) {
         String name = env.getProperty(propertyName);
         Button link = new Button(name);
         link.setWidth(240, Unit.PIXELS);
@@ -126,15 +133,23 @@ public class MenuTab extends VerticalLayout {
             }
 
         });
-        layout.addComponent(link);
-        layout.setComponentAlignment(link, Alignment.TOP_CENTER);
+        if (layout instanceof GridLayout) {
+            GridLayout gridLayout = (GridLayout) layout;
+            gridLayout.addComponent(link, column, row);
+        } else if (layout instanceof VerticalLayout) {
+            VerticalLayout verticalLayout = (VerticalLayout) layout;
+            verticalLayout.addComponent(link);
+            verticalLayout.setComponentAlignment(link, Alignment.TOP_CENTER);
 
-        if(propertyName!=null && propertyName.contains("logout")){
-            link.setIcon(VaadinIcons.SIGN_OUT);
-            layout.setComponentAlignment(link, Alignment.BOTTOM_CENTER);
-            link.setWidth(20, Unit.PERCENTAGE);
-            link.setStyleName(ValoTheme.BUTTON_PRIMARY);
+            if (propertyName.contains("logout")) {
+                link.setIcon(VaadinIcons.SIGN_OUT);
+                verticalLayout.setComponentAlignment(link, Alignment.BOTTOM_CENTER);
+                link.setWidth(20, Unit.PERCENTAGE);
+                link.setStyleName(ValoTheme.BUTTON_PRIMARY);
+            }
         }
+
+
     }
 
     private void addIconIfPropertyContains(String property, String text, Resource icon, Button link){

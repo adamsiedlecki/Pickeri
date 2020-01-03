@@ -30,8 +30,11 @@ public class MonthExpensesStatisticsGetter {
                     sum = sum.add(expense.getMoneyAmount());
                 }
             }
-            BigDecimal percentage = sum.divide(allSum, 2, RoundingMode.FLOOR).multiply(new BigDecimal(100));
-            result.add(new MonthExpanses(sum, months.get(i), percentage));
+            if(!allSum.equals(BigDecimal.ZERO)){
+                BigDecimal percentage = sum.divide(allSum, 2, RoundingMode.FLOOR).multiply(new BigDecimal(100));
+                result.add(new MonthExpanses(sum, months.get(i), percentage));
+            }
+            
         }
         return result;
     }
