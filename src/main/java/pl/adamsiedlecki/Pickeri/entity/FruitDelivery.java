@@ -50,7 +50,6 @@ public class FruitDelivery {
         this.comment = comment;
         this.fruitVarietyName = fruitVarietyName;
         this.type = fruitType;
-
     }
 
     public String getType() {
