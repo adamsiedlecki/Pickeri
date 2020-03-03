@@ -141,4 +141,8 @@ public class FruitDeliveryService implements Removeable {
         return result;
     }
 
+    public List<FruitDelivery> getTodayDeliveries() {
+        Optional<List<FruitDelivery>> todayDeliveries = fruitDeliveryDAO.getTodayDeliveries();
+        return todayDeliveries.orElseGet(List::of);
+    }
 }

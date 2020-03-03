@@ -6,12 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.*;
-import pl.adamsiedlecki.Pickeri.entity.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.adamsiedlecki.Pickeri.service.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -50,6 +51,11 @@ public class ApiController {
     @GetMapping(value = "/get-packages-amount/{key}")
     public String getPackagesInfo(@PathVariable String key) {
         return getDataStrings(key, fruitDeliveryService.getTotalAmountOfPackages());
+    }
+
+    @GetMapping(value = "/get-today-deliveries/{key}")
+    public String getTodayDeliveries(@PathVariable String key) {
+        return getDataStrings(key, fruitDeliveryService.getTodayDeliveries());
     }
 
     private String getDataStrings(String key, Number getNumberFunction) {
