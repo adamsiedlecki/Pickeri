@@ -205,10 +205,10 @@ public class AddDeliveryTab extends VerticalLayout {
                                 fruitTypeRadioButton.getValue(), Long.parseLong(packageAmount.getValue()), commentField.getValue(),
                                 fruitVarietyRadioButton.getValue(), LocalDateTime.now());
                         fruitDelivery.setFruitWeight(new BigDecimal(weightField.getValue()));
+
                         Geolocation geo = new Geolocation(this.getUI());
                         geo.getCurrentPosition(position -> {
                             Coordinates coordinates = position.getCoordinates();
-                            //
                             fruitDelivery.setGeoLocalization(new GeoLocalization(coordinates.getLatitude(),
                                     coordinates.getLongitude()));
                         });

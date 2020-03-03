@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -105,6 +106,12 @@ public class ObjectiveApiController {
     @GetMapping(value = "/get-deliveries/{key}")
     public List<FruitDelivery> getDeliveries(@PathVariable String key) {
         return getDataObjects(key, fruitDeliveryService.findAll());
+    }
+
+    @GetMapping(value = "/get-user-by-username/{username}/{key}")
+    public Object getUser(@PathVariable String username, @PathVariable String key) {
+        UserDetails user = userDetailsService.loadUserByUsername(username);
+        return getDataObjects(key, List.of(user));
     }
 
     private <T> List<T> getDataObjects(String key, List<T> objects) {
