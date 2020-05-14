@@ -14,7 +14,7 @@ public class PickeriApplication {
 
     public static void main(String[] args) {
         LocalDate now = LocalDate.now();
-        LocalDate expirationDate = LocalDate.of(2020, 8, 1);
+        LocalDate expirationDate = LocalDate.of(2021, 8, 1);
         if(now.isBefore(expirationDate)){
             SpringApplication.run(PickeriApplication.class, args);
         }else{
