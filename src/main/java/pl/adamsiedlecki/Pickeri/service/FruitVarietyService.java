@@ -12,16 +12,22 @@ import java.util.List;
 @Service
 public class FruitVarietyService implements Removeable {
 
-    private FruitVarietyDAO fruitVarietyDAO;
-    private FruitDeliveryService fruitDeliveryService;
+    private final FruitVarietyDAO fruitVarietyDAO;
+    private final FruitDeliveryService fruitDeliveryService;
 
     @Autowired
     public FruitVarietyService(FruitVarietyDAO fruitVarietyDAO, FruitDeliveryService fruitDeliveryService) {
         this.fruitVarietyDAO = fruitVarietyDAO;
         this.fruitDeliveryService = fruitDeliveryService;
-        if(fruitVarietyDAO.findAll().size()==0){
+        if (fruitVarietyDAO.findAll().size() == 0) {
             fruitVarietyDAO.save(new FruitVariety("ALBA", ""));
             fruitVarietyDAO.save(new FruitVariety("MARMOLADA", ""));
+            fruitVarietyDAO.save(new FruitVariety("APRICA", ""));
+            fruitVarietyDAO.save(new FruitVariety("JIVE", ""));
+            fruitVarietyDAO.save(new FruitVariety("GRANDAROSA", ""));
+            fruitVarietyDAO.save(new FruitVariety("ALLEGRO", ""));
+            fruitVarietyDAO.save(new FruitVariety("SONATA", ""));
+            fruitVarietyDAO.save(new FruitVariety("MALLING CENTENARY", ""));
         }
     }
 

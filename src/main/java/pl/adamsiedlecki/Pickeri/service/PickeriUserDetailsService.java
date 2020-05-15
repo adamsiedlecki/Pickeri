@@ -16,17 +16,14 @@ import java.util.List;
 @Service
 public class PickeriUserDetailsService implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Autowired
     public PickeriUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
         if(userRepository.findAll().size()==0){
-            addUser("a","b",List.of(new UserRole("ADMIN")));
+            addUser("user", "pass", List.of(new UserRole("ADMIN")));
         }
-        //addUser("a","a",List.of(new UserRole("ADMIN")));
-        //addUser("admin","pass",List.of(new UserRole("ADMIN")));
-        //addUser("b","b",List.of(new UserRole("ADMIN")));
     }
 
     public List<User> findAll(){
