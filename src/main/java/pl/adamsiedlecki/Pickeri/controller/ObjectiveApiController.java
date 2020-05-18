@@ -5,37 +5,36 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.adamsiedlecki.Pickeri.entity.*;
 import pl.adamsiedlecki.Pickeri.service.*;
 
 import java.util.List;
 
+import static com.github.jaiimageio.impl.plugins.tiff.TIFFFaxCompressor.pass;
+
 @RestController
 @RequestMapping("/api/v2")
 public class ObjectiveApiController {
 
-    private FruitPickerService fruitPickerService;
-    private FruitDeliveryService fruitDeliveryService;
-    private DeviceService deviceService;
-    private DeviceControllerService deviceControllerService;
-    private ExpenseService expenseService;
-    private FruitTypeService fruitTypeService;
-    private FruitVarietyService fruitVarietyService;
-    private NoteService noteService;
-    private SettingsService settingsService;
-    private PickeriUserDetailsService userDetailsService;
-    private WorkTimeService workTimeService;
+    private final FruitPickerService fruitPickerService;
+    private final FruitDeliveryService fruitDeliveryService;
+    private final DeviceService deviceService;
+    private final DeviceControllerService deviceControllerService;
+    private final ExpenseService expenseService;
+    private final FruitTypeService fruitTypeService;
+    private final FruitVarietyService fruitVarietyService;
+    private final NoteService noteService;
+    private final SettingsService settingsService;
+    private final PickeriUserDetailsService userDetailsService;
+    private final WorkTimeService workTimeService;
     private static final Logger log = LoggerFactory.getLogger(ApiController.class);
-    private Environment env;
+    private final Environment env;
 
     @Autowired
     public ObjectiveApiController(FruitPickerService pickerService, FruitDeliveryService fruitDeliveryService, Environment environment,
-                         DeviceService deviceService, DeviceControllerService deviceControllerService, ExpenseService expenseService,
-                         FruitTypeService fruitTypeService, FruitVarietyService fruitVarietyService, NoteService noteService,
+                                  DeviceService deviceService, DeviceControllerService deviceControllerService, ExpenseService expenseService,
+                                  FruitTypeService fruitTypeService, FruitVarietyService fruitVarietyService, NoteService noteService,
                                   SettingsService settingsService, PickeriUserDetailsService userDetailsService,
                                   WorkTimeService workTimeService) {
         this.workTimeService = workTimeService;
@@ -106,6 +105,13 @@ public class ObjectiveApiController {
     @GetMapping(value = "/get-deliveries/{key}")
     public List<FruitDelivery> getDeliveries(@PathVariable String key) {
         return getDataObjects(key, fruitDeliveryService.findAll());
+    }
+
+    @PostMapping(value = "/post-delivery/{key}")
+    public void getDeliveries(@PathVariable FruitDelivery fruitDelivery, @PathVariable String key) {
+        if (pass.equals(key)) {
+            fruitDeliveryService.addDelivery(fruitDelivery);
+        }
     }
 
     @GetMapping(value = "/get-user-by-username/{username}/{key}")
