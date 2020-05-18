@@ -19,9 +19,9 @@ import pl.adamsiedlecki.Pickeri.web.components.StockInfoPanel;
 @Scope("prototype")
 public class MenuTab extends VerticalLayout {
 
-    private Environment env;
-    private Logger log = LoggerFactory.getLogger(MenuTab.class);
-    private SettingsService settingsService;
+    private final Environment env;
+    private final Logger log = LoggerFactory.getLogger(MenuTab.class);
+    private final SettingsService settingsService;
     private static String buttonStyle;
 
     @Autowired
@@ -53,7 +53,7 @@ public class MenuTab extends VerticalLayout {
         }
 
         addLink(rootLayout, "add.fruits.ui", "/", 1, 1);
-        addLink(rootLayout, "statistics.and.employees.ui", "/statistics-and-info", 1, 2);
+        addLink(rootLayout, "statistics.ui", "/statistics-and-info", 1, 2);
         addLink(rootLayout, "ranking.ui", "/ranking", 1, 3);
         addLink(rootLayout, "all.deliveries.ui", "/all-deliveries", 1, 4);
         addLink(rootLayout, "expenses.ui", "/expenses", 1, 5);

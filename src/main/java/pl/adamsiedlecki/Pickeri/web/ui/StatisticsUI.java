@@ -24,16 +24,16 @@ public class StatisticsUI extends UI {
 
     private TabSheet tabs;
     private VerticalLayout root;
-    private FindPickerTab findPickerTab;
-    private StatisticsTab statisticsTab;
-    private MenuTab othersTab;
-    private Environment env;
-    private SettingsService settingsService;
+    //private FindPickerTab findPickerTab;
+    private final StatisticsTab statisticsTab;
+    private final MenuTab othersTab;
+    private final Environment env;
+    private final SettingsService settingsService;
 
     @Autowired
     public StatisticsUI(FindPickerTab findPickerTab, StatisticsTab statisticsTab,
                         MenuTab othersTab, Environment environment, SettingsService settingsService) {
-        this.findPickerTab = findPickerTab;
+        //this.findPickerTab = findPickerTab;
         this.statisticsTab = statisticsTab;
         this.othersTab = othersTab;
         this.env = environment;
@@ -52,7 +52,7 @@ public class StatisticsUI extends UI {
 
     private void addTabs() {
         tabs = new TabSheet();
-        tabs.addTab(findPickerTab, env.getProperty("search.for.employee.tab"));
+        //tabs.addTab(findPickerTab, env.getProperty("search.for.employee.tab"));
         tabs.addTab(statisticsTab, env.getProperty("statistics.tab"));
         tabs.addTab(othersTab, env.getProperty("menu.tab.caption"));
         root.addComponent(tabs);

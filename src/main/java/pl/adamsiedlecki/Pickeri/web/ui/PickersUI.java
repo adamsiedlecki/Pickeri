@@ -16,6 +16,7 @@ import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
 import pl.adamsiedlecki.Pickeri.web.tab.employeesTab.AddPickerTab;
 import pl.adamsiedlecki.Pickeri.web.tab.employeesTab.DeletePickerTab;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
+import pl.adamsiedlecki.Pickeri.web.tab.statisticsTabs.FindPickerTab;
 
 @SpringUI(path = "/other")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
@@ -24,19 +25,21 @@ public class PickersUI extends UI {
 
     private TabSheet tabs;
     private VerticalLayout root;
-    private MenuTab othersTab;
-    private AddPickerTab addPickerTab;
-    private Environment env;
-    private SettingsService settingsService;
-    private DeletePickerTab deletePickerTab;
+    private final MenuTab othersTab;
+    private final AddPickerTab addPickerTab;
+    private final Environment env;
+    private final SettingsService settingsService;
+    private final DeletePickerTab deletePickerTab;
+    private final FindPickerTab findPickerTab;
 
     @Autowired
-    public PickersUI(MenuTab othersTab, AddPickerTab addPickerTab, DeletePickerTab deletePickerTab, Environment environment, SettingsService settingsService) {
+    public PickersUI(FindPickerTab findPickerTab, MenuTab othersTab, AddPickerTab addPickerTab, DeletePickerTab deletePickerTab, Environment environment, SettingsService settingsService) {
         this.addPickerTab = addPickerTab;
         this.othersTab = othersTab;
         this.env = environment;
         this.settingsService = settingsService;
         this.deletePickerTab = deletePickerTab;
+        this.findPickerTab = findPickerTab;
     }
 
     @Override
@@ -51,6 +54,7 @@ public class PickersUI extends UI {
 
     private void addTabs() {
         tabs = new TabSheet();
+        tabs.addTab(findPickerTab, env.getProperty("search.for.employee.tab"));
         tabs.addTab(addPickerTab, env.getProperty("add.picker.tab"));
         tabs.addTab(deletePickerTab, env.getProperty("delete.employee"));
         tabs.addTab(othersTab, env.getProperty("menu.tab.caption"));
