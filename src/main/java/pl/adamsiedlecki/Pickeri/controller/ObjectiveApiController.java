@@ -11,8 +11,6 @@ import pl.adamsiedlecki.Pickeri.service.*;
 
 import java.util.List;
 
-import static com.github.jaiimageio.impl.plugins.tiff.TIFFFaxCompressor.pass;
-
 @RestController
 @RequestMapping("/api/v2")
 public class ObjectiveApiController {
@@ -108,7 +106,8 @@ public class ObjectiveApiController {
     }
 
     @PostMapping(value = "/post-delivery/{key}")
-    public String getDeliveries(FruitDelivery fruitDelivery, @PathVariable String key) {
+    public String getDeliveries(@RequestBody FruitDelivery fruitDelivery, @PathVariable String key) {
+        String pass = env.getProperty("api.pass");
         if (pass.equals(key)) {
             fruitDeliveryService.addDelivery(fruitDelivery);
             return "delivery added";
