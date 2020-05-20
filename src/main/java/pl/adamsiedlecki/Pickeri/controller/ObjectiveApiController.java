@@ -106,7 +106,7 @@ public class ObjectiveApiController {
     }
 
     @PostMapping(value = "/post-delivery/{key}")
-    public String getDeliveries(@RequestBody FruitDelivery fruitDelivery, @PathVariable String key) {
+    public String getDeliveries(FruitDelivery fruitDelivery, @PathVariable String key) {
         String pass = env.getProperty("api.pass");
         if (pass.equals(key)) {
             fruitDeliveryService.addDelivery(fruitDelivery);
