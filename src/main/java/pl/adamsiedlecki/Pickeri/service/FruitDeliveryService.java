@@ -8,13 +8,15 @@ import pl.adamsiedlecki.Pickeri.interfaces.Removeable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class FruitDeliveryService implements Removeable {
 
-    private FruitDeliveryDAO fruitDeliveryDAO;
+    private final FruitDeliveryDAO fruitDeliveryDAO;
 
     public FruitDeliveryService(FruitDeliveryDAO fruitDeliveryDAO) {
         this.fruitDeliveryDAO = fruitDeliveryDAO;
@@ -142,7 +144,18 @@ public class FruitDeliveryService implements Removeable {
     }
 
     public List<FruitDelivery> getTodayDeliveries() {
-        Optional<List<FruitDelivery>> todayDeliveries = fruitDeliveryDAO.getTodayDeliveries();
-        return todayDeliveries.orElseGet(List::of);
+        //Optional<List<FruitDelivery>> todayDeliveries = fruitDeliveryDAO.getTodayDeliveries();
+        //return todayDeliveries.orElseGet(List::of);
+        List<FruitDelivery> list = findAll();
+        List<FruitDelivery> copy = new ArrayList<>(list);
+        LocalDateTime now = LocalDateTime.now();
+        for (FruitDelivery fd : copy) {
+            if (fd.getDeliveryTime().getYear() == now.getYear() && fd.getDeliveryTime().getDayOfYear() == now.getDayOfYear()) {
+
+            } else {
+                list.remove(fd);
+            }
+        }
+        return list;
     }
 }

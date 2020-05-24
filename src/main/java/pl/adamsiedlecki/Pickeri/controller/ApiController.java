@@ -18,10 +18,10 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class ApiController {
 
-    private FruitPickerService fruitPickerService;
-    private FruitDeliveryService fruitDeliveryService;
+    private final FruitPickerService fruitPickerService;
+    private final FruitDeliveryService fruitDeliveryService;
     private static final Logger log = LoggerFactory.getLogger(ApiController.class);
-    private Environment env;
+    private final Environment env;
 
     @Autowired
     public ApiController(FruitPickerService pickerService, FruitDeliveryService fruitDeliveryService, Environment environment,
@@ -34,7 +34,7 @@ public class ApiController {
     }
 
     @GetMapping(value = "/get-all/{key}")
-    public String getInfoString(@PathVariable String key) {
+    public List<?> getInfoString(@PathVariable String key) {
         return getDataStrings(key, fruitPickerService.findAll());
     }
 
@@ -54,7 +54,7 @@ public class ApiController {
     }
 
     @GetMapping(value = "/get-today-deliveries/{key}")
-    public String getTodayDeliveries(@PathVariable String key) {
+    public List<?> getTodayDeliveries(@PathVariable String key) {
         return getDataStrings(key, fruitDeliveryService.getTodayDeliveries());
     }
 
@@ -71,18 +71,12 @@ public class ApiController {
         return "ACCESS DENIED";
     }
 
-    private String getDataStrings(String key, List<?> list) {
+    private List<?> getDataStrings(String key, List<?> list) {
         String pass = env.getProperty("api.pass");
         if (pass.equals(key)) {
-            ObjectMapper mapper = new ObjectMapper();
-            try {
-                return mapper.writeValueAsString(list);
-            } catch (JsonProcessingException e) {
-                log.error(e.getMessage());
-                return "ERROR OCCURRED";
-            }
+            return list;
         }
-        return "ACCESS DENIED";
+        return List.of();
     }
 
 }
