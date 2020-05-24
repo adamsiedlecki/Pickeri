@@ -13,7 +13,7 @@ import java.util.Optional;
 @Cacheable(cacheNames = "fruitDeliveryDAO")
 public interface FruitDeliveryDAO extends JpaRepository<FruitDelivery, Long> {
 
-    @Query("SELECT (f) FROM FruitDelivery f WHERE DATE(f.deliveryTime) = DATE(NOW())")
+    @Query("SELECT (f) FROM FruitDelivery f WHERE YEAR(f.deliveryTime) = YEAR(CURRENT_DATE()) AND MONTH(f.deliveryTime) = MONTH(CURRENT_DATE()) AND DAY(f.deliveryTime) = DAY(CURRENT_DATE()) ")
     Optional<List<FruitDelivery>> getTodayDeliveries();
 
     @Query("SELECT (f) FROM FruitDelivery f WHERE f.fruitPickerId = ?1")
