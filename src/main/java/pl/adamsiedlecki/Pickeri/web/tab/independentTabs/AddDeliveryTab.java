@@ -223,6 +223,9 @@ public class AddDeliveryTab extends VerticalLayout {
                             fruitDelivery.setGeoLocalization(new GeoLocalization(coordinates.getLatitude(),
                                     coordinates.getLongitude()));
                         });
+                        if (fruitDelivery.getGeoLocalization() == null) {
+                            fruitDelivery.setGeoLocalization(new GeoLocalization(0.0, 0.0));
+                        }
                         fruitDeliveryService.addDelivery(fruitDelivery);
                         cleanFields();
                     }else{
