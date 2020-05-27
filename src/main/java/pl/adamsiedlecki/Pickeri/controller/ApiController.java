@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.*;
 import pl.adamsiedlecki.Pickeri.tools.pdf.PickersToPdfWriter;
@@ -21,6 +22,7 @@ import pl.adamsiedlecki.Pickeri.tools.pdf.PickersToPdfWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 @RestController
@@ -65,7 +67,9 @@ public class ApiController {
 
     @GetMapping(value = "/get-today-deliveries/{key}")
     public List<?> getTodayDeliveries(@PathVariable String key) {
-        return getDataStrings(key, fruitDeliveryService.getTodayDeliveries());
+        List<FruitDelivery> todayDeliveries = fruitDeliveryService.getTodayDeliveries();
+        todayDeliveries.sort(Comparator.comparing(FruitDelivery::getDeliveryTime));
+        return getDataStrings(key, todayDeliveries);
     }
 
     @GetMapping(value = "/download-pickers-pdf/{key}", produces = "application/pdf")
