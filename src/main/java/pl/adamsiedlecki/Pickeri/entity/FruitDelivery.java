@@ -26,6 +26,9 @@ public class FruitDelivery {
     private Long packageAmount;
 
     @Column
+    private boolean isSecondClassFruit;
+
+    @Column
     private LocalDateTime deliveryTime;
 
     @Column
@@ -50,6 +53,14 @@ public class FruitDelivery {
         this.comment = comment;
         this.fruitVarietyName = fruitVarietyName;
         this.type = fruitType;
+    }
+
+    public boolean isSecondClassFruit() {
+        return isSecondClassFruit;
+    }
+
+    public void setSecondClassFruit(boolean secondClassFruit) {
+        isSecondClassFruit = secondClassFruit;
     }
 
     public String getType() {

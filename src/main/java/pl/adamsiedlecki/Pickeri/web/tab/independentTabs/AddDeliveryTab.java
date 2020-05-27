@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -40,18 +41,19 @@ public class AddDeliveryTab extends VerticalLayout {
     private TextField packageAmount;
     private RadioButtonGroup<String> fruitTypeRadioButton;
     private RadioButtonGroup<String> fruitVarietyRadioButton;
+    private final FruitDeliveryService fruitDeliveryService;
     private TextField commentField;
     private Button save;
-    private FruitDeliveryService fruitDeliveryService;
-    private FruitVarietyService fruitVarietyService;
+    private final FruitVarietyService fruitVarietyService;
+    private final FruitTypeService fruitTypeService;
     private Upload qrUpload;
     private String path;
-    private FruitTypeService fruitTypeService;
+    private final Environment env;
     private TextField weightField;
-    private Environment env;
+    private final FruitPickerService fruitPickerService;
     private ComboBox<String> pickersComboBox;
-    private FruitPickerService fruitPickerService;
-    private Label weightInKgLabel = new Label();
+    private final Label weightInKgLabel = new Label();
+    private RadioButtonGroup<String> fruitClassRadioButton;
 
     @Autowired
     public AddDeliveryTab(FruitDeliveryService fruitDeliveryService, FruitVarietyService fruitVarietyService,
@@ -157,6 +159,12 @@ public class AddDeliveryTab extends VerticalLayout {
         HorizontalLayout amountAndWeightLayout = new HorizontalLayout(packageAmount, weightField, weightInKgLabel);
         amountAndWeightLayout.setIcon(VaadinIcons.STORAGE);
 
+        fruitClassRadioButton = new RadioButtonGroup<>();
+        fruitClassRadioButton.setIcon(VaadinIcons.STAR_HALF_LEFT_O);
+        fruitClassRadioButton.setItems(List.of(env.getProperty("first.category"), env.getProperty("second.category")));
+        fruitClassRadioButton.setCaption(env.getProperty("fruit.category"));
+
+
         fruitTypeRadioButton = new RadioButtonGroup<>();
         fruitTypeRadioButton.setIcon(VaadinIcons.DIAMOND);
 
@@ -174,7 +182,7 @@ public class AddDeliveryTab extends VerticalLayout {
 
         pickerInfoLayout.addComponents(fruitPickerIdField, pickersComboBox, qrUpload);
         pickerInfoLayout.setIcon(VaadinIcons.USER);
-        formLayout.addComponents(pickerInfoLayout, amountAndWeightLayout, fruitTypeRadioButton, fruitVarietyRadioButton, commentField, save);
+        formLayout.addComponents(pickerInfoLayout, amountAndWeightLayout, fruitTypeRadioButton, fruitVarietyRadioButton, fruitClassRadioButton, commentField, save);
 
         root.addComponent(horizontalLayout);
         this.addComponent(root);
@@ -200,11 +208,14 @@ public class AddDeliveryTab extends VerticalLayout {
                 Notification.show(env.getProperty("complete.fields.notification"));
             } else {
                 if(areValuesNotLessThanZero()){
-                    if(pickerExists(fruitPickerIdField.getValue())){
+                    if(pickerExists(fruitPickerIdField.getValue())) {
                         FruitDelivery fruitDelivery = new FruitDelivery(Long.parseLong(fruitPickerIdField.getValue()),
                                 fruitTypeRadioButton.getValue(), Long.parseLong(packageAmount.getValue()), commentField.getValue(),
                                 fruitVarietyRadioButton.getValue(), LocalDateTime.now());
                         fruitDelivery.setFruitWeight(new BigDecimal(weightField.getValue()));
+                        fruitDelivery.setSecondClassFruit(fruitClassRadioButton.getSelectedItem().isPresent() && fruitClassRadioButton.getSelectedItem()
+                                .get()
+                                .contains(Objects.requireNonNull(env.getProperty("second.category"))));
 
                         Geolocation geo = new Geolocation(this.getUI());
                         geo.getCurrentPosition(position -> {

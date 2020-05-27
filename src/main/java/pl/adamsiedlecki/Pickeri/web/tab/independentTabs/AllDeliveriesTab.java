@@ -17,8 +17,8 @@ import java.util.Objects;
 public class AllDeliveriesTab extends VerticalLayout {
 
     private Grid<FruitDelivery> fruitDeliveryGrid;
-    private FruitDeliveryService fruitDeliveryService;
-    private Environment env;
+    private final FruitDeliveryService fruitDeliveryService;
+    private final Environment env;
 
     @Autowired
     public AllDeliveriesTab(FruitDeliveryService fruitDeliveryService, Environment environment) {
@@ -35,9 +35,16 @@ public class AllDeliveriesTab extends VerticalLayout {
         fruitDeliveryGrid.addColumn(FruitDelivery::getWeightSumKgPlainText).setCaption(Objects.requireNonNull(env.getProperty("weight.kg.column")));
         fruitDeliveryGrid.addColumn(FruitDelivery::getFruitPickerId).setCaption(Objects.requireNonNull(env.getProperty("employee.id.column")));
         fruitDeliveryGrid.addColumn(FruitDelivery::getType).setCaption(Objects.requireNonNull(env.getProperty("fruit.delivery.type.name.column")));
-        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitVarietyName).setCaption(env.getProperty("fruit.variety.name.column","variety"));
+        fruitDeliveryGrid.addColumn(FruitDelivery::getFruitVarietyName).setCaption(env.getProperty("fruit.variety.name.column", "variety"));
         fruitDeliveryGrid.addColumn(FruitDelivery::getComment).setCaption(Objects.requireNonNull(env.getProperty("comment")));
         fruitDeliveryGrid.addColumn(FruitDelivery::getDeliveryTimeFormatted).setCaption(Objects.requireNonNull(env.getProperty("time.column")));
+        fruitDeliveryGrid.addColumn((t) -> {
+            if (t.isSecondClassFruit()) {
+                return env.getProperty("yes");
+            } else {
+                return env.getProperty("no");
+            }
+        }).setCaption(Objects.requireNonNull(env.getProperty("is.second.class")));
         fruitDeliveryGrid.addColumn(FruitDelivery::getId).setCaption(Objects.requireNonNull(env.getProperty("id.column")));
         fruitDeliveryGrid.setSizeFull();
         this.addComponent(refreshButton);
