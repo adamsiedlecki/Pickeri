@@ -79,6 +79,7 @@ public class FruitPicker {
         return id+" "+name+" "+lastName;
     }
 
+    @JsonIgnore
     public List<WorkTime> getWorkTimeList() {
         return workTimeList;
     }
@@ -95,25 +96,30 @@ public class FruitPicker {
         this.fundsPaid = fundsPaid;
     }
 
+    @JsonIgnore
     public BigDecimal getWeightWithTypeOne() {
         return weightWithTypeOne;
     }
 
+    @JsonIgnore
     public String getWeightKgWithTypeOnePlainText() {
         BigDecimal result = weightWithTypeOne.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
         return result.toPlainString();
     }
 
+    @JsonIgnore
     public String getWeightKgWithTypeTwoPlainText() {
         BigDecimal result = weightWithTypeTwo.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
         return result.toPlainString();
     }
 
+    @JsonIgnore
     public String getWeightKgWithTypeThreePlainText() {
         BigDecimal result = weightWithTypeThree.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
         return result.toPlainString();
     }
 
+    @JsonIgnore
     public String getWeightKgWithTypeFourPlainText() {
         BigDecimal result = weightWithTypeFour.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
         return result.toPlainString();
@@ -123,6 +129,7 @@ public class FruitPicker {
         this.weightWithTypeOne = weightWithTypeOne;
     }
 
+    @JsonIgnore
     public BigDecimal getWeightWithTypeTwo() {
         return weightWithTypeTwo;
     }
@@ -131,6 +138,7 @@ public class FruitPicker {
         this.weightWithTypeTwo = weightWithTypeTwo;
     }
 
+    @JsonIgnore
     public BigDecimal getWeightWithTypeThree() {
         return weightWithTypeThree;
     }
@@ -139,6 +147,7 @@ public class FruitPicker {
         this.weightWithTypeThree = weightWithTypeThree;
     }
 
+    @JsonIgnore
     public BigDecimal getWeightWithTypeFour() {
         return weightWithTypeFour;
     }
@@ -157,6 +166,7 @@ public class FruitPicker {
         return result.toPlainString();
     }
 
+    @JsonIgnore
     public BigDecimal getWeightSumKg() {
         return weightSum.divide(new BigDecimal(1000), 4, RoundingMode.FLOOR);
     }
@@ -165,6 +175,7 @@ public class FruitPicker {
         this.weightSum = weightSum;
     }
 
+    @JsonIgnore
     public long getPackageDeliveryWithTypeOne() {
         return packageDeliveryWithTypeOne;
     }
@@ -173,6 +184,7 @@ public class FruitPicker {
         this.packageDeliveryWithTypeOne = packageDeliveryWithTypeOne;
     }
 
+    @JsonIgnore
     public long getPackageDeliveryWithTypeTwo() {
         return packageDeliveryWithTypeTwo;
     }
@@ -181,6 +193,7 @@ public class FruitPicker {
         this.packageDeliveryWithTypeTwo = packageDeliveryWithTypeTwo;
     }
 
+    @JsonIgnore
     public long getPackageDeliveryWithTypeThree() {
         return packageDeliveryWithTypeThree;
     }
@@ -189,6 +202,7 @@ public class FruitPicker {
         this.packageDeliveryWithTypeThree = packageDeliveryWithTypeThree;
     }
 
+    @JsonIgnore
     public long getPackageDeliveryWithTypeFour() {
         return packageDeliveryWithTypeFour;
     }
@@ -243,8 +257,5 @@ public class FruitPicker {
         this.gender = gender;
     }
 
-    public String getIdNameSurnameString(){
-        return id+" "+name+" "+lastName;
-    }
 
 }
