@@ -258,7 +258,7 @@ public class AddDeliveryTab extends VerticalLayout {
     }
 
     private boolean areFieldsNotEmpty(){
-        return fruitPickerIdField.isEmpty() || packageAmount.isEmpty() || fruitTypeRadioButton.isEmpty() || fruitVarietyRadioButton.isEmpty()
+        return fruitPickerIdField.isEmpty() || packageAmount.isEmpty() || fruitClassRadioButton.isEmpty() || fruitTypeRadioButton.isEmpty() || fruitVarietyRadioButton.isEmpty()
                 || weightField.isEmpty();
     }
 
