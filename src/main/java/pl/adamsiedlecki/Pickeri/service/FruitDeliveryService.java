@@ -125,7 +125,7 @@ public class FruitDeliveryService implements Removeable {
     public BigDecimal getPercentageParticipationInWeight(String name) {
         List<FruitDelivery> allVarieties = findAll();
         List<FruitDelivery> thisVariety = findAllWithVariety(name);
-        BigDecimal allAmount = new BigDecimal(0);
+        BigDecimal allAmount = BigDecimal.ZERO;
         for (FruitDelivery fruitDelivery : allVarieties) {
             allAmount = allAmount.add(fruitDelivery.getFruitWeight());
             //allAmount+=fruitDelivery.getPackageAmount();
@@ -134,13 +134,14 @@ public class FruitDeliveryService implements Removeable {
         for (FruitDelivery fruitDelivery : thisVariety) {
             thisAmount = thisAmount.add(fruitDelivery.getFruitWeight());
         }
-        if (allAmount.equals(new BigDecimal(0))) {
+        if (allAmount.compareTo(BigDecimal.ZERO) == 0) {
             return new BigDecimal(0);
+        } else {
+            BigDecimal bigDecimal = thisAmount.divide(allAmount, 4, RoundingMode.FLOOR);
+            BigDecimal result = bigDecimal.multiply(new BigDecimal(100));
+            result = result.stripTrailingZeros();
+            return result;
         }
-        BigDecimal bigDecimal = thisAmount.divide(allAmount, 4, RoundingMode.FLOOR);
-        BigDecimal result = bigDecimal.multiply(new BigDecimal(100));
-        result = result.stripTrailingZeros();
-        return result;
     }
 
     public List<FruitDelivery> getTodayDeliveries() {
