@@ -2,6 +2,7 @@ package pl.adamsiedlecki.Pickeri.entity;
 
 import com.google.common.base.Preconditions;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 public class SettingsEntity {
 
     @Id
+    @Column(length = 150)
     private String name;
 
     private String state;
