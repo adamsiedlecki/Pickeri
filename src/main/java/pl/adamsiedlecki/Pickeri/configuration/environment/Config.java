@@ -5,7 +5,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @Configuration
 @PropertySource(value = "classpath:languages/polish.properties", encoding = "Windows-1250")
-//@PropertySource(value = "classpath:languages/english.properties", encoding = "Windows-1250", factory = ReloadablePropertySourceFactory.class)
+//@PropertySource(value = "classpath:languages/english.properties", encoding = "Windows-1250")
 public class Config {
 
 }
