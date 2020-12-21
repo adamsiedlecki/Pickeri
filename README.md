@@ -12,11 +12,14 @@ This applications is missing a good android mobile app. I hope to have a time fo
 <h3>Visualisation:</h3>
 <br>
 English add-delivery:
+
 ![add delivery page English](materials/add-delivery-en.png)
-Polish add-delivery:
+Polish add-delivery: 
+
 ![add delivery page Polish](materials/add-delivery-pl.png)
-<br>
-English menu:
+English menu: 
+
 ![add delivery page English](materials/menu-en.png)
-Polish menu:
+Polish menu: 
+
 ![add delivery page Polish](materials/menu-pl.png)
