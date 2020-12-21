@@ -4,6 +4,7 @@ Project designed for collecting and processing data about fruit pickers. I have 
 This applications is missing a good android mobile app. I hope to have a time for that in the future.
 
 <h3>Technologies used:</h3>
+
 - Java 11
 - Spring Boot
 - Vaadin 8.7.1
