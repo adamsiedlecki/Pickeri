@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class FruitTypeService {
 
-    private FruitTypeDAO fruitTypeDAO;
+    private final FruitTypeDAO fruitTypeDAO;
 
     @Autowired
     public FruitTypeService(FruitTypeDAO fruitTypeDAO) {

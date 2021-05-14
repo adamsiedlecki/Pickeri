@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Service
-public class FruitVarietyService implements Removeable {
+public class FruitVarietyService implements Removeable<FruitVariety> {
 
     private final FruitVarietyDAO fruitVarietyDAO;
     private final FruitDeliveryService fruitDeliveryService;

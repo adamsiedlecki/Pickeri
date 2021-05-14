@@ -7,11 +7,9 @@ import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.core.env.Environment;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 class PdfCreator {
 
@@ -30,8 +28,7 @@ class PdfCreator {
             log.error("Write QR ", e.getCause());
         }
 
-        DocumentAndPdfWriter documentAndWriter = new DocumentAndPdfWriter(document, writer);
-        return documentAndWriter;
+        return new DocumentAndPdfWriter(document, writer);
     }
 
     private static void addHeaderFooter(PdfWriter writer) {

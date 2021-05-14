@@ -1,13 +1,11 @@
 package pl.adamsiedlecki.Pickeri.tools.apiInteraction;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 // Source: https://stackoverflow.com/questions/4308554/simplest-way-to-read-json-from-a-url-in-java
 public class JsonReader {
@@ -22,14 +20,10 @@ public class JsonReader {
     }
 
     public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-        InputStream is = new URL(url).openStream();
-        try {
+        try (InputStream is = new URL(url).openStream()) {
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
             String jsonText = readAll(rd);
-            JSONObject json = new JSONObject(jsonText);
-            return json;
-        } finally {
-            is.close();
+            return new JSONObject(jsonText);
         }
     }
 }

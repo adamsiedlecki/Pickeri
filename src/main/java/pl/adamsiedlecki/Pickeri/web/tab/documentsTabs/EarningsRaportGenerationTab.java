@@ -24,10 +24,10 @@ import java.util.Optional;
 @Scope("prototype")
 public class EarningsRaportGenerationTab extends VerticalLayout {
 
-    private FruitPickerService fruitPickerService;
-    private FruitTypeService fruitTypeService;
-    private Environment env;
-    private Logger log = LoggerFactory.getLogger(EarningsRaportGenerationTab.class);
+    private final FruitPickerService fruitPickerService;
+    private final FruitTypeService fruitTypeService;
+    private final Environment env;
+    private final Logger log = LoggerFactory.getLogger(EarningsRaportGenerationTab.class);
 
     @Autowired
     public EarningsRaportGenerationTab(FruitPickerService fruitPickerService, FruitTypeService fruitTypeService, Environment environment) {

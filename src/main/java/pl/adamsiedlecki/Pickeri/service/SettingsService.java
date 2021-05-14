@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class SettingsService {
 
-    private SettingsDAO settingsDAO;
+    private final SettingsDAO settingsDAO;
 
     @Autowired
     public SettingsService(SettingsDAO settingsDAO){

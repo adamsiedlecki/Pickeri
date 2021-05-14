@@ -18,7 +18,7 @@ import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
 public class ErrorPageUI extends UI {
 
     private VerticalLayout root;
-    private Environment environment;
+    private final Environment environment;
 
     @Autowired
     public ErrorPageUI(Environment environment) {

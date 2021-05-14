@@ -1,13 +1,16 @@
 package pl.adamsiedlecki.Pickeri.tools.pdf;
 
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 import pl.adamsiedlecki.Pickeri.tools.qr.QRCodeWriterTool;
+
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -30,9 +33,11 @@ public class PickersToPdfWriter {
         for (FruitPicker fp : fruitPickers) {
             File qrFile = QRCodeWriterTool.encode(fp.getId(), fp.getName(), fp.getLastName(), "src\\main\\resources\\qr_codes");
             try {
-                Image image = Image.getInstance(qrFile.getAbsolutePath());
-                PdfContentByte cb = pdfWriter.getDirectContentUnder();
-                document.add(QrWithCaptionMaker.getCaptionedImage(cb, image, fp.getId() + " " + fp.getName() + " " + fp.getLastName()));
+                if (qrFile != null && qrFile.exists()) {
+                    Image image = Image.getInstance(qrFile.getAbsolutePath());
+                    PdfContentByte cb = pdfWriter.getDirectContentUnder();
+                    document.add(QrWithCaptionMaker.getCaptionedImage(cb, image, fp.getId() + " " + fp.getName() + " " + fp.getLastName()));
+                }
             } catch (DocumentException | IOException e) {
                 log.error("Write QR - Document Exception or IOException");
             }

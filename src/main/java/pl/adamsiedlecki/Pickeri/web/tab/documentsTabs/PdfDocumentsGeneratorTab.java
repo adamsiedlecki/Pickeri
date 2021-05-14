@@ -2,7 +2,9 @@ package pl.adamsiedlecki.Pickeri.web.tab.documentsTabs;
 
 import com.vaadin.icons.VaadinIcons;
 import com.vaadin.spring.annotation.SpringComponent;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Alignment;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.VerticalLayout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
@@ -19,9 +21,9 @@ import java.util.List;
 @Scope("prototype")
 public class PdfDocumentsGeneratorTab extends VerticalLayout {
 
-    private FruitPickerService fruitPickerService;
-    private FruitTypeService fruitTypeService;
-    private Environment env;
+    private final FruitPickerService fruitPickerService;
+    private final FruitTypeService fruitTypeService;
+    private final Environment env;
 
     @Autowired
     public PdfDocumentsGeneratorTab(FruitPickerService fruitPickerService, FruitTypeService fruitTypeService,

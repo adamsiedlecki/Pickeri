@@ -16,28 +16,30 @@ import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.WorkTimeService;
 import pl.adamsiedlecki.Pickeri.tools.time.TimeConverter;
 
-import java.time.*;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 
 @Component
 @Scope("prototype")
 public class AddTimeToPickerTab extends VerticalLayout {
 
-    private static Logger log = LoggerFactory.getLogger(AddTimeToPickerTab.class);
-    private VerticalLayout root;
-    private WorkTimeService workTimeService;
-    private FruitPickerService fruitPickerService;
-    private TextField amountOfHoursField;
-    private DateField beginDateField;
-    private TextField beginTimeField;
-    private DateField endDateField;
-    private TextField endTimeField;
-    private Environment env;
-    //private TextField idField;
-    private ComboBox<String> employeesComboBox;
+    private static final Logger log = LoggerFactory.getLogger(AddTimeToPickerTab.class);
+    private final VerticalLayout root;
+    private final WorkTimeService workTimeService;
+    private final FruitPickerService fruitPickerService;
+    private final TextField amountOfHoursField;
+    private final DateField beginDateField;
+    private final TextField beginTimeField;
+    private final DateField endDateField;
+    private final TextField endTimeField;
+    private final Environment env;
+    private final ComboBox<String> employeesComboBox;
 
     @Autowired
-    public AddTimeToPickerTab(WorkTimeService workTimeService, Environment env, FruitPickerService fruitPickerService){
+    public AddTimeToPickerTab(WorkTimeService workTimeService, Environment env, FruitPickerService fruitPickerService) {
         root = new VerticalLayout();
         this.fruitPickerService = fruitPickerService;
         this.env = env;
@@ -171,10 +173,7 @@ public class AddTimeToPickerTab extends VerticalLayout {
     }
 
     private boolean fieldsNotEmpty(){
-        if(beginDateField.isEmpty() || beginTimeField.isEmpty() || endDateField.isEmpty() || endTimeField.isEmpty()){
-            return false;
-        }
-        return true;
+        return !beginDateField.isEmpty() && !beginTimeField.isEmpty() && !endDateField.isEmpty() && !endTimeField.isEmpty();
     }
 
     private class ClickListener implements HasValue.ValueChangeListener {

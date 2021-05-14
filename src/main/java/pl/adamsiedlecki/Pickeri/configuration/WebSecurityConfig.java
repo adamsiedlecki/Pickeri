@@ -15,7 +15,7 @@ import pl.adamsiedlecki.Pickeri.service.PickeriUserDetailsService;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private PickeriUserDetailsService pickeriUserDetailsService;
+    private final PickeriUserDetailsService pickeriUserDetailsService;
 
     public WebSecurityConfig(PickeriUserDetailsService userDetailsService) {
         this.pickeriUserDetailsService = userDetailsService;
@@ -56,8 +56,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder;
+        return new BCryptPasswordEncoder();
     }
 
 }

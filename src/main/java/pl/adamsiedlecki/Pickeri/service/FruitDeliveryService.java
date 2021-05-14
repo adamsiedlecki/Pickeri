@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FruitDeliveryService implements Removeable {
+public class FruitDeliveryService implements Removeable<FruitDelivery> {
 
     private final FruitDeliveryDAO fruitDeliveryDAO;
 
@@ -86,7 +86,6 @@ public class FruitDeliveryService implements Removeable {
         BigDecimal allAmount = new BigDecimal(0);
         for (FruitDelivery fruitDelivery : allVarieties) {
             allAmount = allAmount.add(new BigDecimal(fruitDelivery.getPackageAmount()));
-            //allAmount+=fruitDelivery.getPackageAmount();
         }
         BigDecimal thisAmount = new BigDecimal(0);
         for (FruitDelivery fruitDelivery : thisVariety) {
@@ -128,7 +127,6 @@ public class FruitDeliveryService implements Removeable {
         BigDecimal allAmount = BigDecimal.ZERO;
         for (FruitDelivery fruitDelivery : allVarieties) {
             allAmount = allAmount.add(fruitDelivery.getFruitWeight());
-            //allAmount+=fruitDelivery.getPackageAmount();
         }
         BigDecimal thisAmount = new BigDecimal(0);
         for (FruitDelivery fruitDelivery : thisVariety) {
@@ -145,8 +143,6 @@ public class FruitDeliveryService implements Removeable {
     }
 
     public List<FruitDelivery> getTodayDeliveries() {
-        //Optional<List<FruitDelivery>> todayDeliveries = fruitDeliveryDAO.getTodayDeliveries();
-        //return todayDeliveries.orElseGet(List::of);
         List<FruitDelivery> list = findAll();
         List<FruitDelivery> copy = new ArrayList<>(list);
         LocalDateTime now = LocalDateTime.now();

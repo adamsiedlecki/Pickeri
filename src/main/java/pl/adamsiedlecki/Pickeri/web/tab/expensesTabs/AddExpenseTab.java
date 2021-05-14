@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 public class AddExpenseTab extends VerticalLayout {
 
     private VerticalLayout root;
-    private ExpenseService expenseService;
-    private Environment env;
+    private final ExpenseService expenseService;
+    private final Environment env;
 
     @Autowired
     public AddExpenseTab(ExpenseService expenseService, Environment environment) {

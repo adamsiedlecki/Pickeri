@@ -11,19 +11,18 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.tools.apiInteraction.InfoGetter;
 
-
 @Component
 @Scope("prototype")
 public class StockInfoPanel extends VerticalLayout {
 
-    private Environment env;
-    private Logger log = LoggerFactory.getLogger(StockInfoPanel.class);
-    private Label btcPriceLabel;
-    private Label dollarPriceLabel;
+    private final Environment env;
+    private final Logger log = LoggerFactory.getLogger(StockInfoPanel.class);
+    private final Label btcPriceLabel;
+    private final Label dollarPriceLabel;
 
 
     @Autowired
-    public StockInfoPanel(Environment env){
+    public StockInfoPanel(Environment env) {
         this.env = env;
         setWidth(100, Unit.PERCENTAGE);
         setHeight(50, Unit.PIXELS);

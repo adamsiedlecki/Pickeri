@@ -22,9 +22,9 @@ public class FindPickerTab extends VerticalLayout {
     private VerticalLayout root;
     private TextField filter;
     private Grid<FruitPicker> fruitPickerGrid;
-    private FruitTypeService fruitTypeService;
-    private FruitPickerService fruitPickerService;
-    private Environment env;
+    private final FruitTypeService fruitTypeService;
+    private final FruitPickerService fruitPickerService;
+    private final Environment env;
 
     @Autowired
     public FindPickerTab(FruitPickerService fruitPickerService, FruitTypeService fruitTypeService, Environment env) {

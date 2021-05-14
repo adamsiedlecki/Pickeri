@@ -23,10 +23,10 @@ public class AllDeliveriesUI extends UI {
 
     private TabSheet tabs;
     private VerticalLayout root;
-    private AllDeliveriesTab allDeliveriesTab;
-    private MenuTab othersTab;
-    private Environment environment;
-    private SettingsService settingsService;
+    private final AllDeliveriesTab allDeliveriesTab;
+    private final MenuTab othersTab;
+    private final Environment environment;
+    private final SettingsService settingsService;
 
     @Autowired
     public AllDeliveriesUI(AllDeliveriesTab allDeliveriesTab, MenuTab othersTab, Environment environment, SettingsService settingsService) {

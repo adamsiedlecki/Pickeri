@@ -21,17 +21,11 @@ public class MenuTab extends VerticalLayout {
 
     private final Environment env;
     private final Logger log = LoggerFactory.getLogger(MenuTab.class);
-    private final SettingsService settingsService;
     private static String buttonStyle;
 
     @Autowired
     public MenuTab(Environment environment, NoteService noteService, StockInfoPanel stockInfoPanel, SettingsService settingsService) {
         this.env = environment;
-        this.settingsService = settingsService;
-//        HorizontalLayout root = new HorizontalLayout();
-//        VerticalLayout firstList = new VerticalLayout();
-//        VerticalLayout secondList = new VerticalLayout();
-//        VerticalLayout thirdList = new VerticalLayout();
         GridLayout rootLayout = new GridLayout(4, 8);
         rootLayout.setSpacing(true);
         rootLayout.setWidth(100, Unit.PERCENTAGE);
@@ -79,17 +73,6 @@ public class MenuTab extends VerticalLayout {
         addLink(rootLayout, "varieties.and.types.of.fruits", "/varieties-and-types", 3, 2);
         addLink(rootLayout, "devices.controller.title", "/devices-controller", 3, 3);
         addLink(rootLayout, "settings.title", "/settings", 3, 4);
-
-//        root.setWidth(100, Unit.PERCENTAGE);
-//        root.addComponents(firstList, secondList, thirdList);
-//        firstList.setHeight(350, Unit.PIXELS);
-//        secondList.setHeight(300, Unit.PIXELS);
-//        thirdList.setHeight(350, Unit.PIXELS);
-//        root.setComponentAlignment(firstList, Alignment.TOP_LEFT);
-//        root.setComponentAlignment(secondList, Alignment.TOP_CENTER);
-//        root.setComponentAlignment(thirdList, Alignment.TOP_RIGHT);
-//        root.setMargin(false);
-//        root.setHeight(100, Unit.PERCENTAGE);
 
         this.addComponent(rootLayout);
         addLink(this, "logout.button", "/logout", 0, 0);

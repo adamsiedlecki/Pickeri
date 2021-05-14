@@ -26,12 +26,12 @@ public class PickerPaymentsUI extends UI {
 
     private VerticalLayout root;
     private TabSheet tabs;
-    private AddPaymentTab addPaymentTab;
-    private PickersPaymentsTableTab pickersPaymentsTableTab;
-    private MenuTab othersTab;
-    private Environment env;
-    private SubtractPaymentTab subtractPaymentTab;
-    private SettingsService settingsService;
+    private final AddPaymentTab addPaymentTab;
+    private final PickersPaymentsTableTab pickersPaymentsTableTab;
+    private final MenuTab othersTab;
+    private final Environment env;
+    private final SubtractPaymentTab subtractPaymentTab;
+    private final SettingsService settingsService;
 
     @Autowired
     public PickerPaymentsUI(MenuTab othersTab, AddPaymentTab addPaymentTab, PickersPaymentsTableTab pickersPaymentsTableTab,

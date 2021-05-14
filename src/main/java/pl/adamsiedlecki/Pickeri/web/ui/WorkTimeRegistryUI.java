@@ -4,7 +4,9 @@ import com.vaadin.annotations.StyleSheet;
 import com.vaadin.annotations.Title;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.spring.annotation.SpringUI;
-import com.vaadin.ui.*;
+import com.vaadin.ui.TabSheet;
+import com.vaadin.ui.UI;
+import com.vaadin.ui.VerticalLayout;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.AlignmentSetter;
@@ -15,22 +17,22 @@ import pl.adamsiedlecki.Pickeri.web.tab.workTimeTabs.AddTimeToPickerTab;
 import pl.adamsiedlecki.Pickeri.web.tab.workTimeTabs.AllWorkTimesTab;
 import pl.adamsiedlecki.Pickeri.web.tab.workTimeTabs.WorkTimeRanking;
 
-@SpringUI(path="/work-time")
+@SpringUI(path = "/work-time")
 @Title("${worktime.registry}")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
 public class WorkTimeRegistryUI extends UI {
 
     private TabSheet tabs;
     private VerticalLayout root;
-    private AddTimeToPickerTab addTimeToPickerTab;
-    private Environment env;
-    private AllWorkTimesTab allWorkTimesTab;
-    private MenuTab menuTab;
-    private WorkTimeRanking workTimeRanking;
-    private SettingsService settingsService;
+    private final AddTimeToPickerTab addTimeToPickerTab;
+    private final Environment env;
+    private final AllWorkTimesTab allWorkTimesTab;
+    private final MenuTab menuTab;
+    private final WorkTimeRanking workTimeRanking;
+    private final SettingsService settingsService;
 
     public WorkTimeRegistryUI(AddTimeToPickerTab addTimeToPickerTab, Environment env, AllWorkTimesTab allWorkTimesTab,
-                              MenuTab menuTab, WorkTimeRanking workTimeRanking, SettingsService settingsService){
+                              MenuTab menuTab, WorkTimeRanking workTimeRanking, SettingsService settingsService) {
         this.workTimeRanking = workTimeRanking;
         this.env = env;
         this.addTimeToPickerTab = addTimeToPickerTab;

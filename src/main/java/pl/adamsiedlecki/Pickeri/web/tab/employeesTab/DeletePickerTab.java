@@ -18,20 +18,20 @@ import java.util.stream.Collectors;
 @Scope("prototype")
 public class DeletePickerTab extends VerticalLayout {
 
-    private VerticalLayout root = new VerticalLayout();
-    private FruitPickerService fruitPickerService;
-    private Environment env;
+    private final VerticalLayout root = new VerticalLayout();
+    private final FruitPickerService fruitPickerService;
+    private final Environment env;
 
     @Autowired
     public DeletePickerTab(FruitPickerService fruitPickerService, Environment environment) {
         this.env = environment;
         this.fruitPickerService = fruitPickerService;
         this.addComponent(root);
-        addPanel(env.getProperty("id.caption"),env.getProperty("delete.employee"), fruitPickerService);
+        addPanel(env.getProperty("id.caption"), env.getProperty("delete.employee"), fruitPickerService);
         this.forEach(component -> this.setComponentAlignment(component, Alignment.MIDDLE_CENTER));
     }
 
-    private void addPanel(String idFieldName, String buttonName, Removeable service) {
+    private void addPanel(String idFieldName, String buttonName, Removeable<FruitPicker> service) {
         ComboBox<String> employeesComboBox = new ComboBox<>();
         List<FruitPicker> list = service.findAll();
         employeesComboBox.setItems(list.stream().map(FruitPicker::getIdNameLastName).collect(Collectors.toList()));
@@ -41,7 +41,7 @@ public class DeletePickerTab extends VerticalLayout {
         button.addClickListener(x -> {
             String value = employeesComboBox.getValue();
             String id = value.split(" ")[0];
-            if (id==null || !id.isEmpty() || NumberUtils.isDigits(id) ) {
+            if (id == null || !id.isEmpty() || NumberUtils.isDigits(id)) {
                 Long idLong = Long.parseLong(value);
                 service.removeById(idLong);
                 Notification.show(env.getProperty("operation.is.done.notification"));

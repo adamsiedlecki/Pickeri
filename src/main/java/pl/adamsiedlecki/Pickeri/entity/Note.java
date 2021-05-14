@@ -12,9 +12,7 @@ public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String content;
-
     private LocalDateTime time;
 
     public Note(Long id, String content, LocalDateTime time) {

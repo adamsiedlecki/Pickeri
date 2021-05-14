@@ -21,19 +21,19 @@ import java.util.List;
 @Scope("prototype")
 public class ExcelGenerationTab extends VerticalLayout {
 
-    private FruitPickerService fruitPickerService;
-    private Environment env;
-    private FruitTypeService fruitTypeService;
-    private FruitDeliveryService fruitDeliveryService;
+    private final FruitPickerService fruitPickerService;
+    private final Environment env;
+    private final FruitTypeService fruitTypeService;
+    private final FruitDeliveryService fruitDeliveryService;
 
     public ExcelGenerationTab(Environment env, FruitPickerService fruitPickerService, FruitTypeService fruitTypeService,
-                              FruitDeliveryService fruitDeliveryService){
+                              FruitDeliveryService fruitDeliveryService) {
         this.fruitPickerService = fruitPickerService;
         this.fruitTypeService = fruitTypeService;
         this.fruitDeliveryService = fruitDeliveryService;
         this.env = env;
         addGenerateButton("generate.raport.excel.button", "src\\main\\resources\\downloads\\excelRaport.xls",
-                "download.excel.raport", "/download/excel/excelRaport.xls",0);
+                "download.excel.raport", "/download/excel/excelRaport.xls", 0);
         addGenerateButton("generate.deliveries.raport.excel.button", "src\\main\\resources\\downloads\\excelDeliveriesRaport.xls",
                 "deliveries.raport.title", "/download/excel/excelDeliveriesRaport.xls",1);
 
@@ -59,7 +59,6 @@ public class ExcelGenerationTab extends VerticalLayout {
                     break;
                 }
             }
-            //this.addComponent(new Link(env.getProperty(linkPropertyName), new ExternalResource(downloadPath)));
             FileDownloader.action(this,"",downloadPath );
         });
     }

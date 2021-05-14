@@ -14,16 +14,13 @@ public class WorkTime {
     @Id
     @GeneratedValue
     private Long id;
-
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name="picker_id", referencedColumnName="id")
     private FruitPicker fruitPicker;
-
     @JsonIgnore
     @Column(nullable = true)
     private LocalDateTime startTime;
-
     @JsonIgnore
     @Column(nullable = true)
     private LocalDateTime endTime;

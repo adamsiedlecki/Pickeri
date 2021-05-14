@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class WorkTimeService {
 
-    private WorkTimeDAO workTimeDAO;
+    private final WorkTimeDAO workTimeDAO;
 
     @Autowired
     public WorkTimeService(WorkTimeDAO workTimeDAO){

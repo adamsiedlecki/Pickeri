@@ -25,10 +25,10 @@ import pl.adamsiedlecki.Pickeri.web.tab.noteTabs.DeleteNoteTab;
 @Title("${notes.title}")
 public class NotesUI extends UI {
 
-    private TabSheet tabs;
-    private Environment env;
+    private final TabSheet tabs;
+    private final Environment env;
     private VerticalLayout root;
-    private SettingsService settingsService;
+    private final SettingsService settingsService;
 
     @Autowired
     public NotesUI(Environment environment, AddNoteTab addNoteTab, MenuTab menuTab, AllNotesTab allNotesTab, DeleteNoteTab deleteNoteTab,

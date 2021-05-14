@@ -5,23 +5,17 @@ import org.slf4j.LoggerFactory;
 import pl.adamsiedlecki.Pickeri.tools.apiInteraction.DeviceApiInteraction;
 
 import javax.persistence.*;
-import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Objects;
 
 @Entity
 public class Device {
 
     @Transient
-    private Logger log = LoggerFactory.getLogger(Device.class);
+    private final Logger log = LoggerFactory.getLogger(Device.class);
 
     @Id
     @GeneratedValue
     private Long id;
-
     private int pin;
-
     private String name;
 
     @ManyToOne

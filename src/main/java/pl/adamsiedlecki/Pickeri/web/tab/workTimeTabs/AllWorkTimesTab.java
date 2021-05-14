@@ -18,17 +18,17 @@ import java.util.Objects;
 @Scope("prototype")
 public class AllWorkTimesTab extends VerticalLayout {
 
-    private Grid<WorkTime> workTimeGrid;
-    private WorkTimeService workTimeService;
+    private final Grid<WorkTime> workTimeGrid;
+    private final WorkTimeService workTimeService;
 
-    public AllWorkTimesTab(WorkTimeService workTimeService, Environment env){
+    public AllWorkTimesTab(WorkTimeService workTimeService, Environment env) {
         this.workTimeService = workTimeService;
         workTimeGrid = new Grid<>();
         Button refreshButton = new Button(env.getProperty("refresh.button"));
-        workTimeGrid.setWidth(80,Unit.PERCENTAGE);
+        workTimeGrid.setWidth(80, Unit.PERCENTAGE);
         workTimeGrid.addColumn(WorkTime::getPickerInfo).setCaption(Objects.requireNonNull(env.getProperty("employee.info")));
         workTimeGrid.addColumn(WorkTime::getDurationPlainString).setCaption(Objects.requireNonNull(env.getProperty("worktime.registry")))
-                .setComparator((v1, v2)-> TimeComparator.compare(TimeConverter.getString(v1.getDuration()), TimeConverter.getString(v2.getDuration())));
+                .setComparator((v1, v2) -> TimeComparator.compare(TimeConverter.getString(v1.getDuration()), TimeConverter.getString(v2.getDuration())));
         workTimeGrid.addColumn(WorkTime::getStartTimePlainString).setCaption(Objects.requireNonNull(env.getProperty("begin.date")));
         workTimeGrid.addColumn(WorkTime::getEndTimePlainString).setCaption(Objects.requireNonNull(env.getProperty("end.date")));
         this.addComponents(refreshButton, workTimeGrid);

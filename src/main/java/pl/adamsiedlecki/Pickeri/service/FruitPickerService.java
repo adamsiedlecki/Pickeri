@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FruitPickerService implements Removeable {
+public class FruitPickerService implements Removeable<FruitPicker> {
 
-    private FruitPickerDAO fruitPickerDAO;
-    private FruitDeliveryService fruitDeliveryService;
-    private FruitTypeService fruitTypeService;
+    private final FruitPickerDAO fruitPickerDAO;
+    private final FruitDeliveryService fruitDeliveryService;
+    private final FruitTypeService fruitTypeService;
 
     @Autowired
     public FruitPickerService(FruitPickerDAO fruitPickerDAO, FruitDeliveryService fruitDeliveryService,

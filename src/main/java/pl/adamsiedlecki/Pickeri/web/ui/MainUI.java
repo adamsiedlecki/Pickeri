@@ -23,10 +23,10 @@ public class MainUI extends UI {
 
     private TabSheet tabs;
     private VerticalLayout root;
-    private AddDeliveryTab addDeliveryTab;
-    private MenuTab othersTab;
-    private Environment environment;
-    private SettingsService settingsService;
+    private final AddDeliveryTab addDeliveryTab;
+    private final MenuTab othersTab;
+    private final Environment environment;
+    private final SettingsService settingsService;
 
     @Autowired
     public MainUI(AddDeliveryTab addDeliveryTab, MenuTab othersTab, Environment environment, SettingsService settingsService) {

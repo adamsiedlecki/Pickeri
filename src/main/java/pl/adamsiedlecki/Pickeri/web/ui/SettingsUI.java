@@ -23,10 +23,10 @@ public class SettingsUI extends UI {
 
     private TabSheet tabs;
     private VerticalLayout root;
-    private MenuTab othersTab;
-    private Environment environment;
-    private GeneralSettingsTab generalSettingsTab;
-    private SettingsService settingsService;
+    private final MenuTab othersTab;
+    private final Environment environment;
+    private final GeneralSettingsTab generalSettingsTab;
+    private final SettingsService settingsService;
 
     @Autowired
     public SettingsUI(MenuTab othersTab, Environment environment, GeneralSettingsTab generalSettingsTab, SettingsService settingsService) {

@@ -18,13 +18,13 @@ import java.util.Optional;
 @Scope("prototype")
 public class DevicesAdvancedSettingsTab extends VerticalLayout {
 
-    private DeviceControllerService deviceControllerService;
-    private DeviceService deviceService;
-    private Environment env;
+    private final DeviceControllerService deviceControllerService;
+    private final DeviceService deviceService;
+    private final Environment env;
 
     @Autowired
     public DevicesAdvancedSettingsTab(Environment env, DeviceControllerService deviceControllerService,
-                                      DeviceService deviceService){
+                                      DeviceService deviceService) {
         this.deviceService = deviceService;
         this.deviceControllerService = deviceControllerService;
         this.env = env;

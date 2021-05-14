@@ -12,22 +12,16 @@ public class FruitVariety {
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column
     private String name;
-
     @Column
     private String comment;
-
     @Transient
     private BigDecimal percentageParticipationInPackagesAmount;
-
     @Transient
     private long totalPackages;
-
     @Transient
     private BigDecimal totalWeight;
-
     @Transient
     private BigDecimal percentageParticipationInWeight;
 

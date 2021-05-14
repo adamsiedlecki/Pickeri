@@ -13,10 +13,10 @@ import pl.adamsiedlecki.Pickeri.service.SettingsService;
 import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.AlignmentSetter;
 import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.HeaderAdder;
 import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
+import pl.adamsiedlecki.Pickeri.web.tab.documentsTabs.EarningsRaportGenerationTab;
 import pl.adamsiedlecki.Pickeri.web.tab.documentsTabs.ExcelGenerationTab;
 import pl.adamsiedlecki.Pickeri.web.tab.documentsTabs.PdfDocumentsGeneratorTab;
 import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.MenuTab;
-import pl.adamsiedlecki.Pickeri.web.tab.documentsTabs.EarningsRaportGenerationTab;
 
 @SpringUI(path = "/documents-generator")
 @StyleSheet({"https://fonts.googleapis.com/css?family=Ubuntu&display=swap"})
@@ -25,12 +25,12 @@ public class DocumentsUI extends UI {
 
     private TabSheet tabs;
     private VerticalLayout root;
-    private PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab;
-    private MenuTab menuTab;
-    private Environment env;
-    private EarningsRaportGenerationTab pdfGenerationTab;
-    private ExcelGenerationTab excelGenerationTab;
-    private SettingsService settingsService;
+    private final PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab;
+    private final MenuTab menuTab;
+    private final Environment env;
+    private final EarningsRaportGenerationTab pdfGenerationTab;
+    private final ExcelGenerationTab excelGenerationTab;
+    private final SettingsService settingsService;
 
     @Autowired
     public DocumentsUI(PdfDocumentsGeneratorTab pdfDocumentsGeneratorTab, MenuTab menuTab, Environment environment,

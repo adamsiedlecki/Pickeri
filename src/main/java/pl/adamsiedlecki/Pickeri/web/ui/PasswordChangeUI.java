@@ -18,8 +18,8 @@ import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
 public class PasswordChangeUI extends UI {
 
     private VerticalLayout root;
-    private PickeriUserDetailsService userDetailsService;
-    private Environment env;
+    private final PickeriUserDetailsService userDetailsService;
+    private final Environment env;
 
     @Autowired
     public PasswordChangeUI(PickeriUserDetailsService userDetailsService, Environment environment) {

@@ -13,13 +13,10 @@ public class Expense {
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Column
     private String name;
-
     @Column
     private BigDecimal moneyAmount;
-
     @Column
     private LocalDateTime time;
 

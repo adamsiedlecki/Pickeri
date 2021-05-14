@@ -1,10 +1,8 @@
 package pl.adamsiedlecki.Pickeri.tools.excel;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
@@ -15,7 +13,6 @@ import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.service.FruitTypeService;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -28,8 +25,7 @@ public class ExcelCreator {
 
     public static File getEmployeesExcelRaport(List<FruitPicker> fruitPickers, String filePath, FruitTypeService fruitTypeService, Environment env) {
         try {
-            String fileName = filePath;
-            File file = new File(fileName);
+            File file = new File(filePath);
             HSSFWorkbook workbook = new HSSFWorkbook();
             HSSFSheet sheet = workbook.createSheet(Objects.requireNonNull(env.getProperty("employee.raport.title")));
             sheet.setDefaultColumnWidth(11);
@@ -61,8 +57,6 @@ public class ExcelCreator {
             fileOut.close();
             workbook.close();
             return file;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,8 +96,7 @@ public class ExcelCreator {
     public static File getDeliveriesSummary(String filePath, Environment env, FruitDeliveryService fruitDeliveryService,
                                             FruitPickerService fruitPickerService){
         try {
-            String fileName = filePath;
-            File file = new File(fileName);
+            File file = new File(filePath);
             HSSFWorkbook workbook = new HSSFWorkbook();
             HSSFSheet sheet = workbook.createSheet(Objects.requireNonNull(env.getProperty("deliveries.raport.title")));
             sheet.setDefaultColumnWidth(11);

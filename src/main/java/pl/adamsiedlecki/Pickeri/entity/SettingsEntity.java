@@ -12,7 +12,6 @@ public class SettingsEntity {
     @Id
     @Column(length = 150)
     private String name;
-
     private String state;
 
     public String getName() {

@@ -24,11 +24,11 @@ public class DevicesControllerUI extends UI {
 
     private TabSheet tabs;
     private VerticalLayout root;
-    private Environment env;
-    private DeviceControllerTab deviceControllerTab;
-    private DevicesAdvancedSettingsTab devicesAdvancedSettingsTab;
-    private MenuTab menuTab;
-    private SettingsService settingsService;
+    private final Environment env;
+    private final DeviceControllerTab deviceControllerTab;
+    private final DevicesAdvancedSettingsTab devicesAdvancedSettingsTab;
+    private final MenuTab menuTab;
+    private final SettingsService settingsService;
 
     @Autowired
     public DevicesControllerUI(Environment environment, DeviceControllerTab deviceControllerTab,

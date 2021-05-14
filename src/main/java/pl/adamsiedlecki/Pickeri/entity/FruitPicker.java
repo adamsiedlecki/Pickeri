@@ -20,10 +20,8 @@ public class FruitPicker {
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     @Column
     private String name;
-
     @Column
     private String lastName;
 

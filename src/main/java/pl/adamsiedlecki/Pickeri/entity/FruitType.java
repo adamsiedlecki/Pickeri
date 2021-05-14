@@ -10,10 +10,8 @@ public class FruitType {
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Column
     private String name;
-
     @Column
     private Integer slot;
 

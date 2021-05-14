@@ -16,10 +16,8 @@ import java.util.Optional;
 public class SubtractPaymentTab extends VerticalLayout {
 
     Environment env;
-    private FruitPickerService fruitPickerService;
 
     public SubtractPaymentTab(FruitPickerService fruitPickerService, Environment environment) {
-        this.fruitPickerService = fruitPickerService;
         this.env = environment;
         TextField pickerIdField = new TextField(env.getProperty("employee.id"));
         TextField paymentAmount = new TextField(env.getProperty("payment.subtraction"));

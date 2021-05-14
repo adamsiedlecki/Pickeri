@@ -16,8 +16,8 @@ public class AddPickerTab extends VerticalLayout {
     private TextField name;
     private TextField lastName;
     private RadioButtonGroup<String> radioButtonGroup;
-    private FruitPickerService fruitPickerService;
-    private Environment env;
+    private final FruitPickerService fruitPickerService;
+    private final Environment env;
 
     @Autowired
     public AddPickerTab(FruitPickerService fruitPickerService, Environment environment) {

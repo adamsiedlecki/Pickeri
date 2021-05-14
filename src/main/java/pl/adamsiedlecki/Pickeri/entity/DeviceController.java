@@ -12,11 +12,8 @@ public class DeviceController {
     @Id
     @GeneratedValue
     private Long id;
-
     private String name;
-
     private String password;
-
     private String address;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "deviceController", cascade = CascadeType.ALL)

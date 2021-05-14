@@ -12,7 +12,6 @@ import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitPicker;
 import pl.adamsiedlecki.Pickeri.service.FruitPickerService;
 import pl.adamsiedlecki.Pickeri.tools.time.TimeComparator;
-import pl.adamsiedlecki.Pickeri.tools.time.TimeConverter;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,10 +20,10 @@ import java.util.Objects;
 @Scope("prototype")
 public class RankingTab extends VerticalLayout {
 
-    private FruitPickerService fruitPickerService;
+    private final FruitPickerService fruitPickerService;
     private Grid<FruitPicker> pickersGrid;
     private Button refreshButton;
-    private Environment env;
+    private final Environment env;
 
     @Autowired
     public RankingTab(FruitPickerService fruitPickerService, Environment environment) {

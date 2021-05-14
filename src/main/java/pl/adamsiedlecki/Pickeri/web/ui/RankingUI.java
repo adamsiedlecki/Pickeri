@@ -22,11 +22,11 @@ import pl.adamsiedlecki.Pickeri.web.tab.independentTabs.RankingTab;
 public class RankingUI extends UI {
 
     private VerticalLayout root;
-    private RankingTab rankingTab;
-    private MenuTab othersTab;
-    private Environment env;
+    private final RankingTab rankingTab;
+    private final MenuTab othersTab;
+    private final Environment env;
     private TabSheet tabs;
-    private SettingsService settingsService;
+    private final SettingsService settingsService;
 
     @Autowired
     public RankingUI(RankingTab rankingTab, MenuTab othersTab, Environment environment, SettingsService settingsService) {

@@ -21,11 +21,11 @@ import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
 public class RemoveUI extends UI {
 
     private VerticalLayout root;
-    private FruitPickerService fruitPickerService;
-    private FruitDeliveryService fruitDeliveryService;
-    private FruitVarietyService fruitVarietyService;
-    private Environment env;
-    private ExpenseService expenseService;
+    private final FruitPickerService fruitPickerService;
+    private final FruitDeliveryService fruitDeliveryService;
+    private final FruitVarietyService fruitVarietyService;
+    private final Environment env;
+    private final ExpenseService expenseService;
 
     public RemoveUI(FruitPickerService fruitPickerService, FruitDeliveryService fruitDeliveryService,
                     FruitVarietyService fruitVarietyService, Environment environment, ExpenseService expenseService) {

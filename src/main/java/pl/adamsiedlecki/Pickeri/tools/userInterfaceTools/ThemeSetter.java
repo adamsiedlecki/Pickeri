@@ -4,13 +4,14 @@ import com.vaadin.ui.UI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pl.adamsiedlecki.Pickeri.service.SettingsService;
+
 import javax.annotation.PostConstruct;
 
 @Component
 public class ThemeSetter {
 
     private static SettingsService settingsServiceStatic;
-    private SettingsService settingsService;
+    private final SettingsService settingsService;
 
     @Autowired
     public ThemeSetter(SettingsService settingsService){

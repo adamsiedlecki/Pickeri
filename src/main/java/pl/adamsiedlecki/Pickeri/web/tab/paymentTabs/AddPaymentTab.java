@@ -17,7 +17,7 @@ import java.util.Optional;
 public class AddPaymentTab extends VerticalLayout {
 
     private FruitPickerService fruitPickerService;
-    private Environment env;
+    private final Environment env;
 
     @Autowired
     public AddPaymentTab(FruitPickerService fruitPickerService, Environment environment) {

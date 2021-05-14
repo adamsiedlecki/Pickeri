@@ -15,31 +15,22 @@ public class FruitDelivery {
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
     @Column
     private Long fruitPickerId;
-
     @Column
     private String type;
-
     @Column
     private Long packageAmount;
-
     @Column
     private boolean isSecondClassFruit;
-
     @Column
     private LocalDateTime deliveryTime;
-
     @Column
     private String comment;
-
     @Column
     private String fruitVarietyName;
-
     @Column
     private BigDecimal fruitWeight;
-
     @Embedded
     private GeoLocalization geoLocalization;
 

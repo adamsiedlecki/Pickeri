@@ -14,18 +14,18 @@ import java.util.List;
 @Scope("prototype")
 public class GeneralSettingsTab extends VerticalLayout {
 
-    private VerticalLayout root;
-    private Environment env;
-    private SettingsService settingsService;
+    private final VerticalLayout root;
+    private final Environment env;
+    private final SettingsService settingsService;
 
     @Autowired
-    public GeneralSettingsTab(Environment env, SettingsService settingsService){
+    public GeneralSettingsTab(Environment env, SettingsService settingsService) {
         this.env = env;
         this.settingsService = settingsService;
         root = new VerticalLayout();
-        addRow(env.getProperty("header.text"),env.getProperty("save.button"), "header.text");
+        addRow(env.getProperty("header.text"), env.getProperty("save.button"), "header.text");
         addRowWithComboBox(env.getProperty("menu.buttons.style"), env.getProperty("save.button"), "menu.buttons.style",
-                List.of("LARGE","BORDERLESS", "QUIET", "PRIMARY"));
+                List.of("LARGE", "BORDERLESS", "QUIET", "PRIMARY"));
         addRowWithComboBox(env.getProperty("theme"), env.getProperty("save.button"), "theme.name",
                 List.of("lightTheme","darkTheme"));
 

@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import pl.adamsiedlecki.Pickeri.entity.FruitDelivery;
 import pl.adamsiedlecki.Pickeri.service.FruitDeliveryService;
+import pl.adamsiedlecki.Pickeri.tools.qr.QRCodeReader;
 import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ResourceGetter;
 import pl.adamsiedlecki.Pickeri.tools.userInterfaceTools.ThemeSetter;
-import pl.adamsiedlecki.Pickeri.tools.qr.QRCodeReader;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -38,12 +38,12 @@ public class HomePage extends UI {
     private Label nameLabel;
     private String path;
     private Button findInfoButton;
-    private FruitDeliveryService fruitDeliveryService;
+    private final FruitDeliveryService fruitDeliveryService;
     private Label totalAmountOfPackagesLabel;
     private Label todayAmountOfPackagesLabel;
     private Label totalWeightLabel;
     private Label todayWeightLabel;
-    private Environment environment;
+    private final Environment environment;
 
     @Autowired
     public HomePage(FruitDeliveryService fruitDeliveryService, Environment environment) {

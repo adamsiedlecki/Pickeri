@@ -11,10 +11,8 @@ public class UserRole implements GrantedAuthority {
     @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Column
     private String role;
-
     public UserRole(String role) {
         this.role = role;
     }

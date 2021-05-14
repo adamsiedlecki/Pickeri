@@ -11,9 +11,9 @@ import java.math.RoundingMode;
 import java.util.List;
 
 @Service
-public class ExpenseService implements Removeable {
+public class ExpenseService implements Removeable<Expense> {
 
-    private ExpenseDAO expenseDAO;
+    private final ExpenseDAO expenseDAO;
 
     @Autowired
     public ExpenseService(ExpenseDAO expenseDAO) {
@@ -37,8 +37,7 @@ public class ExpenseService implements Removeable {
     }
 
     public List<Expense> findAll(String filter) {
-        List<Expense> expenses = expenseDAO.findAllWithFilter(filter);
-        return expenses;
+        return expenseDAO.findAllWithFilter(filter);
     }
 
     public BigDecimal getTotalAmountOfSpentMoney() {

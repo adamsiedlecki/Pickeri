@@ -23,14 +23,14 @@ public class AddDeleteTypeTab extends VerticalLayout {
 
     private static final Logger log = LoggerFactory.getLogger(AddDeleteTypeTab.class);
 
-    private FruitTypeService fruitTypeService;
+    private final FruitTypeService fruitTypeService;
     private TextField typeOneField;
     private TextField typeTwoField;
     private TextField typeThreeField;
     private TextField typeFourField;
     private Button refreshButton;
     private Button saveButton;
-    private Environment env;
+    private final Environment env;
 
     @Autowired
     public AddDeleteTypeTab(FruitTypeService fruitTypeService, Environment environment) {

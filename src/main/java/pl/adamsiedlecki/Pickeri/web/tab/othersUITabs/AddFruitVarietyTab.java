@@ -19,7 +19,7 @@ public class AddFruitVarietyTab extends VerticalLayout {
     private TextField name;
     private TextField comment;
     private Button save;
-    private Environment env;
+    private final Environment env;
 
     @Autowired
     public AddFruitVarietyTab(FruitVarietyService fruitVarietyService, Environment environment) {

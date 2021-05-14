@@ -25,12 +25,12 @@ public class VerietiesAndTypesOfFruitsUI extends UI {
 
     private TabSheet tabs;
     private VerticalLayout root;
-    private AddFruitVarietyTab fruitVarietyTab;
-    private MenuTab othersTab;
-    private AddDeleteTypeTab addDeleteTypeTab;
-    private AllVarietiesTab allVarietiesTab;
-    private Environment env;
-    private SettingsService settingsService;
+    private final AddFruitVarietyTab fruitVarietyTab;
+    private final MenuTab othersTab;
+    private final AddDeleteTypeTab addDeleteTypeTab;
+    private final AllVarietiesTab allVarietiesTab;
+    private final Environment env;
+    private final SettingsService settingsService;
 
     @Autowired
     public VerietiesAndTypesOfFruitsUI(AddFruitVarietyTab addFruitVarietyTab, MenuTab othersTab,

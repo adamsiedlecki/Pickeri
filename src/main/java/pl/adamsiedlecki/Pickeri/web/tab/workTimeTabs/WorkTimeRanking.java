@@ -5,7 +5,6 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Grid;
 import com.vaadin.ui.VerticalLayout;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -19,10 +18,10 @@ import java.util.Objects;
 @Scope("prototype")
 public class WorkTimeRanking extends VerticalLayout {
 
-    private Grid<FruitPicker> fruitPickerGrid;
-    private FruitPickerService fruitPickerService;
+    private final Grid<FruitPicker> fruitPickerGrid;
+    private final FruitPickerService fruitPickerService;
 
-    public WorkTimeRanking(Environment env, FruitPickerService fruitPickerService){
+    public WorkTimeRanking(Environment env, FruitPickerService fruitPickerService) {
         this.fruitPickerService = fruitPickerService;
         fruitPickerGrid = new Grid<>();
         Button refreshButton = new Button(env.getProperty("refresh.button"));

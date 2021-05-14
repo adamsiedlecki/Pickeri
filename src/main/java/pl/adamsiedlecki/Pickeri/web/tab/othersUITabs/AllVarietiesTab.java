@@ -17,10 +17,10 @@ import java.util.Objects;
 @Scope("prototype")
 public class AllVarietiesTab extends VerticalLayout {
 
-    private Grid<FruitVariety> varietyGrid;
-    private Button refreshButton;
-    private FruitVarietyService fruitVarietyService;
-    private Environment env;
+    private final Grid<FruitVariety> varietyGrid;
+    private final Button refreshButton;
+    private final FruitVarietyService fruitVarietyService;
+    private final Environment env;
 
     @Autowired
     public AllVarietiesTab(FruitVarietyService fruitVarietyService, Environment environment) {

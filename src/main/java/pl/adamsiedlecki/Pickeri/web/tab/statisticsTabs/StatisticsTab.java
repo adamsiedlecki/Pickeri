@@ -21,9 +21,9 @@ import java.util.Objects;
 @Scope("prototype")
 public class StatisticsTab extends VerticalLayout {
 
-    private FruitDeliveryService fruitDeliveryService;
-    private FruitPickerService fruitPickerService;
-    private FruitVarietyService fruitVarietyService;
+    private final FruitDeliveryService fruitDeliveryService;
+    private final FruitPickerService fruitPickerService;
+    private final FruitVarietyService fruitVarietyService;
     private Label pickersSumLabel;
     private Label packagesSumLabel;
     private Label weightSumLabel;
@@ -31,8 +31,8 @@ public class StatisticsTab extends VerticalLayout {
     private Label varietiesSumLabel;
     private Grid<FruitVariety> varietiesGridPackageStat;
     private Grid<FruitVariety> varietiesGridWeightStat;
-    private Environment env;
-    private WorkTimeService workTimeService;
+    private final Environment env;
+    private final WorkTimeService workTimeService;
 
     @Autowired
     public StatisticsTab(FruitDeliveryService fruitDeliveryService, FruitPickerService fruitPickerService,

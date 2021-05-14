@@ -26,12 +26,12 @@ public class ExpensesUI extends UI {
 
     private VerticalLayout root;
     private TabSheet tabs;
-    private AddExpenseTab addExpenseTab;
-    private AllExpensesTab allExpensesTab;
-    private ExpensesStatistics expensesStatistics;
-    private MenuTab othersTab;
-    private Environment environment;
-    private SettingsService settingsService;
+    private final AddExpenseTab addExpenseTab;
+    private final AllExpensesTab allExpensesTab;
+    private final ExpensesStatistics expensesStatistics;
+    private final MenuTab othersTab;
+    private final Environment environment;
+    private final SettingsService settingsService;
 
     @Autowired
     public ExpensesUI(AddExpenseTab addExpenseTab, AllExpensesTab allExpensesTab, ExpensesStatistics expensesStatistics,

@@ -21,8 +21,8 @@ public class AllExpensesTab extends VerticalLayout {
     private VerticalLayout root;
     private TextField filter;
     private Grid<Expense> expensesGrid;
-    private ExpenseService expenseService;
-    private Environment env;
+    private final ExpenseService expenseService;
+    private final Environment env;
 
     @Autowired
     public AllExpensesTab(ExpenseService expenseService, Environment environment) {

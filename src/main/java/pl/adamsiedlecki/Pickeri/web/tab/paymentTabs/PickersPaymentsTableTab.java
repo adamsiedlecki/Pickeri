@@ -17,9 +17,9 @@ import java.util.Objects;
 @Scope("prototype")
 public class PickersPaymentsTableTab extends VerticalLayout {
 
-    private FruitPickerService fruitPickerService;
-    private Grid<FruitPicker> pickerGrid;
-    private Environment env;
+    private final FruitPickerService fruitPickerService;
+    private final Grid<FruitPicker> pickerGrid;
+    private final Environment env;
 
     @Autowired
     public PickersPaymentsTableTab(FruitPickerService fruitPickerService, Environment environment) {

@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public class NoteService {
 
-    private NoteDAO noteDAO;
+    private final NoteDAO noteDAO;
 
     public NoteService(NoteDAO dao) {
         this.noteDAO = dao;

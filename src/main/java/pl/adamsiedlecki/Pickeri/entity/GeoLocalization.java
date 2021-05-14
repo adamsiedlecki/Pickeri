@@ -6,7 +6,6 @@ import javax.persistence.Embeddable;
 public class GeoLocalization {
 
     private Double latitude;
-
     private Double longitude;
 
     public GeoLocalization() {

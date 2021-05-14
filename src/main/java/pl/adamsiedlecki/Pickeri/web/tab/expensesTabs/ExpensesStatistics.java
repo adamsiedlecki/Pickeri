@@ -19,9 +19,9 @@ public class ExpensesStatistics extends VerticalLayout {
     private Button refreshButton;
     private Label totalAmountOfSpentMoney;
     private Label averageAmountOfMoney;
-    private ExpenseService expenseService;
+    private final ExpenseService expenseService;
     private Grid<MonthExpanses> monthsGrid;
-    private Environment env;
+    private final Environment env;
 
     @Autowired
     public ExpensesStatistics(ExpenseService expenseService, Environment environment) {

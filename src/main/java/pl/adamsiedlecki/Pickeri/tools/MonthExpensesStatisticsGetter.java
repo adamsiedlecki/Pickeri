@@ -13,8 +13,6 @@ import java.util.TreeMap;
 
 public class MonthExpensesStatisticsGetter {
 
-    private ExpenseService expenseService;
-
     public static List<MonthExpanses> getMontExpansesStatistics(ExpenseService expenseService) {
         Map<Integer, String> months = getMonths();
         if (months.size() != 12) {
