@@ -15,7 +15,6 @@ import java.util.Objects;
 @Scope("prototype")
 public class ExpensesStatistics extends VerticalLayout {
 
-    private VerticalLayout root;
     private Button refreshButton;
     private Label totalAmountOfSpentMoney;
     private Label averageAmountOfMoney;
@@ -28,12 +27,10 @@ public class ExpensesStatistics extends VerticalLayout {
         this.expenseService = expenseService;
         this.env = environment;
         initComponents();
-        this.addComponent(root);
         refreshData();
     }
 
     private void initComponents() {
-        root = new VerticalLayout();
         totalAmountOfSpentMoney = new Label();
         averageAmountOfMoney = new Label();
         refreshButton = new Button(env.getProperty("refresh.button"));
@@ -42,10 +39,17 @@ public class ExpensesStatistics extends VerticalLayout {
         monthsGrid.addColumn(MonthExpanses::getMonthName).setCaption(Objects.requireNonNull(env.getProperty("month.name.column")));
         monthsGrid.addColumn(MonthExpanses::getExpansesSum).setCaption(Objects.requireNonNull(env.getProperty("money.amount.column")));
         monthsGrid.addColumn(MonthExpanses::getPercentageInAll).setCaption(Objects.requireNonNull(env.getProperty("percentage.participation")));
-        monthsGrid.setHeight(1000, Unit.PIXELS);
         monthsGrid.setWidth(40, Unit.PERCENTAGE);
-        root.addComponentsAndExpand(refreshButton, totalAmountOfSpentMoney, averageAmountOfMoney, monthsGrid);
-        root.setComponentAlignment(monthsGrid, Alignment.MIDDLE_CENTER);
+        this.addComponentsAndExpand(refreshButton, totalAmountOfSpentMoney, averageAmountOfMoney, monthsGrid);
+        this.setComponentAlignment(refreshButton, Alignment.MIDDLE_CENTER);
+        this.setComponentAlignment(averageAmountOfMoney, Alignment.MIDDLE_CENTER);
+        this.setComponentAlignment(totalAmountOfSpentMoney, Alignment.MIDDLE_CENTER);
+        this.setComponentAlignment(monthsGrid, Alignment.MIDDLE_CENTER);
+        this.setExpandRatio(monthsGrid, 7);
+        this.setExpandRatio(refreshButton, 1);
+        this.setExpandRatio(averageAmountOfMoney, 1);
+        this.setExpandRatio(totalAmountOfSpentMoney, 1);
+
     }
 
     private void refreshData() {
