@@ -154,6 +154,8 @@ public class AddDeliveryTab extends VerticalLayout {
                 float value = Float.parseFloat(weightField.getValue());
                 value = value / 1000;
                 weightInKgLabel.setValue(value + " kg");
+            } else {
+                weightField.setValue("");
             }
         });
         HorizontalLayout amountAndWeightLayout = new HorizontalLayout(packageAmount, weightField, weightInKgLabel);
@@ -266,10 +268,10 @@ public class AddDeliveryTab extends VerticalLayout {
         pickersComboBox.clear();
         fruitPickerIdField.clear();
         packageAmount.clear();
-        fruitTypeRadioButton.clear();
-        fruitVarietyRadioButton.clear();
+        //fruitTypeRadioButton.clear();
+        //fruitVarietyRadioButton.clear();
         commentField.clear();
-        weightField.clear();
+        //weightField.clear();
     }
 
     private class ImageUploader implements Upload.Receiver, Upload.SucceededListener {

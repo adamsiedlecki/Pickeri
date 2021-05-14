@@ -41,11 +41,11 @@ public class DeletePickerTab extends VerticalLayout {
         button.addClickListener(x -> {
             String value = employeesComboBox.getValue();
             String id = value.split(" ")[0];
-            if (id == null || !id.isEmpty() || NumberUtils.isDigits(id)) {
-                Long idLong = Long.parseLong(value);
+            if (id != null && !id.isEmpty() && NumberUtils.isDigits(id)) {
+                Long idLong = Long.parseLong(id);
                 service.removeById(idLong);
                 Notification.show(env.getProperty("operation.is.done.notification"));
-            }else{
+            } else {
                 Notification.show(env.getProperty("incorrect.values.notification"));
             }
         });
