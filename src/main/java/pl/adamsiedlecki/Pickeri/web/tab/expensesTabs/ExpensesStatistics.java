@@ -45,7 +45,7 @@ public class ExpensesStatistics extends VerticalLayout {
         this.setComponentAlignment(averageAmountOfMoney, Alignment.MIDDLE_CENTER);
         this.setComponentAlignment(totalAmountOfSpentMoney, Alignment.MIDDLE_CENTER);
         this.setComponentAlignment(monthsGrid, Alignment.MIDDLE_CENTER);
-        this.setExpandRatio(monthsGrid, 7);
+        this.setExpandRatio(monthsGrid, 6);
         this.setExpandRatio(refreshButton, 1);
         this.setExpandRatio(averageAmountOfMoney, 1);
         this.setExpandRatio(totalAmountOfSpentMoney, 1);
