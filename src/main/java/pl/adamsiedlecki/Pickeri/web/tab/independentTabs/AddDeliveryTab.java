@@ -147,6 +147,7 @@ public class AddDeliveryTab extends VerticalLayout {
 
         packageAmount = new TextField(env.getProperty("package.amount"));
         packageAmount.setValue("0");
+
         weightField = new TextField(env.getProperty("weight.in.gram"));
         weightField.setValue("0");
         weightField.addValueChangeListener(e -> {
@@ -157,6 +158,15 @@ public class AddDeliveryTab extends VerticalLayout {
             } else {
                 weightField.setValue("");
             }
+        });
+        //default weight
+        packageAmount.addValueChangeListener(e -> {
+            if (NumberUtils.isDigits(e.getValue())) {
+                int packages = Integer.parseInt(e.getValue());
+                int weight = packages * 2000;
+                weightField.setValue(weight + "");
+            }
+
         });
         HorizontalLayout amountAndWeightLayout = new HorizontalLayout(packageAmount, weightField, weightInKgLabel);
         amountAndWeightLayout.setIcon(VaadinIcons.STORAGE);
