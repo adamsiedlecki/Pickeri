@@ -21,9 +21,6 @@ public class PickeriUserDetailsService implements UserDetailsService {
     @Autowired
     public PickeriUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        if(userRepository.findAll().size()==0){
-            addUser("user", "pass", List.of(new UserRole("ADMIN")));
-        }
     }
 
     public List<User> findAll(){
@@ -50,4 +47,7 @@ public class PickeriUserDetailsService implements UserDetailsService {
         userRepository.saveAndFlush(user);
     }
 
+    public long count() {
+        return userRepository.count();
+    }
 }
